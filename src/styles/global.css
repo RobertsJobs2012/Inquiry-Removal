@@ -1,0 +1,34 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "DM Sans";
+  src: url("/fonts/dm-sans-latin.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("/fonts/plus-jakarta-sans-latin.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 600 800;
+  font-display: swap;
+}
+
+:root {
+  --font-heading: "Plus Jakarta Sans";
+  --font-body: "DM Sans";
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+}
+
+@import "../../app/styles/base.css";
+@import "../../app/styles/design-system.css";
+@import "../../app/styles/component-legacy.css";
+@import "../../app/styles/page-legacy.css";
+@import "../../app/styles/mobile-ux-blueprint.css";

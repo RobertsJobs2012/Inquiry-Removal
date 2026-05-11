@@ -1,0 +1,3299 @@
+/* Core tokens, reset, typography, base layout, legacy landing-page styles. */
+/* ============================================================
+   INQUIRY REMOVAL — DESIGN SYSTEM
+   Dark + chromatic. Static. Performance-first.
+   ============================================================ */
+
+/* ---------- TOKENS ---------- */
+:root {
+  /* Backgrounds — 4 levels of depth on near-black */
+  --bg-base: #0a0a0f;
+  --bg-section: #111118;
+  --bg-card: #16161f;
+  --bg-card-hover: #1c1c28;
+  --bg-elevated: #1c1c28;
+  --bg-glass: rgba(255, 255, 255, 0.05);
+
+  /* Borders */
+  --border-soft: rgba(255, 255, 255, 0.08);
+  --border-medium: rgba(255, 255, 255, 0.14);
+  --border-strong: rgba(255, 255, 255, 0.22);
+  --border-glow: rgba(123, 92, 255, 0.45);
+
+  /* Brand */
+  --brand-blue: #0a8dff;
+  --brand-purple: #7b5cff;
+  --brand-pink: #ff4fa3;
+  --brand-gradient: linear-gradient(135deg, #0a8dff 0%, #7b5cff 50%, #ff4fa3 100%);
+  --brand-gradient-warm: linear-gradient(135deg, #7b5cff 0%, #ff4fa3 100%);
+  --brand-gradient-cool: linear-gradient(135deg, #0a8dff 0%, #7b5cff 100%);
+  --brand-gradient-subtle: linear-gradient(
+    135deg,
+    rgba(10, 141, 255, 0.14) 0%,
+    rgba(123, 92, 255, 0.14) 50%,
+    rgba(255, 79, 163, 0.14) 100%
+  );
+
+  /* Typography */
+  --text-heading: #ffffff;
+  --text-body: #d4d4dc;
+  --text-muted: #7c7c8a;
+
+  /* Status */
+  --status-success: #22c55e;
+  --status-warning: #fbbf24;
+  --status-error: #ef4444;
+
+  /* Layout */
+  --container-max: 1280px;
+  --container-narrow: 880px;
+  --container-prose: 720px;
+
+  /* Spacing */
+  --space-3xs: 4px;
+  --space-2xs: 8px;
+  --space-xs: 12px;
+  --space-sm: 16px;
+  --space-md: 24px;
+  --space-lg: 32px;
+  --space-xl: 48px;
+  --space-2xl: 64px;
+  --space-3xl: 96px;
+  --space-4xl: 128px;
+
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 24px;
+  --radius-pill: 100px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 400ms;
+
+  /* Shadows — color through light, not paint */
+  --shadow-card:
+    0 1px 0 rgba(255, 255, 255, 0.04) inset,
+    0 12px 32px rgba(0, 0, 0, 0.45);
+  --shadow-card-strong:
+    0 1px 0 rgba(255, 255, 255, 0.06) inset,
+    0 24px 60px rgba(0, 0, 0, 0.55);
+  --shadow-premium:
+    0 1px 0 rgba(255, 255, 255, 0.08) inset,
+    0 18px 54px rgba(0, 0, 0, 0.46),
+    0 0 54px rgba(123, 92, 255, 0.08);
+  --shadow-premium-strong:
+    0 1px 0 rgba(255, 255, 255, 0.1) inset,
+    0 28px 84px rgba(0, 0, 0, 0.54),
+    0 0 70px rgba(10, 141, 255, 0.12),
+    0 0 90px rgba(255, 79, 163, 0.08);
+  --shadow-glow-blue: 0 18px 50px -10px rgba(10, 141, 255, 0.35);
+  --shadow-glow-purple: 0 18px 50px -10px rgba(123, 92, 255, 0.4);
+  --shadow-glow-pink: 0 18px 50px -10px rgba(255, 79, 163, 0.32);
+  --shadow-cta:
+    0 1px 0 rgba(255, 255, 255, 0.28) inset,
+    0 12px 28px rgba(123, 92, 255, 0.4),
+    0 4px 14px rgba(255, 79, 163, 0.22);
+
+  /* Premium section rhythm */
+  --section-orb-blue: rgba(10, 141, 255, 0.13);
+  --section-orb-purple: rgba(123, 92, 255, 0.14);
+  --section-orb-pink: rgba(255, 79, 163, 0.11);
+  --surface-premium:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.078), rgba(255, 255, 255, 0.025)),
+    rgba(17, 17, 24, 0.92);
+  --surface-premium-deep:
+    radial-gradient(circle at 12% 0%, rgba(10, 141, 255, 0.08), transparent 34%),
+    radial-gradient(circle at 94% 8%, rgba(255, 79, 163, 0.07), transparent 36%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.02)),
+    rgba(13, 13, 20, 0.95);
+}
+
+/* ---------- RESET ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  scroll-behavior: smooth;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: var(--bg-base);
+  color: var(--text-body);
+  font-family: var(--font-body), -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  font-weight: 400;
+  min-height: 100svh;
+  overflow-x: hidden;
+  position: relative;
+  background-image:
+    radial-gradient(
+      ellipse 70% 40% at 50% -10%,
+      rgba(255, 255, 255, 0.02),
+      transparent 70%
+    );
+  background-repeat: no-repeat;
+}
+
+/* Subtle "light from above" — attached to document flow instead of the viewport */
+body::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 70% 40% at 50% -10%,
+    rgba(255, 255, 255, 0.018),
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: -2;
+}
+
+/* Retired global film grain: it looked nice, but it made fast scrolling feel heavier. */
+body::after {
+  content: none;
+}
+
+/* ---------- TYPOGRAPHY ---------- */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading), -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--text-heading);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+}
+
+h1 {
+  font-size: clamp(2.25rem, 5vw + 0.5rem, 5.25rem);
+  font-weight: 900;
+  letter-spacing: -0.035em;
+  line-height: 1.04;
+}
+
+h2 {
+  font-size: clamp(1.875rem, 3vw + 0.75rem, 3rem);
+  letter-spacing: -0.03em;
+}
+
+h3 {
+  font-size: clamp(1.25rem, 1.5vw + 0.75rem, 1.625rem);
+  font-weight: 700;
+}
+
+h4 {
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+p {
+  color: var(--text-body);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+.premium-icon {
+  display: block;
+  overflow: visible;
+  flex-shrink: 0;
+}
+
+.premium-icon * {
+  vector-effect: non-scaling-stroke;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+::selection {
+  background: rgba(123, 92, 255, 0.4);
+  color: var(--text-heading);
+}
+
+/* ---------- UTILITIES ---------- */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 0 32px;
+  }
+}
+
+.gradient-text {
+  background: var(--brand-gradient);
+  background-size: 200% 100%;
+  background-position: 0% 50%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .gradient-text {
+    animation: gradientShimmer 14s ease-in-out infinite;
+  }
+}
+
+@keyframes gradientShimmer {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@media (max-width: 900px) {
+  .gradient-text {
+    animation: none !important;
+    background-size: 100% 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::before {
+    content: none;
+  }
+}
+
+/* Eyebrow — base + chromatic dot variants per zone */
+.eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--brand-purple);
+  box-shadow: 0 0 8px currentColor;
+  flex-shrink: 0;
+}
+
+.eyebrow-blue::before { background: var(--brand-blue); }
+.eyebrow-purple::before { background: var(--brand-purple); }
+.eyebrow-pink::before { background: var(--brand-pink); }
+
+/* Gradient hairline border via mask-composite — costs 0 KB JS */
+.gradient-border {
+  position: relative;
+}
+
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: var(--brand-gradient);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0.5;
+  transition: opacity var(--duration-normal) var(--ease-out);
+}
+
+/* Subtle gradient borders that intensify on hover (for cards) */
+.gradient-border-soft {
+  position: relative;
+}
+
+.gradient-border-soft::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: var(--brand-gradient);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0.18;
+  transition: opacity var(--duration-normal) var(--ease-out);
+}
+
+.gradient-border-soft:hover::before {
+  opacity: 0.5;
+}
+
+/* Section divider — thin gradient line between major sections, fading at edges */
+.section-divider-line {
+  position: relative;
+}
+
+.section-divider-line::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(100%, 1100px);
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(10, 141, 255, 0.32) 30%,
+    rgba(123, 92, 255, 0.36) 50%,
+    rgba(255, 79, 163, 0.32) 70%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Skip link */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 16px;
+  background: var(--bg-card);
+  color: var(--text-heading);
+  padding: 12px 20px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-medium);
+  z-index: 9999;
+  font-weight: 500;
+  transition: top var(--duration-fast) var(--ease-out);
+}
+
+.skip-link:focus {
+  top: 16px;
+}
+
+/* ---------- BUTTONS ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-body), sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 14px 26px;
+  border-radius: var(--radius-pill);
+  white-space: nowrap;
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    transform var(--duration-fast) var(--ease-out),
+    background var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out);
+  min-height: 48px;
+  line-height: 1;
+  position: relative;
+  isolation: isolate;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--brand-blue);
+  outline-offset: 3px;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+/* Primary — gradient with glow halo */
+.btn-primary {
+  color: white;
+  background: var(--brand-gradient);
+  background-size: 200% 200%;
+  background-position: 0% 50%;
+  box-shadow: var(--shadow-cta);
+  position: relative;
+  overflow: hidden;
+}
+
+/* CSS-only shimmer sweep — transform only, compositor-safe */
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.28) 50%,
+    transparent 70%
+  );
+  transform: translateX(-100%);
+  animation: btn-shimmer 3.2s ease-in-out 1.2s infinite;
+  pointer-events: none;
+}
+
+@keyframes btn-shimmer {
+  0%        { transform: translateX(-100%); }
+  55%, 100% { transform: translateX(220%); }
+}
+
+.btn-primary:hover {
+  background-position: 100% 50%;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.32) inset,
+    0 18px 40px rgba(123, 92, 255, 0.55),
+    0 6px 18px rgba(255, 79, 163, 0.35);
+  transform: translateY(-1px);
+}
+
+/* Secondary — glass ghost */
+.btn-secondary {
+  color: var(--text-heading);
+  background: var(--bg-glass);
+  border: 1px solid var(--border-medium);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
+}
+
+.btn-large {
+  font-size: 16px;
+  padding: 16px 32px;
+  min-height: 56px;
+}
+
+/* ---------- CARDS ---------- */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-xl);
+  padding: 32px;
+  box-shadow: var(--shadow-card);
+  transition:
+    background var(--duration-normal) var(--ease-out),
+    border-color var(--duration-normal) var(--ease-out),
+    transform var(--duration-normal) var(--ease-out);
+}
+
+.card-glass {
+  background: var(--bg-glass);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-xl);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.card-interactive:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-medium);
+  transform: translateY(-2px);
+}
+
+/* ---------- STATE 48-INSPIRED BRAND PRIMITIVES ---------- */
+.ir-section-head {
+  max-width: 760px;
+  display: grid;
+  gap: 14px;
+  margin-bottom: clamp(32px, 5vw, 54px);
+}
+
+.ir-section-head-wide {
+  max-width: 920px;
+}
+
+.ir-section-head-center {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.ir-section-head h2 {
+  color: var(--text-heading);
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  -webkit-text-fill-color: currentColor;
+  text-wrap: balance;
+}
+
+.ir-section-head p {
+  max-width: 820px;
+  color: var(--text-body);
+  font-size: clamp(1rem, 1vw + 0.86rem, 1.18rem);
+  line-height: 1.75;
+}
+
+.ir-kicker {
+  width: fit-content;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 34px;
+  padding: 7px 12px;
+  border: 1px solid rgba(123, 92, 255, 0.35);
+  border-radius: var(--radius-pill);
+  color: #efeaff;
+  background:
+    linear-gradient(135deg, rgba(10, 141, 255, 0.12), rgba(123, 92, 255, 0.14), rgba(255, 79, 163, 0.1)),
+    rgba(255, 255, 255, 0.045);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  line-height: 1;
+  text-transform: uppercase;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.03) inset;
+}
+
+.ir-card-elevated,
+.ir-card-featured,
+.ir-image-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-2xl);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.025)),
+    rgba(17, 17, 24, 0.9);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.08) inset,
+    0 18px 48px rgba(0, 0, 0, 0.34);
+}
+
+.ir-card-elevated::before,
+.ir-card-featured::before,
+.ir-image-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(110deg, rgba(10, 141, 255, 0.11), transparent 34%),
+    radial-gradient(circle at 92% 0%, rgba(255, 79, 163, 0.13), transparent 34%);
+  opacity: 0.88;
+}
+
+.ir-card-featured {
+  border-color: rgba(123, 92, 255, 0.42);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.09) inset,
+    0 18px 50px rgba(10, 141, 255, 0.13),
+    0 28px 78px rgba(123, 92, 255, 0.19),
+    0 0 80px rgba(255, 79, 163, 0.09);
+}
+
+.ir-icon-surface {
+  display: inline-grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  flex: 0 0 auto;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 15px;
+  color: white;
+  background:
+    linear-gradient(135deg, rgba(10, 141, 255, 0.28), rgba(123, 92, 255, 0.24), rgba(255, 79, 163, 0.18)),
+    rgba(255, 255, 255, 0.06);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.12) inset,
+    0 14px 34px rgba(123, 92, 255, 0.22);
+}
+
+.ir-press-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 22px;
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+
+.ir-press-row span {
+  opacity: 0.88;
+}
+
+.ir-quick-path {
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 46% 52% at 8% 10%, rgba(10, 141, 255, 0.12), transparent 70%),
+    radial-gradient(ellipse 44% 52% at 92% 10%, rgba(255, 79, 163, 0.1), transparent 72%),
+    var(--bg-section);
+}
+
+.ir-quick-path-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 720px) {
+  .ir-quick-path-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1080px) {
+  .ir-quick-path-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.ir-quick-path-card {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: clamp(20px, 2.4vw, 26px);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-2xl);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.025)),
+    rgba(17, 17, 24, 0.88);
+  box-shadow: var(--shadow-card);
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform var(--duration-normal) var(--ease-out),
+    border-color var(--duration-normal) var(--ease-out),
+    box-shadow var(--duration-normal) var(--ease-out);
+}
+
+.ir-quick-path-card::after {
+  content: "";
+  position: absolute;
+  right: -90px;
+  top: -90px;
+  width: 230px;
+  height: 230px;
+  border-radius: 999px;
+  filter: blur(44px);
+  opacity: 0.58;
+  pointer-events: none;
+}
+
+.ir-quick-path-card-blue::after {
+  background: rgba(10, 141, 255, 0.42);
+}
+
+.ir-quick-path-card-purple::after {
+  background: rgba(123, 92, 255, 0.45);
+}
+
+.ir-quick-path-card-pink::after {
+  background: rgba(255, 79, 163, 0.38);
+}
+
+.ir-quick-path-card > * {
+  position: relative;
+}
+
+.ir-quick-path-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-medium);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.08) inset,
+    0 24px 70px rgba(0, 0, 0, 0.42),
+    0 0 56px rgba(123, 92, 255, 0.1);
+}
+
+.ir-quick-path-eyebrow {
+  margin-top: 6px;
+  color: var(--text-muted);
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.ir-quick-path-card strong {
+  color: var(--text-heading);
+  font-family: var(--font-heading), sans-serif;
+  font-size: 1.18rem;
+  line-height: 1.14;
+}
+
+.ir-quick-path-card span:not(.ir-icon-surface):not(.ir-quick-path-eyebrow):not(.ir-quick-path-cta) {
+  color: var(--text-body);
+  font-size: 0.93rem;
+  line-height: 1.62;
+}
+
+.ir-quick-path-cta {
+  margin-top: auto;
+  padding-top: 10px;
+  color: var(--text-heading);
+  font-weight: 800;
+  font-size: 0.92rem;
+}
+
+.ir-founder-card {
+  position: relative;
+  width: min(100%, 460px);
+  margin: 0;
+  isolation: isolate;
+}
+
+.ir-founder-glow {
+  position: absolute;
+  inset: -14px;
+  z-index: -1;
+  border-radius: 34px;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(10, 141, 255, 0.24), transparent 48%),
+    radial-gradient(circle at 86% 18%, rgba(123, 92, 255, 0.24), transparent 46%),
+    radial-gradient(circle at 70% 88%, rgba(255, 79, 163, 0.2), transparent 48%);
+  filter: blur(18px);
+}
+
+.ir-founder-image {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border: 1px solid var(--border-medium);
+  border-radius: 30px;
+  background: var(--bg-card);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.1) inset,
+    0 30px 90px rgba(0, 0, 0, 0.44);
+}
+
+.ir-founder-img {
+  object-fit: cover;
+}
+
+.ir-founder-caption {
+  position: absolute;
+  inset: auto 16px 16px 16px;
+  display: grid;
+  gap: 4px;
+  padding: 16px;
+  border: 1px solid var(--border-medium);
+  border-radius: 20px;
+  background: rgba(10, 10, 15, 0.78);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: var(--shadow-card);
+}
+
+.ir-founder-caption span,
+.ir-founder-caption small {
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.ir-founder-caption strong {
+  color: var(--text-heading);
+  font-family: var(--font-heading), sans-serif;
+  font-size: 1.25rem;
+  line-height: 1.05;
+}
+
+.ir-founder-caption small {
+  color: var(--text-body);
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.ir-proof-image-slot {
+  margin: 0;
+  padding: 12px;
+  border: 1px solid var(--border-medium);
+  border-radius: 28px;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.025)),
+    rgba(17, 17, 24, 0.88);
+  box-shadow: var(--shadow-card-strong);
+}
+
+.ir-proof-image-frame {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  background: #f8fafc;
+}
+
+.ir-proof-real-image {
+  object-fit: contain;
+  object-position: top center;
+}
+
+.ir-proof-placeholder {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  align-content: center;
+  gap: 22px;
+  padding: 28px;
+  background:
+    radial-gradient(circle at 78% 16%, rgba(10, 141, 255, 0.22), transparent 38%),
+    radial-gradient(circle at 18% 78%, rgba(255, 79, 163, 0.16), transparent 42%),
+    linear-gradient(180deg, #f8fafc 0%, #e8eefc 100%);
+  color: #0f172a;
+}
+
+.ir-proof-placeholder-top,
+.ir-proof-placeholder-meter,
+.ir-proof-placeholder-grid i {
+  display: block;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.12);
+}
+
+.ir-proof-placeholder-top {
+  width: 62%;
+  height: 18px;
+}
+
+.ir-proof-placeholder-score {
+  font-family: var(--font-heading), sans-serif;
+  font-size: clamp(4.25rem, 14vw, 6.5rem);
+  font-weight: 900;
+  line-height: 0.82;
+  letter-spacing: -0.08em;
+  background: var(--brand-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.ir-proof-placeholder-meter {
+  width: 100%;
+  height: 12px;
+  background: var(--brand-gradient);
+  box-shadow: 0 0 24px rgba(123, 92, 255, 0.26);
+}
+
+.ir-proof-placeholder-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.ir-proof-placeholder-grid i {
+  height: 76px;
+  border-radius: 18px;
+  background: rgba(15, 23, 42, 0.08);
+}
+
+.ir-proof-image-slot figcaption {
+  display: grid;
+  gap: 8px;
+  padding: 18px 4px 4px;
+}
+
+.ir-proof-badge {
+  width: fit-content;
+  display: inline-flex;
+  padding: 6px 10px;
+  border: 1px solid rgba(34, 197, 94, 0.28);
+  border-radius: var(--radius-pill);
+  color: #dfffee;
+  background: rgba(34, 197, 94, 0.12);
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.ir-proof-image-slot figcaption strong {
+  color: var(--text-heading);
+  font-family: var(--font-heading), sans-serif;
+  font-size: clamp(2.6rem, 7vw, 4rem);
+  line-height: 0.9;
+}
+
+.ir-proof-image-slot figcaption span:not(.ir-proof-badge),
+.ir-proof-image-slot figcaption p {
+  color: var(--text-body);
+  line-height: 1.55;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ir-quick-path-card:hover {
+    transform: none;
+  }
+}
+
+@media (hover: none), (max-width: 767px) {
+  .ir-quick-path-card:hover {
+    transform: none;
+  }
+}
+
+/* ---------- BLOG SHELL ---------- */
+.blog-page,
+.blog-post-page {
+  background: var(--bg-base);
+  color: var(--text-body);
+  overflow-x: clip;
+}
+
+.blog-hero,
+.blog-post-hero {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  border-bottom: 1px solid var(--border-soft);
+  background:
+    radial-gradient(ellipse 58% 44% at 10% 6%, rgba(10, 141, 255, 0.1), transparent 72%),
+    radial-gradient(ellipse 52% 40% at 88% 8%, rgba(123, 92, 255, 0.09), transparent 74%),
+    radial-gradient(ellipse 42% 34% at 78% 88%, rgba(255, 79, 163, 0.055), transparent 76%),
+    linear-gradient(180deg, #0a0a0f 0%, #0d0d14 100%);
+}
+
+.blog-hero::before,
+.blog-post-hero::before {
+  content: none;
+}
+
+.blog-hero-shell,
+.blog-post-hero-shell {
+  display: grid;
+  gap: clamp(32px, 6vw, 64px);
+  align-items: center;
+}
+
+.blog-hero-copy,
+.blog-post-copy {
+  display: grid;
+  gap: 18px;
+  max-width: 860px;
+}
+
+.blog-hero-copy h1,
+.blog-post-copy h1 {
+  max-width: 980px;
+  font-size: clamp(2.35rem, 4.5vw, 4.9rem);
+  letter-spacing: 0;
+  text-wrap: balance;
+}
+
+.blog-hero-copy p,
+.blog-post-copy p {
+  max-width: 820px;
+  color: var(--text-body);
+  font-size: clamp(1rem, 1vw + 0.9rem, 1.18rem);
+  line-height: 1.75;
+}
+
+.blog-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.blog-founder {
+  justify-self: center;
+  width: min(100%, 420px);
+}
+
+.blog-founder .ir-founder-card {
+  width: 100%;
+}
+
+.blog-card-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 720px) {
+  .blog-card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1080px) {
+  .blog-hero-shell,
+  .blog-post-hero-shell {
+    grid-template-columns: minmax(0, 1fr) minmax(380px, 0.46fr);
+  }
+
+  .blog-card-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.blog-card,
+.blog-empty,
+.blog-post-summary,
+.blog-article-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-2xl);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.025)),
+    rgba(17, 17, 24, 0.9);
+  box-shadow: var(--shadow-card);
+}
+
+.blog-card,
+.blog-empty {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: clamp(22px, 3vw, 30px);
+}
+
+.blog-card::after,
+.blog-empty::after,
+.blog-post-summary::after {
+  content: "";
+  position: absolute;
+  right: -90px;
+  top: -90px;
+  width: 240px;
+  height: 240px;
+  border-radius: 999px;
+  background: rgba(123, 92, 255, 0.34);
+  filter: blur(48px);
+  opacity: 0.72;
+  pointer-events: none;
+}
+
+.blog-card > *,
+.blog-empty > *,
+.blog-post-summary > * {
+  position: relative;
+}
+
+.blog-card-meta,
+.blog-card span:not(.ir-icon-surface):not(.blog-card-link) {
+  color: var(--text-body);
+  line-height: 1.65;
+}
+
+.blog-card-meta {
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.blog-card strong,
+.blog-empty h3,
+.blog-post-summary h2 {
+  color: var(--text-heading);
+  font-family: var(--font-heading), sans-serif;
+  font-size: clamp(1.35rem, 2vw, 1.7rem);
+  line-height: 1.12;
+}
+
+.blog-card-link,
+.blog-back-link {
+  color: var(--text-heading);
+  font-weight: 800;
+}
+
+.blog-post-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.blog-post-meta span,
+.blog-jump-scroll a,
+.blog-post-summary nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 8px 12px;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-pill);
+  background: var(--bg-glass);
+  color: var(--text-body);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.blog-post-summary {
+  display: grid;
+  gap: 16px;
+  padding: clamp(22px, 3vw, 30px);
+}
+
+.blog-post-summary nav {
+  display: grid;
+  gap: 10px;
+}
+
+.blog-mobile-jump {
+  display: block;
+  padding: 14px 0;
+  background: var(--bg-section);
+}
+
+.blog-jump-scroll {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+}
+
+.blog-jump-scroll a {
+  flex: 0 0 auto;
+}
+
+.blog-article-shell {
+  max-width: 1040px;
+}
+
+.blog-article-card {
+  padding: clamp(24px, 5vw, 54px);
+}
+
+.blog-article-section {
+  padding: clamp(28px, 4vw, 44px) 0;
+  scroll-margin-top: 130px;
+}
+
+.blog-article-section:first-child {
+  padding-top: 0;
+}
+
+.blog-article-section:last-child {
+  padding-bottom: 0;
+}
+
+.blog-article-section + .blog-article-section {
+  border-top: 1px solid var(--border-soft);
+}
+
+.blog-article-section h2 {
+  margin-bottom: 18px;
+  text-wrap: balance;
+}
+
+.blog-article-section p {
+  color: var(--text-body);
+  font-size: 1.05rem;
+  line-height: 1.82;
+}
+
+.blog-article-section p + p {
+  margin-top: 18px;
+}
+
+@media (min-width: 1080px) {
+  .blog-mobile-jump {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .blog-hero-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .blog-hero-actions .btn {
+    width: 100%;
+    white-space: normal;
+    text-align: center;
+  }
+}
+
+/* ---------- BRANDED LANDING PAGES ---------- */
+main.experian-page,
+main.equifax-page,
+main.transunion-page {
+  background: var(--bg-base);
+  color: var(--text-body);
+  overflow-x: clip;
+}
+
+main.experian-page .experian-hero,
+main.equifax-page .equifax-hero,
+main.transunion-page .transunion-hero {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  padding: clamp(76px, 10vw, 124px) 0 clamp(52px, 7vw, 84px);
+  background:
+    radial-gradient(ellipse 70% 50% at 18% 8%, rgba(10, 141, 255, 0.18), transparent 68%),
+    radial-gradient(ellipse 60% 48% at 82% 16%, rgba(123, 92, 255, 0.14), transparent 70%),
+    radial-gradient(ellipse 52% 44% at 76% 88%, rgba(255, 79, 163, 0.12), transparent 72%),
+    linear-gradient(180deg, #0a0a0f 0%, #111118 100%);
+}
+
+main.experian-page .experian-hero::before,
+main.equifax-page .equifax-hero::before,
+main.transunion-page .transunion-hero::before {
+  content: "";
+  position: absolute;
+  inset: auto -12% -26% -12%;
+  height: 58%;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse 38% 52% at 24% 70%, rgba(10, 141, 255, 0.18), transparent 68%),
+    radial-gradient(ellipse 36% 46% at 78% 68%, rgba(255, 79, 163, 0.16), transparent 70%);
+  filter: blur(22px);
+  opacity: 0.92;
+}
+
+main.experian-page .experian-hero-shell,
+main.equifax-page .equifax-hero-shell,
+main.transunion-page .transunion-hero-shell {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(34px, 6vw, 64px);
+  align-items: center;
+}
+
+main.experian-page .experian-hero-shell,
+main.experian-page .experian-trust .container,
+main.experian-page .experian-problem .container,
+main.experian-page .experian-service .container,
+main.experian-page .experian-fit .container,
+main.experian-page .experian-process .container,
+main.experian-page .experian-proof .container,
+main.experian-page .experian-faq .container,
+main.experian-page .experian-closing .container,
+main.equifax-page .equifax-hero-shell,
+main.equifax-page .equifax-trust .container,
+main.equifax-page .equifax-problem .container,
+main.equifax-page .equifax-service .container,
+main.equifax-page .equifax-fit .container,
+main.equifax-page .equifax-denial .container,
+main.equifax-page .equifax-process .container,
+main.equifax-page .equifax-proof .container,
+main.equifax-page .equifax-faq .container,
+main.equifax-page .equifax-closing .container,
+main.transunion-page .transunion-hero-shell,
+main.transunion-page .transunion-trust .container,
+main.transunion-page .transunion-problem .container,
+main.transunion-page .transunion-service .container,
+main.transunion-page .transunion-fit .container,
+main.transunion-page .transunion-denial .container,
+main.transunion-page .transunion-process .container,
+main.transunion-page .transunion-proof .container,
+main.transunion-page .transunion-faq .container,
+main.transunion-page .transunion-closing .container {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+main.experian-page .experian-hero-copy,
+main.equifax-page .equifax-hero-copy,
+main.transunion-page .transunion-hero-copy {
+  width: min(100%, 900px);
+  max-width: 900px;
+  display: grid;
+  gap: clamp(18px, 3vw, 26px);
+}
+
+.bureau-hero-visual {
+  width: min(100%, 520px);
+  min-height: 420px;
+  position: relative;
+  align-self: center;
+  justify-self: center;
+  display: grid;
+  place-items: center;
+}
+
+.bureau-visual-glow {
+  position: absolute;
+  inset: 10% 0 4%;
+  border-radius: 32px;
+  background:
+    linear-gradient(135deg, rgba(10, 141, 255, 0.28), rgba(123, 92, 255, 0.22), rgba(255, 79, 163, 0.18));
+  filter: blur(34px);
+  opacity: 0.72;
+  transform: rotate(-3deg);
+}
+
+.bureau-visual-card {
+  position: relative;
+  width: min(100%, 460px);
+  padding: clamp(22px, 4vw, 30px);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-2xl);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03)),
+    rgba(17, 17, 24, 0.88);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.08) inset,
+    0 32px 80px rgba(0, 0, 0, 0.42);
+  overflow: hidden;
+}
+
+.bureau-visual-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(120deg, rgba(10, 141, 255, 0.18), transparent 34%),
+    linear-gradient(300deg, rgba(255, 79, 163, 0.14), transparent 42%);
+}
+
+.bureau-visual-card > * {
+  position: relative;
+}
+
+.bureau-visual-top {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 14px;
+  align-items: center;
+}
+
+.bureau-visual-icon {
+  width: 48px;
+  height: 48px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 15px;
+  color: white;
+  background: var(--brand-gradient);
+  box-shadow: var(--shadow-glow-purple);
+}
+
+.bureau-visual-eyebrow {
+  display: block;
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.bureau-visual-top strong {
+  display: block;
+  margin-top: 3px;
+  color: var(--text-heading);
+  font-family: var(--font-heading), sans-serif;
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.bureau-visual-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 7px 10px;
+  border: 1px solid rgba(34, 197, 94, 0.28);
+  border-radius: var(--radius-pill);
+  color: #dfffee;
+  background: rgba(34, 197, 94, 0.12);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.bureau-visual-score {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  margin: 34px 0 18px;
+}
+
+.bureau-visual-score span {
+  font-family: var(--font-heading), sans-serif;
+  font-size: clamp(4rem, 10vw, 6.5rem);
+  font-weight: 900;
+  line-height: 0.82;
+  letter-spacing: -0.07em;
+  background: var(--brand-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.bureau-visual-score small {
+  color: var(--text-body);
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1.1;
+  padding-bottom: 8px;
+}
+
+.bureau-visual-meter {
+  height: 10px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.bureau-visual-meter span {
+  display: block;
+  width: 78%;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--brand-gradient);
+  box-shadow: 0 0 24px rgba(123, 92, 255, 0.55);
+}
+
+.bureau-visual-rows {
+  display: grid;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.bureau-visual-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  min-height: 52px;
+  padding: 12px 14px;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.bureau-visual-row-active {
+  border-color: rgba(123, 92, 255, 0.4);
+  background: rgba(123, 92, 255, 0.12);
+}
+
+.bureau-visual-row span {
+  color: var(--text-body);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.bureau-visual-row strong {
+  display: inline-grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  color: white;
+  background: var(--brand-gradient);
+  font-size: 0.76rem;
+}
+
+.bureau-visual-rail {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.bureau-visual-rail i {
+  height: 4px;
+  border-radius: var(--radius-pill);
+  background: var(--brand-gradient);
+  opacity: 0.72;
+}
+
+.bureau-hero-visual-equifax .bureau-visual-meter span {
+  width: 86%;
+}
+
+.bureau-hero-visual-transunion .bureau-visual-meter span {
+  width: 72%;
+}
+
+main.experian-page .experian-hero h1,
+main.equifax-page .equifax-hero h1,
+main.transunion-page .transunion-hero h1 {
+  max-width: 930px;
+  color: var(--text-heading);
+  font-size: clamp(2.35rem, 5vw + 0.25rem, 5rem);
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+  overflow-wrap: break-word;
+}
+
+main.experian-page .experian-copy-head h2,
+main.experian-page .experian-closing-card h2,
+main.experian-page .experian-fit-card h2,
+main.equifax-page .equifax-copy-head h2,
+main.equifax-page .equifax-closing-card h2,
+main.equifax-page .equifax-fit-card h2,
+main.transunion-page .transunion-copy-head h2,
+main.transunion-page .transunion-closing-card h2,
+main.transunion-page .transunion-fit-card h2 {
+  color: var(--text-heading);
+  font-size: clamp(1.85rem, 3vw + 0.35rem, 3.25rem);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+main.experian-page .experian-hero-sub,
+main.equifax-page .equifax-hero-sub,
+main.transunion-page .transunion-hero-sub {
+  max-width: 820px;
+  color: var(--text-body);
+  font-size: clamp(1rem, 1vw + 0.9rem, 1.2rem);
+  line-height: 1.72;
+}
+
+main.experian-page .experian-hero-trust,
+main.equifax-page .equifax-hero-trust,
+main.transunion-page .transunion-hero-trust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+main.experian-page .experian-hero-trust span,
+main.equifax-page .equifax-hero-trust span,
+main.transunion-page .transunion-hero-trust span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 9px 13px;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-pill);
+  background: var(--bg-glass);
+  color: var(--text-heading);
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.2;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset;
+}
+
+main.experian-page .experian-hero-actions,
+main.experian-page .experian-closing-actions,
+main.equifax-page .equifax-hero-actions,
+main.equifax-page .equifax-closing-actions,
+main.transunion-page .transunion-hero-actions,
+main.transunion-page .transunion-closing-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+main.experian-page .experian-fear-killer,
+main.equifax-page .equifax-fear-killer,
+main.transunion-page .transunion-fear-killer {
+  color: var(--text-body);
+  font-size: 0.96rem;
+  font-weight: 600;
+}
+
+main.experian-page .experian-trust,
+main.equifax-page .equifax-trust,
+main.transunion-page .transunion-trust {
+  background: var(--bg-section);
+}
+
+main.experian-page .experian-stats,
+main.equifax-page .equifax-stats,
+main.transunion-page .transunion-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+main.experian-page .experian-stat,
+main.equifax-page .equifax-stat,
+main.transunion-page .transunion-stat,
+main.experian-page .experian-copy-card,
+main.equifax-page .equifax-copy-card,
+main.transunion-page .transunion-copy-card,
+main.experian-page .experian-pain-card,
+main.equifax-page .equifax-pain-card,
+main.transunion-page .transunion-pain-card,
+main.experian-page .experian-fit-card,
+main.equifax-page .equifax-fit-card,
+main.transunion-page .transunion-fit-card,
+main.experian-page .experian-process-card,
+main.equifax-page .equifax-process-card,
+main.transunion-page .transunion-process-card,
+main.experian-page .experian-proof-card,
+main.equifax-page .equifax-proof-card,
+main.transunion-page .transunion-proof-card,
+main.experian-page .experian-faq-card,
+main.equifax-page .equifax-faq-card,
+main.transunion-page .transunion-faq-card,
+main.experian-page .experian-closing-card,
+main.equifax-page .equifax-closing-card,
+main.transunion-page .transunion-closing-card {
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-xl);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.025)),
+    var(--bg-card);
+  box-shadow: var(--shadow-card);
+}
+
+main.experian-page .experian-stat,
+main.equifax-page .equifax-stat,
+main.transunion-page .transunion-stat {
+  padding: clamp(20px, 3vw, 28px);
+  text-align: center;
+}
+
+main.experian-page .experian-stat strong,
+main.equifax-page .equifax-stat strong,
+main.transunion-page .transunion-stat strong {
+  display: block;
+  margin-bottom: 8px;
+  font-family: var(--font-heading), sans-serif;
+  font-size: clamp(1.75rem, 3vw, 2.4rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  background: var(--brand-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+main.experian-page .experian-stat span,
+main.equifax-page .equifax-stat span,
+main.transunion-page .transunion-stat span {
+  color: var(--text-body);
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+main.experian-page .experian-press,
+main.equifax-page .equifax-press,
+main.transunion-page .transunion-press {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 22px;
+  margin-top: 24px;
+  padding-top: 22px;
+  border-top: 1px solid var(--border-soft);
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+  line-height: 1.3;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+main.experian-page .experian-problem,
+main.equifax-page .equifax-problem,
+main.transunion-page .transunion-problem {
+  background:
+    radial-gradient(ellipse 58% 42% at 8% 0%, rgba(10, 141, 255, 0.12), transparent 72%),
+    radial-gradient(ellipse 42% 34% at 92% 8%, rgba(123, 92, 255, 0.1), transparent 72%),
+    var(--bg-base);
+}
+
+main.experian-page .experian-fit,
+main.equifax-page .equifax-fit,
+main.transunion-page .transunion-fit,
+main.experian-page .experian-proof,
+main.equifax-page .equifax-proof,
+main.transunion-page .transunion-proof {
+  background:
+    radial-gradient(ellipse 54% 38% at 92% 0%, rgba(255, 79, 163, 0.1), transparent 72%),
+    radial-gradient(ellipse 48% 36% at 8% 92%, rgba(123, 92, 255, 0.1), transparent 74%),
+    #0b0b12;
+}
+
+main.equifax-page .equifax-denial,
+main.transunion-page .transunion-denial,
+main.experian-page .experian-closing,
+main.equifax-page .equifax-closing,
+main.transunion-page .transunion-closing {
+  background:
+    radial-gradient(ellipse 56% 40% at 50% 0%, rgba(123, 92, 255, 0.13), transparent 70%),
+    radial-gradient(ellipse 46% 34% at 12% 92%, rgba(10, 141, 255, 0.08), transparent 72%),
+    radial-gradient(ellipse 42% 30% at 88% 90%, rgba(255, 79, 163, 0.08), transparent 72%),
+    var(--bg-base);
+}
+
+main.experian-page .experian-service,
+main.experian-page .experian-process,
+main.experian-page .experian-faq,
+main.equifax-page .equifax-service,
+main.equifax-page .equifax-process,
+main.equifax-page .equifax-faq,
+main.transunion-page .transunion-service,
+main.transunion-page .transunion-process,
+main.transunion-page .transunion-faq {
+  background:
+    radial-gradient(ellipse 52% 40% at 50% -8%, rgba(10, 141, 255, 0.08), transparent 72%),
+    radial-gradient(ellipse 36% 28% at 100% 0%, rgba(255, 79, 163, 0.07), transparent 70%),
+    var(--bg-section);
+}
+
+main.experian-page .experian-copy-shell,
+main.equifax-page .equifax-copy-shell,
+main.transunion-page .transunion-copy-shell {
+  display: grid;
+  gap: clamp(22px, 3vw, 34px);
+}
+
+main.experian-page .experian-copy-head,
+main.equifax-page .equifax-copy-head,
+main.transunion-page .transunion-copy-head {
+  max-width: 900px;
+}
+
+main.experian-page .section-divider::before,
+main.equifax-page .section-divider::before,
+main.transunion-page .section-divider::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 50%;
+  width: min(1120px, calc(100% - 48px));
+  height: 1px;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(10, 141, 255, 0.48),
+    rgba(123, 92, 255, 0.58),
+    rgba(255, 79, 163, 0.48),
+    transparent
+  );
+  pointer-events: none;
+}
+
+main.experian-page .experian-copy-head h2::before,
+main.equifax-page .equifax-copy-head h2::before,
+main.transunion-page .transunion-copy-head h2::before,
+main.experian-page .experian-closing-card h2::before,
+main.equifax-page .equifax-closing-card h2::before,
+main.transunion-page .transunion-closing-card h2::before {
+  content: "";
+  display: block;
+  width: 76px;
+  height: 6px;
+  margin-bottom: 18px;
+  border-radius: var(--radius-pill);
+  background: var(--brand-gradient);
+  box-shadow: 0 0 26px rgba(123, 92, 255, 0.44);
+}
+
+main.experian-page .experian-closing-card h2::before,
+main.equifax-page .equifax-closing-card h2::before,
+main.transunion-page .transunion-closing-card h2::before {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+main.experian-page .experian-copy-card,
+main.equifax-page .equifax-copy-card,
+main.transunion-page .transunion-copy-card,
+main.experian-page .experian-closing-card,
+main.equifax-page .equifax-closing-card,
+main.transunion-page .transunion-closing-card {
+  max-width: 980px;
+  padding: clamp(24px, 4vw, 40px);
+}
+
+main.experian-page .experian-copy-card p,
+main.equifax-page .equifax-copy-card p,
+main.transunion-page .transunion-copy-card p,
+main.experian-page .experian-copy-head p,
+main.equifax-page .equifax-copy-head p,
+main.transunion-page .transunion-copy-head p,
+main.experian-page .experian-pain-card p,
+main.equifax-page .equifax-pain-card p,
+main.transunion-page .transunion-pain-card p,
+main.experian-page .experian-process-card p,
+main.equifax-page .equifax-process-card p,
+main.transunion-page .transunion-process-card p,
+main.experian-page .experian-proof-card p,
+main.equifax-page .equifax-proof-card p,
+main.transunion-page .transunion-proof-card p,
+main.experian-page .experian-faq-card p,
+main.equifax-page .equifax-faq-card p,
+main.transunion-page .transunion-faq-card p,
+main.experian-page .experian-fit-card li,
+main.equifax-page .equifax-fit-card li,
+main.transunion-page .transunion-fit-card li,
+main.experian-page .experian-closing-card p,
+main.equifax-page .equifax-closing-card p,
+main.transunion-page .transunion-closing-card p {
+  color: var(--text-body);
+  line-height: 1.75;
+}
+
+main.experian-page .experian-pain-grid,
+main.equifax-page .equifax-pain-grid,
+main.transunion-page .transunion-pain-grid,
+main.experian-page .experian-fit-grid,
+main.equifax-page .equifax-fit-grid,
+main.transunion-page .transunion-fit-grid,
+main.experian-page .experian-process-grid,
+main.equifax-page .equifax-process-grid,
+main.transunion-page .transunion-process-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+main.experian-page .experian-pain-grid,
+main.equifax-page .equifax-pain-grid,
+main.transunion-page .transunion-pain-grid {
+  counter-reset: bureau-pain;
+}
+
+main.experian-page .experian-process-grid,
+main.equifax-page .equifax-process-grid,
+main.transunion-page .transunion-process-grid {
+  counter-reset: bureau-process;
+}
+
+main.experian-page .experian-pain-card,
+main.equifax-page .equifax-pain-card,
+main.transunion-page .transunion-pain-card,
+main.experian-page .experian-fit-card,
+main.equifax-page .equifax-fit-card,
+main.transunion-page .transunion-fit-card,
+main.experian-page .experian-process-card,
+main.equifax-page .equifax-process-card,
+main.transunion-page .transunion-process-card,
+main.experian-page .experian-proof-card,
+main.equifax-page .equifax-proof-card,
+main.transunion-page .transunion-proof-card,
+main.experian-page .experian-faq-card,
+main.equifax-page .equifax-faq-card,
+main.transunion-page .transunion-faq-card {
+  padding: clamp(20px, 3vw, 30px);
+  display: grid;
+  gap: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+main.experian-page .experian-pain-card::after,
+main.equifax-page .equifax-pain-card::after,
+main.transunion-page .transunion-pain-card::after,
+main.experian-page .experian-process-card::after,
+main.equifax-page .equifax-process-card::after,
+main.transunion-page .transunion-process-card::after,
+main.experian-page .experian-proof-card::after,
+main.equifax-page .equifax-proof-card::after,
+main.transunion-page .transunion-proof-card::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: var(--brand-gradient);
+  opacity: 0.78;
+}
+
+main.experian-page .experian-pain-card::before,
+main.equifax-page .equifax-pain-card::before,
+main.transunion-page .transunion-pain-card::before {
+  counter-increment: bureau-pain;
+  content: "0" counter(bureau-pain);
+}
+
+main.experian-page .experian-process-card::before,
+main.equifax-page .equifax-process-card::before,
+main.transunion-page .transunion-process-card::before {
+  counter-increment: bureau-process;
+  content: "0" counter(bureau-process);
+}
+
+main.experian-page .experian-pain-card::before,
+main.equifax-page .equifax-pain-card::before,
+main.transunion-page .transunion-pain-card::before,
+main.experian-page .experian-process-card::before,
+main.equifax-page .equifax-process-card::before,
+main.transunion-page .transunion-process-card::before {
+  width: 42px;
+  height: 42px;
+  display: inline-grid;
+  place-items: center;
+  margin-bottom: 4px;
+  border-radius: 14px;
+  color: white;
+  background: var(--brand-gradient);
+  box-shadow: var(--shadow-glow-purple);
+  font-family: var(--font-heading), sans-serif;
+  font-size: 0.84rem;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+}
+
+main.experian-page .experian-pain-card h3,
+main.equifax-page .equifax-pain-card h3,
+main.transunion-page .transunion-pain-card h3,
+main.experian-page .experian-process-card h3,
+main.equifax-page .equifax-process-card h3,
+main.transunion-page .transunion-process-card h3,
+main.experian-page .experian-proof-card h3,
+main.equifax-page .equifax-proof-card h3,
+main.transunion-page .transunion-proof-card h3,
+main.experian-page .experian-faq-card h3,
+main.equifax-page .equifax-faq-card h3,
+main.transunion-page .transunion-faq-card h3 {
+  color: var(--text-heading);
+  line-height: 1.18;
+}
+
+main.experian-page .experian-fit-card-muted,
+main.equifax-page .equifax-fit-card-muted,
+main.transunion-page .transunion-fit-card-muted {
+  border-color: rgba(251, 191, 36, 0.28);
+  background:
+    linear-gradient(180deg, rgba(251, 191, 36, 0.055), rgba(255, 255, 255, 0.02)),
+    var(--bg-card);
+}
+
+main.experian-page .experian-inline-link,
+main.equifax-page .equifax-inline-link,
+main.transunion-page .transunion-inline-link {
+  color: var(--text-heading);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+main.experian-page .experian-inline-link:hover,
+main.equifax-page .equifax-inline-link:hover,
+main.transunion-page .transunion-inline-link:hover {
+  color: var(--brand-pink);
+}
+
+main.experian-page .experian-proof-card blockquote,
+main.equifax-page .equifax-proof-card blockquote,
+main.transunion-page .transunion-proof-card blockquote {
+  margin: 0;
+  padding: clamp(18px, 3vw, 24px);
+  border-left: 3px solid var(--brand-purple);
+  border-radius: var(--radius-md);
+  background: var(--bg-glass);
+}
+
+main.experian-page .experian-proof-card blockquote footer,
+main.equifax-page .equifax-proof-card blockquote footer,
+main.transunion-page .transunion-proof-card blockquote footer {
+  color: var(--text-heading);
+}
+
+.bureau-proof-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(18px, 4vw, 34px);
+  align-items: start;
+}
+
+@media (min-width: 1080px) {
+  .bureau-proof-layout {
+    grid-template-columns: minmax(280px, 0.42fr) minmax(0, 1fr);
+  }
+
+  .bureau-proof-layout .ir-proof-image-slot {
+    position: sticky;
+    top: 128px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+}
+
+.bureau-proof-layout .ir-proof-image-frame {
+  border-radius: 32px;
+  background: transparent;
+}
+
+.bureau-proof-layout .ir-proof-real-image {
+  object-fit: cover;
+  object-position: center top;
+}
+
+main.experian-page .experian-closing-card,
+main.equifax-page .equifax-closing-card,
+main.transunion-page .transunion-closing-card {
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+main.experian-page .experian-closing-card::before,
+main.equifax-page .equifax-closing-card::before,
+main.transunion-page .transunion-closing-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 58% 52% at 20% 0%, rgba(10, 141, 255, 0.12), transparent 70%),
+    radial-gradient(ellipse 48% 44% at 82% 10%, rgba(255, 79, 163, 0.1), transparent 72%);
+}
+
+main.experian-page .experian-closing-card > *,
+main.equifax-page .equifax-closing-card > *,
+main.transunion-page .transunion-closing-card > * {
+  position: relative;
+}
+
+@media (max-width: 980px) {
+  main.experian-page .experian-stats,
+  main.equifax-page .equifax-stats,
+  main.transunion-page .transunion-stats,
+  main.experian-page .experian-pain-grid,
+  main.equifax-page .equifax-pain-grid,
+  main.transunion-page .transunion-pain-grid,
+  main.experian-page .experian-fit-grid,
+  main.equifax-page .equifax-fit-grid,
+  main.transunion-page .transunion-fit-grid,
+  main.experian-page .experian-process-grid,
+  main.equifax-page .equifax-process-grid,
+  main.transunion-page .transunion-process-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 1040px) {
+  main.experian-page .experian-hero-shell,
+  main.equifax-page .equifax-hero-shell,
+  main.transunion-page .transunion-hero-shell {
+    grid-template-columns: minmax(0, 0.98fr) minmax(360px, 0.72fr);
+  }
+}
+
+@media (max-width: 640px) {
+  main.experian-page .experian-hero,
+  main.equifax-page .equifax-hero,
+  main.transunion-page .transunion-hero {
+    padding: 54px 0 44px;
+  }
+
+  main.experian-page .experian-hero h1,
+  main.equifax-page .equifax-hero h1,
+  main.transunion-page .transunion-hero h1 {
+    font-size: clamp(1.75rem, 7.8vw, 2.05rem);
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+  }
+
+  .bureau-hero-visual {
+    min-height: auto;
+  }
+
+  .bureau-visual-card {
+    padding: 18px;
+  }
+
+  .bureau-visual-score {
+    margin: 24px 0 14px;
+  }
+
+  .bureau-visual-score span {
+    font-size: 3.5rem;
+  }
+
+  main.experian-page .experian-hero-actions,
+  main.experian-page .experian-closing-actions,
+  main.equifax-page .equifax-hero-actions,
+  main.equifax-page .equifax-closing-actions,
+  main.transunion-page .transunion-hero-actions,
+  main.transunion-page .transunion-closing-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  main.experian-page .experian-hero-actions .btn,
+  main.experian-page .experian-closing-actions .btn,
+  main.equifax-page .equifax-hero-actions .btn,
+  main.equifax-page .equifax-closing-actions .btn,
+  main.transunion-page .transunion-hero-actions .btn,
+  main.transunion-page .transunion-closing-actions .btn {
+    width: 100%;
+    white-space: normal;
+    text-align: center;
+  }
+
+  main.experian-page .experian-hero-trust span,
+  main.equifax-page .equifax-hero-trust span,
+  main.transunion-page .transunion-hero-trust span {
+    width: 100%;
+  }
+}
+
+/* ---------- SECTIONS ---------- */
+section {
+  position: relative;
+  padding: clamp(64px, 8vw, 112px) 0;
+}
+
+.section-tight {
+  padding: clamp(48px, 6vw, 80px) 0;
+}
+
+.section-divider {
+  border-top: 1px solid var(--border-soft);
+  isolation: isolate;
+  overflow: clip;
+  background:
+    radial-gradient(ellipse 72% 54% at 50% -18%, rgba(123, 92, 255, 0.07), transparent 70%),
+    var(--bg-base);
+}
+
+.section-divider::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 50%;
+  z-index: 2;
+  width: min(1180px, calc(100% - 32px));
+  height: 1px;
+  transform: translateX(-50%);
+  background:
+    linear-gradient(90deg, transparent 0%, rgba(10, 141, 255, 0.46) 24%, rgba(123, 92, 255, 0.52) 50%, rgba(255, 79, 163, 0.46) 76%, transparent 100%);
+  pointer-events: none;
+}
+
+.section-divider::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 42% 32% at 9% 8%, var(--section-orb-blue), transparent 72%),
+    radial-gradient(ellipse 36% 28% at 91% 6%, var(--section-orb-pink), transparent 74%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.018), transparent 32%, rgba(255, 255, 255, 0.012));
+  opacity: 0.72;
+}
+
+main > .section-divider:nth-of-type(3n + 1)::after {
+  background:
+    radial-gradient(ellipse 44% 34% at 8% 10%, var(--section-orb-blue), transparent 72%),
+    radial-gradient(ellipse 36% 30% at 92% 18%, rgba(123, 92, 255, 0.1), transparent 74%);
+}
+
+main > .section-divider:nth-of-type(3n + 2)::after {
+  background:
+    radial-gradient(ellipse 44% 34% at 90% 4%, var(--section-orb-purple), transparent 72%),
+    radial-gradient(ellipse 38% 32% at 10% 86%, rgba(10, 141, 255, 0.08), transparent 74%);
+}
+
+main > .section-divider:nth-of-type(3n + 3)::after {
+  background:
+    radial-gradient(ellipse 42% 32% at 12% 10%, rgba(255, 79, 163, 0.1), transparent 72%),
+    radial-gradient(ellipse 36% 30% at 88% 82%, rgba(123, 92, 255, 0.1), transparent 74%);
+}
+
+.section-divider > .container {
+  position: relative;
+  z-index: 1;
+}
+
+main h1,
+main h2 {
+  text-shadow: 0 12px 34px rgba(10, 141, 255, 0.05), 0 14px 38px rgba(255, 79, 163, 0.04);
+}
+
+.about-copy-head h2,
+.how-page-head h2,
+.results-head h2,
+.services-section-head h2,
+.services-copy-head h2,
+.compare-head h2,
+.pricing-section-head h2,
+.pricing-copy-head h2,
+.experian-copy-head h2,
+.equifax-copy-head h2,
+.transunion-copy-head h2,
+.quiz-head h2 {
+  color: var(--text-heading);
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  -webkit-text-fill-color: currentColor;
+}
+
+main.experian-page .experian-copy-head h2,
+main.experian-page .experian-closing-card h2,
+main.experian-page .experian-fit-card h2,
+main.equifax-page .equifax-copy-head h2,
+main.equifax-page .equifax-closing-card h2,
+main.equifax-page .equifax-fit-card h2,
+main.transunion-page .transunion-copy-head h2,
+main.transunion-page .transunion-closing-card h2,
+main.transunion-page .transunion-fit-card h2 {
+  color: var(--text-heading);
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  -webkit-text-fill-color: currentColor;
+}
+
+:is(
+  .about-copy-head,
+  .how-page-head,
+  .results-head,
+  .services-section-head,
+  .services-copy-head,
+  .compare-head,
+  .pricing-section-head,
+  .pricing-copy-head,
+  .pricing-closing-card,
+  .experian-copy-head,
+  .equifax-copy-head,
+  .transunion-copy-head
+) h2:not(.sr-only)::before {
+  content: "";
+  display: block;
+  width: 86px;
+  height: 6px;
+  margin: 0 0 18px;
+  border-radius: var(--radius-pill);
+  background: var(--brand-gradient);
+  box-shadow:
+    0 0 18px rgba(10, 141, 255, 0.28),
+    0 0 30px rgba(123, 92, 255, 0.32),
+    0 0 38px rgba(255, 79, 163, 0.18);
+}
+
+:is(.about-centered-head, .ir-section-head-center, .pricing-closing-card) h2:not(.sr-only)::before {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.section-divider :is(.card, .ir-card-elevated, .ir-card-featured, .ir-image-card),
+.pricing-copy-card,
+.pricing-calculator,
+.pricing-roi-calculator,
+.pricing-payment-note,
+.pricing-scenario-card,
+.pricing-faq-card,
+.pricing-testimonial-card,
+.pricing-closing-card,
+.quiz-progress,
+.quiz-panel,
+main.experian-page .experian-stat,
+main.equifax-page .equifax-stat,
+main.transunion-page .transunion-stat,
+main.experian-page .experian-copy-card,
+main.equifax-page .equifax-copy-card,
+main.transunion-page .transunion-copy-card,
+main.experian-page .experian-pain-card,
+main.equifax-page .equifax-pain-card,
+main.transunion-page .transunion-pain-card,
+main.experian-page .experian-fit-card,
+main.equifax-page .equifax-fit-card,
+main.transunion-page .transunion-fit-card,
+main.experian-page .experian-process-card,
+main.equifax-page .equifax-process-card,
+main.transunion-page .transunion-process-card,
+main.experian-page .experian-proof-card,
+main.equifax-page .equifax-proof-card,
+main.transunion-page .transunion-proof-card,
+main.experian-page .experian-faq-card,
+main.equifax-page .equifax-faq-card,
+main.transunion-page .transunion-faq-card {
+  border-color: rgba(255, 255, 255, 0.12);
+  background: var(--surface-premium-deep);
+  box-shadow: var(--shadow-premium);
+}
+
+.pricing-closing-card,
+.quiz-confirmation,
+main.experian-page .experian-closing-card,
+main.equifax-page .equifax-closing-card,
+main.transunion-page .transunion-closing-card {
+  border-color: rgba(123, 92, 255, 0.36);
+  box-shadow: var(--shadow-premium-strong);
+}
+
+@media (max-width: 700px) {
+  .section-divider {
+    background:
+      radial-gradient(ellipse 84% 32% at 50% -10%, rgba(123, 92, 255, 0.11), transparent 76%),
+      var(--bg-base);
+  }
+
+  .section-divider::after {
+    opacity: 0.92;
+    background:
+      radial-gradient(ellipse 74% 22% at 4% 0%, rgba(10, 141, 255, 0.1), transparent 72%),
+      radial-gradient(ellipse 62% 22% at 96% 8%, rgba(255, 79, 163, 0.08), transparent 74%);
+  }
+}
+
+@supports (content-visibility: auto) {
+  .section-divider,
+  .trust,
+  .solution,
+  .how,
+  .proof,
+  .bento,
+  .guarantee,
+  .final-cta,
+  .faq {
+    content-visibility: auto;
+    contain-intrinsic-size: 900px;
+  }
+}
+
+/* ---------- ANIMATIONS ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes orbFloat {
+    0%,
+    100% {
+      transform: translateY(0) translateX(0) scale(1);
+    }
+    50% {
+      transform: translateY(-12px) translateX(8px) scale(1.02);
+    }
+  }
+
+  @keyframes shimmer {
+    from {
+      background-position: -200% 50%;
+    }
+    to {
+      background-position: 200% 50%;
+    }
+  }
+
+  @keyframes pulseGlow {
+    0%,
+    100% {
+      opacity: 0.5;
+    }
+    50% {
+      opacity: 0.9;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---------- TARGETED POLISH PASS ---------- */
+.pricing-section-marker {
+  display: none !important;
+}
+
+:is(
+  .about-copy-head,
+  .how-page-head,
+  .results-head,
+  .services-section-head,
+  .services-copy-head,
+  .compare-head,
+  .pricing-section-head,
+  .pricing-copy-head,
+  .pricing-closing-card,
+  .experian-copy-head,
+  .equifax-copy-head,
+  .transunion-copy-head
+) h2:not(.sr-only)::before,
+main.experian-page .experian-copy-head h2::before,
+main.equifax-page .equifax-copy-head h2::before,
+main.transunion-page .transunion-copy-head h2::before,
+main.experian-page .experian-closing-card h2::before,
+main.equifax-page .equifax-closing-card h2::before,
+main.transunion-page .transunion-closing-card h2::before {
+  content: none !important;
+  display: none !important;
+}
+
+.about-press-logos {
+  justify-content: center;
+  text-align: center;
+}
+
+main.experian-page .experian-closing-card,
+main.equifax-page .equifax-closing-card,
+main.transunion-page .transunion-closing-card {
+  border-color: rgba(123, 92, 255, 0.24);
+  background:
+    radial-gradient(ellipse 44% 36% at 14% 0%, rgba(10, 141, 255, 0.075), transparent 72%),
+    radial-gradient(ellipse 38% 34% at 86% 4%, rgba(255, 79, 163, 0.06), transparent 74%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.022)),
+    rgba(18, 18, 28, 0.88);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.06) inset,
+    0 24px 70px rgba(0, 0, 0, 0.42),
+    0 0 56px rgba(123, 92, 255, 0.08);
+}
+
+main.experian-page .experian-closing-card::before,
+main.equifax-page .equifax-closing-card::before,
+main.transunion-page .transunion-closing-card::before {
+  opacity: 0.45;
+}
+
+main.experian-page .experian-faq-card,
+main.equifax-page .equifax-faq-card,
+main.transunion-page .transunion-faq-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+main.experian-page .experian-faq-card summary,
+main.equifax-page .equifax-faq-card summary,
+main.transunion-page .transunion-faq-card summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 78px;
+  padding: clamp(1.2rem, 2.4vw, 1.65rem);
+  color: var(--text-heading);
+  cursor: pointer;
+  list-style: none;
+}
+
+main.experian-page .experian-faq-card summary::-webkit-details-marker,
+main.equifax-page .equifax-faq-card summary::-webkit-details-marker,
+main.transunion-page .transunion-faq-card summary::-webkit-details-marker {
+  display: none;
+}
+
+main.experian-page .experian-faq-card summary span,
+main.equifax-page .equifax-faq-card summary span,
+main.transunion-page .transunion-faq-card summary span {
+  font-family: var(--font-heading), sans-serif;
+  font-size: 1.08rem;
+  font-weight: 800;
+  line-height: 1.42;
+}
+
+main.experian-page .experian-faq-card summary b,
+main.equifax-page .equifax-faq-card summary b,
+main.transunion-page .transunion-faq-card summary b {
+  width: 42px;
+  height: 42px;
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 auto;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-heading);
+  font-size: 1.7rem;
+  line-height: 1;
+  font-weight: 400;
+  transition: transform 180ms ease, background 180ms ease;
+}
+
+main.experian-page .experian-faq-card[open] summary b,
+main.equifax-page .equifax-faq-card[open] summary b,
+main.transunion-page .transunion-faq-card[open] summary b {
+  transform: rotate(45deg);
+  background: linear-gradient(135deg, rgba(10, 141, 255, 0.18), rgba(255, 79, 163, 0.14));
+}
+
+main.experian-page .experian-faq-card p,
+main.equifax-page .equifax-faq-card p,
+main.transunion-page .transunion-faq-card p {
+  padding: 0 clamp(1.2rem, 2.4vw, 1.65rem) clamp(1.2rem, 2.4vw, 1.65rem);
+}
+
+@media (max-width: 760px) {
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 640px) {
+  .btn {
+    max-width: 100%;
+    white-space: normal;
+    text-align: center;
+    line-height: 1.2;
+  }
+
+  section {
+    padding: 64px 0;
+  }
+}
+
+
+/* ============================================================
+   PHASE 1 — UNIFIED INQUIRY REMOVAL DESIGN SYSTEM
+   Shared page hero, chapter rhythm, glass, bento, and performance-safe depth.
+   ============================================================ */
+
+.ir-page {
+  position: relative;
+  overflow: clip;
+  background: var(--bg-base);
+}
+
+.ir-gradient-text {
+  background: linear-gradient(118deg, #ffffff 0%, #dcecff 24%, #8fc7ff 42%, #bfaeff 64%, #ffc2df 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.ir-section-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  min-height: 32px;
+  padding: 8px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-pill);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.025)),
+    rgba(255, 255, 255, 0.035);
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  line-height: 1;
+  text-transform: uppercase;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06) inset;
+}
+
+.ir-section-kicker::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  flex: 0 0 auto;
+  border-radius: 999px;
+  background: var(--brand-gradient);
+  box-shadow:
+    0 0 12px rgba(10, 141, 255, 0.42),
+    0 0 18px rgba(255, 79, 163, 0.28);
+}
+
+.ir-page-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(76px, 9vw, 126px) 0 clamp(58px, 7vw, 86px);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.022), transparent 38%),
+    var(--bg-base);
+}
+
+.ir-page-hero::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -1px;
+  z-index: 2;
+  width: min(1160px, calc(100% - 32px));
+  height: 1px;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, transparent, rgba(10, 141, 255, 0.5), rgba(123, 92, 255, 0.58), rgba(255, 79, 163, 0.46), transparent);
+  box-shadow:
+    0 10px 30px rgba(123, 92, 255, 0.18),
+    0 18px 46px rgba(10, 141, 255, 0.1);
+}
+
+.ir-page-hero::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -30px;
+  z-index: 1;
+  width: min(1040px, calc(100% - 48px));
+  height: 58px;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: radial-gradient(ellipse at center, rgba(123, 92, 255, 0.16), transparent 70%);
+  filter: blur(18px);
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+.ir-page-hero-shell {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(300px, 0.55fr);
+  align-items: center;
+  gap: clamp(32px, 5vw, 72px);
+}
+
+.ir-page-hero-center .ir-page-hero-shell {
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 980px;
+  text-align: center;
+}
+
+.ir-page-hero-center .ir-page-hero-copy,
+.ir-page-hero-center .ir-page-hero-subtitle,
+.ir-page-hero-center .ir-page-hero-meta,
+.ir-page-hero-center .ir-page-hero-actions,
+.ir-page-hero-center .ir-section-kicker {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ir-page-hero-copy {
+  display: grid;
+  gap: clamp(16px, 2.2vw, 22px);
+  max-width: 940px;
+}
+
+.ir-page-hero-title {
+  max-width: 980px;
+  margin: 0;
+  color: var(--text-heading);
+  font-family: var(--font-heading), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: clamp(2.45rem, 5vw + 0.15rem, 5.15rem);
+  font-weight: 900;
+  line-height: 0.99;
+  letter-spacing: -0.048em;
+  text-wrap: balance;
+  text-shadow:
+    0 22px 60px rgba(10, 141, 255, 0.08),
+    0 18px 58px rgba(255, 79, 163, 0.06);
+}
+
+.ir-page-hero-subtitle,
+.ir-page-hero-copy-after {
+  max-width: 780px;
+  color: rgba(235, 237, 247, 0.82);
+  font-size: clamp(1.02rem, 0.55vw + 0.95rem, 1.2rem);
+  line-height: 1.74;
+}
+
+.ir-page-hero-copy-after {
+  display: grid;
+  gap: 16px;
+  max-width: 900px;
+}
+
+.ir-page-hero-subtitle p,
+.ir-page-hero-subtitle div,
+.ir-page-hero-subtitle span,
+.ir-page-hero-copy-after p,
+.ir-page-hero-copy-after div,
+.ir-page-hero-copy-after span {
+  color: inherit;
+}
+
+.ir-page-hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 0.93rem;
+  font-weight: 700;
+}
+
+.ir-page-hero-meta > * {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ir-page-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding-top: 4px;
+}
+
+.ir-page-hero-panel {
+  position: relative;
+  min-width: 0;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: clamp(24px, 3vw, 34px);
+  background:
+    radial-gradient(ellipse 80% 56% at 18% 0%, rgba(10, 141, 255, 0.12), transparent 68%),
+    radial-gradient(ellipse 74% 54% at 96% 10%, rgba(255, 79, 163, 0.09), transparent 72%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.026)),
+    rgba(14, 14, 22, 0.92);
+  box-shadow: var(--shadow-premium-strong);
+  padding: clamp(24px, 3.3vw, 34px);
+  overflow: hidden;
+}
+
+.ir-page-hero-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    linear-gradient(120deg, rgba(255, 255, 255, 0.16), transparent 28%, transparent 72%, rgba(255, 255, 255, 0.07)),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.075), transparent 44%);
+  opacity: 0.76;
+}
+
+.ir-page-hero-panel > * {
+  position: relative;
+  z-index: 1;
+}
+
+.ir-page-hero-panel h2,
+.ir-page-hero-panel h3 {
+  margin: 0;
+  font-size: clamp(1.35rem, 1.8vw + 0.75rem, 2rem);
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+}
+
+.ir-page-hero-panel p {
+  color: rgba(235, 237, 247, 0.78);
+  line-height: 1.65;
+}
+
+.ir-hero-panel-list,
+.ir-page-hero-panel ul {
+  display: grid;
+  gap: 10px;
+  margin: 18px 0 22px;
+  padding: 0;
+  list-style: none;
+}
+
+.ir-hero-panel-list li,
+.ir-page-hero-panel ul li {
+  position: relative;
+  padding: 10px 12px 10px 34px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.045);
+  color: rgba(255, 255, 255, 0.84);
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.ir-hero-panel-list li::before,
+.ir-page-hero-panel ul li::before {
+  content: "";
+  position: absolute;
+  left: 13px;
+  top: 50%;
+  width: 10px;
+  height: 6px;
+  border-left: 2px solid var(--brand-blue);
+  border-bottom: 2px solid var(--brand-pink);
+  transform: translateY(-58%) rotate(-45deg);
+}
+
+.ir-section,
+.ir-chapter-section,
+.section-divider {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.ir-section,
+.ir-chapter-section {
+  padding: clamp(76px, 10vw, 126px) 0;
+  background: var(--bg-base);
+}
+
+.ir-section::before,
+.ir-chapter-section::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 50%;
+  z-index: 2;
+  width: min(1180px, calc(100% - 32px));
+  height: 1px;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, transparent, rgba(10, 141, 255, 0.42), rgba(123, 92, 255, 0.52), rgba(255, 79, 163, 0.4), transparent);
+  box-shadow: 0 20px 58px rgba(123, 92, 255, 0.16);
+}
+
+.ir-section-shell {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  gap: clamp(30px, 5vw, 58px);
+}
+
+.ir-section-head {
+  display: grid;
+  gap: 14px;
+  max-width: 850px;
+}
+
+.ir-section-head-center {
+  margin-inline: auto;
+  text-align: center;
+  justify-items: center;
+}
+
+.ir-section-head h2 {
+  margin: 0;
+  font-size: clamp(2rem, 3.4vw + 0.45rem, 4.15rem);
+  line-height: 1.02;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+}
+
+.ir-section-head p {
+  max-width: 760px;
+  color: rgba(235, 237, 247, 0.78);
+  font-size: clamp(1rem, 0.45vw + 0.96rem, 1.15rem);
+  line-height: 1.72;
+}
+
+.ir-card,
+.ir-glass,
+.ir-bento-card,
+.ir-card-premium,
+.ir-card-featured {
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: clamp(20px, 2.4vw, 28px);
+  background: var(--surface-premium-deep);
+  box-shadow: var(--shadow-premium);
+  overflow: hidden;
+}
+
+.ir-card::before,
+.ir-glass::before,
+.ir-bento-card::before,
+.ir-card-premium::before,
+.ir-card-featured::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    linear-gradient(120deg, rgba(255, 255, 255, 0.12), transparent 28%, transparent 72%, rgba(255, 255, 255, 0.045)),
+    radial-gradient(ellipse 90% 60% at 8% 0%, rgba(10, 141, 255, 0.07), transparent 66%);
+  opacity: 0.72;
+}
+
+.ir-card > *,
+.ir-glass > *,
+.ir-bento-card > *,
+.ir-card-premium > *,
+.ir-card-featured > * {
+  position: relative;
+  z-index: 1;
+}
+
+.ir-card-premium,
+.ir-card-featured,
+.ir-bento-card-featured {
+  border-color: rgba(123, 92, 255, 0.3);
+  box-shadow: var(--shadow-premium-strong);
+}
+
+.ir-glass-real {
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.105), rgba(255, 255, 255, 0.032)),
+    rgba(14, 14, 22, 0.72);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  backdrop-filter: blur(16px) saturate(140%);
+}
+
+.ir-bento-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: clamp(14px, 2vw, 22px);
+}
+
+.ir-bento-card {
+  min-height: 240px;
+  padding: clamp(22px, 3vw, 34px);
+  transition:
+    transform var(--duration-normal) var(--ease-out),
+    border-color var(--duration-normal) var(--ease-out),
+    box-shadow var(--duration-normal) var(--ease-out),
+    background var(--duration-normal) var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .ir-bento-card:hover,
+  .ir-card:hover,
+  .ir-glass:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 255, 255, 0.18);
+    box-shadow: var(--shadow-premium-strong);
+  }
+}
+
+.ir-orb-field {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 46% 36% at 12% 4%, rgba(10, 141, 255, 0.16), transparent 72%),
+    radial-gradient(ellipse 42% 34% at 88% 8%, rgba(123, 92, 255, 0.14), transparent 72%),
+    radial-gradient(ellipse 42% 34% at 76% 92%, rgba(255, 79, 163, 0.1), transparent 74%);
+  opacity: 0.92;
+}
+
+.ir-orb-field-hero {
+  background:
+    radial-gradient(ellipse 52% 42% at 13% 2%, rgba(10, 141, 255, 0.2), transparent 70%),
+    radial-gradient(ellipse 45% 40% at 88% 8%, rgba(255, 79, 163, 0.12), transparent 72%),
+    radial-gradient(ellipse 58% 42% at 50% 105%, rgba(123, 92, 255, 0.12), transparent 74%);
+}
+
+.ir-orb-field-soft {
+  opacity: 0.58;
+}
+
+.ir-chapter-divider {
+  position: relative;
+  height: 1px;
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+  background: linear-gradient(90deg, transparent, rgba(10, 141, 255, 0.42), rgba(123, 92, 255, 0.5), rgba(255, 79, 163, 0.36), transparent);
+  box-shadow:
+    0 12px 38px rgba(123, 92, 255, 0.18),
+    0 24px 70px rgba(10, 141, 255, 0.08);
+}
+
+.blog-back-link {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.blog-post-summary-nav {
+  display: grid;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.blog-post-summary-nav a {
+  padding: 10px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.045);
+  color: rgba(255, 255, 255, 0.82);
+  font-weight: 700;
+}
+
+/* Legacy compatibility: bring older page-specific cards into the same material system. */
+:is(
+  .services-stat,
+  .services-copy-card,
+  .services-compare-card,
+  .services-bureau-card,
+  .services-closing-card,
+  .pricing-copy-card,
+  .pricing-faq-card,
+  .pricing-testimonial-card,
+  .pricing-closing-card,
+  .results-stat-card,
+  .results-case-card,
+  .results-snapshot-card,
+  .results-trust-card,
+  .results-closing-card,
+  .about-copy-card,
+  .about-audience-card,
+  .about-values-card,
+  .about-closing-card,
+  .how-page-hero-panel,
+  .how-page-step,
+  .how-page-card,
+  .how-page-closing-card,
+  .compare-hero-panel,
+  .compare-card,
+  .compare-table-wrap,
+  .compare-closing-card,
+  .faq-page-item,
+  .experian-copy-card,
+  .experian-pain-card,
+  .experian-fit-card,
+  .experian-process-card,
+  .experian-proof-card,
+  .experian-faq-card,
+  .experian-closing-card,
+  .equifax-copy-card,
+  .equifax-pain-card,
+  .equifax-fit-card,
+  .equifax-process-card,
+  .equifax-proof-card,
+  .equifax-faq-card,
+  .equifax-closing-card,
+  .transunion-copy-card,
+  .transunion-pain-card,
+  .transunion-fit-card,
+  .transunion-process-card,
+  .transunion-proof-card,
+  .transunion-faq-card,
+  .transunion-closing-card
+) {
+  border-color: rgba(255, 255, 255, 0.12);
+  background: var(--surface-premium-deep);
+  box-shadow: var(--shadow-premium);
+}
+
+:is(
+  .services-closing-card,
+  .pricing-closing-card,
+  .results-closing-card,
+  .about-closing-card,
+  .how-page-closing-card,
+  .compare-closing-card,
+  .experian-closing-card,
+  .equifax-closing-card,
+  .transunion-closing-card
+) {
+  border-color: rgba(123, 92, 255, 0.3);
+  box-shadow: var(--shadow-premium-strong);
+}
+
+:is(
+  .about-copy-head,
+  .how-page-head,
+  .results-head,
+  .services-section-head,
+  .services-copy-head,
+  .compare-head,
+  .pricing-section-head,
+  .pricing-copy-head,
+  .experian-copy-head,
+  .equifax-copy-head,
+  .transunion-copy-head,
+  .quiz-head
+) h2:not(.sr-only) {
+  font-size: clamp(2rem, 3.2vw + 0.45rem, 3.85rem);
+  line-height: 1.03;
+  letter-spacing: -0.044em;
+  text-wrap: balance;
+}
+
+@supports (content-visibility: auto) {
+  .ir-section,
+  .ir-chapter-section {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 900px;
+  }
+}
+
+@media (max-width: 980px) {
+  .ir-page-hero-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .ir-page-hero-panel {
+    max-width: 720px;
+  }
+}
+
+@media (max-width: 760px) {
+  .ir-page-hero {
+    padding: clamp(58px, 16vw, 84px) 0 clamp(44px, 12vw, 64px);
+  }
+
+  .ir-page-hero-title {
+    font-size: clamp(2.18rem, 10.7vw, 3.55rem);
+    line-height: 1.01;
+    letter-spacing: -0.044em;
+  }
+
+  .ir-page-hero-subtitle {
+    font-size: 1rem;
+    line-height: 1.68;
+  }
+
+  .ir-page-hero-panel {
+    padding: 22px;
+    border-radius: 24px;
+  }
+
+  .ir-section,
+  .ir-chapter-section {
+    padding: 68px 0;
+  }
+
+  .ir-section-kicker {
+    max-width: 100%;
+    white-space: normal;
+    line-height: 1.2;
+  }
+
+  .ir-page-hero-actions .btn {
+    width: 100%;
+  }
+
+  .ir-bento-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ir-page-hero-meta {
+    align-items: stretch;
+  }
+
+  .ir-page-hero-meta > * {
+    width: 100%;
+    justify-content: center;
+    padding: 10px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.04);
+  }
+}
+
+/* Phase 1 card unification sweep for older component/page-specific surfaces. */
+:is(
+  .about-card,
+  .about-cta-card,
+  .about-different-card,
+  .about-value-card,
+  .blog-article-card,
+  .blog-card,
+  .blog-empty,
+  .bureau-visual-card,
+  .compare-fit-card,
+  .compare-story-card,
+  .diff-card,
+  .guarantee-card,
+  .how-page-column,
+  .how-page-complication-card,
+  .how-page-copy-card,
+  .how-page-cta-card,
+  .how-page-step-card,
+  .how-page-success-card,
+  .how-step-card,
+  .pain-card,
+  .pricing-scenario-card,
+  .pricing-total-card,
+  .pricing-value-anchor,
+  .qualifier-card,
+  .quiz-panel,
+  .results-bab-panel,
+  .results-copy-card,
+  .results-cta-card,
+  .results-filter-panel,
+  .results-testimonial-card,
+  .trust-stat
+) {
+  border-color: rgba(255, 255, 255, 0.12);
+  background: var(--surface-premium-deep);
+  box-shadow: var(--shadow-premium);
+}
+
+:is(
+  .about-cta-card,
+  .compare-fit-card-strong,
+  .how-page-cta-card,
+  .pricing-guarantee-card,
+  .results-cta-card,
+  .quiz-confirmation
+) {
+  border-color: rgba(123, 92, 255, 0.3);
+  box-shadow: var(--shadow-premium-strong);
+}
+
+/* ============================================================
+   PHASE 2 — CONVERSION OS + PREMIUM POLISH
+   CSS-only, mobile-first, speed-safe upgrades.
+   ============================================================ */
+
+:root {
+  --elevation-1:
+    0 1px 0 rgba(255, 255, 255, 0.06) inset,
+    0 10px 28px rgba(0, 0, 0, 0.34);
+  --elevation-2:
+    0 1px 0 rgba(255, 255, 255, 0.08) inset,
+    0 18px 44px rgba(0, 0, 0, 0.42),
+    0 0 42px rgba(123, 92, 255, 0.08);
+  --elevation-3:
+    0 1px 0 rgba(255, 255, 255, 0.1) inset,
+    0 28px 80px rgba(0, 0, 0, 0.52),
+    0 0 66px rgba(10, 141, 255, 0.12),
+    0 0 80px rgba(255, 79, 163, 0.06);
+  --glass-border: rgba(255, 255, 255, 0.13);
+  --glass-highlight: rgba(255, 255, 255, 0.08);
+  --glass-surface:
+    radial-gradient(circle at 14% 0%, rgba(10, 141, 255, 0.1), transparent 30%),
+    radial-gradient(circle at 94% 4%, rgba(255, 79, 163, 0.08), transparent 32%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.078), rgba(255, 255, 255, 0.024)),
+    rgba(13, 13, 20, 0.94);
+}
