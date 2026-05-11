@@ -1,0 +1,15 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import GetStartedPage, { metadata } from "../../app/get-started/page";
+
+const meta = metadata as any;
+---
+
+<BaseLayout
+  title={meta.title.absolute}
+  description={meta.description}
+  canonicalPath={meta.alternates.canonical}
+  pathname={Astro.url.pathname}
+>
+  <GetStartedPage client:load />
+</BaseLayout>
