@@ -1,0 +1,17 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import AboutPage, { metadata } from "../../app/about/page";
+import { aboutPagePersonSchema } from "@/lib/schema";
+
+const meta = metadata as any;
+---
+
+<BaseLayout
+  title={meta.title.absolute}
+  description={meta.description}
+  canonicalPath={meta.alternates.canonical}
+  schema={aboutPagePersonSchema}
+  pathname={Astro.url.pathname}
+>
+  <AboutPage />
+</BaseLayout>

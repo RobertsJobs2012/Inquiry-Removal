@@ -1,0 +1,15 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import FAQPage, { metadata } from "../../app/faq/page";
+
+const meta = metadata as any;
+---
+
+<BaseLayout
+  title={meta.title.absolute}
+  description={meta.description}
+  canonicalPath={meta.alternates.canonical}
+  pathname={Astro.url.pathname}
+>
+  <FAQPage />
+</BaseLayout>
