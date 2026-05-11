@@ -1,0 +1,17 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ResultsPage, { metadata } from "../../app/results/page";
+import { resultsPageSchema } from "@/lib/schema";
+
+const meta = metadata as any;
+---
+
+<BaseLayout
+  title={meta.title.absolute}
+  description={meta.description}
+  canonicalPath={meta.alternates.canonical}
+  schema={resultsPageSchema}
+  pathname={Astro.url.pathname}
+>
+  <ResultsPage client:load />
+</BaseLayout>

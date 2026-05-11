@@ -1,0 +1,15 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import EquifaxPage, { metadata } from "../../app/remove-hard-inquiry-equifax/page";
+
+const meta = metadata as any;
+---
+
+<BaseLayout
+  title={meta.title.absolute}
+  description={meta.description}
+  canonicalPath={meta.alternates.canonical}
+  pathname={Astro.url.pathname}
+>
+  <EquifaxPage />
+</BaseLayout>
