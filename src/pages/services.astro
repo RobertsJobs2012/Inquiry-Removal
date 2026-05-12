@@ -1,0 +1,19 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ServicesPage, { metadata } from "../../app/services/page";
+import { servicesPageSchema } from "@/lib/schema";
+import "../styles/pages/services.css";
+import "../styles/heading-system.css";
+
+const meta = metadata as any;
+---
+
+<BaseLayout
+  title={meta.title.absolute}
+  description={meta.description}
+  canonicalPath={meta.alternates.canonical}
+  schema={servicesPageSchema}
+  pathname={Astro.url.pathname}
+>
+  <ServicesPage />
+</BaseLayout>

@@ -1,0 +1,65 @@
+---
+import { localBusinessSchema, organizationSchema, websiteSchema } from "@/lib/schema";
+import MobileDock from "../components/MobileDock.astro";
+import "../styles/global.css";
+
+const {
+  title,
+  description,
+  canonicalPath,
+  ogImage = "https://www.inquiryremoval.com/inquiry-removal-logo.avif",
+  schema = [],
+  pathname = "/",
+} = Astro.props;
+
+function normalizeCanonicalPath(path = "/") {
+  const cleanPath = path || "/";
+  const [pathnameWithMaybeHash, search = ""] = cleanPath.split("?");
+  const [pathnameOnly, hash = ""] = pathnameWithMaybeHash.split("#");
+  const lastSegment = pathnameOnly.split("/").filter(Boolean).pop() || "";
+  const looksLikeFile = /\.[a-z0-9]{2,8}$/i.test(lastSegment);
+  const normalizedPath = pathnameOnly === "/" || looksLikeFile || pathnameOnly.endsWith("/")
+    ? pathnameOnly
+    : `${pathnameOnly}/`;
+  return `${normalizedPath}${hash ? `#${hash}` : ""}${search ? `?${search}` : ""}`;
+}
+
+const pageUrl = new URL(normalizeCanonicalPath(canonicalPath), "https://www.inquiryremoval.com").toString();
+const extraSchema = Array.isArray(schema) ? schema : [schema];
+const schemaPayload = [organizationSchema, localBusinessSchema, websiteSchema, ...extraSchema].filter(Boolean);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={pageUrl} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:url" content={pageUrl} />
+    <meta property="og:site_name" content="Inquiry Removal" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="theme-color" content="#0A0A0F" />
+    <link rel="icon" href="/favicon.png" sizes="64x64" type="image/png" />
+    <link rel="icon" href="/favicon-32x32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+    {
+      schemaPayload.map((item) => (
+        <script is:inline type="application/ld+json" set:html={JSON.stringify(item)} />
+      ))
+    }
+  </head>
+  <body>
+    <a href="#main" class="skip-link">Skip to main content</a>
+    <slot />
+    <MobileDock pathname={pathname} />
+  </body>
+</html>
