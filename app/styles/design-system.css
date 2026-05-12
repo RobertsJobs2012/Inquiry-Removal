@@ -1,0 +1,1267 @@
+/* Shared design-system primitives, conversion UX, mobile, and performance polish. */
+/* Shared glass and icon capsules */
+.ir-icon-capsule,
+.premium-icon-capsule {
+  width: 48px;
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  color: #ffffff;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.03)),
+    rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.12) inset,
+    0 16px 34px rgba(0, 0, 0, 0.36),
+    0 0 28px rgba(123, 92, 255, 0.16);
+  position: relative;
+  isolation: isolate;
+}
+
+.ir-icon-capsule::before,
+.premium-icon-capsule::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: var(--brand-gradient);
+  opacity: 0.48;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.ir-glass,
+.ir-bento-card,
+.ir-card,
+.ir-card-premium {
+  background: var(--glass-surface);
+  border-color: var(--glass-border);
+  box-shadow: var(--elevation-2);
+}
+
+.ir-glass-real {
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+}
+
+.ir-bento-card,
+.ir-card,
+.ir-card-premium,
+.ir-glass {
+  transition:
+    transform var(--duration-normal) var(--ease-out),
+    border-color var(--duration-normal) var(--ease-out),
+    box-shadow var(--duration-normal) var(--ease-out),
+    background var(--duration-normal) var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .ir-bento-card:hover,
+  .ir-card:hover,
+  .ir-card-premium:hover,
+  .ir-glass:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 255, 255, 0.18);
+    box-shadow: var(--elevation-3);
+  }
+}
+
+/* Announcement bar */
+.dismiss-checkbox {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  width: 0;
+  height: 0;
+}
+
+.announcement-bar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 44px 0 16px;
+  color: var(--text-heading);
+  background:
+    linear-gradient(90deg, rgba(10, 141, 255, 0.18), rgba(123, 92, 255, 0.18), rgba(255, 79, 163, 0.16)),
+    rgba(5, 5, 8, 0.96);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.26);
+  backdrop-filter: blur(8px) saturate(135%);
+  -webkit-backdrop-filter: blur(8px) saturate(135%);
+  transition: transform 280ms var(--ease-out), min-height 280ms var(--ease-out), height 280ms var(--ease-out);
+  overflow: hidden;
+}
+
+.dismiss-checkbox:checked ~ .announcement-bar {
+  height: 0;
+  min-height: 0;
+  transform: translateY(-100%);
+  border: none;
+}
+
+.announcement-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-width: 0;
+  font-size: 13px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.announcement-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 8px;
+  border-radius: 999px;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-weight: 800;
+}
+
+.announcement-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: rgba(255, 255, 255, 0.82);
+  font-weight: 600;
+}
+
+.announcement-divider {
+  color: rgba(255, 255, 255, 0.32);
+}
+
+.announcement-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 900;
+  background: var(--brand-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.announcement-close {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.62);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background var(--duration-fast) var(--ease-out), color var(--duration-fast) var(--ease-out);
+}
+
+.announcement-close:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+/* Floating command nav */
+/* Nav base — visual overrides live in component-legacy.css Phase 21 block */
+.site-header {
+  position: sticky;
+  top: 42px;
+  z-index: 900;
+  width: 100%;
+  transition: top 280ms var(--ease-out);
+}
+
+.dismiss-checkbox:checked ~ .site-header {
+  top: 0;
+}
+
+.nav-menu-state {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.site-nav {
+  max-width: min(var(--container-max), calc(100vw - 32px));
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.nav-logo {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+}
+
+.nav-links {
+  display: none;
+  list-style: none;
+  gap: 18px;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-item {
+  position: relative;
+}
+
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 44px;
+  padding: 10px 4px;
+  font-size: 16px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.74);
+  transition:
+    color var(--duration-fast) var(--ease-out),
+    background var(--duration-fast) var(--ease-out);
+}
+
+.nav-link:hover,
+.nav-item:focus-within > .nav-link {
+  color: #ffffff;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.nav-phone {
+  display: none;
+  align-items: center;
+  gap: 7px;
+  min-height: 40px;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.78);
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.nav-phone:hover {
+  color: #ffffff;
+}
+
+.nav-cta {
+  min-height: 42px;
+  padding: 10px 19px;
+  font-size: 14px;
+  display: none;
+}
+
+.nav-menu-toggle,
+.mobile-menu-close {
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  transition: background var(--duration-fast) var(--ease-out);
+}
+
+
+.mobile-menu-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 79;
+  background: rgba(0, 0, 0, 0.64);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 220ms var(--ease-out);
+}
+
+.mobile-menu-backdrop.is-open,
+.nav-menu-state:checked ~ .mobile-menu-backdrop {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  width: 100%;
+  height: 100dvh;
+  margin: 0;
+  padding: 22px;
+  padding-top: calc(104px + env(safe-area-inset-top));
+  padding-bottom: calc(22px + env(safe-area-inset-bottom));
+  color: var(--text-body);
+  background:
+    radial-gradient(ellipse 68% 38% at 16% 0%, rgba(10, 141, 255, 0.14), transparent 66%),
+    radial-gradient(ellipse 62% 40% at 84% 8%, rgba(255, 79, 163, 0.11), transparent 70%),
+    linear-gradient(180deg, rgba(12, 13, 22, 0.985) 0%, rgba(7, 8, 14, 0.995) 100%);
+  border: none;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(10px);
+  transition:
+    opacity 220ms var(--ease-out),
+    transform 220ms var(--ease-out),
+    visibility 220ms var(--ease-out);
+}
+
+.mobile-menu.is-open,
+.nav-menu-state:checked ~ .mobile-menu {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.dismiss-checkbox:checked ~ .mobile-menu {
+  padding-top: calc(72px + env(safe-area-inset-top));
+}
+
+.mobile-menu-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin: 0;
+  padding: 0;
+}
+
+.mobile-menu-links > li {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.mobile-menu-links a,
+.mobile-menu-group-toggle {
+  width: 100%;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 17px 4px;
+  color: #ffffff;
+  font-family: var(--font-heading), sans-serif;
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  background: transparent;
+  border: 0;
+  text-align: left;
+}
+
+.mobile-menu-group-toggle {
+  cursor: pointer;
+  list-style: none;
+}
+
+.mobile-menu-group-toggle::-webkit-details-marker {
+  display: none;
+}
+
+.mobile-menu-group-chevron {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.8);
+  transition: transform 180ms var(--ease-out), color 180ms var(--ease-out);
+}
+
+.mobile-menu-group-chevron.is-open,
+.mobile-menu-details[open] .mobile-menu-group-chevron {
+  transform: rotate(180deg);
+  color: #ffffff;
+}
+
+.mobile-menu-sub-links {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 8px;
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 200ms var(--ease-out), opacity 200ms var(--ease-out);
+  opacity: 0;
+}
+
+.mobile-menu-sub-links.is-open,
+.mobile-menu-details[open] .mobile-menu-sub-links {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.mobile-menu-sub-links > li {
+  overflow: hidden;
+}
+
+.mobile-menu-sub-link a {
+  min-height: 50px;
+  padding: 0 4px 0 18px;
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.mobile-menu-sub-link:first-child a {
+  padding-top: 6px;
+}
+
+.mobile-menu-sub-link:last-child a {
+  padding-bottom: 4px;
+}
+
+.mobile-menu-footer {
+  display: grid;
+  gap: 10px;
+  padding-top: 22px;
+  margin-top: auto;
+}
+
+.mobile-menu-phone,
+.mobile-menu .btn-primary {
+  width: 100%;
+  min-height: 54px;
+}
+
+.mobile-menu-phone {
+  border-radius: 18px;
+}
+
+.mobile-menu-consult {
+  width: 100%;
+  min-height: 54px;
+  border-radius: 18px;
+}
+
+
+@media (max-width: 640px) {
+  .announcement-bar {
+    min-height: 38px;
+    padding: 0 38px 0 10px;
+  }
+  .announcement-inner {
+    gap: 7px;
+    font-size: 12px;
+  }
+  .announcement-mobile-hide,
+  .announcement-divider {
+    display: none;
+  }
+  .announcement-pill {
+    padding: 4px 7px;
+  }
+}
+
+/* Mobile conversion dock */
+.mobile-conversion-dock {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 880;
+  display: none;
+  padding: 10px 12px 0;
+  pointer-events: none;
+}
+
+/* Gradient veil above the dock — content fades out instead of hard-cutting */
+.mobile-conversion-dock::before {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  right: 0;
+  height: 56px;
+  background: linear-gradient(to top, var(--bg-base), transparent);
+  pointer-events: none;
+}
+
+.mobile-conversion-dock-inner {
+  pointer-events: auto;
+  width: min(100%, 560px);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 0.78fr 0.78fr 1.35fr;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 24px 24px 0 0;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.035)),
+    rgba(8, 8, 13, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.1) inset,
+    0 -12px 42px rgba(0, 0, 0, 0.5),
+    0 0 54px rgba(123, 92, 255, 0.16);
+  backdrop-filter: blur(16px) saturate(145%);
+  -webkit-backdrop-filter: blur(16px) saturate(145%);
+}
+
+.mobile-dock-action {
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border-radius: 17px;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.mobile-dock-action-secondary {
+  background: rgba(255, 255, 255, 0.065);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mobile-dock-action-primary {
+  background: var(--brand-gradient);
+  box-shadow: var(--shadow-cta);
+}
+
+.mobile-dock-icon {
+  display: inline-flex;
+}
+
+@media (max-width: 860px) {
+  .mobile-conversion-dock {
+    display: block;
+  }
+  body {
+    padding-bottom: 72px;
+  }
+}
+
+/* Chapter dividers and scene transitions */
+.ir-chapter-section {
+  position: relative;
+}
+
+.ir-chapter-section::before {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(10, 141, 255, 0.44), rgba(123, 92, 255, 0.52), rgba(255, 79, 163, 0.38), transparent);
+  box-shadow:
+    0 16px 44px rgba(123, 92, 255, 0.18),
+    0 32px 90px rgba(10, 141, 255, 0.08);
+}
+
+.ir-chapter-section::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: min(620px, 70vw);
+  height: 78px;
+  transform: translateX(-50%);
+  pointer-events: none;
+  background: radial-gradient(ellipse at top, rgba(123, 92, 255, 0.18), transparent 64%);
+  opacity: 0.7;
+  z-index: 0;
+}
+
+.ir-section-shell,
+.ir-page-hero-shell {
+  position: relative;
+  z-index: 1;
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  .ir-bento-card,
+  .ir-card,
+  .ir-card-premium,
+  .ir-glass,
+  .nav-link,
+  .mobile-menu,
+  .mobile-menu::backdrop {
+    transition: none !important;
+  }
+}
+
+@media (min-width: 1080px) {
+  .nav-links {
+    display: flex;
+  }
+
+  .nav-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav-menu-toggle {
+    display: none;
+  }
+}
+
+/* Guard new global sections from older page-level section reset rules. */
+:is(.pricing-page, .services-page, .results-page, .about-page, .how-page, .compare-page, .faq-page, .experian-page, .equifax-page, .transunion-page) .ir-section {
+  padding: clamp(76px, 10vw, 124px) 0 !important;
+}
+
+@media (max-width: 760px) {
+  :is(.pricing-page, .services-page, .results-page, .about-page, .how-page, .compare-page, .faq-page, .experian-page, .equifax-page, .transunion-page) .ir-section {
+    padding: 68px 0 !important;
+  }
+}
+
+/* Phase 3: mobile-first conversion and performance-safe polish */
+
+
+
+
+
+@media (prefers-reduced-motion: reduce) {
+  @supports (view-transition-name: none) {
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+      animation-duration: 1ms;
+    }
+  }
+
+  .ir-chapter-section .ir-section-head,
+  .ir-chapter-section .ir-bento-card,
+  .ir-chapter-section .ir-glass,
+  .ir-chapter-section::before {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
+/* ============================================================
+   Imported from former system-alignment.css
+   Kept here as the final production design-system alignment layer.
+   ============================================================ */
+
+/* ============================================================
+   Phase 8 Design-System Alignment
+   Purpose: lock the site into one visual language without adding content.
+   Imported last on purpose so the system rules win over older page/component CSS.
+   ============================================================ */
+
+:root {
+  --ir-h1-size: clamp(2.45rem, 5vw + 0.15rem, 5.15rem);
+  --ir-h1-line: 0.99;
+  --ir-h1-track: -0.048em;
+  --ir-h2-size: clamp(2rem, 3vw + 0.85rem, 4.25rem);
+  --ir-h2-line: 1.04;
+  --ir-h2-track: -0.045em;
+  --ir-h3-size: clamp(1.18rem, 1vw + 0.95rem, 1.75rem);
+  --ir-h3-line: 1.16;
+  --ir-h3-track: -0.026em;
+  --ir-section-y-sm: clamp(48px, 6vw, 72px);
+  --ir-section-y-md: clamp(72px, 8vw, 104px);
+  --ir-section-y-lg: clamp(88px, 10vw, 132px);
+  --ir-hero-y-top: clamp(76px, 9vw, 126px);
+  --ir-hero-y-bottom: clamp(58px, 7vw, 86px);
+  --ir-card-radius: 28px;
+  --ir-card-radius-lg: 34px;
+  --ir-card-padding: clamp(22px, 2.4vw, 32px);
+  --ir-card-bg: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.018)), rgba(16,17,27,0.95);
+  --ir-card-bg-hover: radial-gradient(circle at 100% 0%, rgba(123,92,255,0.08), transparent 34%), linear-gradient(180deg, rgba(255,255,255,0.052), rgba(255,255,255,0.02)), rgba(16,17,27,0.97);
+  --ir-card-border: rgba(255,255,255,0.085);
+  --ir-card-border-hover: rgba(123,92,255,0.28);
+  --ir-card-shadow: inset 0 1px 0 rgba(255,255,255,0.05), 0 20px 48px rgba(0,0,0,0.26);
+  --ir-card-shadow-hover: inset 0 1px 0 rgba(255,255,255,0.07), 0 28px 72px rgba(0,0,0,0.34), 0 0 46px rgba(123,92,255,0.08);
+  --ir-icon-size-sm: 38px;
+  --ir-icon-size-md: 48px;
+  --ir-icon-size-lg: 58px;
+}
+
+/* ---------- Typography lock ---------- */
+main h1:not(.sr-only),
+.ir-page-hero-title,
+.hero-headline,
+.get-started-copy h1 {
+  font-family: var(--font-heading), sans-serif;
+  font-size: var(--ir-h1-size);
+  line-height: var(--ir-h1-line);
+  letter-spacing: var(--ir-h1-track);
+  text-wrap: balance;
+}
+
+main h2:not(.sr-only),
+.ir-section-head h2,
+.bento-header h2,
+.proof-header h2,
+.faq-header h2,
+.how-header h2,
+.final-cta-headline,
+.guarantee-headline,
+.get-started-card h2 {
+  font-family: var(--font-heading), sans-serif;
+  font-size: var(--ir-h2-size);
+  line-height: var(--ir-h2-line);
+  letter-spacing: var(--ir-h2-track);
+  text-wrap: balance;
+  color: var(--text-heading);
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  -webkit-text-fill-color: currentColor;
+}
+
+main h3:not(.sr-only),
+.bento-title,
+.how-step-headline,
+.proof-name,
+.pricing-card-title,
+.services-card-title,
+.faq-question-text {
+  font-family: var(--font-heading), sans-serif;
+  font-size: var(--ir-h3-size);
+  line-height: var(--ir-h3-line);
+  letter-spacing: var(--ir-h3-track);
+  color: var(--text-heading);
+}
+
+/* Keep H1 gradient accents, but stop H2/H3 gradient drift. */
+main h2 .ir-gradient-text,
+main h2 .gradient-text,
+main h3 .ir-gradient-text,
+main h3 .gradient-text {
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  -webkit-text-fill-color: currentColor;
+  color: inherit;
+}
+
+/* ---------- Hero rhythm ---------- */
+.ir-page-hero {
+  padding-top: var(--ir-hero-y-top);
+  padding-bottom: var(--ir-hero-y-bottom);
+}
+
+.ir-page-hero-shell {
+  gap: clamp(34px, 5vw, 68px);
+  align-items: center;
+}
+
+.ir-page-hero-copy {
+  gap: 18px;
+}
+
+.ir-page-hero-subtitle,
+.hero-subheadline,
+.get-started-copy > p,
+.ir-section-head p,
+.proof-header p,
+.how-subtitle {
+  color: var(--text-body);
+  line-height: 1.72;
+}
+
+/* Homepage remains custom, but follows the same vertical rhythm. */
+.hero {
+  padding-top: clamp(70px, 8.5vw, 118px);
+  padding-bottom: clamp(74px, 8vw, 120px);
+}
+
+/* ---------- Section rhythm ---------- */
+.section-divider,
+.problem,
+.solution,
+.how,
+.proof,
+.bento,
+.guarantee,
+.final-cta,
+.faq,
+.trust,
+.services-plans,
+.pricing-tiers,
+.pricing-roi,
+.pricing-value,
+.pricing-guarantee,
+.pricing-faq,
+.pricing-testimonials,
+.pricing-closing,
+.results-case-studies,
+.results-gallery,
+.results-filters,
+.results-reviews,
+.results-disclaimer,
+.results-cta,
+.about-cta,
+.services-closing,
+.how-page-cta {
+  padding-top: var(--ir-section-y-md) !important;
+  padding-bottom: var(--ir-section-y-md) !important;
+}
+
+.trust,
+.services-trust-strip,
+.equifax-trust,
+.experian-trust,
+.transunion-trust {
+  padding-top: var(--ir-section-y-sm) !important;
+  padding-bottom: var(--ir-section-y-sm) !important;
+}
+
+.section-divider::before {
+  opacity: 0.72;
+}
+
+/* ---------- Universal card/bento material ---------- */
+:is(
+  .bento-tile,
+  .proof-card,
+  .how-step-card,
+  .pricing-card,
+  .pricing-plan-card,
+  .pricing-tier,
+  .pricing-guarantee-card,
+  .services-stat,
+  .services-compare-card,
+  .services-bureau-card,
+  .services-consult-card,
+  .services-closing-card,
+  .results-stat-card,
+  .results-case-card,
+  .results-gallery-card,
+  .results-review-card,
+  .about-copy-card,
+  .about-card,
+  .about-value-card,
+  .compare-company-card,
+  .compare-story-card,
+  .compare-fit-card,
+  .experian-proof-card,
+  .experian-faq-card,
+  .experian-closing-card,
+  .equifax-proof-card,
+  .equifax-faq-card,
+  .equifax-closing-card,
+  .transunion-proof-card,
+  .transunion-faq-card,
+  .transunion-closing-card,
+  .ir-quick-path-card,
+  .faq-item
+) {
+  border-radius: var(--ir-card-radius) !important;
+  border: 1px solid var(--ir-card-border) !important;
+  background: var(--ir-card-bg) !important;
+  box-shadow: var(--ir-card-shadow) !important;
+}
+
+:is(
+  .bento-tile,
+  .proof-card,
+  .how-step-card,
+  .pricing-card,
+  .pricing-plan-card,
+  .pricing-tier,
+  .services-bureau-card,
+  .results-gallery-card,
+  .about-card,
+  .about-value-card,
+  .compare-company-card,
+  .compare-story-card,
+  .ir-quick-path-card,
+  .faq-item
+) {
+  transition:
+    transform var(--duration-normal) var(--ease-out),
+    border-color var(--duration-normal) var(--ease-out),
+    background var(--duration-normal) var(--ease-out),
+    box-shadow var(--duration-normal) var(--ease-out);
+}
+
+:is(
+  .bento-tile,
+  .proof-card,
+  .how-step-card,
+  .pricing-card,
+  .pricing-plan-card,
+  .pricing-tier,
+  .services-bureau-card,
+  .results-gallery-card,
+  .about-card,
+  .about-value-card,
+  .compare-company-card,
+  .compare-story-card,
+  .ir-quick-path-card,
+  .faq-item
+):hover {
+  transform: translateY(-3px);
+  border-color: var(--ir-card-border-hover) !important;
+  background: var(--ir-card-bg-hover) !important;
+  box-shadow: var(--ir-card-shadow-hover) !important;
+}
+
+:is(
+  .bento-tile,
+  .proof-card,
+  .how-step-card,
+  .pricing-card,
+  .pricing-plan-card,
+  .services-bureau-card,
+  .results-gallery-card,
+  .about-card,
+  .compare-company-card,
+  .faq-item
+)::before {
+  pointer-events: none;
+}
+
+/* ---------- Icon shell lock ---------- */
+:is(
+  .bento-icon,
+  .how-step-icon,
+  .qualifier-icon,
+  .services-hero-panel-icon,
+  .services-bureau-icon,
+  .pricing-card-icon,
+  .proof-result-icon,
+  .trust-award-icon,
+  .dash-float-icon,
+  .faq-icon,
+  .ir-icon-capsule,
+  .premium-icon-capsule
+) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--ir-icon-size-md);
+  height: var(--ir-icon-size-md);
+  min-width: var(--ir-icon-size-md);
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background:
+    linear-gradient(145deg, rgba(255,255,255,0.08), rgba(255,255,255,0.025)),
+    rgba(20,21,32,0.92);
+  color: var(--text-heading);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 12px 26px rgba(0,0,0,0.24);
+}
+
+.dash-float-icon,
+.proof-result-icon,
+.trust-award-icon {
+  width: var(--ir-icon-size-sm);
+  height: var(--ir-icon-size-sm);
+  min-width: var(--ir-icon-size-sm);
+  border-radius: 14px;
+}
+
+/* ---------- Accordion lock ---------- */
+:is(.faq-item, .pricing-faq-item, .experian-faq-card, .equifax-faq-card, .transunion-faq-card) {
+  overflow: hidden;
+}
+
+:is(.faq-question, .pricing-faq-question, .experian-faq-question, .equifax-faq-question, .transunion-faq-question) {
+  min-height: 76px;
+  padding: 24px 28px;
+  color: var(--text-heading);
+}
+
+:is(.faq-answer, .pricing-faq-answer, .experian-faq-answer, .equifax-faq-answer, .transunion-faq-answer) {
+  padding: 0 28px 26px;
+}
+
+:is(.faq-answer, .pricing-faq-answer, .experian-faq-answer, .equifax-faq-answer, .transunion-faq-answer) p {
+  line-height: 1.76;
+  color: var(--text-body);
+}
+
+/* ---------- Remove expensive repeated glass where cards repeat ---------- */
+:is(
+  .bento-tile,
+  .proof-card,
+  .how-step-card,
+  .pricing-card,
+  .pricing-plan-card,
+  .services-bureau-card,
+  .results-gallery-card,
+  .about-card,
+  .compare-company-card,
+  .faq-item
+) {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+/* Keep true glass only on premium surfaces. */
+.site-nav,
+.announcement-bar,
+.mobile-conversion-dock-inner,
+.ir-page-hero-panel,
+.dash-main,
+.dash-float,
+.ir-founder-caption {
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  backdrop-filter: blur(14px) saturate(140%);
+}
+
+/* ---------- Mobile consistency ---------- */
+@media (max-width: 760px) {
+  :root {
+    --ir-card-radius: 22px;
+    --ir-card-padding: 20px;
+  }
+
+  main h1:not(.sr-only),
+  .ir-page-hero-title,
+  .hero-headline,
+  .get-started-copy h1 {
+    font-size: clamp(2.25rem, 12vw, 3.35rem);
+    line-height: 1.02;
+    letter-spacing: -0.045em;
+  }
+
+  main h2:not(.sr-only),
+  .ir-section-head h2,
+  .bento-header h2,
+  .proof-header h2,
+  .faq-header h2,
+  .how-header h2 {
+    font-size: clamp(2rem, 9vw, 3.05rem);
+    line-height: 1.05;
+  }
+
+  .ir-page-hero,
+  .hero {
+    padding-top: clamp(54px, 12vw, 82px);
+    padding-bottom: clamp(54px, 12vw, 84px);
+  }
+
+  .section-divider,
+  .problem,
+  .solution,
+  .how,
+  .proof,
+  .bento,
+  .guarantee,
+  .final-cta,
+  .faq {
+    padding-top: var(--ir-section-y-sm) !important;
+    padding-bottom: var(--ir-section-y-sm) !important;
+  }
+
+  :is(.faq-question, .pricing-faq-question, .experian-faq-question, .equifax-faq-question, .transunion-faq-question) {
+    min-height: 64px;
+    padding: 20px;
+  }
+
+  :is(.faq-answer, .pricing-faq-answer, .experian-faq-answer, .equifax-faq-answer, .transunion-faq-answer) {
+    padding: 0 20px 22px;
+  }
+}
+
+@media (max-width: 760px), (prefers-reduced-data: reduce) {
+  .site-nav,
+  .announcement-bar,
+  .mobile-conversion-dock-inner,
+  .ir-page-hero-panel,
+  .dash-main,
+  .dash-float,
+  .ir-founder-caption {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :is(
+    .bento-tile,
+    .proof-card,
+    .how-step-card,
+    .pricing-card,
+    .pricing-plan-card,
+    .pricing-tier,
+    .services-bureau-card,
+    .results-gallery-card,
+    .about-card,
+    .about-value-card,
+    .compare-company-card,
+    .compare-story-card,
+    .ir-quick-path-card,
+    .faq-item
+  ) {
+    transform: none;
+    transition: none;
+  }
+}
+
+
+/* ============================================================
+   Phase 9 Interaction + Mobile Polish
+   No new content. This only tightens existing components.
+   ============================================================ */
+
+/* Branded, consistent focus states for keyboard and accessibility. */
+:where(a, button, summary, input, textarea, select, [tabindex]):focus-visible {
+  outline: 2px solid rgba(10, 141, 255, 0.92);
+  outline-offset: 4px;
+  box-shadow:
+    0 0 0 4px rgba(10, 141, 255, 0.13),
+    0 0 28px rgba(123, 92, 255, 0.22);
+}
+
+/* Faster-feeling taps on interactive elements. */
+:where(a, button, summary, .btn, .quiz-card, .mobile-dock-action) {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(10, 141, 255, 0.16);
+}
+
+/* Premium but compact announcement/nav/dock ergonomics. */
+.announcement-cta,
+.announcement-close {
+  min-height: 44px;
+}
+
+.nav-link,
+.mobile-menu-links a,
+.mobile-dock-action,
+.quiz-card,
+.faq-question {
+  touch-action: manipulation;
+}
+
+.mobile-dock-action {
+  min-height: 52px;
+}
+
+.mobile-conversion-dock {
+  padding-bottom: max(10px, env(safe-area-inset-bottom));
+}
+
+body:has(#mobile-nav-state:checked) .mobile-conversion-dock {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(18px);
+}
+
+/* Desktop gets premium hover. Touch devices do not pay for hover transforms. */
+@media (hover: none), (pointer: coarse) {
+  :is(
+    .bento-tile,
+    .proof-card,
+    .how-step-card,
+    .pricing-card,
+    .pricing-plan-card,
+    .pricing-tier,
+    .services-bureau-card,
+    .results-gallery-card,
+    .about-card,
+    .about-value-card,
+    .compare-company-card,
+    .compare-story-card,
+    .ir-quick-path-card,
+    .faq-item
+  ):hover {
+    transform: none;
+  }
+}
+
+/* Keep deep-page rendering cheap, but avoid applying this above the fold. */
+@supports (content-visibility: auto) {
+  :is(
+    .faq,
+    .pricing-faq,
+    .pricing-testimonials,
+    .results-gallery,
+    .results-filters,
+    .results-reviews,
+    .compare-stories,
+    .blog-grid-section,
+    .problem,
+    .solution,
+    .how,
+    .guarantee,
+    .final-cta,
+    .pricing-roi,
+    .pricing-value,
+    .pricing-testimonials,
+    .pricing-closing,
+    .results-disclaimer,
+    .about-cta,
+    .services-closing
+  ) {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 700px;
+  }
+}
+
+/* Mobile and reduced-data users get the same look with less GPU cost. */
+@media (max-width: 760px), (prefers-reduced-data: reduce) {
+  :is(
+    .bento-tile,
+    .proof-card,
+    .how-step-card,
+    .pricing-card,
+    .pricing-plan-card,
+    .pricing-tier,
+    .services-bureau-card,
+    .results-gallery-card,
+    .about-card,
+    .about-value-card,
+    .compare-company-card,
+    .compare-story-card,
+    .ir-quick-path-card,
+    .faq-item,
+    .quiz-panel,
+    .quiz-card
+  ) {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    filter: none;
+  }
+
+  .mobile-conversion-dock-inner {
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.08) inset,
+      0 -10px 32px rgba(0, 0, 0, 0.46);
+  }
+}
+
+/* Form controls feel more native and stable on mobile. */
+.quiz-form input,
+.quiz-form textarea,
+.quiz-form select {
+  min-height: 54px;
+  font-size: 16px;
+}
+
+.quiz-card {
+  min-height: 58px;
+}
+
+/* Final heading lock: H2/H3 remain clean text even if older CSS adds gradient spans. */
+main :is(h2, h3) :is(.ir-gradient-text, .gradient-text) {
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  -webkit-text-fill-color: currentColor;
+  color: inherit;
+}

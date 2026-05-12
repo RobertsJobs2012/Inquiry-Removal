@@ -1,0 +1,17 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import HomePage from "../../app/page";
+import { serviceSchema } from "@/lib/schema";
+import "../styles/pages/home.css";
+import "../styles/heading-system.css";
+---
+
+<BaseLayout
+  title="Hard Inquiry Removal Service | Inquiry Removal"
+  description="Remove unauthorized hard inquiries from your credit report — all 3 bureaus. 100,437+ deleted since 2015. Free consultation. Flat fee. 100% money-back guarantee."
+  canonicalPath="/"
+  schema={serviceSchema}
+  pathname={Astro.url.pathname}
+>
+  <HomePage />
+</BaseLayout>
