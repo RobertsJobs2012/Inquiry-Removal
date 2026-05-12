@@ -1,0 +1,19 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PricingPage, { metadata } from "../../app/pricing/page";
+import { pricingPageFaqSchema, pricingPageServiceSchema } from "@/lib/schema";
+import "../styles/pages/pricing.css";
+import "../styles/heading-system.css";
+
+const meta = metadata as any;
+---
+
+<BaseLayout
+  title={meta.title.absolute}
+  description={meta.description}
+  canonicalPath={meta.alternates.canonical}
+  schema={[pricingPageServiceSchema, pricingPageFaqSchema]}
+  pathname={Astro.url.pathname}
+>
+  <PricingPage />
+</BaseLayout>
