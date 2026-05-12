@@ -1,0 +1,82 @@
+---
+import Icon from "./Icon.astro";
+import Logo from "./Logo.astro";
+import { getStartedPagePath } from "../../lib/getStartedPage";
+import { resultsPagePath } from "../../lib/resultsPage";
+import { footerNav, site, stats } from "../../lib/site";
+
+const year = new Date().getFullYear();
+const socials = [
+  { icon: "facebook", href: site.social.facebook, label: "Facebook" },
+  { icon: "instagram", href: site.social.instagram, label: "Instagram" },
+  { icon: "youtube", href: site.social.youtube, label: "YouTube" },
+] as const;
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <section class="footer-cta">
+      <div>
+        <p class="eyebrow">Free consultation</p>
+        <h2>Ready to stop getting denied?</h2>
+        <p>
+          Join over {stats.clientsServed.toLocaleString()} Arizonans who made the first move. Your consultation shows what can come off before you spend a dollar.
+        </p>
+      </div>
+      <a class="button button-primary" href={getStartedPagePath} data-astro-prefetch>
+        Start Free Audit <Icon name="arrow-right" size={17} />
+      </a>
+    </section>
+
+    <div class="footer-grid">
+      <div>
+        <Logo />
+        <p class="footer-about">
+          Arizona's most trusted credit repair. Built by an identity-theft survivor for people who need real answers and real removals.
+        </p>
+        <div class="footer-contact">
+          <a href={site.phoneHref}><Icon name="phone" size={16} />{site.phone}</a>
+          <a href={site.emailHref}><Icon name="mail" size={16} />Email us</a>
+          <span><Icon name="map-pin" size={16} />{site.address.city}, {site.address.region} - serving Arizona</span>
+        </div>
+        <div class="socials">
+          {socials.map((item) => (
+            <a href={item.href} target="_blank" rel="noreferrer" aria-label={item.label}>
+              <Icon name={item.icon} size={17} />
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <nav aria-label="Company links">
+        <h3>Company</h3>
+        {footerNav.company.map((item) => <a href={item.href}>{item.label}</a>)}
+      </nav>
+
+      <nav aria-label="Service links">
+        <h3>Services</h3>
+        {footerNav.services.map((item) => <a href={item.href}>{item.label}</a>)}
+      </nav>
+
+      <div>
+        <h3>Track record</h3>
+        <p>{stats.itemsRemoved.toLocaleString()} items removed for {stats.clientsServed.toLocaleString()} Arizonans.</p>
+        <a class="text-link" href={resultsPagePath} data-astro-prefetch>
+          See real results <Icon name="arrow-right" size={14} />
+        </a>
+        <div class="badge-row">
+          <span>{site.licensing}</span>
+          <span>FCRA & CROA compliant</span>
+          <span>4.9 star rating</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="legal">
+      <p>
+        Under the Credit Repair Organizations Act (CROA), we cannot guarantee any specific score increase. Results vary by the accuracy, age, and verifiability of items on your report. You have the right to dispute credit report items yourself for free. State 48 Credit is not a law firm and does not provide legal advice.
+      </p>
+      <p>&copy; {year} {site.legalName}. All rights reserved. Pay via {site.payment.join(" or ")}.</p>
+    </div>
+  </div>
+</footer>

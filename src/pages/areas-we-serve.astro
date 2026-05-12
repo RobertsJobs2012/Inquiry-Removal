@@ -1,0 +1,61 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Icon from "../components/Icon.astro";
+import { getStartedPagePath } from "../../lib/getStartedPage";
+import { homeServiceArea } from "../../lib/homepage";
+import { site } from "../../lib/site";
+import { breadcrumbSchema, collectionPageSchema } from "../../lib/schema";
+---
+
+<BaseLayout
+  title="Credit Repair Areas We Serve in Arizona"
+  description="State 48 Credit serves Phoenix, Mesa, Tucson, Yuma, and cities across Arizona with remote credit repair consultations and custom disputes."
+  path="/areas-we-serve"
+  schema={[
+    collectionPageSchema({
+      name: "Arizona Credit Repair Service Areas",
+      path: "/areas-we-serve",
+      description: "Arizona cities served by State 48 Credit.",
+    }),
+    breadcrumbSchema([
+      { name: "Home", path: "/" },
+      { name: "Areas We Serve", path: "/areas-we-serve" },
+    ]),
+  ]}
+>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">Arizona-wide service</p>
+        <h1>{homeServiceArea.title}</h1>
+        <p>{homeServiceArea.description}</p>
+        <a class="button button-primary" href={getStartedPagePath} data-astro-prefetch>Start Free Audit</a>
+      </div>
+      <article class="card stat-card">
+        <strong>{site.address.regionName}</strong>
+        <span>Remote consultations and credit repair across the state.</span>
+      </article>
+    </div>
+  </section>
+
+  <section class="section below-fold">
+    <div class="container grid-2">
+      <article class="card">
+        <h2>Metro Phoenix</h2>
+        <ul class="check-list">
+          {homeServiceArea.metroPhoenix.map((city) => (
+            <li><Icon name="map-pin" size={16} /><span>{"href" in city ? <a href={city.href}>{city.name}</a> : city.name}</span></li>
+          ))}
+        </ul>
+      </article>
+      <article class="card">
+        <h2>Statewide</h2>
+        <ul class="check-list">
+          {homeServiceArea.statewide.map((city) => (
+            <li><Icon name="map-pin" size={16} /><span>{"href" in city ? <a href={city.href}>{city.name}</a> : city.name}</span></li>
+          ))}
+        </ul>
+      </article>
+    </div>
+  </section>
+</BaseLayout>

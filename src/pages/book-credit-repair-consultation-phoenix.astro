@@ -1,0 +1,36 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Icon from "../components/Icon.astro";
+import { getStartedPagePath } from "../../lib/getStartedPage";
+import { site } from "../../lib/site";
+import { breadcrumbSchema } from "../../lib/schema";
+---
+
+<BaseLayout
+  title="Book Credit Repair Consultation Phoenix"
+  description="Book a State 48 Credit consultation in Phoenix. Call Robert or start a free audit to review your credit repair options."
+  path="/book-credit-repair-consultation-phoenix"
+  schema={breadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "Book Consultation", path: "/book-credit-repair-consultation-phoenix" },
+  ])}
+>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">Book a consultation</p>
+        <h1>Talk through your credit report with State 48 Credit.</h1>
+        <p>No calendar widget loads on the initial page. Start with the free audit form or call Robert directly during business hours.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href={getStartedPagePath} data-astro-prefetch>Start Free Audit</a>
+          <a class="button button-secondary" href={site.phoneHref}><Icon name="phone" size={17} />Call {site.phone}</a>
+        </div>
+      </div>
+      <article class="card">
+        <h2>Hours</h2>
+        <p>{site.hours.display}</p>
+        <p>{site.address.city}, {site.address.region} - remote service statewide.</p>
+      </article>
+    </div>
+  </section>
+</BaseLayout>

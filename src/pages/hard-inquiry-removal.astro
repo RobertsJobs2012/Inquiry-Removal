@@ -1,0 +1,86 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Icon from "../components/Icon.astro";
+import { getStartedPagePath } from "../../lib/getStartedPage";
+import { pricingPagePath } from "../../lib/pricingPage";
+import { breadcrumbSchema, faqSchema } from "../../lib/schema";
+
+const faq = [
+  {
+    q: "Can every hard inquiry be removed?",
+    a: "No. Legitimate inquiries tied to applications you authorized usually stay. The strongest disputes involve unauthorized pulls, fraud, or a company without a valid permissible purpose.",
+  },
+  {
+    q: "How long do hard inquiries stay on a credit report?",
+    a: "Hard inquiries can remain visible for up to 24 months, though their score impact usually fades earlier.",
+  },
+  {
+    q: "When is professional inquiry removal worth it?",
+    a: "It is most useful when fraud, multiple bureaus, dealership stacks, or a time-sensitive approval goal are involved.",
+  },
+];
+---
+
+<BaseLayout
+  title="Hard Inquiry Removal Phoenix AZ"
+  description="Hard inquiry removal for Arizona clients dealing with unauthorized pulls, dealership stacks, identity theft, and time-sensitive approval goals."
+  path="/hard-inquiry-removal"
+  schema={[
+    faqSchema(faq),
+    breadcrumbSchema([
+      { name: "Home", path: "/" },
+      { name: "Hard Inquiry Removal", path: "/hard-inquiry-removal" },
+    ]),
+  ]}
+>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">Inquiry removal</p>
+        <h1>Remove unauthorized hard inquiries before they cost the next approval.</h1>
+        <p>State 48 Credit helps Arizona clients identify which hard inquiries are legitimate, which are unauthorized, and which should be disputed with precision.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href={getStartedPagePath} data-astro-prefetch>Start Free Audit</a>
+          <a class="button button-secondary" href={pricingPagePath} data-astro-prefetch>See pricing</a>
+        </div>
+      </div>
+      <article class="card stat-card">
+        <strong>$149</strong>
+        <span>hard inquiry removal add-on when your report needs focused inquiry cleanup.</span>
+      </article>
+    </div>
+  </section>
+
+  <section class="section below-fold">
+    <div class="container grid-3">
+      {[
+        ["Unauthorized pulls", "Lender names you do not recognize or never approved."],
+        ["Identity theft trails", "Fraudulent applications often leave inquiry damage behind."],
+        ["Dealer stacks", "Multiple auto-loan pulls may need closer review when authorization is unclear."],
+      ].map(([title, body]) => (
+        <article class="card">
+          <Icon name="zap" size={22} />
+          <h2>{title}</h2>
+          <p>{body}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section below-fold">
+    <div class="narrow">
+      <div class="section-head">
+        <p class="eyebrow">FAQ</p>
+        <h2>Hard inquiry questions.</h2>
+      </div>
+      <div class="faq-list">
+        {faq.map((item) => (
+          <details>
+            <summary>{item.q}</summary>
+            <p>{item.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

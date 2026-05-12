@@ -1,0 +1,30 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Icon from "../components/Icon.astro";
+import { site } from "../../lib/site";
+---
+
+<BaseLayout
+  title="Thank You"
+  description="Thank you for contacting State 48 Credit. Robert will review your request and follow up soon."
+  path="/thank-you"
+>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">Request received</p>
+        <h1>Thank you. Your credit audit request is in motion.</h1>
+        <p>Robert will review your note and follow up as soon as possible. If the situation is urgent, call directly.</p>
+        <a class="button button-primary" href={site.phoneHref}><Icon name="phone" size={17} />Call {site.phone}</a>
+      </div>
+      <article class="card">
+        <h2>What happens next</h2>
+        <ul class="check-list">
+          <li><Icon name="check" size={16} /><span>We review your situation.</span></li>
+          <li><Icon name="check" size={16} /><span>We identify the likely removable items.</span></li>
+          <li><Icon name="check" size={16} /><span>You get a clear recommendation before paying.</span></li>
+        </ul>
+      </article>
+    </div>
+  </section>
+</BaseLayout>

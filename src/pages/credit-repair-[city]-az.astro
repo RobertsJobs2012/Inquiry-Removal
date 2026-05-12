@@ -1,0 +1,116 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Icon from "../components/Icon.astro";
+import { cityPages } from "../data/pages";
+import { getStartedPagePath } from "../../lib/getStartedPage";
+import { servicesPagePath } from "../../lib/servicesPage";
+import { pricingPagePath } from "../../lib/pricingPage";
+import { faq } from "../../lib/site";
+import { breadcrumbSchema, faqSchema, serviceSchema } from "../../lib/schema";
+
+export function getStaticPaths() {
+  return cityPages.map((page) => ({
+    params: { city: page.slug },
+    props: { page },
+  }));
+}
+
+const { page } = Astro.props;
+const localFaq = [
+  {
+    q: `Do you offer credit repair in ${page.city}?`,
+    a: `Yes. State 48 Credit serves ${page.city} and clients across Arizona remotely, so you do not need an office visit to start.`,
+  },
+  {
+    q: `What credit problems can you help with in ${page.city}?`,
+    a: "We review collections, charge-offs, late payments, repossessions, bankruptcies, hard inquiries, identity-theft accounts, and specialty-report issues.",
+  },
+  ...faq.slice(0, 3),
+];
+---
+
+<BaseLayout
+  title={page.title}
+  description={page.description}
+  path={page.path}
+  schema={[
+    serviceSchema(),
+    faqSchema(localFaq),
+    breadcrumbSchema([
+      { name: "Home", path: "/" },
+      { name: `${page.city} Credit Repair`, path: page.path },
+    ]),
+  ]}
+>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">{page.eyebrow}</p>
+        <h1>{page.headline}</h1>
+        <p>{page.intro}</p>
+        <p>{page.proof}</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href={getStartedPagePath} data-astro-prefetch>Start Free Audit</a>
+          <a class="button button-secondary" href={servicesPagePath} data-astro-prefetch>See services</a>
+        </div>
+      </div>
+      <article class="card">
+        <h2>{page.city} service area</h2>
+        <ul class="check-list">
+          {page.neighborhoods.map((area) => (
+            <li><Icon name="map-pin" size={16} /><span>{area}</span></li>
+          ))}
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="section below-fold">
+    <div class="container grid-3">
+      {[
+        ["Free report review", "We identify which negative items have a realistic legal or factual dispute basis."],
+        ["Custom dispute plan", "Each bureau and item gets handled according to what is actually wrong with the reporting."],
+        ["Approval-focused next step", "The plan is tied to your goal: home, car, apartment, business credit, or recovery after fraud."],
+      ].map(([title, body]) => (
+        <article class="card">
+          <Icon name="shield" size={22} />
+          <h2>{title}</h2>
+          <p>{body}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section below-fold">
+    <div class="container split">
+      <div class="section-head">
+        <p class="eyebrow">Flat-fee options</p>
+        <h2>Choose the smallest package that fits the report.</h2>
+        <p>Most clients do not know whether they need one bureau, all three bureaus, or complete fraud/specialty-report cleanup until the free audit.</p>
+      </div>
+      <article class="card">
+        <h3>Package range</h3>
+        <p class="price">$299-$849</p>
+        <p>No monthly fees. No long contracts. No pressure before the report review.</p>
+        <a class="button button-primary" href={pricingPagePath} data-astro-prefetch>See pricing</a>
+      </article>
+    </div>
+  </section>
+
+  <section class="section below-fold">
+    <div class="narrow">
+      <div class="section-head">
+        <p class="eyebrow">FAQ</p>
+        <h2>{page.city} credit repair questions.</h2>
+      </div>
+      <div class="faq-list">
+        {localFaq.map((item) => (
+          <details>
+            <summary>{item.q}</summary>
+            <p>{item.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

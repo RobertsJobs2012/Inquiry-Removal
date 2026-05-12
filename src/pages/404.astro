@@ -1,0 +1,25 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getStartedPagePath } from "../../lib/getStartedPage";
+import { servicesPagePath } from "../../lib/servicesPage";
+---
+
+<BaseLayout
+  title="Page Not Found"
+  description="The State 48 Credit page you were looking for could not be found."
+  path="/404"
+>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">404</p>
+        <h1>This page moved or no longer exists.</h1>
+        <p>Start with the free audit or browse the credit repair services page to find the fastest path back.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href={getStartedPagePath}>Start Free Audit</a>
+          <a class="button button-secondary" href={servicesPagePath}>View Services</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

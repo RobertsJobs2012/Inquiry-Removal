@@ -1,0 +1,83 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Icon from "../components/Icon.astro";
+import { getStartedPagePath } from "../../lib/getStartedPage";
+import { homeHowItWorks } from "../../lib/homepage";
+import { faq } from "../../lib/site";
+import { breadcrumbSchema, faqSchema, howToSchema } from "../../lib/schema";
+---
+
+<BaseLayout
+  title="How Credit Repair Works in Arizona"
+  description="Learn how State 48 Credit reviews your reports, builds custom disputes, follows up with bureaus, and helps protect your score after removals."
+  path="/how-credit-repair-works"
+  schema={[
+    howToSchema(homeHowItWorks),
+    faqSchema(faq.slice(0, 5)),
+    breadcrumbSchema([
+      { name: "Home", path: "/" },
+      { name: "How Credit Repair Works", path: "/how-credit-repair-works" },
+    ]),
+  ]}
+>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">Process</p>
+        <h1>How credit repair works when the strategy is built around your actual report.</h1>
+        <p>State 48 Credit reviews all three bureaus, identifies the items with a real legal or factual basis for removal, then builds custom disputes instead of generic template letters.</p>
+        <a class="button button-primary" href={getStartedPagePath} data-astro-prefetch>Start Free Audit</a>
+      </div>
+      <article class="card">
+        <h2>Typical first movement</h2>
+        <p class="price">14-30 days</p>
+        <p>Full outcomes often land in 30-90 days depending on the file, bureaus, and furnishers.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section below-fold">
+    <div class="container grid-3">
+      {homeHowItWorks.map((step) => (
+        <article class="card">
+          <p class="eyebrow">Step {step.step}</p>
+          <h2>{step.title}</h2>
+          <p>{step.detail}</p>
+          <p><strong>{step.duration}</strong></p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section below-fold">
+    <div class="container split">
+      <div class="section-head">
+        <p class="eyebrow">What we dispute</p>
+        <h2>We focus on items that can be challenged under federal law.</h2>
+        <p>Credit repair is not magic. It is documentation, timing, bureau process, and pressure when an item is inaccurate, incomplete, outdated, unverifiable, or fraud-related.</p>
+      </div>
+      <ul class="check-list card">
+        {["Collections", "Charge-offs", "Late payments", "Repossessions", "Bankruptcies", "Unauthorized inquiries", "Identity-theft accounts", "ChexSystems and specialty-report flags"].map((item) => (
+          <li><Icon name="check" size={16} /><span>{item}</span></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section below-fold">
+    <div class="narrow">
+      <div class="section-head">
+        <p class="eyebrow">FAQ</p>
+        <h2>Process questions.</h2>
+      </div>
+      <div class="faq-list">
+        {faq.slice(0, 5).map((item) => (
+          <details>
+            <summary>{item.q}</summary>
+            <p>{item.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

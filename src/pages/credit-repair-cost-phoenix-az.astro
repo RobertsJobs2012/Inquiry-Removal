@@ -1,0 +1,122 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Icon from "../components/Icon.astro";
+import { getStartedPagePath } from "../../lib/getStartedPage";
+import { servicesPagePath } from "../../lib/servicesPage";
+import { faqSchema, offerSchemas, breadcrumbSchema } from "../../lib/schema";
+import { packageAddOns, packages } from "../../lib/site";
+
+const pricingFaq = [
+  {
+    q: "How much does credit repair cost at State 48 Credit?",
+    a: "One & Done is $299, Full Sweep is $599, and Total Freedom is $849. Pricing is one-time, flat, and based on the scope of work.",
+  },
+  {
+    q: "Do you charge monthly fees?",
+    a: "No. State 48 Credit does not use the open-ended monthly billing model that keeps clients enrolled for as long as possible.",
+  },
+  {
+    q: "Which package is most common?",
+    a: "Most Arizona clients choose Full Sweep because lenders often review all three bureaus, and negative items commonly appear on more than one report.",
+  },
+  {
+    q: "Can I add inquiry or ChexSystems removal?",
+    a: "Yes. Optional add-ons are available when the free audit shows that inquiry damage, ChexSystems, InnoVis, or rush processing should be part of the plan.",
+  },
+];
+---
+
+<BaseLayout
+  title="Credit Repair Cost Phoenix AZ | Flat-Fee Pricing"
+  description="Credit repair pricing in Phoenix, AZ from State 48 Credit. Flat-fee packages from $299 to $849, no monthly fees, no long contracts."
+  path="/credit-repair-cost-phoenix-az"
+  schema={[
+    faqSchema(pricingFaq),
+    ...offerSchemas(packages.map((pkg) => ({
+      slug: pkg.id,
+      name: pkg.name,
+      price: pkg.price,
+      description: pkg.tagline,
+      path: "/credit-repair-cost-phoenix-az",
+    }))),
+    breadcrumbSchema([
+      { name: "Home", path: "/" },
+      { name: "Pricing", path: "/credit-repair-cost-phoenix-az" },
+    ]),
+  ]}
+>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">Pricing</p>
+        <h1>Credit repair cost in Phoenix without monthly billing traps.</h1>
+        <p>State 48 Credit uses flat, one-time pricing so you know the scope, the cost, and the finish line before anything starts.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href={getStartedPagePath} data-astro-prefetch>Start Free Audit</a>
+          <a class="button button-secondary" href={servicesPagePath} data-astro-prefetch>See service details</a>
+        </div>
+      </div>
+      <article class="card stat-card">
+        <strong>$299-$849</strong>
+        <span>one-time packages based on the report and approval goal</span>
+      </article>
+    </div>
+  </section>
+
+  <section class="section below-fold">
+    <div class="container">
+      <div class="grid-3">
+        {packages.map((pkg) => (
+          <article class:list={["pricing-card", { featured: pkg.featured }]}>
+            {pkg.featured ? <span class="badge">Most popular</span> : null}
+            <h2>{pkg.name}</h2>
+            <p>{pkg.tagline}</p>
+            <p class="price">${pkg.price}<small> one-time</small></p>
+            <p>{pkg.bestFor}</p>
+            <ul class="check-list">
+              {pkg.features.map((feature) => <li><Icon name="check" size={16} /><span>{feature}</span></li>)}
+            </ul>
+            <a class="button button-primary" href={getStartedPagePath} data-astro-prefetch>Start with {pkg.name}</a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section below-fold">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Optional add-ons</p>
+        <h2>Only add what your report actually needs.</h2>
+      </div>
+      <div class="grid-4">
+        {packageAddOns.map((addon) => (
+          <article class="card">
+            {addon.popular ? <span class="badge">Popular</span> : null}
+            <Icon name={addon.icon} size={22} />
+            <h3>{addon.name}</h3>
+            <p>{addon.description}</p>
+            <p class="price">${addon.price}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section below-fold">
+    <div class="narrow">
+      <div class="section-head">
+        <p class="eyebrow">FAQ</p>
+        <h2>Pricing questions.</h2>
+      </div>
+      <div class="faq-list">
+        {pricingFaq.map((item) => (
+          <details>
+            <summary>{item.q}</summary>
+            <p>{item.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

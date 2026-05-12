@@ -1,0 +1,81 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Icon from "../components/Icon.astro";
+import { getStartedPagePath } from "../../lib/getStartedPage";
+import { pricingPagePath } from "../../lib/pricingPage";
+import { breadcrumbSchema } from "../../lib/schema";
+
+const rows = [
+  ["Pricing model", "Flat one-time packages", "Often monthly billing"],
+  ["Dispute strategy", "Custom disputes for each item", "Often template letters at scale"],
+  ["Point of contact", "Dedicated specialist", "Call center or rotating reps"],
+  ["Arizona focus", "Phoenix-based and Arizona-wide", "National volume model"],
+  ["Finish line", "Defined scope and final report", "Open-ended enrollment"],
+  ["Guarantee", "90-day money-back if no removals", "Varies by company"],
+];
+---
+
+<BaseLayout
+  title="Compare Credit Repair Companies in Arizona"
+  description="Compare State 48 Credit with national credit repair companies: pricing, strategy, accountability, guarantees, and Arizona-specific service."
+  path="/compare-credit-repair-companies-arizona"
+  schema={breadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "Compare Credit Repair Companies", path: "/compare-credit-repair-companies-arizona" },
+  ])}
+>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">Compare companies</p>
+        <h1>Arizona credit repair should not feel like an endless subscription.</h1>
+        <p>Most people comparing credit repair companies are really comparing business models. State 48 Credit is built around a defined scope of work, not keeping you enrolled month after month.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href={getStartedPagePath} data-astro-prefetch>Start Free Audit</a>
+          <a class="button button-secondary" href={pricingPagePath} data-astro-prefetch>Compare pricing</a>
+        </div>
+      </div>
+      <article class="card">
+        <h2>What to avoid</h2>
+        <ul class="check-list">
+          {["Guaranteed score promises", "Pressure before report review", "Monthly billing with no clear scope", "Vague disputes and no documentation"].map((item) => (
+            <li><Icon name="x" size={16} /><span>{item}</span></li>
+          ))}
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="section below-fold">
+    <div class="container">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Category</th><th>State 48 Credit</th><th>Typical national chain</th></tr>
+          </thead>
+          <tbody>
+            {rows.map(([category, state48, chain]) => (
+              <tr><th scope="row">{category}</th><td>{state48}</td><td>{chain}</td></tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section below-fold">
+    <div class="container grid-3">
+      {[
+        ["Ask for the scope", "A good provider can explain which items will be challenged and why."],
+        ["Ask about timing", "Honest credit repair respects bureau response windows and does not promise overnight miracles."],
+        ["Ask about billing", "If the company wins by keeping you enrolled longer, be careful."],
+      ].map(([title, body]) => (
+        <article class="card">
+          <Icon name="shield" size={22} />
+          <h2>{title}</h2>
+          <p>{body}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,17 @@
+---
+export interface Props {
+  compact?: boolean;
+}
+
+const { compact = false } = Astro.props;
+---
+
+<a href="/" aria-label="State 48 Credit home" class:list={["logo", { "logo-compact": compact }]} data-astro-prefetch>
+  <img
+    src="/images/brand/State-48-Credit-logo.avif"
+    alt="State 48 Credit"
+    width="811"
+    height="258"
+    decoding="async"
+  />
+</a>

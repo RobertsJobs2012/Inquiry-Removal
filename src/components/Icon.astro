@@ -1,0 +1,71 @@
+---
+export interface Props {
+  name:
+    | "spark" | "shield" | "scale" | "home" | "trending" | "briefcase"
+    | "check" | "x" | "arrow-right" | "arrow-down" | "star"
+    | "arrow-left" | "phone" | "mail" | "chat" | "map-pin" | "clock"
+    | "lock" | "menu" | "close" | "chevron-down" | "chevron-right"
+    | "zap" | "heart" | "users" | "award" | "calendar"
+    | "play" | "quote" | "sparkles" | "facebook" | "instagram" | "youtube";
+  size?: number | string;
+  strokeWidth?: number | string;
+  class?: string;
+}
+
+const paths = {
+  spark: "M12 3v3m0 12v3m9-9h-3M6 12H3m14.5-6.5l-2.1 2.1M8.6 15.4l-2.1 2.1m12.9 0l-2.1-2.1M8.6 8.6L6.5 6.5M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z",
+  shield: "M12 2l9 4v6c0 5-3.5 9.3-9 10-5.5-.7-9-5-9-10V6l9-4z M9 12l2 2 4-4",
+  scale: "M6 3h12M12 3v18M7 7l-4 8a4 4 0 0 0 8 0l-4-8zm10 0l-4 8a4 4 0 0 0 8 0l-4-8z",
+  home: "M3 12l9-9 9 9M5 10v10h14V10",
+  trending: "M3 17l6-6 4 4 8-8M14 7h7v7",
+  briefcase: "M3 7h18v13H3zM8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2",
+  check: "M5 12l5 5L20 7",
+  x: "M6 6l12 12M18 6L6 18",
+  "arrow-right": "M5 12h14M13 5l7 7-7 7",
+  "arrow-left": "M19 12H5M11 5l-7 7 7 7",
+  "arrow-down": "M12 5v14M5 13l7 7 7-7",
+  star: "M12 2l2.9 6.6L22 10l-5 4.9 1.2 7.1L12 18.5 5.8 22 7 14.9 2 10l7.1-1.4L12 2z",
+  phone: "M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3A19.5 19.5 0 0 1 5 11.8 19.8 19.8 0 0 1 2 3.2 2 2 0 0 1 4 1h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L7.9 8.6a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.5 2.6.6a2 2 0 0 1 1.7 2z",
+  mail: "M3 6h18v12H3zM3 6l9 8 9-8",
+  chat: "M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8v.5z",
+  "map-pin": "M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6z",
+  clock: "M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20z M12 6v6l4 2",
+  lock: "M5 11h14v10H5zM8 11V7a4 4 0 0 1 8 0v4",
+  menu: "M3 6h18M3 12h18M3 18h18",
+  close: "M6 6l12 12M18 6L6 18",
+  "chevron-down": "M6 9l6 6 6-6",
+  "chevron-right": "M9 6l6 6-6 6",
+  zap: "M13 2L3 14h9l-1 8 10-12h-9l1-8z",
+  heart: "M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.8z",
+  users: "M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2 M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z M23 21v-2a4 4 0 0 0-3-3.9 M16 3.1a4 4 0 0 1 0 7.8",
+  award: "M12 15a7 7 0 1 0 0-14 7 7 0 0 0 0 14z M8.2 13.8L7 22l5-3 5 3-1.2-8.2",
+  calendar: "M3 5h18v16H3zM3 9h18M8 3v4M16 3v4",
+  play: "M5 3l14 9-14 9V3z",
+  quote: "M3 17a5 5 0 0 1 5-5V8a8 8 0 0 0-8 8v4h4v-3zm12 0a5 5 0 0 1 5-5V8a8 8 0 0 0-8 8v4h4v-3z",
+  sparkles: "M12 3v4M12 17v4M5 12H1M23 12h-4M7 7L4 4M20 20l-3-3M7 17l-3 3M20 4l-3 3",
+  facebook: "M15 3h-3a5 5 0 0 0-5 5v3H4v4h3v6h4v-6h3l1-4h-4V8a1 1 0 0 1 1-1h3z",
+  instagram: "M7 3h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4z M16.5 6.5h.01 M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z",
+  youtube: "M22 12s0-3.1-.4-4.5a2.8 2.8 0 0 0-2-2C17.8 5 12 5 12 5s-5.8 0-7.6.5a2.8 2.8 0 0 0-2 2C2 8.9 2 12 2 12s0 3.1.4 4.5a2.8 2.8 0 0 0 2 2C6.2 19 12 19 12 19s5.8 0 7.6-.5a2.8 2.8 0 0 0 2-2C22 15.1 22 12 22 12z M10 15l5-3-5-3z",
+} as const;
+
+const { name, size = 20, strokeWidth = 2, class: className } = Astro.props;
+---
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width={size}
+  height={size}
+  viewBox="0 0 24 24"
+  data-icon="true"
+  fill="none"
+  stroke="currentColor"
+  stroke-width={strokeWidth}
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  shape-rendering="geometricPrecision"
+  class={className}
+  aria-hidden="true"
+  focusable="false"
+>
+  <path d={paths[name]} />
+</svg>
