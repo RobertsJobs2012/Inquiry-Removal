@@ -244,3 +244,6 @@
     display: none;
   }
 }
+
+/* Technical sweep: defer below-fold policy sections on mobile for faster initial paint. */
+@media (max-width:860px){.privacy-section-card,.privacy-toc,.privacy-final-cta{content-visibility:auto;contain-intrinsic-size:1px 620px}.privacy-page .btn-primary::before{animation:none!important}}

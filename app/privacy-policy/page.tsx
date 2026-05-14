@@ -28,7 +28,7 @@ const PRIVACY_SECTIONS = [
       },
       {
         "kind": "contact",
-        "text": "Email: State48Credit@gmail.com"
+        "text": "Email: support@inquiryremoval.com"
       },
       {
         "kind": "contact",
@@ -222,7 +222,7 @@ const PRIVACY_SECTIONS = [
     "blocks": [
       {
         "kind": "p",
-        "text": "Right to know. You have the right to know what personal information we hold about you and how we use it. You can request this information by contacting us at State48Credit@gmail.com or 602-377-6626."
+        "text": "Right to know. You have the right to know what personal information we hold about you and how we use it. You can request this information by contacting us at support@inquiryremoval.com or 602-377-6626."
       },
       {
         "kind": "p",
@@ -271,7 +271,7 @@ const PRIVACY_SECTIONS = [
       },
       {
         "kind": "p",
-        "text": "To exercise your California privacy rights, contact us at State48Credit@gmail.com or 602-377-6626. We will verify your identity before processing your request and respond within the timeframes required by California law."
+        "text": "To exercise your California privacy rights, contact us at support@inquiryremoval.com or 602-377-6626. We will verify your identity before processing your request and respond within the timeframes required by California law."
       }
     ]
   },
@@ -280,7 +280,7 @@ const PRIVACY_SECTIONS = [
     "blocks": [
       {
         "kind": "p",
-        "text": "Residents of Virginia, Colorado, Connecticut, Texas, and other states with comprehensive privacy laws may have additional rights similar to those described above. If you are a resident of a state with a comprehensive privacy law, you may exercise your rights by contacting us at State48Credit@gmail.com. We will respond in accordance with the law applicable to your state."
+        "text": "Residents of Virginia, Colorado, Connecticut, Texas, and other states with comprehensive privacy laws may have additional rights similar to those described above. If you are a resident of a state with a comprehensive privacy law, you may exercise your rights by contacting us at support@inquiryremoval.com. We will respond in accordance with the law applicable to your state."
       }
     ]
   },
@@ -289,7 +289,7 @@ const PRIVACY_SECTIONS = [
     "blocks": [
       {
         "kind": "p",
-        "text": "If you are located in the European Economic Area or the United Kingdom, you may have rights under the General Data Protection Regulation (GDPR) or UK GDPR, including rights of access, rectification, erasure, restriction of processing, data portability, and the right to object to processing. To exercise any of these rights, contact us at State48Credit@gmail.com. We will respond within the timeframes required by applicable law."
+        "text": "If you are located in the European Economic Area or the United Kingdom, you may have rights under the General Data Protection Regulation (GDPR) or UK GDPR, including rights of access, rectification, erasure, restriction of processing, data portability, and the right to object to processing. To exercise any of these rights, contact us at support@inquiryremoval.com. We will respond within the timeframes required by applicable law."
       },
       {
         "kind": "p",
@@ -302,7 +302,7 @@ const PRIVACY_SECTIONS = [
     "blocks": [
       {
         "kind": "p",
-        "text": "Our services are intended for adults and are not directed at children under the age of 18. We do not knowingly collect personal information from anyone under the age of 18. If we become aware that we have inadvertently collected information from a minor, we will delete that information promptly. If you believe we may have collected information from a minor, please contact us at State48Credit@gmail.com."
+        "text": "Our services are intended for adults and are not directed at children under the age of 18. We do not knowingly collect personal information from anyone under the age of 18. If we become aware that we have inadvertently collected information from a minor, we will delete that information promptly. If you believe we may have collected information from a minor, please contact us at support@inquiryremoval.com."
       }
     ]
   },
@@ -367,7 +367,7 @@ const PRIVACY_SECTIONS = [
       },
       {
         "kind": "contact",
-        "text": "✉️ State48Credit@gmail.com"
+        "text": "✉️ support@inquiryremoval.com"
       },
       {
         "kind": "contact",
@@ -384,11 +384,11 @@ const PRIVACY_SECTIONS = [
     "blocks": [
       {
         "kind": "p",
-        "text": "California residents may submit privacy rights requests specifically by emailing State48Credit@gmail.com with the subject line \"California Privacy Rights Request\" or by calling 602-377-6626. We will acknowledge receipt of your request within 10 business days and complete the request within 45 days, with a possible extension of an additional 45 days where reasonably necessary."
+        "text": "California residents may submit privacy rights requests specifically by emailing support@inquiryremoval.com with the subject line \"California Privacy Rights Request\" or by calling 602-377-6626. We will acknowledge receipt of your request within 10 business days and complete the request within 45 days, with a possible extension of an additional 45 days where reasonably necessary."
       },
       {
         "kind": "p",
-        "text": "This Privacy Policy was last reviewed and updated on [INSERT DATE]. The previous version of this policy is available upon request."
+        "text": "This Privacy Policy was last reviewed and updated on May 14, 2026. The previous version of this policy is available upon request."
       }
     ]
   }
@@ -491,10 +491,10 @@ export default function PrivacyPolicyPage() {
           meta={
             <>
               <span>
-                <PremiumIcon name="checkBadge" size={15} /> Effective Date: [INSERT DATE]
+                <PremiumIcon name="checkBadge" size={15} /> Effective Date: May 14, 2026
               </span>
               <span>
-                <PremiumIcon name="calendarCheck" size={15} /> Last Updated: [INSERT DATE]
+                <PremiumIcon name="calendarCheck" size={15} /> Last Updated: May 14, 2026
               </span>
             </>
           }
@@ -503,7 +503,7 @@ export default function PrivacyPolicyPage() {
               <a href="tel:+16023776626" className="btn btn-primary btn-large">
                 Call 602-377-6626
               </a>
-              <a href="mailto:State48Credit@gmail.com" className="btn btn-secondary btn-large">
+              <a href="mailto:support@inquiryremoval.com" className="btn btn-secondary btn-large">
                 Email Privacy Request
               </a>
             </>

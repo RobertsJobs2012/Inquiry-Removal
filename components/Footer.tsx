@@ -14,7 +14,10 @@ const SERVICE_LINKS = [
   { label: "How It Works", href: "/how-it-works" },
   { label: "Pricing", href: "/pricing" },
   { label: "Three-bureau removal", href: "/services" },
-  { label: "Identity theft inquiries", href: "/services#identity-theft" },
+  { label: "Unauthorized inquiries", href: "/unauthorized-hard-inquiry-removal" },
+  { label: "Identity theft inquiries", href: "/identity-theft-inquiry-removal" },
+  { label: "Car dealership inquiries", href: "/car-dealership-inquiry-removal" },
+  { label: "Mortgage approval inquiries", href: "/hard-inquiry-removal-mortgage" },
   { label: "Free Analysis", href: "/get-started" },
 ];
 

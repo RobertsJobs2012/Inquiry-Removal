@@ -11,7 +11,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "budget:check": "node scripts/check-performance-budget.mjs"
+    "budget:check": "node scripts/check-performance-budget.mjs",
+    "links:check": "node scripts/check-internal-links.mjs"
   },
   "dependencies": {
     "astro": "6.3.1",

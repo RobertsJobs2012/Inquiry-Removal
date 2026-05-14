@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { ReactNode } from "react";
 import { AnnouncementBar } from "@/components/AnnouncementBar";
 import { Footer } from "@/components/Footer";
 import { FounderPhotoCard } from "@/components/FounderPhotoCard";
@@ -9,6 +10,77 @@ import type { LandingPageData } from "@/lib/landing-pages";
 
 type Block = LandingPageData["sections"][number]["blocks"][number];
 type PageVisualKey = LandingPageData["heroVisual"];
+
+
+const INTERNAL_TEXT_LINKS = [
+  { phrases: ["Experian"], href: "/remove-hard-inquiry-experian" },
+  { phrases: ["Equifax"], href: "/remove-hard-inquiry-equifax" },
+  { phrases: ["TransUnion"], href: "/remove-hard-inquiry-transunion" },
+  { phrases: ["car dealership", "dealership inquiries", "dealer inquiries"], href: "/car-dealership-inquiry-removal" },
+  { phrases: ["unauthorized hard inquiries", "unauthorized inquiries"], href: "/unauthorized-hard-inquiry-removal" },
+  { phrases: ["identity theft"], href: "/identity-theft-inquiry-removal" },
+  { phrases: ["mortgage approval", "mortgage application"], href: "/hard-inquiry-removal-mortgage" },
+  { phrases: ["all three bureaus", "three bureaus"], href: "/services" },
+  { phrases: ["How It Works"], href: "/how-it-works" },
+  { phrases: ["free consultation", "free analysis"], href: "/get-started" },
+  { phrases: ["Plans start", "Pricing"], href: "/pricing" },
+];
+
+function findInternalTextMatches(text: string) {
+  const matches: Array<{ index: number; end: number; text: string; href: string }> = [];
+
+  for (const link of INTERNAL_TEXT_LINKS) {
+    for (const phrase of link.phrases) {
+      const index = text.toLowerCase().indexOf(phrase.toLowerCase());
+      if (index >= 0) {
+        matches.push({
+          index,
+          end: index + phrase.length,
+          text: text.slice(index, index + phrase.length),
+          href: link.href,
+        });
+      }
+    }
+  }
+
+  return matches
+    .sort((a, b) => a.index - b.index || b.text.length - a.text.length)
+    .reduce<Array<{ index: number; end: number; text: string; href: string }>>((selected, match) => {
+      const overlaps = selected.some((item) => match.index < item.end && match.end > item.index);
+      const duplicateDestination = selected.some((item) => item.href === match.href);
+      return overlaps || duplicateDestination || selected.length >= 3 ? selected : [...selected, match];
+    }, []);
+}
+
+function renderInternalText(text: string): ReactNode {
+  const matches = findInternalTextMatches(text);
+
+  if (!matches.length) {
+    return text;
+  }
+
+  const nodes: ReactNode[] = [];
+  let cursor = 0;
+
+  matches.forEach((match, index) => {
+    if (match.index > cursor) {
+      nodes.push(text.slice(cursor, match.index));
+    }
+
+    nodes.push(
+      <Link key={`${match.href}-${match.index}-${index}`} href={match.href} className="inline-bureau-link">
+        {match.text}
+      </Link>
+    );
+    cursor = match.end;
+  });
+
+  if (cursor < text.length) {
+    nodes.push(text.slice(cursor));
+  }
+
+  return nodes;
+}
 
 const VISUALS: Record<PageVisualKey, { icon: PremiumIconName; eyebrow: string; title: string; score: string; scoreLabel: string; rows: string[]; badge: string }> = {
   dealer: {
@@ -128,7 +200,7 @@ function renderBlock(block: Block, index: number) {
   if (block.kind === "quote") {
     return (
       <blockquote key={`${block.kind}-${index}`}>
-        <p>{block.text}</p>
+        <p>{renderInternalText(block.text)}</p>
       </blockquote>
     );
   }
@@ -149,7 +221,7 @@ function renderBlock(block: Block, index: number) {
     );
   }
 
-  return <p key={`${block.kind}-${index}`}>{block.text}</p>;
+  return <p key={`${block.kind}-${index}`}>{renderInternalText(block.text)}</p>;
 }
 
 function Section({ page, section, index }: { page: LandingPageData; section: LandingPageData["sections"][number]; index: number }) {
@@ -172,7 +244,7 @@ function Section({ page, section, index }: { page: LandingPageData; section: Lan
                   <span>{item.q}</span>
                   <b aria-hidden="true">+</b>
                 </summary>
-                <p>{item.a}</p>
+                <p>{renderInternalText(item.a)}</p>
               </details>
             ))}
           </div>

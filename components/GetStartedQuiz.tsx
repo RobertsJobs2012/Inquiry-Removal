@@ -702,7 +702,7 @@ export function GetStartedQuiz() {
 
               <p className="quiz-mini">
                 If you don&apos;t hear from us within the timeframe above, call us
-                directly at 602-377-6626 or email State48Credit@gmail.com. We
+                directly at 602-377-6626 or email support@inquiryremoval.com. We
                 answer both.
               </p>
             </div>
