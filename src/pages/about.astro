@@ -1,0 +1,21 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import AboutPage, { metadata } from "../../app/about/page";
+import { aboutPagePersonSchema } from "@/lib/schema";
+import "../styles/pages/about.css";
+import "../styles/heading-system.css";
+
+const meta = metadata as any;
+---
+
+<BaseLayout
+  title={meta.title.absolute}
+  description={meta.description}
+  canonicalPath={meta.alternates.canonical}
+  ogImage="/og/about.png"
+  ogImageAlt="Robert Garcia, founder of Inquiry Removal and hard inquiry removal specialist."
+  schema={aboutPagePersonSchema}
+  pathname={Astro.url.pathname}
+>
+  <AboutPage />
+</BaseLayout>
