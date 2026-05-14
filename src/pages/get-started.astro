@@ -1,0 +1,28 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { AnnouncementBar } from "../../components/AnnouncementBar";
+import { Footer } from "../../components/Footer";
+import { Navigation } from "../../components/Navigation";
+import GetStartedQuizStatic from "../components/GetStartedQuizStatic.astro";
+import "../styles/pages/get-started.css";
+import "../styles/heading-system.css";
+
+const pageTitle = "Get Started — Free Hard Inquiry Removal Consultation";
+const pageDescription = "Book your free 15-minute credit consultation. We review your report, count your inquiries, and tell you exactly what can be removed — before you spend anything.";
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonicalPath="/get-started/"
+  ogImage="/og/get-started.png"
+  ogImageAlt="Inquiry Removal free analysis preview with Experian, Equifax, and TransUnion proof signals."
+  pathname={Astro.url.pathname}
+>
+  <AnnouncementBar />
+  <Navigation activePath="/get-started" />
+  <main id="main" class="get-started-page-main">
+    <GetStartedQuizStatic />
+  </main>
+  <Footer />
+</BaseLayout>
