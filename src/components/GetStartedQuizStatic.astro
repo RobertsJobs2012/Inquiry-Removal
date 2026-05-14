@@ -1,0 +1,501 @@
+---
+import { PremiumIcon } from "../../components/PremiumIcons";
+
+type Card = {
+  value: string;
+  field: "goal" | "problem" | "readiness" | "fear" | "timeline";
+  icon: any;
+  title: string;
+  description: string;
+  primary?: boolean;
+};
+
+const goalCards: Card[] = [
+  {
+    field: "goal",
+    value: "home",
+    icon: "homeGoal",
+    title: "Buying a home",
+    description: "Getting approved for a mortgage and finally owning the home I've been planning for",
+    primary: true,
+  },
+  {
+    field: "goal",
+    value: "car",
+    icon: "autoInquiry",
+    title: "Getting a car loan at a fair rate",
+    description: "Qualifying for financing without being penalized by an inflated interest rate",
+  },
+  {
+    field: "goal",
+    value: "credit",
+    icon: "scoreRise",
+    title: "Getting approved for credit",
+    description: "Opening a credit card or line of credit I keep getting denied for",
+  },
+  {
+    field: "goal",
+    value: "cleanup",
+    icon: "checkBadge",
+    title: "Cleaning up my credit report",
+    description: "Getting unauthorized or excessive hard inquiries off my report so my score reflects who I actually am",
+  },
+];
+
+const problemCards: Card[] = [
+  {
+    field: "problem",
+    value: "dealership",
+    icon: "autoInquiry",
+    title: "Dealership inquiries I didn't authorize",
+    description: "I went to one or more car dealerships and ended up with a flood of hard pulls I never agreed to",
+  },
+  {
+    field: "problem",
+    value: "identity",
+    icon: "identityShield",
+    title: "Inquiries I don't recognize, possible identity theft",
+    description: "There are hard pulls on my report from companies I've never heard of or applied to",
+  },
+  {
+    field: "problem",
+    value: "too-many",
+    icon: "tailoredDispute",
+    title: "Too many hard inquiries from applying for credit",
+    description: "I applied for loans, credit cards, or mortgages in multiple places and the inquiry count piled up",
+  },
+  {
+    field: "problem",
+    value: "review",
+    icon: "specialistFocus",
+    title: "I'm not completely sure, I need someone to review my report",
+    description: "I know something is wrong but I haven't been able to get clear answers about what can be fixed",
+  },
+];
+
+const readinessCards: Card[] = [
+  {
+    field: "readiness",
+    value: "have-count",
+    icon: "checkBadge",
+    title: "Yes, I have my reports and know my inquiry count",
+    description: "I've already reviewed my Experian, Equifax, and/or TransUnion reports",
+  },
+  {
+    field: "readiness",
+    value: "have-unsure",
+    icon: "tailoredDispute",
+    title: "I've pulled them but I'm not sure what I'm looking at",
+    description: "I have the reports but don't know which inquiries qualify for removal",
+  },
+  {
+    field: "readiness",
+    value: "not-pulled",
+    icon: "xBadge",
+    title: "No, I haven't pulled them yet",
+    description: "I haven't checked recently and don't know what's on my report",
+  },
+  {
+    field: "readiness",
+    value: "outdated",
+    icon: "guaranteeLoop",
+    title: "I pulled them a while ago, they may be outdated",
+    description: "I've seen my report before but it's been a few months or more",
+  },
+];
+
+const fearCards: Card[] = [
+  {
+    field: "fear",
+    value: "home-loss",
+    icon: "homeGoal",
+    title: "Losing the home I've been working toward",
+    description: "Another denial, another delay, another year of watching the opportunity slip further away",
+  },
+  {
+    field: "fear",
+    value: "higher-rates",
+    icon: "flatFee",
+    title: "Paying higher interest rates than I should",
+    description: "Being stuck with a worse loan offer because my score doesn't reflect my actual financial behavior",
+  },
+  {
+    field: "fear",
+    value: "score-fall",
+    icon: "warningDiamond",
+    title: "My score continuing to fall while I wait",
+    description: "Hard inquiries staying on my report for two years and costing me every application in the meantime",
+  },
+  {
+    field: "fear",
+    value: "wasted-time",
+    icon: "guaranteeLoop",
+    title: "Wasting more time and money on companies that don't deliver",
+    description: "Paying another monthly fee to another company that treats my situation like a line item instead of a priority",
+  },
+];
+
+const timelineCards: Card[] = [
+  {
+    field: "timeline",
+    value: "asap",
+    icon: "scoreRise",
+    title: "As soon as possible, I'm ready to move",
+    description: "I understand the process, I've done my research, and I want to get started",
+  },
+  {
+    field: "timeline",
+    value: "deadline",
+    icon: "calendarCheck",
+    title: "I have a specific deadline, closing date, loan application, or approval goal",
+    description: "My situation has a timeline and I need this handled with urgency",
+  },
+  {
+    field: "timeline",
+    value: "weeks",
+    icon: "specialistFocus",
+    title: "Within the next few weeks, I'm almost ready",
+    description: "I want to get moving soon but I still have a question or two before I commit",
+  },
+  {
+    field: "timeline",
+    value: "researching",
+    icon: "tailoredDispute",
+    title: "I'm still researching, not quite ready yet",
+    description: "I want to understand everything before I decide, no rush on my end",
+  },
+];
+
+const steps = [
+  {
+    number: 1,
+    heading: "What's the #1 thing you're working toward right now?",
+    subheading: "Select the one that fits you best.",
+    cards: goalCards,
+  },
+  {
+    number: 2,
+    heading: "What's currently standing in your way?",
+    subheading: "What best describes your situation right now?",
+    cards: problemCards,
+  },
+  {
+    number: 3,
+    heading: "Have you pulled your credit reports recently?",
+    subheading: "This helps us know where to start. There's no wrong answer.",
+    cards: readinessCards,
+  },
+  {
+    number: 4,
+    heading: "What concerns you most if your inquiry situation stays the way it is?",
+    subheading: "Select the outcome that worries you most.",
+    cards: fearCards,
+  },
+  {
+    number: 5,
+    heading: "How soon are you looking to get this resolved?",
+    subheading: "Be honest. There's no pressure either way. This just helps us prioritize.",
+    cards: timelineCards,
+  },
+];
+---
+
+<section class="get-started-quiz" aria-labelledby="get-started-heading" data-get-started-quiz>
+  <div class="container get-started-shell">
+    <div class="get-started-copy">
+      <h1 id="get-started-heading" class="ir-display-h1">
+        Let's Find Out Exactly What's on Your Report, and Exactly
+        <span class="ir-gradient-text">What We Can Remove</span>.
+      </h1>
+      <p class="get-started-sub">
+        Answer six quick questions. We'll match you to the right plan, confirm your inquiries qualify for removal, and get your free consultation scheduled, all before you spend a single dollar.
+      </p>
+      <p class="get-started-trust">
+        <span class="get-started-trust-icon" aria-hidden="true">
+          <PremiumIcon name="bureauShield" size={16} strokeWidth={1.8} />
+        </span>
+        <span>Free. No obligation. No credit card required. Takes under 3 minutes.</span>
+      </p>
+    </div>
+
+    <div class="quiz-shell" aria-live="polite">
+      <div class="quiz-active" data-quiz-active>
+        <div class="quiz-progress">
+          <div class="quiz-progress-top">
+            <strong data-progress-label>Step 1 of 6</strong>
+            <button type="button" class="quiz-back" data-quiz-back hidden>← Back</button>
+          </div>
+          <div class="quiz-progress-bar" aria-hidden="true">
+            <span data-progress-bar style="width: 16.6667%"></span>
+          </div>
+        </div>
+
+        <div class="quiz-panel">
+          {steps.map((step) => (
+            <div class="quiz-step" data-step={step.number} hidden={step.number !== 1}>
+              <div class="quiz-head">
+                <h2>{step.heading}</h2>
+                <p>{step.subheading}</p>
+              </div>
+              <div class="quiz-card-grid">
+                {step.cards.map((card, index) => (
+                  <button
+                    type="button"
+                    class:list={["quiz-card", card.primary && "quiz-card-primary"]}
+                    data-card
+                    data-field={card.field}
+                    data-value={card.value}
+                    data-quiz-first-focus={index === 0 ? "true" : undefined}
+                  >
+                    <span class="quiz-card-icon" aria-hidden="true">
+                      <PremiumIcon name={card.icon} size={22} strokeWidth={1.85} />
+                    </span>
+                    <strong>{card.title}</strong>
+                    <span>{card.description}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          ))}
+
+          <div class="quiz-step" data-step="6" hidden>
+            <div class="quiz-head">
+              <h2>You're One Step Away from Knowing Exactly What Can Be Removed from Your Report.</h2>
+              <p>
+                Enter your details below and we'll reach out to schedule your free 15-minute consultation, where we'll review your reports together, identify every removable inquiry, and tell you which plan fits your situation.
+              </p>
+            </div>
+
+            <div class="quiz-diagnostic-card" data-diagnostic-card>
+              <span data-diagnostic-label>Likely best first step</span>
+              <strong data-diagnostic-title>Free inquiry analysis before choosing a plan</strong>
+              <p data-diagnostic-body>We will help confirm which inquiries may qualify, which bureaus are involved, and whether Starter, Standard, or Elite makes sense.</p>
+            </div>
+
+            <form class="quiz-form" data-quiz-form>
+              <label>
+                <span>First Name</span>
+                <input required type="text" name="firstName" autocomplete="given-name" placeholder="Your first name" data-quiz-first-focus />
+              </label>
+
+              <label>
+                <span>Email Address</span>
+                <input required type="email" name="email" autocomplete="email" inputmode="email" placeholder="Your best email address" />
+              </label>
+
+              <label>
+                <span>Phone Number</span>
+                <input type="tel" name="phone" autocomplete="tel" inputmode="tel" placeholder="Your phone number (optional, we'll email you either way)" />
+              </label>
+
+              <button type="submit" class="btn btn-primary btn-large quiz-submit">
+                Get My Free Credit Analysis →
+              </button>
+
+              <p class="quiz-legal">
+                By submitting this form, you agree to be contacted by Inquiry Removal at the email or phone number provided. We do not sell or share your information. You can opt out at any time.
+              </p>
+              <p class="quiz-mini">
+                No credit card required. No obligation. No monthly fees, ever. Plans start at $199, paid once, only after your consultation confirms we can help.
+              </p>
+            </form>
+
+            <blockquote class="quiz-testimonial">
+              <p>
+                "I filled out the form not really knowing what to expect. By the end of the consultation I knew exactly how many inquiries I had, which ones could be removed, and what my score could look like afterward. I signed up that same day. Thirty-eight days later, 14 inquiries were gone and my score was up 71 points."
+              </p>
+              <footer>James L. | Chicago, IL | 5-star review | 14 Inquiries Removed | +71 Points in 38 Days</footer>
+            </blockquote>
+
+            <p class="quiz-soft-path">
+              Not ready to fill out a form? Call Robert directly. <a href="tel:+16023776626">602-377-6626</a>, questions answered. No scripts. No pressure.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="quiz-panel quiz-confirmation" data-quiz-confirmation hidden>
+        <div class="quiz-confirm-badge">
+          <span aria-hidden="true"><PremiumIcon name="checkBadge" size={16} strokeWidth={1.8} /></span>
+          <span>You're In. Here's What Happens Next.</span>
+        </div>
+        <div class="quiz-diagnostic-card quiz-diagnostic-card-confirmed">
+          <span>Your recommended starting point</span>
+          <strong data-confirm-title>Free inquiry analysis before choosing a plan</strong>
+          <p data-confirm-body>We will help confirm which inquiries may qualify, which bureaus are involved, and whether Starter, Standard, or Elite makes sense.</p>
+        </div>
+        <div class="quiz-head">
+          <h2>We've Got Your Information. Here's What We Do From Here.</h2>
+          <p data-confirm-copy>Thank you. Your free consultation request is confirmed. A member of the Inquiry Removal team will reach out within 24 hours to schedule your 15-minute credit review.</p>
+        </div>
+
+        <div class="quiz-confirm-grid">
+          <article class="quiz-confirm-step">
+            <strong data-confirm-window-heading>Step 1, Within 24 hours</strong>
+            <p>We reach out by email or phone, whichever you prefer, to confirm your consultation time. If you'd rather skip the wait, call us directly at 602-377-6626.</p>
+          </article>
+
+          <article class="quiz-confirm-step">
+            <strong>Step 2, At Your Consultation (15 Minutes)</strong>
+            <p>We pull up your Experian, Equifax, and TransUnion reports together. We walk through every hard inquiry, identify every one that qualifies for removal, total them across all three bureaus, and tell you exactly which plan fits your situation.</p>
+          </article>
+
+          <article class="quiz-confirm-step">
+            <strong>Step 3, If You Decide to Move Forward</strong>
+            <p>Custom dispute letters are built and submitted to all three bureaus within 24 hours of signup. Then we handle everything. You monitor your score as the removals come through.</p>
+          </article>
+        </div>
+
+        <div class="quiz-confirm-stat">
+          <strong>We've helped 1,123 clients remove over 100,437 hard inquiries since 2015.</strong>
+          <p>The person who reaches out to you has been doing this, and only this, for years.</p>
+        </div>
+
+        <blockquote class="quiz-testimonial">
+          <p>"The consultation took exactly 15 minutes. By the end of it I knew my inquiry count, which plan I needed, and what my score could look like. I signed up and disputes were submitted the next morning. I wish I had done this six months earlier."</p>
+          <footer>Maria S. | San Antonio, TX | 5-star review | 22 Inquiries Removed | +88 Points</footer>
+        </blockquote>
+
+        <div class="quiz-confirm-links">
+          <span>While you're waiting:</span>
+          <div>
+            <a href="/how-it-works/"><PremiumIcon name="calendarCheck" size={16} strokeWidth={1.8} /><span>See How It Works →</span></a>
+            <a href="/results/"><PremiumIcon name="scoreRise" size={16} strokeWidth={1.8} /><span>Read Client Results →</span></a>
+            <a href="/pricing/"><PremiumIcon name="flatFee" size={16} strokeWidth={1.8} /><span>Review Pricing Details →</span></a>
+          </div>
+        </div>
+
+        <p class="quiz-mini">If you don't hear from us within the timeframe above, call us directly at 602-377-6626 or email support@inquiryremoval.com. We answer both.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+(() => {
+  const root = document.querySelector('[data-get-started-quiz]');
+  if (!root) return;
+
+  const state = {};
+  let currentStep = 1;
+  let advanceTimer = 0;
+
+  const progressLabel = root.querySelector('[data-progress-label]');
+  const progressBar = root.querySelector('[data-progress-bar]');
+  const backButton = root.querySelector('[data-quiz-back]');
+  const activePanel = root.querySelector('[data-quiz-active]');
+  const confirmationPanel = root.querySelector('[data-quiz-confirmation]');
+  const form = root.querySelector('[data-quiz-form]');
+
+  function diagnosticResult() {
+    if (state.problem === 'identity') {
+      return {
+        title: 'Identity-focused 3-bureau inquiry review',
+        body: 'Because you mentioned inquiries you do not recognize, the safest next step is a bureau-by-bureau review before choosing a plan.',
+      };
+    }
+    if (state.problem === 'dealership' || state.problem === 'too-many') {
+      return {
+        title: 'All 3 bureau inquiry count and dispute strategy',
+        body: 'Dealership and application clusters often appear differently across Experian, Equifax, and TransUnion, so we review the full picture first.',
+      };
+    }
+    if (state.readiness === 'not-pulled' || state.readiness === 'outdated') {
+      return {
+        title: 'Fresh report review before plan selection',
+        body: 'You do not need to know your inquiry count yet. We start by helping you understand what is currently reporting.',
+      };
+    }
+    return {
+      title: 'Free inquiry analysis before choosing a plan',
+      body: 'We will help confirm which inquiries may qualify, which bureaus are involved, and whether Starter, Standard, or Elite makes sense.',
+    };
+  }
+
+  function followUpWindow() {
+    return state.timeline === 'asap' || state.timeline === 'deadline' ? '2 business hours' : '24 hours';
+  }
+
+  function updateDiagnostic() {
+    const diagnostic = diagnosticResult();
+    root.querySelectorAll('[data-diagnostic-title], [data-confirm-title]').forEach((node) => {
+      node.textContent = diagnostic.title;
+    });
+    root.querySelectorAll('[data-diagnostic-body], [data-confirm-body]').forEach((node) => {
+      node.textContent = diagnostic.body;
+    });
+  }
+
+  function focusCurrentStep() {
+    const firstFocus = root.querySelector(`[data-step="${currentStep}"] [data-quiz-first-focus]`);
+    if (!firstFocus) return;
+    const isTextEntry = ['INPUT', 'TEXTAREA', 'SELECT'].includes(firstFocus.tagName);
+    const isCoarsePointer = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+    if (isTextEntry && isCoarsePointer) return;
+    firstFocus.focus({ preventScroll: true });
+  }
+
+  function render() {
+    root.querySelectorAll('[data-step]').forEach((panel) => {
+      panel.hidden = Number(panel.getAttribute('data-step')) !== currentStep;
+    });
+    root.querySelectorAll('[data-card]').forEach((card) => {
+      card.classList.toggle('quiz-card-selected', state[card.dataset.field] === card.dataset.value);
+    });
+
+    const notes = {
+      4: " — You're more than halfway there.",
+      5: ' — One step from your personalized plan.',
+      6: ' — Almost done.',
+    };
+    if (progressLabel) progressLabel.textContent = `Step ${currentStep} of 6${notes[currentStep] || ''}`;
+    if (progressBar) progressBar.style.width = `${(currentStep / 6) * 100}%`;
+    if (backButton) backButton.hidden = currentStep <= 1;
+    updateDiagnostic();
+    root.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    window.setTimeout(focusCurrentStep, 40);
+  }
+
+  root.addEventListener('click', (event) => {
+    const card = event.target.closest('[data-card]');
+    if (card) {
+      window.clearTimeout(advanceTimer);
+      state[card.dataset.field] = card.dataset.value;
+      root.querySelectorAll(`[data-card][data-field="${card.dataset.field}"]`).forEach((item) => item.classList.remove('quiz-card-selected'));
+      card.classList.add('quiz-card-selected');
+      advanceTimer = window.setTimeout(() => {
+        currentStep = Math.min(currentStep + 1, 6);
+        render();
+      }, 180);
+      return;
+    }
+
+    if (event.target.closest('[data-quiz-back]')) {
+      window.clearTimeout(advanceTimer);
+      currentStep = Math.max(currentStep - 1, 1);
+      render();
+    }
+  });
+
+  if (form) {
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const formData = new FormData(form);
+      const firstName = String(formData.get('firstName') || '').trim();
+      const windowText = followUpWindow();
+      const confirmCopy = root.querySelector('[data-confirm-copy]');
+      const confirmWindow = root.querySelector('[data-confirm-window-heading]');
+      if (confirmCopy) {
+        confirmCopy.textContent = `Thank you${firstName ? `, ${firstName}` : ''}. Your free consultation request is confirmed. A member of the Inquiry Removal team will reach out within ${windowText} to schedule your 15-minute credit review.`;
+      }
+      if (confirmWindow) confirmWindow.textContent = `Step 1, Within ${windowText}`;
+      updateDiagnostic();
+      if (activePanel) activePanel.hidden = true;
+      if (confirmationPanel) confirmationPanel.hidden = false;
+      root.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    });
+  }
+
+  render();
+})();
+</script>
