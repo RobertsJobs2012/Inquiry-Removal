@@ -1,0 +1,201 @@
+---
+---
+
+<script is:inline data-astro-rerun>
+  (() => {
+    const w = window;
+
+    if (w.__irInstantWarmupReady) {
+      w.__irInstantWarmupScan?.();
+      return;
+    }
+
+    w.__irInstantWarmupReady = true;
+
+    const warmedRoutes = new Set();
+    const pendingRoutes = new Set();
+    const warmedAssets = new Set();
+    const queue = [];
+    let active = 0;
+    const maxConcurrent = 2;
+    const parser = new DOMParser();
+
+    const idle = (callback, timeout = 1200) => {
+      if ("requestIdleCallback" in w) {
+        w.requestIdleCallback(callback, { timeout });
+      } else {
+        w.setTimeout(callback, 80);
+      }
+    };
+
+    const canWarmConnection = () => {
+      const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+      return !(connection?.saveData || /2g/.test(connection?.effectiveType || ""));
+    };
+
+    const normalizedInternalUrl = (href) => {
+      try {
+        const url = new URL(href, location.href);
+        if (url.origin !== location.origin) return null;
+        if (url.protocol !== "http:" && url.protocol !== "https:") return null;
+        url.hash = "";
+        return url.href;
+      } catch {
+        return null;
+      }
+    };
+
+    const isWarmableAnchor = (anchor) => {
+      if (!anchor || !anchor.href) return false;
+      if (anchor.target && anchor.target !== "_self") return false;
+      if (anchor.hasAttribute("download")) return false;
+      if (anchor.hasAttribute("data-astro-reload")) return false;
+      const rawHref = anchor.getAttribute("href") || "";
+      if (!rawHref || rawHref.startsWith("#")) return false;
+      if (/^(mailto:|tel:|sms:|javascript:)/i.test(rawHref)) return false;
+      return Boolean(normalizedInternalUrl(anchor.href));
+    };
+
+    const createHint = (href, as) => {
+      if (!href || warmedAssets.has(`${as}:${href}`)) return;
+      warmedAssets.add(`${as}:${href}`);
+      const link = document.createElement("link");
+      link.rel = "prefetch";
+      link.href = href;
+      if (as) link.as = as;
+      document.head.appendChild(link);
+    };
+
+    const warmAsset = (href, as) => {
+      try {
+        const url = new URL(href, location.href);
+        if (url.origin !== location.origin) return;
+        createHint(url.href, as);
+      } catch {
+        // Ignore malformed URLs.
+      }
+    };
+
+    const warmAssetsFromHtml = (html) => {
+      let doc;
+      try {
+        doc = parser.parseFromString(html, "text/html");
+      } catch {
+        return;
+      }
+
+      doc.querySelectorAll('link[rel="stylesheet"][href]').forEach((node) => {
+        warmAsset(node.getAttribute("href"), "style");
+      });
+
+      doc.querySelectorAll('link[rel="modulepreload"][href]').forEach((node) => {
+        warmAsset(node.getAttribute("href"), "script");
+      });
+
+      doc.querySelectorAll('script[type="module"][src], script[src][data-astro-rerun]').forEach((node) => {
+        warmAsset(node.getAttribute("src"), "script");
+      });
+
+      doc.querySelectorAll('main img[src], main source[srcset]').forEach((node, index) => {
+        if (index > 2) return;
+        const src = node.getAttribute("src") || (node.getAttribute("srcset") || "").split(",")[0]?.trim().split(" ")[0];
+        if (src) warmAsset(src, "image");
+      });
+    };
+
+    const runNext = () => {
+      if (active >= maxConcurrent || queue.length === 0) return;
+      const { url, urgent } = queue.shift();
+      if (warmedRoutes.has(url) || pendingRoutes.has(url)) {
+        runNext();
+        return;
+      }
+
+      active += 1;
+      pendingRoutes.add(url);
+      createHint(url, "document");
+
+      fetch(url, {
+        credentials: "same-origin",
+        cache: "force-cache",
+        priority: urgent ? "high" : "low",
+      })
+        .then((response) => {
+          if (!response.ok) throw new Error("Route warmup failed");
+          return response.text();
+        })
+        .then((html) => {
+          warmedRoutes.add(url);
+          warmAssetsFromHtml(html);
+        })
+        .catch(() => {})
+        .finally(() => {
+          pendingRoutes.delete(url);
+          active -= 1;
+          runNext();
+        });
+    };
+
+    const enqueueWarmup = (href, urgent = false) => {
+      const url = normalizedInternalUrl(href);
+      if (!url || url === normalizedInternalUrl(location.href)) return;
+      if (warmedRoutes.has(url) || pendingRoutes.has(url)) return;
+      if (!urgent && !canWarmConnection()) return;
+      queue.push({ url, urgent });
+      if (urgent) runNext();
+      else idle(runNext);
+    };
+
+    const bindFastIntent = (anchor) => {
+      if (anchor.__irInstantBound) return;
+      anchor.__irInstantBound = true;
+      const warmNow = () => enqueueWarmup(anchor.href, true);
+      anchor.addEventListener("pointerenter", warmNow, { passive: true });
+      anchor.addEventListener("touchstart", warmNow, { passive: true });
+      anchor.addEventListener("focus", warmNow, { passive: true });
+      anchor.addEventListener("mousedown", warmNow, { passive: true });
+    };
+
+    let observer;
+
+    const scanLinks = () => {
+      const anchors = Array.from(document.querySelectorAll("a[href]")).filter(isWarmableAnchor);
+      anchors.forEach(bindFastIntent);
+
+      if (observer) observer.disconnect();
+      observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              observer.unobserve(entry.target);
+              enqueueWarmup(entry.target.href, false);
+            }
+          });
+        },
+        { rootMargin: "1200px 0px" }
+      );
+
+      anchors.forEach((anchor) => observer.observe(anchor));
+
+      idle(() => {
+        anchors
+          .filter((anchor) => anchor.closest("header, nav, footer, .announcement-bar, .mobile-conversion-dock") || anchor.matches(".btn, .nav-link, .nav-logo"))
+          .slice(0, 24)
+          .forEach((anchor) => enqueueWarmup(anchor.href, false));
+      }, 900);
+    };
+
+    w.__irInstantWarmupScan = scanLinks;
+
+    document.addEventListener("astro:page-load", scanLinks);
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden) scanLinks();
+    });
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", scanLinks, { once: true });
+    } else {
+      scanLinks();
+    }
+  })();
+</script>
