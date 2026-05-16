@@ -1,0 +1,20 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ExperianPage, { metadata } from "../../app/remove-hard-inquiry-experian/page";
+import inlineCss1 from "../styles/pages/experian.css?raw";
+import inlineCss2 from "../styles/heading-system.css?raw";
+
+const meta = metadata as any;
+---
+
+<BaseLayout
+  inlineStyles={[inlineCss1, inlineCss2].join("\n")}
+  title={meta.title.absolute}
+  description={meta.description}
+  canonicalPath={meta.alternates.canonical}
+  ogImage="/og/experian.png"
+  ogImageAlt="Experian hard inquiry removal service preview."
+  pathname={Astro.url.pathname}
+>
+  <ExperianPage />
+</BaseLayout>

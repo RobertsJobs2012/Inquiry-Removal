@@ -1,0 +1,22 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ServicesPage, { metadata } from "../../app/services/page";
+import { servicesPageSchema } from "@/lib/schema";
+import inlineCss1 from "../styles/pages/services.css?raw";
+import inlineCss2 from "../styles/heading-system.css?raw";
+
+const meta = metadata as any;
+---
+
+<BaseLayout
+  inlineStyles={[inlineCss1, inlineCss2].join("\n")}
+  title={meta.title.absolute}
+  description={meta.description}
+  canonicalPath={meta.alternates.canonical}
+  ogImage="/og/services.png"
+  ogImageAlt="Inquiry Removal flat-fee service plans for hard inquiry removal."
+  schema={servicesPageSchema}
+  pathname={Astro.url.pathname}
+>
+  <ServicesPage />
+</BaseLayout>

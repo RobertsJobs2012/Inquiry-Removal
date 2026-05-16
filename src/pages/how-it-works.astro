@@ -1,0 +1,22 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import HowItWorksPage, { metadata } from "../../app/how-it-works/page";
+import { howItWorksPageSchema } from "@/lib/schema";
+import inlineCss1 from "../styles/pages/how-it-works.css?raw";
+import inlineCss2 from "../styles/heading-system.css?raw";
+
+const meta = metadata as any;
+---
+
+<BaseLayout
+  inlineStyles={[inlineCss1, inlineCss2].join("\n")}
+  title={meta.title.absolute}
+  description={meta.description}
+  canonicalPath={meta.alternates.canonical}
+  ogImage="/og/how-it-works.png"
+  ogImageAlt="The Inquiry Removal process from free analysis to bureau disputes and results."
+  schema={howItWorksPageSchema}
+  pathname={Astro.url.pathname}
+>
+  <HowItWorksPage />
+</BaseLayout>

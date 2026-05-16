@@ -1,0 +1,20 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BlogPage, { metadata } from "../../../app/blog/page";
+import inlineCss1 from "../../styles/pages/blog-index.css?raw";
+import inlineCss2 from "../../styles/heading-system.css?raw";
+
+const meta = metadata as any;
+---
+
+<BaseLayout
+  inlineStyles={[inlineCss1, inlineCss2].join("\n")}
+  title={meta.title.absolute}
+  description={meta.description}
+  canonicalPath={meta.alternates.canonical}
+  ogImage="/og/blog.png"
+  ogImageAlt="Hard inquiry removal guides and credit report education from Inquiry Removal."
+  pathname={Astro.url.pathname}
+>
+  <BlogPage />
+</BaseLayout>

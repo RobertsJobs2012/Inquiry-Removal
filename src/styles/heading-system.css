@@ -1,0 +1,936 @@
+/* Shared heading rhythm sweep
+   Keeps page H1/H2 spacing and alignment consistent across all mobile pages. */
+:root{
+  --ir-mobile-hero-top:clamp(72px,15vw,104px);
+  --ir-mobile-hero-bottom:clamp(54px,12vw,82px);
+  --ir-mobile-section-y:clamp(58px,12vw,82px);
+  --ir-mobile-h1-size:clamp(2.5rem,11.1vw,4.05rem);
+  --ir-mobile-h1-line:1.02;
+  --ir-mobile-h1-track:-0.052em;
+  --ir-mobile-h2-size:clamp(1.82rem,7.75vw,2.55rem);
+  --ir-mobile-h2-line:1.08;
+  --ir-mobile-h2-track:-0.041em;
+}
+.ir-display-h1,
+.hero-headline,
+.ir-page-hero-title,
+.get-started-copy h1{
+  font-family:var(--font-heading),-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  font-weight:900;
+  letter-spacing:clamp(-0.055em,-0.5vw,-0.035em);
+  line-height:1.02;
+}
+.ir-page-hero-title,
+.hero-headline,
+.get-started-copy h1{
+  margin-block-start:0;
+}
+@media (max-width:860px){
+  .hero,
+  .ir-page-hero,
+  .get-started-shell{
+    padding-top:var(--ir-mobile-hero-top)!important;
+    padding-bottom:var(--ir-mobile-hero-bottom)!important;
+  }
+  .pricing-page .ir-page-hero,
+  .services-page .ir-page-hero,
+  .how-page .ir-page-hero,
+  .results-page .ir-page-hero,
+  .about-page .ir-page-hero,
+  .compare-page .ir-page-hero,
+  .blog-page .ir-page-hero,
+  .faq-page .ir-page-hero,
+  .experian-page .ir-page-hero,
+  .equifax-page .ir-page-hero,
+  .transunion-page .ir-page-hero{
+    padding-top:var(--ir-mobile-hero-top)!important;
+    padding-bottom:var(--ir-mobile-hero-bottom)!important;
+  }
+  .ir-page-hero-shell,
+  .hero-grid,
+  .get-started-shell{
+    align-items:start!important;
+    gap:clamp(28px,8vw,44px)!important;
+  }
+  .ir-page-hero-copy,
+  .hero-content,
+  .get-started-copy{
+    padding-top:0!important;
+    margin-top:0!important;
+  }
+  .ir-display-h1,
+  .hero-headline,
+  .ir-page-hero-title,
+  .get-started-copy h1,
+  main h1:not(.sr-only){
+    font-size:var(--ir-mobile-h1-size)!important;
+    line-height:var(--ir-mobile-h1-line)!important;
+    letter-spacing:var(--ir-mobile-h1-track)!important;
+    margin:0!important;
+    text-wrap:balance;
+    max-width:11.8ch;
+  }
+  .blog-page .ir-page-hero-title,
+  .faq-page .ir-page-hero-title,
+  .about-page .ir-page-hero-title,
+  .results-page .ir-page-hero-title,
+  .pricing-page .ir-page-hero-title,
+  .services-page .ir-page-hero-title,
+  .how-page .ir-page-hero-title,
+  .get-started-copy h1{
+    max-width:12.8ch;
+  }
+  .ir-page-hero-subtitle,
+  .hero-subheadline,
+  .get-started-sub{
+    margin-top:clamp(18px,4.8vw,26px)!important;
+  }
+  .ir-page-hero-actions,
+  .hero-ctas{
+    margin-top:clamp(22px,6vw,32px)!important;
+  }
+  main h2:not(.sr-only),
+  .ir-section-head h2,
+  .bento-header h2,
+  .proof-header h2,
+  .faq-header h2,
+  .how-header h2,
+  .services-copy-head h2,
+  .services-by-bureau-head h2,
+  .pricing-section-head h2,
+  .pricing-copy-head h2,
+  .pricing-narrow h2,
+  .about-copy-head h2,
+  .how-page-head h2,
+  .results-copy-head h2,
+  .compare-head h2,
+  .blog-index h2,
+  .experian-copy-head h2,
+  .equifax-copy-head h2,
+  .transunion-copy-head h2{
+    font-size:var(--ir-mobile-h2-size)!important;
+    line-height:var(--ir-mobile-h2-line)!important;
+    letter-spacing:var(--ir-mobile-h2-track)!important;
+    text-wrap:balance;
+    margin-top:0!important;
+  }
+  .ir-section-head,
+  .bento-header,
+  .proof-header,
+  .faq-header,
+  .how-header,
+  .services-copy-head,
+  .services-by-bureau-head,
+  .pricing-section-head,
+  .pricing-copy-head,
+  .about-copy-head,
+  .how-page-head,
+  .results-copy-head,
+  .compare-head,
+  .blog-index .ir-section-head,
+  .experian-copy-head,
+  .equifax-copy-head,
+  .transunion-copy-head,
+  .about-centered-head{
+    text-align:left!important;
+    align-items:flex-start!important;
+    margin-left:0!important;
+    margin-right:auto!important;
+    max-width:760px!important;
+  }
+  .ir-section-head p,
+  .bento-header p,
+  .proof-header p,
+  .faq-header p,
+  .how-header p,
+  .services-copy-head p,
+  .pricing-section-head p,
+  .pricing-copy-head p,
+  .about-copy-head p,
+  .how-page-head p,
+  .results-copy-head p,
+  .compare-head p,
+  .experian-copy-head p,
+  .equifax-copy-head p,
+  .transunion-copy-head p{
+    margin-left:0!important;
+    margin-right:auto!important;
+    text-align:left!important;
+  }
+  .section-divider,
+  .problem,
+  .solution,
+  .how,
+  .proof,
+  .bento,
+  .guarantee,
+  .final-cta,
+  .faq,
+  .trust,
+  .pricing-value,
+  .pricing-guarantee,
+  .services-explainer,
+  .services-by-bureau,
+  .how-page-timeline,
+  .results-gallery,
+  .about-story,
+  .about-industry{
+    padding-top:var(--ir-mobile-section-y)!important;
+    padding-bottom:var(--ir-mobile-section-y)!important;
+  }
+  .faq-page .ir-page-hero-center .ir-page-hero-copy,
+  .faq-page .ir-page-hero-center .ir-page-hero-subtitle,
+  .faq-page .ir-page-hero-center .ir-page-hero-meta{
+    text-align:center!important;
+    margin-left:auto!important;
+    margin-right:auto!important;
+  }
+  .faq-page .ir-page-hero-center .ir-page-hero-title{
+    margin-left:auto!important;
+    margin-right:auto!important;
+  }
+}
+@media (max-width:390px){
+  :root{
+    --ir-mobile-h1-size:clamp(2.35rem,10.9vw,3.72rem);
+    --ir-mobile-h2-size:clamp(1.72rem,7.4vw,2.32rem);
+  }
+}
+
+/* Desktop heading rhythm sweep
+   V13: desktop now uses the same shared heading system as mobile.
+   This fixes pricing sitting too tight under the nav and removes mixed H2 alignment on inner pages. */
+:root{
+  --ir-desktop-hero-top:clamp(108px,7.8vw,148px);
+  --ir-desktop-hero-bottom:clamp(82px,6.4vw,116px);
+  --ir-desktop-h1-size:clamp(3.75rem,4.8vw,5.05rem);
+  --ir-desktop-h1-line:1.015;
+  --ir-desktop-h1-track:-0.052em;
+  --ir-desktop-h2-size:clamp(2.15rem,3.2vw,4.0rem);
+  --ir-desktop-h2-line:1.04;
+  --ir-desktop-h2-track:-0.044em;
+}
+
+@media (min-width:861px){
+  /* Keep the first hero section consistent underneath the announcement/nav stack. */
+  .hero,
+  main[class] .ir-page-hero,
+  .pricing-page .ir-page-hero,
+  .services-page .ir-page-hero,
+  .how-page .ir-page-hero,
+  .results-page .ir-page-hero,
+  .about-page .ir-page-hero,
+  .compare-page .ir-page-hero,
+  .blog-page .ir-page-hero,
+  .faq-page .ir-page-hero,
+  .experian-page .ir-page-hero,
+  .equifax-page .ir-page-hero,
+  .transunion-page .ir-page-hero{
+    padding-top:var(--ir-desktop-hero-top)!important;
+    padding-bottom:var(--ir-desktop-hero-bottom)!important;
+  }
+
+  /* Pricing had a page-level section reset that beat the normal hero padding. */
+  .pricing-page section.ir-page-hero,
+  .pricing-page .ir-page-hero{
+    padding-top:var(--ir-desktop-hero-top)!important;
+    padding-bottom:var(--ir-desktop-hero-bottom)!important;
+  }
+
+  .ir-page-hero-shell,
+  .hero-grid,
+  .get-started-shell{
+    align-items:center!important;
+    gap:clamp(40px,5.2vw,76px)!important;
+  }
+
+  .ir-page-hero-copy,
+  .hero-content,
+  .get-started-copy{
+    padding-top:0!important;
+    margin-top:0!important;
+  }
+
+  .ir-display-h1,
+  .hero-headline,
+  .ir-page-hero-title,
+  .get-started-copy h1,
+  main[class] h1:not(.sr-only){
+    font-size:var(--ir-desktop-h1-size)!important;
+    line-height:var(--ir-desktop-h1-line)!important;
+    letter-spacing:var(--ir-desktop-h1-track)!important;
+    margin-top:0!important;
+    margin-bottom:0!important;
+    text-wrap:balance;
+  }
+
+  .hero-headline{
+    max-width:720px!important;
+  }
+
+  .ir-page-hero-title,
+  .get-started-copy h1{
+    max-width:11.8ch!important;
+  }
+
+  .services-page .ir-page-hero-title,
+  .pricing-page .ir-page-hero-title,
+  .results-page .ir-page-hero-title,
+  .how-page .ir-page-hero-title,
+  .about-page .ir-page-hero-title,
+  .compare-page .ir-page-hero-title,
+  .blog-page .ir-page-hero-title,
+  .experian-page .ir-page-hero-title,
+  .equifax-page .ir-page-hero-title,
+  .transunion-page .ir-page-hero-title{
+    max-width:12.4ch!important;
+  }
+
+  .ir-page-hero-subtitle,
+  .hero-subheadline,
+  .get-started-sub,
+  .get-started-copy > p{
+    margin-top:clamp(18px,1.6vw,26px)!important;
+  }
+
+  .ir-page-hero-actions,
+  .hero-ctas{
+    margin-top:clamp(22px,2vw,34px)!important;
+  }
+
+  /* H2s now use one desktop scale and one alignment rule on inner pages. */
+  main[class] h2:not(.sr-only),
+  main[class] .ir-section-head h2,
+  main[class] .bento-header h2,
+  main[class] .proof-header h2,
+  main[class] .faq-header h2,
+  main[class] .how-header h2,
+  main[class] .services-copy-head h2,
+  main[class] .services-by-bureau-head h2,
+  main[class] .pricing-section-head h2,
+  main[class] .pricing-copy-head h2,
+  main[class] .pricing-narrow h2,
+  main[class] .about-copy-head h2,
+  main[class] .how-page-head h2,
+  main[class] .results-head h2,
+  main[class] .results-copy-head h2,
+  main[class] .compare-head h2,
+  main[class] .blog-index h2,
+  main[class] .experian-copy-head h2,
+  main[class] .equifax-copy-head h2,
+  main[class] .transunion-copy-head h2{
+    font-size:var(--ir-desktop-h2-size)!important;
+    line-height:var(--ir-desktop-h2-line)!important;
+    letter-spacing:var(--ir-desktop-h2-track)!important;
+    margin-top:0!important;
+    text-wrap:balance;
+  }
+
+  main[class] .ir-section-head,
+  main[class] .bento-header,
+  main[class] .proof-header,
+  main[class] .faq-header,
+  main[class] .how-header,
+  main[class] .services-copy-head,
+  main[class] .services-by-bureau-head,
+  main[class] .pricing-section-head,
+  main[class] .pricing-copy-head,
+  main[class] .about-copy-head,
+  main[class] .how-page-head,
+  main[class] .results-head,
+  main[class] .results-copy-head,
+  main[class] .compare-head,
+  main[class] .blog-index .ir-section-head,
+  main[class] .experian-copy-head,
+  main[class] .equifax-copy-head,
+  main[class] .transunion-copy-head,
+  main[class] .about-centered-head,
+  main[class] .ir-section-head-center{
+    text-align:left!important;
+    justify-items:start!important;
+    align-items:flex-start!important;
+    margin-left:0!important;
+    margin-right:auto!important;
+    max-width:860px!important;
+  }
+
+  main[class] .ir-section-head p,
+  main[class] .bento-header p,
+  main[class] .proof-header p,
+  main[class] .faq-header p,
+  main[class] .how-header p,
+  main[class] .services-copy-head p,
+  main[class] .pricing-section-head p,
+  main[class] .pricing-copy-head p,
+  main[class] .about-copy-head p,
+  main[class] .how-page-head p,
+  main[class] .results-head p,
+  main[class] .results-copy-head p,
+  main[class] .compare-head p,
+  main[class] .experian-copy-head p,
+  main[class] .equifax-copy-head p,
+  main[class] .transunion-copy-head p{
+    text-align:left!important;
+    margin-left:0!important;
+    margin-right:auto!important;
+  }
+
+  /* FAQ hero is intentionally centered as an answer hub, but its scale and spacing still follow the system. */
+  .faq-page .ir-page-hero-center .ir-page-hero-shell,
+  .faq-page .ir-page-hero-center .ir-page-hero-copy,
+  .faq-page .ir-page-hero-center .ir-page-hero-subtitle,
+  .faq-page .ir-page-hero-center .ir-page-hero-meta,
+  .faq-page .ir-page-hero-center .ir-page-hero-actions{
+    text-align:center!important;
+    justify-items:center!important;
+    margin-left:auto!important;
+    margin-right:auto!important;
+  }
+
+  .faq-page .ir-page-hero-center .ir-page-hero-title{
+    max-width:12.2ch!important;
+    margin-left:auto!important;
+    margin-right:auto!important;
+  }
+}
+
+@media (min-width:1280px){
+  :root{
+    --ir-desktop-h1-size:clamp(4.15rem,4.45vw,5.35rem);
+  }
+}
+
+@media (min-width:861px) and (max-width:1180px){
+  :root{
+    --ir-desktop-hero-top:clamp(92px,8vw,122px);
+    --ir-desktop-h1-size:clamp(3.35rem,5.1vw,4.45rem);
+    --ir-desktop-h2-size:clamp(2rem,3.5vw,3.35rem);
+  }
+}
+
+/* Final desktop title width correction: use readable pixel widths on desktop, not mobile ch widths. */
+@media (min-width:861px){
+  .ir-page-hero-title,
+  .get-started-copy h1{
+    max-width:min(900px,100%)!important;
+  }
+
+  .services-page .ir-page-hero-title,
+  .pricing-page .ir-page-hero-title,
+  .results-page .ir-page-hero-title,
+  .how-page .ir-page-hero-title,
+  .about-page .ir-page-hero-title,
+  .compare-page .ir-page-hero-title,
+  .blog-page .ir-page-hero-title,
+  .experian-page .ir-page-hero-title,
+  .equifax-page .ir-page-hero-title,
+  .transunion-page .ir-page-hero-title{
+    max-width:min(920px,100%)!important;
+  }
+
+  .faq-page .ir-page-hero-center .ir-page-hero-title{
+    max-width:min(760px,100%)!important;
+  }
+}
+
+/* V14: nav-to-H1 lock
+   The previous sweep standardized font size, but desktop hero copy still moved up/down
+   because PageHero visual cards have different heights and the grid was centering the
+   text column against each card. Lock the first H1 column to the top so every page
+   mirrors the homepage nav-to-H1 rhythm. */
+:root{
+  --ir-desktop-nav-to-h1:clamp(108px,7.8vw,148px);
+  --ir-desktop-hero-bottom-locked:clamp(82px,6.4vw,116px);
+  --ir-mobile-nav-to-h1:clamp(72px,15vw,104px);
+}
+
+@media (min-width:861px){
+  .hero,
+  .ir-page-hero,
+  .get-started-quiz{
+    padding-top:var(--ir-desktop-nav-to-h1)!important;
+    padding-bottom:var(--ir-desktop-hero-bottom-locked)!important;
+  }
+
+  .hero-grid,
+  .ir-page-hero-shell,
+  .get-started-shell{
+    align-items:start!important;
+  }
+
+  .hero-content,
+  .ir-page-hero-copy,
+  .get-started-copy{
+    align-self:start!important;
+    padding-top:0!important;
+    margin-top:0!important;
+    transform:none!important;
+  }
+
+  .hero-headline,
+  .ir-page-hero-title,
+  .get-started-copy h1,
+  main[class] h1:not(.sr-only){
+    margin-top:0!important;
+    padding-top:0!important;
+    transform:none!important;
+  }
+
+  .ir-page-hero-panel,
+  .hero-visual,
+  .quiz-shell{
+    align-self:center!important;
+  }
+
+  .faq-page .ir-page-hero-center .ir-page-hero-shell,
+  .faq-page .ir-page-hero-center .ir-page-hero-copy{
+    align-items:center!important;
+    justify-items:center!important;
+  }
+}
+
+@media (max-width:860px){
+  .hero,
+  .ir-page-hero,
+  .get-started-quiz{
+    padding-top:var(--ir-mobile-nav-to-h1)!important;
+  }
+
+  .hero-grid,
+  .ir-page-hero-shell,
+  .get-started-shell{
+    align-items:start!important;
+  }
+
+  .hero-content,
+  .ir-page-hero-copy,
+  .get-started-copy{
+    align-self:start!important;
+    padding-top:0!important;
+    margin-top:0!important;
+    transform:none!important;
+  }
+}
+
+/* V15: full-site consistency polish
+   Catches the small cross-page mismatches that showed up after the heading sweep:
+   CTA casing, announcement-bar overflow, SVG icon rhythm, mobile dock clearance,
+   and card/icon alignment consistency. */
+.ir-page-hero-meta > span,
+.compare-status,
+.get-started-trust,
+.quiz-confirm-badge,
+.quiz-confirm-links a,
+.footer-proof-pills span,
+.footer-contact-link{
+  display:inline-flex!important;
+  align-items:center!important;
+  gap:.45rem!important;
+}
+
+.ir-page-hero-meta .premium-icon,
+.compare-status .premium-icon,
+.get-started-trust .premium-icon,
+.quiz-confirm-badge .premium-icon,
+.quiz-confirm-links .premium-icon,
+.footer-proof-pills .premium-icon,
+.footer-contact-link .premium-icon{
+  flex:0 0 auto!important;
+}
+
+.quiz-card-icon{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:48px!important;
+  height:48px!important;
+  border-radius:16px!important;
+  color:#fff!important;
+  background:linear-gradient(135deg,rgba(10,141,255,.24),rgba(123,92,255,.2),rgba(255,79,163,.18))!important;
+  border:1px solid rgba(255,255,255,.12)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08)!important;
+  line-height:1!important;
+}
+
+.get-started-trust-icon,
+.quiz-confirm-badge > span:first-child,
+.quiz-confirm-links a .premium-icon,
+.compare-status .premium-icon{
+  color:#fff!important;
+}
+
+.compare-status-good .premium-icon{color:#31d07d!important;}
+.compare-status-bad .premium-icon{color:#ff6b8a!important;}
+.compare-status-warn .premium-icon{color:#ffbd4a!important;}
+
+.compare-status{
+  min-width:0!important;
+  line-height:1.28!important;
+}
+
+.compare-hero-mini-table strong .compare-status{
+  font-weight:800!important;
+}
+
+.announcement-inner,
+.announcement-text,
+.announcement-cta{
+  min-width:0!important;
+}
+.announcement-count-short{display:none;}
+.announcement-text span:not(.announcement-divider){white-space:nowrap;}
+.announcement-cta{text-transform:none!important;}
+
+@media (max-width:860px){
+  .announcement-inner{
+    gap:8px!important;
+    overflow:hidden!important;
+  }
+  .announcement-pill{
+    flex:0 0 auto!important;
+  }
+  .announcement-text{
+    flex:1 1 auto!important;
+    overflow:hidden!important;
+  }
+  .announcement-text span:not(.announcement-divider){
+    overflow:hidden!important;
+    text-overflow:ellipsis!important;
+  }
+  .announcement-count-full{display:none!important;}
+  .announcement-count-short{display:inline!important;}
+  .announcement-divider,
+  .announcement-mobile-hide{display:none!important;}
+  .announcement-cta{
+    flex:0 0 auto!important;
+    white-space:nowrap!important;
+  }
+  main{
+    padding-bottom:calc(24px + env(safe-area-inset-bottom))!important;
+  }
+  .footer{
+    padding-bottom:calc(132px + env(safe-area-inset-bottom))!important;
+  }
+  .ir-page-hero-meta{
+    gap:10px!important;
+  }
+  .ir-page-hero-meta > span{
+    width:100%!important;
+    justify-content:flex-start!important;
+  }
+  .quiz-confirm-links a{
+    justify-content:flex-start!important;
+  }
+}
+
+@media (max-width:390px){
+  .announcement-pill{
+    max-width:104px!important;
+  }
+  .announcement-cta{
+    font-size:.78rem!important;
+  }
+}
+
+@media (min-width:861px){
+  .home-page .hero,
+  .services-page .ir-page-hero,
+  .how-page .ir-page-hero,
+  .results-page .ir-page-hero,
+  .pricing-page .ir-page-hero,
+  .about-page .ir-page-hero,
+  .compare-page .ir-page-hero,
+  .blog-page .ir-page-hero,
+  .faq-page .ir-page-hero,
+  .experian-page .ir-page-hero,
+  .equifax-page .ir-page-hero,
+  .transunion-page .ir-page-hero,
+  .get-started-quiz{
+    min-height:calc(100svh - 176px)!important;
+  }
+
+  .ir-page-hero-shell,
+  .hero-grid,
+  .get-started-shell{
+    align-items:start!important;
+  }
+
+  .ir-page-hero-panel,
+  .hero-visual,
+  .quiz-shell{
+    margin-top:clamp(18px,2vw,34px)!important;
+  }
+}
+
+.nav-link.is-active,
+.mobile-menu-link.is-active{
+  color:#fff!important;
+  opacity:1!important;
+}
+.nav-link.is-active{
+  text-shadow:0 0 18px rgba(123,92,255,.22)!important;
+}
+.nav-link.is-active::after{
+  transform:scaleX(1)!important;
+  opacity:1!important;
+}
+.mobile-menu-link.is-active{
+  background:rgba(255,255,255,.06)!important;
+  border-color:rgba(255,255,255,.14)!important;
+}
+
+/* V16: mobile bottom dock visual cleanup
+   The fixed dock used a full-width translucent veil above the actions. When a page CTA
+   scrolled underneath it, that veil and the glass secondary action created a visible
+   horizontal band through the button. Keep the dock premium, but remove the page-wide
+   overlay and make the action tray self-contained/opaque enough that content no longer
+   shows through it. */
+@media (max-width:860px){
+  .mobile-conversion-dock{
+    background:transparent!important;
+    background-image:none!important;
+    -webkit-backdrop-filter:none!important;
+    backdrop-filter:none!important;
+    filter:none!important;
+    pointer-events:none!important;
+    isolation:isolate!important;
+  }
+
+  .mobile-conversion-dock::before,
+  .mobile-conversion-dock::after{
+    content:none!important;
+    display:none!important;
+    opacity:0!important;
+  }
+
+  .mobile-conversion-dock-inner{
+    pointer-events:auto!important;
+    overflow:hidden!important;
+    background:
+      linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.032)),
+      #101018!important;
+    border:1px solid rgba(255,255,255,.16)!important;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.1) inset,
+      0 -10px 34px rgba(0,0,0,.56),
+      0 0 42px rgba(123,92,255,.16)!important;
+    -webkit-backdrop-filter:none!important;
+    backdrop-filter:none!important;
+  }
+
+  .mobile-dock-action-analysis,
+  .mobile-dock-action-secondary{
+    background:
+      linear-gradient(145deg,rgba(255,255,255,.08),rgba(255,255,255,.035)),
+      #25262f!important;
+    border:1px solid rgba(255,255,255,.16)!important;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.08)!important;
+  }
+
+  .mobile-dock-action-call,
+  .mobile-dock-action-primary{
+    background:var(--brand-gradient)!important;
+    border:1px solid rgba(255,255,255,.2)!important;
+    box-shadow:var(--shadow-cta)!important;
+  }
+}
+
+/* V17: remove scrollable blank space after the footer on mobile.
+   The dock is fixed, so reserving space on body + main + footer stacked together
+   created a long empty scroll tail after the footer. Keep the clearance inside
+   the footer only, so the final viewport ends cleanly behind the dock. */
+@media (max-width:860px){
+  html,
+  body{
+    min-height:100%!important;
+  }
+
+  body{
+    padding-bottom:0!important;
+    overscroll-behavior-y:none;
+  }
+
+  main{
+    padding-bottom:0!important;
+  }
+
+  .footer{
+    padding-bottom:calc(108px + env(safe-area-inset-bottom))!important;
+  }
+
+  .footer-bottom{
+    margin-bottom:0!important;
+    padding-bottom:0!important;
+  }
+
+  .mobile-conversion-dock{
+    bottom:0!important;
+    padding:10px 10px max(12px,env(safe-area-inset-bottom))!important;
+  }
+}
+
+@media (max-width:380px){
+  .footer{
+    padding-bottom:calc(102px + env(safe-area-inset-bottom))!important;
+  }
+}
+
+
+/* V20: homepage-style H1 gradient system
+   Uses the original homepage blue → purple → pink gradient on every hero keyword span.
+   Keep one class across the site so the highlighted H1 phrase feels intentional everywhere. */
+:root{
+  --ir-hero-gradient:var(--brand-gradient,linear-gradient(135deg,#0a8dff 0%,#7b5cff 50%,#ff4fa3 100%));
+}
+
+.ir-gradient-text,
+.gradient-text,
+.hero-headline .ir-gradient-text,
+.ir-page-hero-title .ir-gradient-text,
+.get-started-copy h1 .ir-gradient-text{
+  display:inline;
+  background:var(--ir-hero-gradient)!important;
+  background-size:100% 100%;!important;
+  
+  -webkit-background-clip:text!important;
+  background-clip:text!important;
+  color:transparent!important;
+  -webkit-text-fill-color:transparent!important;
+  filter:none!important;
+}
+
+
+
+
+
+@media (max-width:900px){
+  .ir-gradient-text,
+  .gradient-text{
+    background-size:100% 100%!important;
+    
+  }
+}
+
+/* V21: premium proof band + subtle magenta visual polish.
+   CSS-only, no extra JS, no layout-heavy animation. */
+.hero-proof-band{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:9px;
+  margin:18px 0 0;
+}
+.hero-proof-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  min-height:38px;
+  padding:9px 12px;
+  border-radius:999px;
+  color:rgba(255,255,255,.88);
+  font-size:13px;
+  font-weight:800;
+  letter-spacing:.005em;
+  line-height:1;
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.09),rgba(255,255,255,.035)),
+    rgba(12,12,21,.74);
+  border:1px solid rgba(255,255,255,.13);
+  box-shadow:0 1px 0 rgba(255,255,255,.08) inset,0 10px 26px rgba(0,0,0,.22);
+  transition:transform 180ms var(--ease-out),border-color 180ms var(--ease-out),background 180ms var(--ease-out),box-shadow 180ms var(--ease-out);
+}
+.hero-proof-pill:hover,.hero-proof-pill:focus-visible{
+  transform:translateY(-1px);
+  border-color:rgba(255,79,163,.5);
+  background:
+    radial-gradient(circle at 85% 0%,rgba(255,79,163,.16),transparent 46%),
+    linear-gradient(145deg,rgba(255,255,255,.115),rgba(255,255,255,.045)),
+    rgba(12,12,21,.84);
+  box-shadow:0 1px 0 rgba(255,255,255,.12) inset,0 12px 30px rgba(0,0,0,.25),0 0 28px rgba(255,79,163,.12);
+}
+.hero-proof-icon{
+  display:grid;
+  place-items:center;
+  width:24px;
+  height:24px;
+  border-radius:999px;
+  color:#fff;
+  background:var(--brand-gradient);
+  box-shadow:0 0 18px rgba(255,79,163,.22),0 0 16px rgba(10,141,255,.16);
+}
+.hero-proof-band-home{
+  margin-top:20px;
+  margin-bottom:4px;
+}
+.ir-page-hero-center .hero-proof-band{
+  justify-content:center;
+}
+
+/* Make SVG icon containers feel custom and intentional without using emojis. */
+:where(.quiz-card-icon,.services-plan-icon,.services-bureau-icon,.bento-icon,.step-icon,.feature-icon,.faq-icon,.result-icon,.compare-icon,.footer-contact-icon,.get-started-trust-icon){
+  position:relative;
+  color:#fff;
+  background:
+    radial-gradient(circle at 78% 12%,rgba(255,79,163,.32),transparent 46%),
+    var(--brand-gradient);
+  box-shadow:0 1px 0 rgba(255,255,255,.18) inset,0 10px 28px rgba(123,92,255,.18),0 0 26px rgba(255,79,163,.13);
+}
+:where(.quiz-card,.bento-tile,.services-plan-card,.services-bureau-card,.faq-item,.compare-card,.result-card,.guarantee-card,.final-testimonial){
+  border-color:rgba(255,255,255,.1);
+}
+:where(.quiz-card,.bento-tile,.services-plan-card,.services-bureau-card,.faq-item,.compare-card,.result-card,.guarantee-card,.final-testimonial):hover{
+  border-color:rgba(255,79,163,.24);
+}
+
+/* V22: slightly soften the magenta CTA finish.
+   Keep the premium blue → purple → pink identity, but make the pink edge/glow a touch calmer. */
+.btn-primary,
+.mobile-dock-action-call,
+.nav-phone{
+  background:
+    radial-gradient(circle at 92% 0%,rgba(255,255,255,.24),transparent 30%),
+    linear-gradient(135deg,#0a8dff 0%,#7b5cff 49%,#f35aa4 100%)!important;
+}
+.btn-primary:hover,
+.mobile-dock-action-call:hover,
+.nav-phone:hover{
+  box-shadow:0 1px 0 rgba(255,255,255,.3) inset,0 18px 42px rgba(123,92,255,.4),0 8px 24px rgba(243,90,164,.24)!important;
+}
+
+/* Thin magenta/cyan top glint on premium cards. */
+:where(.bento-tile,.services-plan-card,.services-bureau-card,.quiz-card,.faq-item,.compare-card,.result-card,.guarantee-card,.final-testimonial)::before{
+  background:linear-gradient(90deg,rgba(10,141,255,.34),rgba(123,92,255,.36),rgba(255,79,163,.34));
+}
+
+@media (max-width:760px){
+  .hero-proof-band{
+    margin-top:16px;
+    gap:7px;
+  }
+  .hero-proof-pill{
+    min-height:36px;
+    padding:8px 10px;
+    font-size:12.5px;
+  }
+  .hero-proof-icon{
+    width:22px;
+    height:22px;
+  }
+}
+
+
+/* PageSpeed final pass: remove decorative background effects.
+   Lighthouse flags animated background-position as non-composited. A static
+   premium gradient keeps the same visual style without main-thread animation. */
+.ir-gradient-text,
+.gradient-text,
+.hero-headline .ir-gradient-text,
+.ir-page-hero-title .ir-gradient-text,
+.get-started-copy h1 .ir-gradient-text{
+  
+  background-size:100% 100%!important;
+  
+}
+
+/* PSI guard: keep flagged gradient/gauge effects static. */
+.ir-gradient-text,.gradient-text,.dash-gauge-fill{}

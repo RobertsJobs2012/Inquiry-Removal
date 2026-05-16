@@ -1,0 +1,20 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ComparePage, { metadata } from "../../app/compare/page";
+import inlineCss1 from "../styles/pages/compare.css?raw";
+import inlineCss2 from "../styles/heading-system.css?raw";
+
+const meta = metadata as any;
+---
+
+<BaseLayout
+  inlineStyles={[inlineCss1, inlineCss2].join("\n")}
+  title={meta.title.absolute}
+  description={meta.description}
+  canonicalPath={meta.alternates.canonical}
+  ogImage="/og/compare.png"
+  ogImageAlt="Inquiry Removal comparison against monthly credit repair companies."
+  pathname={Astro.url.pathname}
+>
+  <ComparePage />
+</BaseLayout>
