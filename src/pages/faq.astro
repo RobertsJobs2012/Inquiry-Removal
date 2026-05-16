@@ -1,0 +1,20 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import FAQPage, { metadata } from "../../app/faq/page";
+import inlineCss1 from "../styles/pages/faq.css.txt?raw";
+import inlineCss2 from "../styles/heading-system.css.txt?raw";
+
+const meta = metadata as any;
+---
+
+<BaseLayout
+  inlineStyles={[inlineCss1, inlineCss2].join("\n")}
+  title={meta.title.absolute}
+  description={meta.description}
+  canonicalPath={meta.alternates.canonical}
+  ogImage="/og/faq.png"
+  ogImageAlt="Hard inquiry removal FAQ for Experian, Equifax, and TransUnion."
+  pathname={Astro.url.pathname}
+>
+  <FAQPage />
+</BaseLayout>

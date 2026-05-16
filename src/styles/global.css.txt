@@ -1,0 +1,6 @@
+:root{--font-heading:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,Arial,sans-serif;--font-body:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,Arial,sans-serif}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}.sr-only:focus,.sr-only:active{position:static;width:auto;height:auto;margin:0;overflow:visible;clip:auto;white-space:normal}
+
+/* Final PSI guard: keep decorative gradient and shine effects static. */
+.ir-gradient-text,.gradient-text,.dash-gauge-fill,.btn-primary::before{animation:none!important;transition:none!important;}
+.ir-gradient-text,.gradient-text,.dash-gauge-fill{background-size:100% 100%!important;background-position:50% 50%!important;}
+.btn-primary::before{content:none!important;}

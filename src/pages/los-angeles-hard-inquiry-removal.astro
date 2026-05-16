@@ -1,0 +1,22 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { LandingPage } from "../../components/LandingPage";
+import { landingPageByKey } from "@/lib/landing-pages";
+import inlineCss1 from "../styles/pages/experian.css.txt?raw";
+import inlineCss2 from "../styles/pages/landing.css.txt?raw";
+import inlineCss3 from "../styles/heading-system.css.txt?raw";
+
+const page = landingPageByKey.la;
+---
+
+<BaseLayout
+  inlineStyles={[inlineCss1, inlineCss2, inlineCss3].join("\n")}
+  title={page.metaTitle}
+  description={page.metaDescription}
+  canonicalPath={page.slug}
+  ogImage={page.ogImage}
+  ogImageAlt={`${page.metaTitle} preview.`}
+  pathname={Astro.url.pathname}
+>
+  <LandingPage page={page} />
+</BaseLayout>

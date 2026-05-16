@@ -1,0 +1,22 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PricingPage, { metadata } from "../../app/pricing/page";
+import { pricingPageFaqSchema, pricingPageServiceSchema } from "@/lib/schema";
+import inlineCss1 from "../styles/pages/pricing.css.txt?raw";
+import inlineCss2 from "../styles/heading-system.css.txt?raw";
+
+const meta = metadata as any;
+---
+
+<BaseLayout
+  inlineStyles={[inlineCss1, inlineCss2].join("\n")}
+  title={meta.title.absolute}
+  description={meta.description}
+  canonicalPath={meta.alternates.canonical}
+  ogImage="/og/pricing.png"
+  ogImageAlt="Inquiry Removal flat-fee pricing with no monthly charges."
+  schema={[pricingPageServiceSchema, pricingPageFaqSchema]}
+  pathname={Astro.url.pathname}
+>
+  <PricingPage />
+</BaseLayout>
