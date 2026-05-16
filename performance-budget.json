@@ -1,0 +1,15 @@
+{
+  "description": "Inquiry Removal static performance budget. Run after npm run build to keep future edits from slowing the site down.",
+  "limits": {
+    "initialJavaScriptKB": 20,
+    "initialCssKB": 45,
+    "largestImageKB": 120,
+    "totalPageWeightKB": 300
+  },
+  "notes": [
+    "No third-party scripts unless they are absolutely required.",
+    "Keep LCP images eager/high priority only when they are above the fold.",
+    "Keep below-the-fold images lazy-loaded.",
+    "Do not add autoplay video, social embeds, chat widgets, or tracking scripts without retesting PageSpeed."
+  ]
+}
