@@ -1,0 +1,28 @@
+---
+const freeAnalysisHref = "/get-started/";
+---
+
+<aside class="mobile-conversion-dock" aria-label="Mobile contact actions">
+  <div class="mobile-conversion-dock-inner">
+    <a
+      href={freeAnalysisHref}
+      class="mobile-dock-action mobile-dock-action-secondary mobile-dock-action-analysis"
+      aria-label="Start your free inquiry analysis"
+      data-event="mobile_dock_primary_click"
+      data-dock-label="Free Analysis"
+      data-astro-prefetch="load"
+     
+    >
+      <span>Free Analysis</span>
+      <span aria-hidden="true">→</span>
+    </a>
+    <a
+      href="tel:+16023776626"
+      class="mobile-dock-action mobile-dock-action-primary mobile-dock-action-call"
+      aria-label="Call Inquiry Removal at (602) 377-6626"
+      data-event="mobile_dock_call_click"
+    >
+      <span>Call</span>
+    </a>
+  </div>
+</aside>
