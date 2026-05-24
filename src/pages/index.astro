@@ -1,0 +1,52 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { packagePages } from "@/lib/package-pages";
+import { packageSchemas } from "@/lib/package-schemas";
+import { serviceSchema } from "@/lib/schema";
+import AnnouncementBar from "@/src/components/AnnouncementBar.astro";
+import Navigation from "@/src/components/Navigation.astro";
+import Hero from "@/src/components/Hero.astro";
+import TrustStrip from "@/src/components/TrustStrip.astro";
+import ProblemMirror from "@/src/components/ProblemMirror.astro";
+import Solution from "@/src/components/Solution.astro";
+import HowItWorks from "@/src/components/HowItWorks.astro";
+import SocialProof from "@/src/components/SocialProof.astro";
+import FeatureBento from "@/src/components/FeatureBento.astro";
+import Guarantee from "@/src/components/Guarantee.astro";
+import FinalCTA from "@/src/components/FinalCTA.astro";
+import FAQ from "@/src/components/FAQ.astro";
+import Footer from "@/src/components/Footer.astro";
+import "../styles/pages/home.css";
+
+void serviceSchema;
+const packageMeta = packagePages["/"];
+---
+
+
+<BaseLayout
+  title={packageMeta.title}
+  description={packageMeta.description}
+  canonicalPath={packageMeta.route}
+  ogImage={packageMeta.ogImage}
+  ogImageType="image/webp"
+  ogImageAlt={`${packageMeta.h1} — Inquiry Removal`}
+  schema={packageSchemas["/"]}
+  pathname={packageMeta.route}
+>
+
+  <AnnouncementBar />
+        <Navigation activePath="/" />
+        <main id="main" class="home-page">
+          <Hero />
+          <TrustStrip />
+          <ProblemMirror />
+          <Solution />
+          <HowItWorks />
+          <SocialProof />
+          <FeatureBento />
+          <Guarantee />
+          <FinalCTA />
+          <FAQ />
+        </main>
+        <Footer />
+</BaseLayout>

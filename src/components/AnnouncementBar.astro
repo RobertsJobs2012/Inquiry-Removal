@@ -1,0 +1,38 @@
+---
+import PremiumIcon from "./PremiumIcon.astro";
+---
+
+<input
+        type="checkbox"
+        id="dismiss-announcement"
+        class="dismiss-checkbox"
+        aria-hidden="true"
+        tabindex={-1}
+      />
+      <aside
+        aria-label="Site announcement"
+        class="announcement-bar"
+      >
+        <div class="announcement-inner">
+          <span class="announcement-pill">
+            <PremiumIcon name="star" size={12} />
+            4.9★ rated
+          </span>
+          <span class="announcement-text">
+            <span class="announcement-count-full">100,437+ hard inquiries removed</span>
+            <span class="announcement-count-short">100k+ inquiries removed</span>
+            <span class="announcement-divider" aria-hidden="true">|</span>
+            <span class="announcement-mobile-hide">Free Analysis available today</span>
+          </span>
+          <a href="/get-started" class="announcement-cta" data-event="announcement_start_click">
+            Start Free <span aria-hidden="true">→</span>
+          </a>
+        </div>
+        <label
+          for="dismiss-announcement"
+          class="announcement-close"
+          aria-label="Dismiss announcement"
+        >
+          <PremiumIcon name="close" size={14} />
+        </label>
+      </aside>

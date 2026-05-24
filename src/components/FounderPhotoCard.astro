@@ -1,0 +1,122 @@
+---
+import { Image } from "astro:assets";
+import founderPhoto from "../assets/images/inquiry-removal-headshot-655.avif";
+
+type FounderPhotoCardProps = {
+  priority?: boolean;
+};
+
+const {
+  priority = false
+} = Astro.props as FounderPhotoCardProps;
+---
+
+<figure class="ir-founder-card">
+      <div class="ir-founder-glow" aria-hidden="true" />
+      <div class="ir-founder-image">
+        <Image
+          src={founderPhoto}
+          alt="Robert Garcia, founder of Inquiry Removal"
+          width={655}
+          height={917}
+          widths={[420, 655]}
+          sizes="(min-width: 1024px) 420px, 92vw"
+          loading={priority ? "eager" : "lazy"}
+          decoding="async"
+          fetchpriority={priority ? "high" : "auto"}
+          class="ir-founder-picture ir-founder-img"
+        />
+      </div>
+      <figcaption class="ir-founder-caption">
+        <span>Founder</span>
+        <strong>Robert Garcia</strong>
+        <small>Hard inquiry removal specialist since 2015</small>
+      </figcaption>
+    </figure>
+
+<style>
+  .ir-founder-card {
+    position: relative;
+    width: min(100%, 460px);
+    margin: 0;
+    isolation: isolate;
+  }
+
+  .ir-founder-glow {
+    position: absolute;
+    inset: -14px;
+    z-index: -1;
+    border-radius: 34px;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(10, 141, 255, 0.24), transparent 48%),
+      radial-gradient(circle at 86% 18%, rgba(123, 92, 255, 0.24), transparent 46%),
+      radial-gradient(circle at 70% 88%, rgba(255, 79, 163, 0.2), transparent 48%);
+    filter: blur(18px);
+  }
+
+  .ir-founder-image {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    border: 1px solid var(--border-medium);
+    border-radius: 30px;
+    background: var(--bg-card);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1) inset, 0 30px 90px rgba(0, 0, 0, 0.44);
+  }
+
+  .ir-founder-picture {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .ir-founder-img {
+    object-fit: cover;
+    object-position: center 18%;
+  }
+
+  .ir-founder-caption {
+    position: absolute;
+    inset: auto 16px 16px 16px;
+    display: grid;
+    gap: 4px;
+    padding: 16px;
+    border: 1px solid var(--border-medium);
+    border-radius: 20px;
+    background: rgba(10, 10, 15, 0.78);
+    box-shadow: var(--shadow-card);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+  }
+
+  .ir-founder-caption span,
+  .ir-founder-caption small {
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .ir-founder-caption strong {
+    color: var(--text-heading);
+    font-family: var(--font-heading), sans-serif;
+    font-size: 1.25rem;
+    line-height: 1.05;
+  }
+
+  .ir-founder-caption small {
+    color: var(--text-body);
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  @media (max-width: 760px), (prefers-reduced-data: reduce) {
+    .ir-founder-caption {
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+  }
+</style>
