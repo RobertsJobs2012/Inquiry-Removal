@@ -1,0 +1,42 @@
+---
+import AnnouncementBar from "@/src/components/AnnouncementBar.astro";
+import Footer from "@/src/components/Footer.astro";
+import Navigation from "@/src/components/Navigation.astro";
+import PageHero from "@/src/components/PageHero.astro";
+import PremiumIcon from "@/src/components/PremiumIcon.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { packagePages } from "@/lib/package-pages";
+import "../styles/pages/get-started.css";
+const page = packagePages["/thank-you"];
+---
+<BaseLayout
+  title={page.title}
+  description={page.description}
+  canonicalPath={page.route}
+  ogImage={page.ogImage}
+  ogImageType="image/webp"
+  ogImageAlt={`${page.h1} — Inquiry Removal`}
+  schema={[]}
+  pathname={page.route}
+  robots={{ index: false, follow: true }}
+>
+  <AnnouncementBar />
+  <Navigation activePath={page.route} />
+  <main id="main" class="get-started-page-main">
+    <PageHero id="thank-you-heading" eyebrow="Request received" align="center">
+      <Fragment slot="title">Your <span class="ir-gradient-text">Consultation Request</span> Has Been Received</Fragment>
+      <Fragment slot="subtitle">
+        <p>Thank you for reaching out to Inquiry Removal. Keep access to your credit reports and any hard inquiry details available for your consultation.</p>
+      </Fragment>
+      <Fragment slot="meta">
+        <span><PremiumIcon name="checkBadge" size={15} /> Request successfully submitted</span>
+        <span><PremiumIcon name="calendarCheck" size={15} /> Next step: consultation review</span>
+      </Fragment>
+      <Fragment slot="actions">
+        <a href="/" class="btn btn-primary btn-large">Return to Home</a>
+        <a href="/how-it-works" class="btn btn-secondary btn-large">Review How It Works</a>
+      </Fragment>
+    </PageHero>
+  </main>
+  <Footer />
+</BaseLayout>
