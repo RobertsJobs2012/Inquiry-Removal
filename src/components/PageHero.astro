@@ -1,0 +1,95 @@
+---
+import OrbField from "@/src/components/OrbField.astro";
+import HeroProofBand from "@/src/components/HeroProofBand.astro";
+
+const {
+  id,
+  title,
+  subtitle,
+  meta,
+  actions,
+  copyAfter,
+  align = "split",
+  class: className = "",
+  shellClassName = "",
+  panelClassName = "",
+} = Astro.props;
+
+const sectionClassName = [
+  "ir-page-hero",
+  align === "center" ? "ir-page-hero-center" : "ir-page-hero-split",
+  className,
+]
+  .filter(Boolean)
+  .join(" ");
+
+const shellClasses = ["container", "ir-page-hero-shell", shellClassName]
+  .filter(Boolean)
+  .join(" ");
+const panelClasses = ["ir-page-hero-panel", panelClassName]
+  .filter(Boolean)
+  .join(" ");
+
+const hasSubtitle = Boolean(subtitle) || Astro.slots.has("subtitle");
+const hasMeta = Boolean(meta) || Astro.slots.has("meta");
+const hasActions = Boolean(actions) || Astro.slots.has("actions");
+const hasCopyAfter = Boolean(copyAfter) || Astro.slots.has("copyAfter");
+const hasPanel = Astro.slots.has("default");
+---
+
+<section class={sectionClassName} aria-labelledby={id}>
+  <OrbField variant="hero" />
+  <div class={shellClasses}>
+    <div class="ir-page-hero-copy">
+      <h1 id={id} class="ir-display-h1 ir-page-hero-title">
+        <slot name="title">{title}</slot>
+      </h1>
+      {hasSubtitle ? <div class="ir-page-hero-subtitle"><slot name="subtitle">{subtitle}</slot></div> : null}
+      <HeroProofBand />
+      {hasMeta ? <div class="ir-page-hero-meta"><slot name="meta">{meta}</slot></div> : null}
+      {hasActions ? <div class="ir-page-hero-actions"><slot name="actions">{actions}</slot></div> : null}
+      {hasCopyAfter ? <div class="ir-page-hero-copy-after"><slot name="copyAfter">{copyAfter}</slot></div> : null}
+    </div>
+    {hasPanel ? <aside class={panelClasses}><slot /></aside> : null}
+  </div>
+</section>
+
+<style>
+  .ir-page-hero-subtitle,
+  .ir-page-hero-copy-after {
+    max-width: 780px;
+    color: rgba(235, 237, 247, 0.82);
+    font-size: clamp(1.02rem, 0.55vw + 0.95rem, 1.2rem);
+    line-height: 1.74;
+  }
+
+  .ir-page-hero-copy-after {
+    display: grid;
+    gap: 16px;
+    max-width: 900px;
+  }
+
+  .ir-page-hero-subtitle p,
+  .ir-page-hero-subtitle div,
+  .ir-page-hero-subtitle span,
+  .ir-page-hero-copy-after p,
+  .ir-page-hero-copy-after div,
+  .ir-page-hero-copy-after span {
+    color: inherit;
+  }
+
+  .ir-hero-panel-list {
+    display: grid;
+    gap: 14px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .ir-hero-panel-list li {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 12px;
+    align-items: start;
+  }
+</style>

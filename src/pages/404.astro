@@ -1,0 +1,40 @@
+---
+import AnnouncementBar from "@/src/components/AnnouncementBar.astro";
+import Footer from "@/src/components/Footer.astro";
+import Navigation from "@/src/components/Navigation.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Page Not Found | Inquiry Removal"
+  description="The page you requested may have moved or may no longer exist. Return to the homepage or begin with a free consultation request."
+  canonicalPath="/404"
+  pathname="/404"
+  robots={{ index: false, follow: true }}
+>
+  <AnnouncementBar />
+  <Navigation activePath="/404" />
+  <main id="main" class="section-divider-line">
+    <section class="section-divider">
+      <div class="container not-found-shell">
+        <p class="section-eyebrow">404</p>
+        <h1 class="not-found-title">We Could Not Find That Page</h1>
+        <p class="not-found-copy">
+          The page you requested may have moved or may no longer exist. Return to the homepage or begin with a free consultation request.
+        </p>
+        <div class="not-found-actions">
+          <a href="/" class="btn btn-secondary btn-large">Return Home</a>
+          <a href="/get-started" class="btn btn-primary btn-large">Book Free Consultation</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .not-found-shell { padding-block: clamp(5rem, 12vw, 8rem); text-align: center; }
+  .not-found-title { max-width: 18ch; margin: 0 auto 1rem; }
+  .not-found-copy { max-width: 44rem; margin: 0 auto 2rem; }
+  .not-found-actions { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+</style>
