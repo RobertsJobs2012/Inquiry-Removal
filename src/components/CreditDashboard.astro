@@ -1,0 +1,64 @@
+---
+import PremiumIcon from "./PremiumIcon.astro";
+---
+
+<div class="dashboard-wrap">
+      
+      <div class="dash-main">
+        <div class="dash-main-header">
+          <div class="dash-pill">
+            <span class="dash-pill-dot" />
+            Live credit score
+          </div>
+          <div class="dash-trend">
+            <span class="dash-trend-arrow">↑</span> +94 pts
+          </div>
+        </div>
+        <div class="dash-score">
+          <span class="dash-score-num">742</span>
+          <div class="dash-score-meta">
+            <div class="dash-score-label">Excellent</div>
+            <div class="dash-score-from">was 648</div>
+          </div>
+        </div>
+        <div class="dash-gauge" aria-hidden="true">
+          <div class="dash-gauge-fill" />
+        </div>
+        <div class="dash-bureaus">
+          <div class="dash-bureau">
+            <span class="dash-bureau-name">Experian</span>
+            <span class="dash-bureau-score">748</span>
+          </div>
+          <div class="dash-bureau">
+            <span class="dash-bureau-name">Equifax</span>
+            <span class="dash-bureau-score">741</span>
+          </div>
+          <div class="dash-bureau">
+            <span class="dash-bureau-name">TransUnion</span>
+            <span class="dash-bureau-score">737</span>
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="dash-float dash-float-1">
+        <div class="dash-float-icon dash-float-icon-success">
+          <PremiumIcon name="checkBadge" size={16} strokeWidth={1.9} />
+        </div>
+        <div class="dash-float-body">
+          <div class="dash-float-title">19 inquiries removed</div>
+          <div class="dash-float-meta">in 47 days · all 3 bureaus</div>
+        </div>
+      </div>
+
+      
+      <div class="dash-float dash-float-2">
+        <div class="dash-float-icon dash-float-icon-gradient">
+          <PremiumIcon name="scoreRise" size={16} strokeWidth={1.9} />
+        </div>
+        <div class="dash-float-body">
+          <div class="dash-float-title">Mortgage approved</div>
+          <div class="dash-float-meta">$485,000 · 6.4% APR</div>
+        </div>
+      </div>
+</div>

@@ -1,0 +1,22 @@
+---
+import PremiumIcon from "@/src/components/PremiumIcon.astro";
+type ComparisonTone = "good" | "bad" | "warn";
+type ComparisonIcon = "checkBadge" | "xBadge" | "warningDiamond";
+
+const { value } = Astro.props as { value: string };
+
+function comparisonTone(raw: string): { icon: ComparisonIcon; tone: ComparisonTone; label: string } | null {
+  if (raw.startsWith("[good] ")) return { icon: "checkBadge", tone: "good", label: raw.replace("[good] ", "") };
+  if (raw.startsWith("[bad] ")) return { icon: "xBadge", tone: "bad", label: raw.replace("[bad] ", "") };
+  if (raw.startsWith("[warn] ")) return { icon: "warningDiamond", tone: "warn", label: raw.replace("[warn] ", "") };
+  return null;
+}
+const status = comparisonTone(value);
+---
+
+{status ? (
+  <span class={"compare-status compare-status-" + status.tone}>
+    <PremiumIcon name={status.icon} size={15} strokeWidth={1.85} />
+    <span>{status.label}</span>
+  </span>
+) : value}

@@ -1,0 +1,31 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PackageContentPage from "../components/PackageContentPage.astro";
+import { packagePages } from "@/lib/package-pages";
+import { packageSchemas } from "@/lib/package-schemas";
+import { Content } from "../content/package/new-york-city-hard-inquiry-removal.md";
+
+const page = packagePages["/new-york-city-hard-inquiry-removal"];
+---
+
+<BaseLayout
+  title={page.title}
+  description={page.description}
+  canonicalPath={page.route}
+  ogImage={page.ogImage}
+  ogImageType="image/webp"
+  ogImageAlt={`${page.h1} — Inquiry Removal`}
+  schema={packageSchemas["/new-york-city-hard-inquiry-removal"]}
+  pathname={page.route}
+>
+  <PackageContentPage
+    heading={page.h1}
+    lede={page.lede}
+    activePath={page.route}
+    primaryCta={page.primaryCta}
+    secondaryCta={page.secondaryCta}
+    secondaryHref={page.secondaryHref}
+  >
+    <Content />
+  </PackageContentPage>
+</BaseLayout>
