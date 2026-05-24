@@ -1,0 +1,84 @@
+---
+import AnnouncementBar from "./AnnouncementBar.astro";
+import Footer from "./Footer.astro";
+import Navigation from "./Navigation.astro";
+import PageHero from "./PageHero.astro";
+import PremiumIcon from "./PremiumIcon.astro";
+import "../styles/pages/package-content.css";
+
+type Props = {
+  heading: string;
+  lede: string;
+  activePath: string;
+  eyebrow?: string;
+  primaryCta?: string;
+  secondaryHref?: string;
+  secondaryCta?: string;
+};
+
+const {
+  heading,
+  lede,
+  activePath,
+  eyebrow = "Inquiry Removal",
+  primaryCta = "Get My Free Credit Analysis",
+  secondaryHref = "/how-it-works",
+  secondaryCta = "See How It Works",
+} = Astro.props as Props;
+
+const showQualifier = activePath === "/";
+const primaryHref = activePath === "/thank-you" ? "/" : "/get-started";
+const qualifierCards = [
+  { label: "I want to qualify for a home", href: "/hard-inquiry-removal-mortgage" },
+  { label: "I need to fix dealership inquiries", href: "/car-dealership-inquiry-removal" },
+  { label: "I was a victim of identity theft", href: "/identity-theft-inquiry-removal" },
+  { label: "I just want clean credit again", href: "/get-started" },
+];
+---
+
+<AnnouncementBar />
+<Navigation activePath={activePath} />
+<main id="main" class="package-content-page">
+  <PageHero id="package-page-heading" eyebrow={eyebrow} align="center">
+    <Fragment slot="title">{heading}</Fragment>
+    <Fragment slot="subtitle">
+      <p>{lede}</p>
+    </Fragment>
+    <Fragment slot="meta">
+      <span><PremiumIcon name="checkBadge" size={16} strokeWidth={1.9} /> 100,437 Hard Inquiries Removed</span>
+      <span><PremiumIcon name="star" size={15} /> 4.9 Stars — 312 Google Reviews</span>
+    </Fragment>
+    <Fragment slot="actions">
+      <a href={primaryHref} class="btn btn-primary btn-large">{primaryCta}</a>
+      <a href={secondaryHref} class="btn btn-secondary btn-large">{secondaryCta}</a>
+    </Fragment>
+    {showQualifier ? (
+      <div class="package-qualifier">
+        <p>What&apos;s bringing you here today?</p>
+        <div class="package-qualifier-grid">
+          {qualifierCards.map((card) => (
+            <a href={card.href}>{card.label}<span aria-hidden="true">→</span></a>
+          ))}
+        </div>
+      </div>
+    ) : null}
+  </PageHero>
+
+  <section class="package-copy-section">
+    <div class="container package-copy-grid">
+      <article class="package-prose">
+        <slot />
+      </article>
+      <aside class="package-side-cta" aria-label="Free consultation">
+        <p class="section-eyebrow">Free 15-minute review</p>
+        <h2>{primaryCta}</h2>
+        <p>Start with a free consultation and get clear next steps for your credit report.</p>
+        <a href={primaryHref} class="btn btn-primary">{primaryCta}</a>
+        <a href="tel:+16023776626" class="package-phone">Call 602-377-6626</a>
+        <small>No credit card required. No obligation.</small>
+      </aside>
+    </div>
+  </section>
+
+</main>
+<Footer />

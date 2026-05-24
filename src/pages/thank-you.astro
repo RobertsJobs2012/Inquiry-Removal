@@ -1,0 +1,31 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PackageContentPage from "../components/PackageContentPage.astro";
+import { packagePages } from "@/lib/package-pages";
+import { Content } from "../content/package/thank-you.md";
+
+const page = packagePages["/thank-you"];
+---
+
+<BaseLayout
+  title={page.title}
+  description={page.description}
+  canonicalPath={page.route}
+  ogImage={page.ogImage}
+  ogImageType="image/webp"
+  ogImageAlt={`${page.h1} — Inquiry Removal`}
+  schema={[]}
+  pathname={page.route}
+  robots={{ index: false, follow: true }}
+>
+  <PackageContentPage
+    heading={page.h1}
+    lede={page.lede}
+    activePath={page.route}
+    primaryCta={page.primaryCta}
+    secondaryCta={page.secondaryCta}
+    secondaryHref={page.secondaryHref}
+  >
+    <Content />
+  </PackageContentPage>
+</BaseLayout>

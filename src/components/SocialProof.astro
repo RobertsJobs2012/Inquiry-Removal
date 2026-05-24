@@ -1,0 +1,108 @@
+---
+import PremiumIcon from "./PremiumIcon.astro";
+
+interface Testimonial {
+  initials: string;
+  avatarClass: string;
+  quote: string;
+  name: string;
+  role: string;
+  location: string;
+  resultPrimary: string;
+  resultSecondary: string;
+}
+
+const TESTIMONIALS: Testimonial[] = [
+  {
+    initials: "MT",
+    avatarClass: "proof-avatar-blue-purple",
+    quote:
+      "I went to three car dealerships in one weekend without realizing what was happening to my credit. Inquiry Removal removed 19 inquiries in 47 days and my score jumped 94 points. We just closed on our first home — and none of it would have happened without this team.",
+    name: "Marcus T.",
+    role: "First-Time Home Buyer",
+    location: "Phoenix, AZ",
+    resultPrimary: "19 inquiries removed",
+    resultSecondary: "+94 points in 47 days",
+  },
+  {
+    initials: "DR",
+    avatarClass: "proof-avatar-purple-pink",
+    quote:
+      "Someone had been using my information everywhere — I found 34 inquiries on my report from companies I'd never heard of. Robert's team removed every single one of them within 61 days. My score went up 112 points and I finally feel like I have my credit — and my life — back.",
+    name: "Diana R.",
+    role: "Identity Theft Victim",
+    location: "Houston, TX",
+    resultPrimary: "34 fraudulent inquiries removed",
+    resultSecondary: "+112 points in 61 days",
+  },
+  {
+    initials: "KD",
+    avatarClass: "proof-avatar-pink-blue",
+    quote:
+      "I spent months trying to dispute on my own and got nowhere. One call with Inquiry Removal changed everything. They knew exactly which laws applied and which bureau to push on. 27 inquiries gone in 55 days, and I'm finally getting approved again.",
+    name: "Kevin D.",
+    role: "Small Business Owner",
+    location: "Atlanta, GA",
+    resultPrimary: "27 inquiries removed",
+    resultSecondary: "+97 points in 55 days",
+  },
+];
+---
+
+<section class="proof" aria-labelledby="proof-heading">
+      <div class="container">
+        <header class="proof-header">
+          <h2 id="proof-heading">Real Clients. Real Inquiries Removed. Real Score Increases.</h2>
+        </header>
+
+        <ul class="proof-grid">
+          {TESTIMONIALS.map((t, idx) => (
+            <li class={`proof-card ${idx === 0 ? "proof-card-featured" : ""}`}>
+              <span class="sr-only">5 out of 5 stars</span>
+              <div class="proof-stars" aria-hidden="true">
+                {Array.from({ length: 5 }).map(() => (
+                  <PremiumIcon name="star" size={14} />
+                ))}
+              </div>
+
+              <blockquote class="proof-quote">
+                <p>"{t.quote}"</p>
+              </blockquote>
+
+              <div class="proof-result">
+                <div class="proof-result-icon" aria-hidden="true">
+                  <PremiumIcon name="checkBadge" size={15} strokeWidth={1.9} />
+                </div>
+                <div>
+                  <div class="proof-result-primary">Result Tag: {t.resultPrimary}</div>
+                  <div class="proof-result-secondary">
+                    {t.resultSecondary}
+                  </div>
+                </div>
+              </div>
+
+              <footer class="proof-attribution">
+                <div
+                  class={`proof-avatar ${t.avatarClass}`}
+                  aria-hidden="true"
+                >
+                  {t.initials}
+                </div>
+                <cite class="proof-cite">
+                  <div class="proof-name">{t.name}</div>
+                  <div class="proof-meta">
+                    {t.role} · {t.location}
+                  </div>
+                </cite>
+              </footer>
+            </li>
+          ))}
+        </ul>
+
+        <div class="proof-footer">
+          <a href="/results" class="proof-link">
+            See More Results <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+</section>

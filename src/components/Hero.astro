@@ -1,0 +1,107 @@
+---
+import PremiumIcon from "./PremiumIcon.astro";
+import HeroProofBand from "./HeroProofBand.astro";
+import CreditDashboard from "./CreditDashboard.astro";
+
+const QUALIFIER_CARDS = [
+  {
+    icon: "homeGoal",
+    label: "I want to qualify for a home",
+    href: "/get-started",
+  },
+  {
+    icon: "autoInquiry",
+    label: "I need to fix dealership inquiries",
+    href: "/get-started",
+  },
+  {
+    icon: "identityShield",
+    label: "I was a victim of identity theft",
+    href: "/get-started",
+  },
+  {
+    icon: "cleanCredit",
+    label: "I just want clean credit again",
+    href: "/get-started",
+  },
+];
+---
+
+<section class="hero" aria-labelledby="hero-heading">
+      <div class="hero-orbs" aria-hidden="true">
+        <div class="hero-orb hero-orb-1" />
+        <div class="hero-orb hero-orb-2" />
+        <div class="hero-orb hero-orb-3" />
+      </div>
+
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <h1 id="hero-heading" class="ir-display-h1 hero-headline">
+            Stop Letting Unauthorized{" "}
+            <span class="ir-gradient-text">Hard Inquiries</span>{" "}
+            <span class="hero-headline-tail">
+              Destroy Your <span class="hero-credit-line">Credit Score</span>
+            </span>
+          </h1>
+
+          <p class="hero-subheadline">
+            We remove hard inquiries from your{" "}
+            <strong>
+              <a href="/experian-hard-inquiry-removal" class="inline-bureau-link">
+                Experian
+              </a>
+              ,{" "}
+              <a href="/equifax-hard-inquiry-removal" class="inline-bureau-link">
+                Equifax
+              </a>
+              , and{" "}
+              <a href="/transunion-hard-inquiry-removal" class="inline-bureau-link">
+                TransUnion
+              </a>
+            </strong>{" "}
+            credit reports — using federal law, custom disputes, and 11 years
+            of specialized experience — so your score goes back up and you
+            finally get approved for what matters most.
+          </p>
+
+          <HeroProofBand class="hero-proof-band-home" />
+
+          <div class="hero-ctas">
+            <a href="/get-started" class="btn btn-primary btn-large">
+              Get My Free Credit Analysis
+            </a>
+            <a href="/how-it-works" class="btn btn-secondary btn-large">
+              See How It Works
+            </a>
+          </div>
+
+          <p class="hero-fear-killer">
+            One flat fee starting at <strong>$199</strong>. No monthly charges.
+            No credit card required for your free consultation.
+          </p>
+
+          <div class="hero-qualifier">
+            <p class="hero-qualifier-label">What's bringing you here today?</p>
+            <ul class="hero-qualifier-grid">
+              {QUALIFIER_CARDS.map((card) => (
+                <li>
+                  <a href={card.href} class="qualifier-card">
+                    <span class="qualifier-icon" aria-hidden="true">
+                      <PremiumIcon name={card.icon} />
+                    </span>
+                    <span class="qualifier-label">{card.label}</span>
+                    <span class="qualifier-arrow" aria-hidden="true">
+                      →
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-hidden="true">
+          <CreditDashboard />
+        </div>
+      </div>
+</section>
