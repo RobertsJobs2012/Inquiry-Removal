@@ -1,0 +1,40 @@
+TransUnion Dispute Letter Template
+
+TransUnion Consumer Solutions
+P.O. Box 2000
+Chester, PA 19016
+
+Date: __________________
+
+Subject: Request to Reinvestigate Unauthorized Hard Inquiry
+
+To Whom It May Concern,
+
+I am writing to dispute a hard inquiry, sometimes labeled as a regular inquiry on a TransUnion credit report, that I believe was obtained without my authorization or without a legally permissible purpose under the Fair Credit Reporting Act.
+
+Inquiry details:
+- Company name: __________________
+- Date of inquiry: __________________
+- Report reference or file number, if available: __________________
+
+I am requesting that TransUnion conduct a reinvestigation of this inquiry and verify whether the company had a legally valid permissible purpose to access my credit file under 15 U.S.C. § 1681b. If the inquiry cannot be verified as authorized and permissible under the FCRA, I request that it be removed from my TransUnion credit report.
+
+If this inquiry has already been disputed through Credit Karma or directly with TransUnion and returned as verified, I also request documentation showing the basis on which TransUnion concluded that the pull was authorized and supported by permissible purpose.
+
+I have enclosed copies of the following supporting materials, if applicable:
+- A copy of my TransUnion credit report with the disputed inquiry marked
+- Identification documents
+- Proof of address
+- Supporting documentation relevant to the dispute
+
+Please provide written confirmation of the results of your reinvestigation.
+
+Sincerely,
+
+Name: __________________
+Address: __________________
+City, State, ZIP: __________________
+Phone: __________________
+Email: __________________
+
+Note: This is a general educational template and not legal advice. Inquiry Removal customizes dispute letters to the specific inquiry, facts, and federal law involved in each case.

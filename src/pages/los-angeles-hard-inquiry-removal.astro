@@ -1,0 +1,18 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import LandingPage from "../components/LandingPage.astro";
+import { losAngelesPage } from "@/lib/landing-pages/los-angeles";
+
+const page = losAngelesPage;
+---
+
+<BaseLayout
+  title={page.metaTitle}
+  description={page.metaDescription}
+  canonicalPath={page.slug}
+  ogImage={page.ogImage}
+  ogImageAlt={`${page.metaTitle} preview.`}
+  pathname={Astro.url.pathname}
+>
+  <LandingPage page={page} />
+</BaseLayout>

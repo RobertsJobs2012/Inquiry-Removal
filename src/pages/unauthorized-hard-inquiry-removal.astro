@@ -1,0 +1,18 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import LandingPage from "../components/LandingPage.astro";
+import { unauthorizedPage } from "@/lib/landing-pages/unauthorized";
+
+const page = unauthorizedPage;
+---
+
+<BaseLayout
+  title={page.metaTitle}
+  description={page.metaDescription}
+  canonicalPath={page.slug}
+  ogImage={page.ogImage}
+  ogImageAlt={`${page.metaTitle} preview.`}
+  pathname={Astro.url.pathname}
+>
+  <LandingPage page={page} />
+</BaseLayout>

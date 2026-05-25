@@ -1,0 +1,81 @@
+---
+type LandingBlockData = {
+  kind: string;
+  text: string;
+};
+
+type InternalTextLink = {
+  phrases: string[];
+  href: string;
+};
+
+type InternalTextMatch = {
+  index: number;
+  end: number;
+  text: string;
+  href: string;
+};
+
+const { block } = Astro.props as { block: LandingBlockData };
+
+const INTERNAL_TEXT_LINKS: InternalTextLink[] = [
+  { phrases: ["Experian"], href: "/remove-hard-inquiry-experian" },
+  { phrases: ["Equifax"], href: "/remove-hard-inquiry-equifax" },
+  { phrases: ["TransUnion"], href: "/remove-hard-inquiry-transunion" },
+  { phrases: ["car dealership", "dealership inquiries", "dealer inquiries"], href: "/car-dealership-inquiry-removal" },
+  { phrases: ["unauthorized hard inquiries", "unauthorized inquiries"], href: "/unauthorized-hard-inquiry-removal" },
+  { phrases: ["identity theft"], href: "/identity-theft-inquiry-removal" },
+  { phrases: ["mortgage approval", "mortgage application"], href: "/hard-inquiry-removal-mortgage" },
+  { phrases: ["all three bureaus", "three bureaus"], href: "/services" },
+  { phrases: ["How It Works"], href: "/how-it-works" },
+  { phrases: ["free consultation", "free analysis"], href: "/get-started" },
+  { phrases: ["Plans start", "Pricing"], href: "/pricing" },
+];
+
+function escapeHtml(value: unknown) {
+  return String(value).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+}
+
+function findInternalTextMatches(text: string) {
+  const matches: InternalTextMatch[] = [];
+  for (const link of INTERNAL_TEXT_LINKS) {
+    for (const phrase of link.phrases) {
+      const index = text.toLowerCase().indexOf(phrase.toLowerCase());
+      if (index >= 0) matches.push({ index, end: index + phrase.length, text: text.slice(index, index + phrase.length), href: link.href });
+    }
+  }
+  return matches.sort((a, b) => a.index - b.index || b.text.length - a.text.length).reduce<InternalTextMatch[]>((selected, match) => {
+    const overlaps = selected.some((item) => match.index < item.end && match.end > item.index);
+    const duplicateDestination = selected.some((item) => item.href === match.href);
+    return overlaps || duplicateDestination || selected.length >= 3 ? selected : [...selected, match];
+  }, []);
+}
+
+function renderInternalText(text: string) {
+  const matches = findInternalTextMatches(text);
+  if (!matches.length) return escapeHtml(text);
+  let html = "";
+  let cursor = 0;
+  for (const match of matches) {
+    if (match.index > cursor) html += escapeHtml(text.slice(cursor, match.index));
+    html += '<a href="' + match.href + '" class="inline-bureau-link">' + escapeHtml(match.text) + '</a>';
+    cursor = match.end;
+  }
+  if (cursor < text.length) html += escapeHtml(text.slice(cursor));
+  return html;
+}
+
+const html = renderInternalText(block.text);
+---
+
+{block.kind === "subhead" ? (
+  <h3>{block.text}</h3>
+) : block.kind === "quote" ? (
+  <blockquote><p set:html={html}></p></blockquote>
+) : block.kind === "cite" ? (
+  <p class="landing-citation">{block.text}</p>
+) : block.kind === "meta" ? (
+  <p class="landing-meta-line">{block.text}</p>
+) : (
+  <p set:html={html}></p>
+)}
