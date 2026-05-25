@@ -1,0 +1,56 @@
+---
+import { Image } from "astro:assets";
+import logo150 from "../assets/images/inquiry-removal-logo-150.avif";
+import logo178 from "../assets/images/inquiry-removal-logo-178.avif";
+
+const {
+  size = "md",
+  showWordmark = true,
+  ariaLabel = "Inquiry Removal",
+  priority = false,
+} = Astro.props;
+
+const logoWidth = size === "sm" ? 150 : 178;
+const logoHeight = size === "sm" ? 41 : 48;
+const iconSize = size === "sm" ? 30 : 36;
+const width = showWordmark ? logoWidth : iconSize;
+const height = showWordmark ? logoHeight : iconSize;
+const logoSizes = showWordmark
+  ? size === "sm"
+    ? "(max-width: 640px) 128px, 148px"
+    : "(max-width: 380px) 122px, (max-width: 1079px) 142px, 178px"
+  : `${iconSize}px`;
+---
+
+<span
+  role="img"
+  aria-label={ariaLabel}
+  class="ds-logo-mark"
+>
+  {showWordmark ? (
+    <Image
+      src={size === "sm" ? logo150 : logo178}
+      alt=""
+      aria-hidden="true"
+      width={width}
+      height={height}
+      sizes={logoSizes}
+      loading={priority ? "eager" : "lazy"}
+      decoding="async"
+      fetchpriority={priority ? "high" : "auto"}
+      class="ds-logo-img"
+    />
+  ) : (
+    <img
+      src="/favicon.png"
+      alt=""
+      aria-hidden="true"
+      width={width}
+      height={height}
+      loading={priority ? "eager" : "lazy"}
+      decoding="async"
+      fetchpriority={priority ? "high" : "auto"}
+      class="ds-logo-img"
+    />
+  )}
+</span>

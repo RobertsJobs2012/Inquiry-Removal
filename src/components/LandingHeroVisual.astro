@@ -1,0 +1,43 @@
+---
+import FounderPhotoCard from "./FounderPhotoCard.astro";
+import PremiumIcon from "./PremiumIcon.astro";
+
+const VISUALS = {
+  dealer: { icon: "autoInquiry", eyebrow: "Dealer inquiry file", title: "Auto credit pulls", score: "+62", scoreLabel: "points recovered", rows: ["Soft-pull bait and switch", "Shotgun lender submissions", "FCRA permissible purpose"], badge: "Dealer dispute" },
+  la: { icon: "lawShield", eyebrow: "California dispute file", title: "Los Angeles", score: "+91", scoreLabel: "points recovered", rows: ["FCRA + CCRAA framework", "All three bureaus", "LA homebuyer urgency"], badge: "CA rights" },
+  phoenix: { icon: "specialist", eyebrow: "Phoenix founder story", title: "Robert Garcia", score: "602", scoreLabel: "Phoenix-based", rows: ["Founded here in 2015", "Arizona compliance focus", "Valley dealership cases"], badge: "Local" },
+  nyc: { icon: "homeGoal", eyebrow: "NYC dispute file", title: "Five boroughs", score: "+67", scoreLabel: "points recovered", rows: ["Apartment applications", "Employer credit checks", "NY state law framework"], badge: "NYC" },
+  mortgage: { icon: "homeGoal", eyebrow: "Mortgage approval file", title: "Home loan ready", score: "+88", scoreLabel: "points recovered", rows: ["Middle-score recovery", "Closing-date urgency", "All three bureaus"], badge: "Mortgage" },
+  unauthorized: { icon: "lawShield", eyebrow: "Unauthorized inquiry file", title: "FCRA violation review", score: "+112", scoreLabel: "points recovered", rows: ["No permissible purpose", "Custom FCRA disputes", "All three bureaus"], badge: "FCRA" },
+  identityTheft: { icon: "identityShield", eyebrow: "Identity theft file", title: "Fraudulent pulls", score: "+112", scoreLabel: "points recovered", rows: ["FTC identity theft report", "FCRA identity theft provisions", "All three bureaus"], badge: "Identity theft" },
+} as const;
+
+type VisualKey = keyof typeof VISUALS;
+
+const { visualKey } = Astro.props as { visualKey: VisualKey };
+const visual = VISUALS[visualKey];
+---
+
+{visualKey === "phoenix" ? (
+  <FounderPhotoCard priority />
+) : (
+  <aside class={"landing-hero-visual landing-hero-visual-" + visualKey} aria-hidden="true">
+    <div class="landing-visual-glow" />
+    <div class="landing-visual-card">
+      <div class="landing-visual-top">
+        <span class="landing-visual-icon"><PremiumIcon name={visual.icon} size={22} /></span>
+        <div><span class="landing-visual-eyebrow">{visual.eyebrow}</span><strong>{visual.title}</strong></div>
+        <span class="landing-visual-badge">{visual.badge}</span>
+      </div>
+      <div class="landing-visual-score"><span>{visual.score}</span><small>{visual.scoreLabel}</small></div>
+      <div class="landing-visual-meter"><span /></div>
+      <div class="landing-visual-rows">
+        {visual.rows.map((row: string, index: number) => (
+          <div class={index === 0 ? "landing-visual-row landing-visual-row-active" : "landing-visual-row"}>
+            <span>{row}</span><strong>{String(index + 1).padStart(2, "0")}</strong>
+          </div>
+        ))}
+      </div>
+    </div>
+  </aside>
+)}

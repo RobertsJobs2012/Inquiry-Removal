@@ -1,0 +1,23 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { packagePages } from "@/lib/package-pages";
+import { packageSchemas } from "@/lib/package-schemas";
+import LandingPage from "../components/LandingPage.astro";
+import { mortgagePage } from "@/lib/landing-pages/mortgage";
+
+const page = mortgagePage;
+const packageMeta = packagePages["/hard-inquiry-removal-mortgage"];
+---
+
+<BaseLayout
+  title={packageMeta.title}
+  description={packageMeta.description}
+  canonicalPath={packageMeta.route}
+  ogImage={packageMeta.ogImage}
+  ogImageType="image/webp"
+  ogImageAlt={`${packageMeta.h1} — Inquiry Removal`}
+  schema={packageSchemas["/hard-inquiry-removal-mortgage"]}
+  pathname={packageMeta.route}
+>
+  <LandingPage page={page} />
+</BaseLayout>
