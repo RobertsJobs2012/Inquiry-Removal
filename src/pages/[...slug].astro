@@ -1,0 +1,240 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { pages, type SitePage } from "../data/pages";
+
+export function getStaticPaths() {
+  return pages.map((page) => ({
+    params: { slug: page.slug },
+    props: { page },
+  }));
+}
+
+interface Props {
+  page: SitePage;
+}
+const { page } = Astro.props;
+const resourceCards = [
+  [
+    "Fundamentals",
+    "Hard vs. soft inquiries",
+    "Understand what each type of credit inquiry means and when it appears.",
+  ],
+  [
+    "Dealerships",
+    "One application, many lenders",
+    "Learn how application routing can result in several reported inquiries.",
+  ],
+  [
+    "Authorization",
+    "When you do not recognize a pull",
+    "Organize the facts before deciding whether closer review is appropriate.",
+  ],
+  [
+    "Identity theft",
+    "Unknown activity on your report",
+    "Understand why unfamiliar inquiries can require a broader response.",
+  ],
+  [
+    "Credit bureaus",
+    "Experian, Equifax & TransUnion",
+    "Read inquiry information across all three major credit reports.",
+  ],
+  [
+    "Consumer rights",
+    "Doing it yourself",
+    "Learn how consumers can dispute inaccurate credit-report information directly.",
+  ],
+];
+---
+
+<BaseLayout
+  title={`${page.title} | Inquiry Removal`}
+  description={page.description}
+  theme="dark"
+>
+  <Header dark />
+  <main>
+    <section class="page-hero">
+      <div class="container page-hero-grid">
+        <div>
+          <p class="eyebrow eyebrow--light"><span></span>{page.eyebrow}</p>
+          <h1>{page.title}</h1>
+          <p>{page.description}</p>
+        </div>
+        <div class="page-hero-aside">
+          {page.aside.map((item) => <span>{item}</span>)}
+        </div>
+      </div>
+    </section>
+
+    <section class="page-content">
+      <div class="container content-shell">
+        <aside class="content-index">
+          <p>On this page</p>
+          {
+            page.sections.map((section, index) => (
+              <a href={`#section-${index + 1}`}>
+                {String(index + 1).padStart(2, "0")} · {section.heading}
+              </a>
+            ))
+          }
+          <a class="button button--small" href="/free-inquiry-analysis/"
+            >Free Analysis →</a
+          >
+        </aside>
+        <div class="content-body">
+          {
+            page.kind === "analysis" && (
+              <div class="analysis-panel">
+                <div>
+                  <p class="eyebrow">
+                    <span /> Secure intake preview
+                  </p>
+                  <h2>Tell us what you’re seeing.</h2>
+                  <p>
+                    The intake experience is designed, but submission is
+                    intentionally disabled until secure storage, consent
+                    language, and the service workflow are finalized.
+                  </p>
+                </div>
+                <form class="analysis-form" onsubmit="return false">
+                  <div class="field">
+                    <>
+                      <label for="name">Full name</label>
+                      <input
+                        id="name"
+                        name="name"
+                        autocomplete="name"
+                        placeholder="Your name"
+                      />
+                    </>
+                  </div>
+                  <div class="field">
+                    <>
+                      <label for="phone">Phone</label>
+                      <input
+                        id="phone"
+                        name="phone"
+                        autocomplete="tel"
+                        inputmode="tel"
+                        placeholder="(000) 000-0000"
+                      />
+                    </>
+                  </div>
+                  <div class="field field--full">
+                    <>
+                      <label for="email">Email</label>
+                      <input
+                        id="email"
+                        name="email"
+                        type="email"
+                        autocomplete="email"
+                        placeholder="you@example.com"
+                      />
+                    </>
+                  </div>
+                  <div class="field">
+                    <>
+                      <label for="situation">Situation</label>
+                      <select id="situation" name="situation">
+                        <>
+                          <option>Choose one</option>
+                          <option>Dealership inquiries</option>
+                          <option>Unknown inquiries</option>
+                          <option>Identity theft</option>
+                          <option>Preparing for financing</option>
+                          <option>Not sure</option>
+                        </>
+                      </select>
+                    </>
+                  </div>
+                  <div class="field">
+                    <>
+                      <label for="count">Approximate inquiry count</label>
+                      <select id="count" name="count">
+                        <>
+                          <option>Not sure</option>
+                          <option>1–10</option>
+                          <option>11–30</option>
+                          <option>31+</option>
+                        </>
+                      </select>
+                    </>
+                  </div>
+                  <div class="field field--full">
+                    <>
+                      <label for="notes">What would you like us to know?</label>
+                      <textarea
+                        id="notes"
+                        name="notes"
+                        placeholder="Do not enter Social Security numbers or other highly sensitive information."
+                      />
+                    </>
+                  </div>
+                  <button
+                    class="button field--full"
+                    type="button"
+                    disabled
+                    aria-describedby="form-note"
+                  >
+                    Secure submission coming before launch
+                  </button>
+                  <p class="form-note" id="form-note">
+                    This preview does not transmit or store information.
+                  </p>
+                </form>
+              </div>
+            )
+          }
+
+          {
+            page.sections.map((section, index) => (
+              <section id={`section-${index + 1}`} data-reveal>
+                <p class="eyebrow">
+                  <span /> {String(index + 1).padStart(2, "0")}
+                </p>
+                <h2>{section.heading}</h2>
+                {section.body.map((paragraph) => (
+                  <p>{paragraph}</p>
+                ))}
+                {section.bullets && (
+                  <ul>
+                    {section.bullets.map((bullet) => (
+                      <li>{bullet}</li>
+                    ))}
+                  </ul>
+                )}
+              </section>
+            ))
+          }
+
+          {
+            page.kind === "resources" && (
+              <div class="resource-grid" data-reveal>
+                {resourceCards.map(([tag, title, text]) => (
+                  <article class="resource-card">
+                    <span>{tag}</span>
+                    <h3>{title}</h3>
+                    <p>{text}</p>
+                  </article>
+                ))}
+              </div>
+            )
+          }
+
+          <div class="placeholder-panel" data-reveal>
+            <strong>Content phase ready.</strong>
+            <p>
+              The layout, hierarchy, conversion pathway, and compliance-safe
+              placeholder language are in place. Final content can now replace
+              these sections without redesigning the site.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>

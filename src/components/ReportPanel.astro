@@ -1,0 +1,86 @@
+---
+const rows = [
+  {
+    lender: "NORTHSTAR AUTO",
+    bureau: "Experian",
+    date: "APR 14",
+    state: "Review",
+  },
+  {
+    lender: "METRO FINANCIAL",
+    bureau: "Equifax",
+    date: "APR 14",
+    state: "Eligible",
+  },
+  {
+    lender: "HORIZON CREDIT",
+    bureau: "TransUnion",
+    date: "APR 15",
+    state: "Response",
+  },
+];
+---
+
+<div class="report-panel" data-report-panel>
+  <div class="report-toolbar">
+    <div><span class="status-dot"></span> Inquiry review</div>
+    <span>Illustrative interface</span>
+  </div>
+  <div class="bureau-tabs" role="tablist" aria-label="Credit bureaus">
+    <button class="is-active" type="button" role="tab" aria-selected="true"
+      >All 3</button
+    >
+    <button type="button" role="tab" aria-selected="false">Experian</button>
+    <button type="button" role="tab" aria-selected="false">Equifax</button>
+    <button type="button" role="tab" aria-selected="false">TransUnion</button>
+  </div>
+  <div class="report-summary">
+    <div><span>Inquiries found</span><strong>07</strong></div>
+    <div><span>Flagged for review</span><strong>03</strong></div>
+    <div><span>Bureaus</span><strong>03</strong></div>
+  </div>
+  <div class="report-table">
+    <div class="report-head">
+      <span>Furnisher</span><span>Bureau</span><span>Date</span><span
+        >Status</span
+      >
+    </div>
+    {
+      rows.map((row, index) => (
+        <div class="report-row" style={`--delay:${index * 120}ms`}>
+          <span>
+            <i />
+            {row.lender}
+          </span>
+          <span>{row.bureau}</span>
+          <span>{row.date}</span>
+          <span
+            class:list={[
+              "row-status",
+              `row-status--${row.state.toLowerCase()}`,
+            ]}
+          >
+            {row.state}
+          </span>
+        </div>
+      ))
+    }
+  </div>
+  <p class="report-note">
+    Example workflow only. Outcomes depend on the facts of each case.
+  </p>
+</div>
+
+<script>
+  document.querySelectorAll("[data-report-panel]").forEach((panel) => {
+    const tabs = panel.querySelectorAll('[role="tab"]');
+    tabs.forEach((tab) =>
+      tab.addEventListener("click", () => {
+        tabs.forEach((item) => {
+          item.classList.toggle("is-active", item === tab);
+          item.setAttribute("aria-selected", String(item === tab));
+        });
+      }),
+    );
+  });
+</script>

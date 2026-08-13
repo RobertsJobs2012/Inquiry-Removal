@@ -1,0 +1,76 @@
+---
+const { dark = false } = Astro.props;
+const nav = [
+  ["How It Works", "/how-it-works/"],
+  ["Eligibility", "/eligibility/"],
+  ["Results", "/results/"],
+  ["Pricing", "/pricing/"],
+  ["Resources", "/resources/"],
+  ["About", "/about/"],
+];
+---
+
+<header class:list={["site-header", { "site-header--dark": dark }]} data-header>
+  <div class="nav-shell">
+    <a class="wordmark" href="/" aria-label="Inquiry Removal home">
+      <span class="wordmark-mark" aria-hidden="true"><i></i><i></i><i></i></span
+      >
+      <span>Inquiry <strong>Removal</strong></span>
+    </a>
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      {nav.map(([label, href]) => <a href={href}>{label}</a>)}
+    </nav>
+    <div class="nav-actions">
+      <a
+        class="phone-link"
+        href="tel:+16023776626"
+        aria-label="Call Inquiry Removal">(602) 377-6626</a
+      >
+      <a class="button button--small" href="/free-inquiry-analysis/"
+        >Get My Free Analysis <span>→</span></a
+      >
+      <button
+        class="menu-button"
+        type="button"
+        aria-label="Open navigation"
+        aria-expanded="false"
+        data-menu-button
+      >
+        <span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-nav" aria-label="Mobile navigation" data-mobile-nav>
+    {
+      nav.map(([label, href]) => (
+        <a href={href}>
+          {label}
+          <span>→</span>
+        </a>
+      ))
+    }
+    <a href="tel:+16023776626">Call (602) 377-6626 <span>↗</span></a>
+  </nav>
+</header>
+
+<a class="mobile-cta" href="/free-inquiry-analysis/"
+  >Free Analysis <span>→</span></a
+>
+
+<script>
+  const header = document.querySelector("[data-header]");
+  const menuButton = document.querySelector("[data-menu-button]");
+  const mobileNav = document.querySelector("[data-mobile-nav]");
+
+  const syncHeader = () =>
+    header?.classList.toggle("is-scrolled", window.scrollY > 24);
+  syncHeader();
+  window.addEventListener("scroll", syncHeader, { passive: true });
+
+  menuButton?.addEventListener("click", () => {
+    const open = menuButton.getAttribute("aria-expanded") === "true";
+    menuButton.setAttribute("aria-expanded", String(!open));
+    mobileNav?.classList.toggle("is-open", !open);
+    document.body.classList.toggle("menu-open", !open);
+  });
+</script>

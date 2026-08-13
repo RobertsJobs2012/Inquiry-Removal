@@ -1,0 +1,18 @@
+---
+const { compact = false } = Astro.props;
+---
+
+<div
+  class:list={["inquiry-line", { "inquiry-line--compact": compact }]}
+  aria-hidden="true"
+>
+  <div class="line-source"><span></span></div>
+  <div class="line-track"></div>
+  <div class="line-hub"><span>1</span></div>
+  <div class="line-branches">
+    <i></i><i></i><i></i><i></i><i></i>
+  </div>
+  <div class="line-destinations">
+    <span>EX</span><span>EQ</span><span>TU</span>
+  </div>
+</div>
