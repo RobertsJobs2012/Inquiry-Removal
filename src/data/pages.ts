@@ -104,40 +104,6 @@ export const pages: SitePage[] = [
     ],
   },
   {
-    slug: "pricing",
-    eyebrow: "Defined packages",
-    title: "Clear scope. No endless subscription.",
-    description:
-      "Three inquiry-count packages designed to make scope and price understandable before a consumer makes a decision.",
-    aside: ["Starter · $199", "Standard · $299", "Elite · $499"],
-    sections: [
-      {
-        heading: "Starter · $199",
-        body: [
-          "Designed for cases involving 1–10 inquiries. The final service scope and payment workflow will be published after legal review.",
-        ],
-      },
-      {
-        heading: "Standard · $299",
-        body: [
-          "Designed for cases involving 11–30 inquiries. This is the featured package in the site architecture, without implying it is right for every consumer.",
-        ],
-      },
-      {
-        heading: "Elite · $499",
-        body: [
-          "Designed for cases involving 31 or more inquiries. Identity-theft circumstances do not automatically trigger a higher price.",
-        ],
-      },
-      {
-        heading: "Before launch.",
-        body: [
-          "Actual payment collection timing, contracts, cancellation rights, guarantee terms, and service delivery rules must be finalized with qualified counsel before accepting payment.",
-        ],
-      },
-    ],
-  },
-  {
     slug: "about",
     eyebrow: "Why we specialize",
     title: "Built around one problem.",

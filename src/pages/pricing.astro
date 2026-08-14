@@ -1,0 +1,659 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+
+const planFeatures = [
+  "All affected credit bureaus",
+  "Organized inquiry list",
+  "Dispute preparation and submission",
+  "Response review",
+  "Additional follow-up as needed",
+  "Phone, text, or email communication",
+  "No monthly fees",
+];
+
+const plans = [
+  {
+    id: "focused",
+    name: "Focused Removal",
+    price: "$199",
+    count: "1 to 10 total hard inquiries",
+    bestFor:
+      "Someone with 1 to 10 total hard inquiries who wants a focused cleanup before the next important application.",
+  },
+  {
+    id: "complete",
+    name: "Complete Removal",
+    price: "$299",
+    count: "11 to 30 total hard inquiries",
+    bestFor:
+      "Someone with 11 to 30 total hard inquiries, including dealership clusters, repeated applications, or inquiries spread across several reports.",
+    popular: true,
+  },
+  {
+    id: "extensive",
+    name: "Extensive Removal",
+    price: "$499",
+    count: "31 or more total hard inquiries",
+    bestFor:
+      "Someone with 31 or more total hard inquiries who needs the broadest inquiry-removal scope across the affected reports.",
+  },
+];
+
+const included = [
+  [
+    "A personal inquiry review",
+    "We review the affected credit reports, discuss what happened, and understand what removing the inquiries could help you pursue next.",
+  ],
+  [
+    "Experian, Equifax, and TransUnion as needed",
+    "There is no separate plan for each bureau. We work with every affected report included in your service.",
+  ],
+  [
+    "A complete inquiry-removal list",
+    "We organize creditor names, inquiry dates, affected bureaus, and the situation connected to each inquiry.",
+  ],
+  [
+    "Disputes prepared and sent for you",
+    "Inquiry Removal prepares and submits the communications to the appropriate companies and credit bureaus. You do not have to write and manage the process alone.",
+  ],
+  [
+    "Every response reviewed",
+    "When a credit-monitoring alert, email, online result, or mailed response arrives, you notify us. We review what changed and explain the next step.",
+  ],
+  [
+    "Continued follow-through",
+    "We do not impose a one-round cutoff. Additional removal rounds continue as needed under your service agreement.",
+  ],
+  [
+    "Direct communication",
+    "Updates happen by phone, text, or email. There is no client portal, dashboard, or login requirement.",
+  ],
+  [
+    "A 90-day money-back promise",
+    "If no inquiry is removed within 90 days, you may request a refund under the complete written guarantee terms.",
+  ],
+];
+
+const countingSteps = [
+  [
+    "Count the inquiry entries you want reviewed",
+    "Look at the hard inquiry section of each affected report and estimate how many entries you want removed. The estimate is enough to begin the free review.",
+  ],
+  [
+    "Include every affected report",
+    "If inquiries appear on Experian, Equifax, and TransUnion, provide all three reports. If only one or two bureaus are affected, begin with those reports.",
+  ],
+  [
+    "Choose “I am not sure” when needed",
+    "Creditor names can be unfamiliar, and one event may create several inquiries. You do not need to determine the final count before contacting us.",
+  ],
+  [
+    "We confirm the correct plan before you begin",
+    "After reviewing the inquiry list and affected reports, we confirm which price range matches the service. This prevents you from choosing a plan based on an incomplete count.",
+  ],
+];
+
+const comparisonRows = [
+  ["One-time price", "$199", "$299", "$499"],
+  ["Total hard inquiries", "1 to 10", "11 to 30", "31 or more"],
+  ["All affected bureaus", "Included", "Included", "Included"],
+  ["Personal inquiry review", "Included", "Included", "Included"],
+  ["Inquiry list organization", "Included", "Included", "Included"],
+  ["Dispute preparation and submission", "Included", "Included", "Included"],
+  ["Response review", "Included", "Included", "Included"],
+  ["Additional rounds as needed", "Included", "Included", "Included"],
+  ["Phone, text, or email updates", "Included", "Included", "Included"],
+  ["Monthly fee", "None", "None", "None"],
+  ["90-day money-back promise", "Included", "Included", "Included"],
+];
+
+const faqs = [
+  [
+    "Is the price monthly or one time?",
+    "Every Inquiry Removal plan has a one-time price. Focused Removal is $199, Complete Removal is $299, and Extensive Removal is $499. The service does not become a monthly membership when responses or additional rounds take longer.",
+  ],
+  [
+    "Is the price charged separately for each credit bureau?",
+    "No. Each plan includes all affected credit bureaus needed for the inquiry count and service scope. If Experian, Equifax, and TransUnion are affected, the included work covers all three reports rather than creating three separate bureau subscriptions.",
+  ],
+  [
+    "What if I do not know how many inquiries I have?",
+    "Choose the free inquiry review instead of guessing. Provide the affected reports and explain what happened. We organize the inquiry entries, confirm the total included count, and tell you which one-time plan matches the service.",
+  ],
+  [
+    "Does the price include additional removal rounds?",
+    "Yes. Inquiry Removal does not impose a one-round cutoff. We review incoming responses and continue with additional rounds as needed under the signed service agreement. The agreement defines client responsibilities and when the service is considered complete.",
+  ],
+  [
+    "Can I start without scheduling a telephone call?",
+    "Yes. Select a plan and begin the inquiry removal process online. Our team receives your information and contacts you within 24 hours or sooner to explain the remaining intake steps and the affected credit reports needed.",
+  ],
+  [
+    "Can I request a free review before choosing a plan?",
+    "Yes. The free inquiry review is available when you want to discuss the situation, confirm the inquiry count, or understand what is included before starting. There is no pressure to choose a plan during the first conversation.",
+  ],
+  [
+    "How does the 90-day money-back promise work?",
+    "If no inquiry is removed within 90 days, you may request a refund under the written guarantee terms. Review the complete terms before starting because they define eligibility, deadlines, client cooperation, exclusions, and the refund process.",
+  ],
+];
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: "Hard Inquiry Removal",
+    serviceType: "Hard inquiry removal across affected credit reports",
+    provider: {
+      "@type": "Organization",
+      name: "Inquiry Removal",
+      url: "https://inquiryremoval.com/",
+    },
+    areaServed: "US",
+    url: "https://inquiryremoval.com/pricing/",
+    offers: plans.map((plan) => ({
+      "@type": "Offer",
+      name: plan.name,
+      price: plan.price.replace("$", ""),
+      priceCurrency: "USD",
+      availability: "https://schema.org/InStock",
+      url: `https://inquiryremoval.com/get-started/?plan=${plan.id}`,
+    })),
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://inquiryremoval.com/",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Pricing",
+        item: "https://inquiryremoval.com/pricing/",
+      },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map(([question, answer]) => ({
+      "@type": "Question",
+      name: question,
+      acceptedAnswer: { "@type": "Answer", text: answer },
+    })),
+  },
+];
+---
+
+<BaseLayout
+  title="Hard Inquiry Removal Pricing and Plans | Inquiry Removal"
+  description="Hard inquiry removal pricing starts at $199 with no monthly fees. Compare plans for 1 to 10, 11 to 30, or 31+ inquiries and start online."
+  ogTitle="Hard Inquiry Removal Starting at $199"
+  ogDescription="Choose one clear plan based on your total inquiries. One-time pricing, all affected bureaus, and no monthly fees."
+  ogImage="/og-pricing.jpg"
+  {schema}
+  theme="dark"
+>
+  <Header dark />
+  <main>
+    <section class="pricing-hero dark-section">
+      <div class="container pricing-hero__content" data-reveal>
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="/">Home</a><span>/</span><span>Pricing</span>
+        </nav>
+        <p class="eyebrow eyebrow--light">
+          <span></span> One-Time Plans | No Monthly Subscriptions
+        </p>
+        <h1>Hard Inquiry Removal Pricing With Zero Monthly Fees</h1>
+        <p class="pricing-hero__lead">
+          Hard inquiry removal pricing should be easy to understand before you
+          begin. Inquiry Removal uses three one-time plans based on the total
+          number of hard inquiries included in your service. You will not pay a
+          monthly membership just because a creditor or credit bureau takes
+          longer to respond. Choose the range that matches your reports, start
+          online, or request a free inquiry review if you are unsure which plan
+          fits. Everything is clear before you choose what happens next.
+        </p>
+        <div class="button-row">
+          <a
+            class="button button--large"
+            href="/get-started/?start=online"
+            data-track="pricing-hero-start"
+          >
+            Start My Inquiry Removal <span>→</span>
+          </a>
+          <a
+            class="text-link text-link--light"
+            href="/get-started/?review=free"
+            data-track="pricing-hero-review"
+          >
+            Get My Free Inquiry Review <span>↘</span>
+          </a>
+        </div>
+        <p class="cta-microcopy">
+          One-time pricing. No monthly fees. All affected bureaus included.
+        </p>
+      </div>
+    </section>
+
+    <section class="plan-selector-section" aria-labelledby="selector-heading">
+      <div class="container plan-selector" data-reveal>
+        <div>
+          <p class="eyebrow"><span></span> Find your plan</p>
+          <h2 id="selector-heading">
+            About how many total hard inquiries do you want removed?
+          </h2>
+        </div>
+        <div
+          class="plan-selector__controls"
+          role="group"
+          aria-label="Choose an estimated hard inquiry count"
+        >
+          <button type="button" data-plan-choice="focused" aria-pressed="false"
+            >1 to 10 <span>See Focused Removal</span></button
+          >
+          <button type="button" data-plan-choice="complete" aria-pressed="false"
+            >11 to 30 <span>See Complete Removal</span></button
+          >
+          <button
+            type="button"
+            data-plan-choice="extensive"
+            aria-pressed="false"
+            >31 or more <span>See Extensive Removal</span></button
+          >
+          <button type="button" data-plan-choice="review" aria-pressed="false"
+            >I am not sure <span>Get My Free Review</span></button
+          >
+        </div>
+        <div
+          class="plan-selector__result"
+          aria-live="polite"
+          aria-atomic="true"
+        >
+          <span data-result-kicker>Choose a range above</span>
+          <strong data-result-name>We will show the matching plan here.</strong>
+          <a
+            class="button button--small"
+            href="#plans"
+            data-result-link
+            data-track="pricing-selector-start">View All Plans <span>→</span></a
+          >
+        </div>
+      </div>
+    </section>
+
+    <section class="section waiting-cost">
+      <div class="container waiting-cost__grid">
+        <div data-reveal>
+          <p class="eyebrow"><span></span> A practical comparison</p>
+          <h2>What Could Waiting to Remove Your Inquiries Cost You?</h2>
+          <p class="lead">
+            Waiting can mean entering your next application with the same
+            inquiry problem still visible. That may lead to another denial,
+            another delayed goal, or another hard inquiry added before the
+            earlier ones have been addressed.
+          </p>
+        </div>
+        <ol class="waiting-cost__list" data-reveal>
+          <li>
+            Continue toward your next application with the same inquiry section.
+          </li>
+          <li>
+            Join a broad monthly credit repair program when inquiries are your
+            only concern.
+          </li>
+          <li>Spend time writing and tracking every dispute by yourself.</li>
+          <li>
+            Pay one transparent price for a company focused exclusively on
+            inquiry removal.
+          </li>
+        </ol>
+      </div>
+      <p class="container waiting-cost__summary" data-reveal>
+        Inquiry Removal plans range from <strong>$199 to $499 once.</strong> The right
+        plan depends on how many total hard inquiries are included, not how many months
+        the process lasts.
+      </p>
+    </section>
+
+    <section class="section pricing-page-plans" id="plans">
+      <div class="container">
+        <div class="pricing-heading" data-reveal>
+          <p class="eyebrow centered"><span></span> Count. Choose. Start.</p>
+          <h2>Which Inquiry Removal Plan Fits Your Reports?</h2>
+          <p>
+            Choose the plan that matches your total number of hard inquiries.
+            Every plan includes work across Experian, Equifax, and TransUnion
+            when those reports are affected.
+          </p>
+        </div>
+        <div class="pricing-plan-grid">
+          {
+            plans.map((plan) => (
+              <article
+                id={`plan-${plan.id}`}
+                class:list={[
+                  "pricing-plan-card",
+                  { "pricing-plan-card--featured": plan.popular },
+                ]}
+                data-reveal
+              >
+                {plan.popular && <span class="popular">Most Popular</span>}
+                <p class="pricing-plan-card__name">{plan.name}</p>
+                <h3>{plan.price}</h3>
+                <strong>One Time</strong>
+                <p class="pricing-plan-card__best">
+                  <b>Best for:</b> {plan.bestFor}
+                </p>
+                <ul>
+                  <li class="pricing-plan-card__count">{plan.count}</li>
+                  {planFeatures.map((feature) => (
+                    <li>{feature}</li>
+                  ))}
+                </ul>
+                <p class="pricing-plan-card__protection">
+                  <b>90-day protection:</b> If no inquiry is removed within 90
+                  days, you may request a refund under the written guarantee
+                  terms.
+                </p>
+                <a
+                  class="button"
+                  href={`/get-started/?plan=${plan.id}`}
+                  data-track={`pricing-card-${plan.id}`}
+                >
+                  Choose {plan.name} <span>→</span>
+                </a>
+                <a
+                  class="pricing-plan-card__guarantee"
+                  href="/guarantee/"
+                  data-track={`pricing-guarantee-${plan.id}`}
+                >
+                  Read the 90-Day Money-Back Guarantee <span>↗</span>
+                </a>
+              </article>
+            ))
+          }
+        </div>
+        <p class="below-card-note">
+          Not sure which plan fits? <a href="/get-started/?review=free"
+            >Get a free personal review before choosing.</a
+          >
+        </p>
+      </div>
+    </section>
+
+    <section
+      class="section comparison-section"
+      aria-labelledby="comparison-heading"
+    >
+      <div class="container">
+        <div class="comparison-heading" data-reveal>
+          <p class="eyebrow"><span></span> Compare every plan</p>
+          <h2 id="comparison-heading">
+            One focused process. Three clear inquiry ranges.
+          </h2>
+        </div>
+        <div
+          class="pricing-table-wrap"
+          data-reveal
+          tabindex="0"
+          role="region"
+          aria-label="Scrollable pricing comparison"
+        >
+          <table class="pricing-table">
+            <thead>
+              <tr
+                ><th scope="col">Included</th><th scope="col"
+                  >Focused Removal</th
+                ><th scope="col" class="is-featured"
+                  >Complete Removal <span>Most Popular</span></th
+                ><th scope="col">Extensive Removal</th></tr
+              >
+            </thead>
+            <tbody
+              >{
+                comparisonRows.map((row) => (
+                  <tr>
+                    {row.map((cell, index) =>
+                      index === 0 ? (
+                        <th scope="row">{cell}</th>
+                      ) : (
+                        <td class:list={{ "is-featured": index === 2 }}>
+                          {cell}
+                        </td>
+                      ),
+                    )}
+                  </tr>
+                ))
+              }</tbody
+            >
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section included-section">
+      <div class="container">
+        <div class="included-heading" data-reveal>
+          <p class="eyebrow"><span></span> The same complete service</p>
+          <h2>What Is Included With Every Inquiry Removal Plan?</h2>
+          <p class="lead">
+            Every plan includes the same focused removal process. The only
+            package difference is the number of hard inquiries included in the
+            service.
+          </p>
+        </div>
+        <div class="included-grid">
+          {
+            included.map(([title, body], index) => (
+              <article data-reveal>
+                <>
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <h3>{title}</h3>
+                  <p>{body}</p>
+                </>
+              </article>
+            ))
+          }
+        </div>
+        <a class="text-link" href="/how-it-works/"
+          >See How the Inquiry Removal Process Works <span>→</span></a
+        >
+      </div>
+    </section>
+
+    <section class="section counting-section dark-section">
+      <div class="container">
+        <div class="counting-heading" data-reveal>
+          <p class="eyebrow eyebrow--light">
+            <span></span> You do not have to guess
+          </p>
+          <h2>How Are Your Total Hard Inquiries Counted?</h2>
+          <p>
+            Your plan is based on the total hard inquiries included from the
+            affected credit reports. We confirm the final service count during
+            your review so you do not have to guess which names, dates, or
+            bureau entries belong together.
+          </p>
+        </div>
+        <div class="counting-grid">
+          {
+            countingSteps.map(([title, body], index) => (
+              <article data-reveal>
+                <>
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <h3>{title}</h3>
+                  <p>{body}</p>
+                </>
+              </article>
+            ))
+          }
+        </div>
+        <div class="button-row">
+          <a
+            class="button"
+            href="/get-started/?review=free"
+            data-track="pricing-help-choose"
+            >Help Me Choose My Plan <span>→</span></a
+          >
+        </div>
+      </div>
+    </section>
+
+    <section class="section guarantee-pricing-section">
+      <div class="container guarantee-pricing-card" data-reveal>
+        <div>
+          <p class="eyebrow"><span></span> 90-day protection</p>
+          <h2>What Happens If Nothing Is Removed Within 90 Days?</h2>
+          <p>
+            If no inquiry is removed within 90 days, you may request a refund
+            under the written 90-day money-back guarantee. This promise protects
+            you from paying for a process that produces no removals during the
+            guarantee period.
+          </p>
+          <a
+            class="button"
+            href="/guarantee/"
+            data-track="pricing-guarantee-main"
+            >Read the 90-Day Money-Back Guarantee <span>→</span></a
+          >
+        </div>
+        <div class="guarantee-terms">
+          <strong>The complete written terms explain:</strong>
+          <ul>
+            <li>The refund amount</li><li>When the 90-day period begins</li><li>
+              How and when to submit a request
+            </li><li>Required client cooperation</li><li>Any exclusions</li><li>
+              Whether continued service remains available after day 90
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section faq-section" id="pricing-questions">
+      <div class="container faq-layout">
+        <div data-reveal>
+          <p class="eyebrow"><span></span> Clear answers</p>
+          <h2>Hard Inquiry Removal Pricing Questions</h2>
+          <p>
+            Want to understand the broader process? Review our <a
+              class="inline-link"
+              href="/faq/">hard inquiry removal pricing questions</a
+            > or <a class="inline-link" href="/situations-we-handle/"
+              >hard inquiry situations we handle</a
+            >.
+          </p>
+        </div>
+        <div class="faq-list" data-reveal>
+          {
+            faqs.map(([question, answer]) => (
+              <details>
+                <>
+                  <summary>
+                    {question}
+                    <span aria-hidden="true" />
+                  </summary>
+                  <p>{answer}</p>
+                </>
+              </details>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="final-cta dark-section pricing-final-cta">
+      <div class="container" data-reveal>
+        <p class="eyebrow eyebrow--light centered">
+          <span></span> One clear price
+        </p>
+        <h2>Ready to Choose Your Inquiry Removal Plan?</h2>
+        <p>
+          Select the range that matches your reports and begin online today. If
+          you are unsure of the count, start with a free review and let us help
+          organize the inquiry problem first.
+        </p>
+        <div class="button-row button-row--center">
+          <a
+            class="button button--large"
+            href="/get-started/?start=online"
+            data-track="pricing-final-start"
+            >Start My Inquiry Removal <span>→</span></a
+          >
+          <a
+            class="text-link text-link--light"
+            href="/get-started/?review=free"
+            data-track="pricing-final-review"
+            >Get My Free Inquiry Review <span>↘</span></a
+          >
+        </div>
+        <p class="cta-microcopy">
+          One-time pricing. No monthly fees. Response within 24 hours.
+        </p>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<script>
+  const choices =
+    document.querySelectorAll<HTMLButtonElement>("[data-plan-choice]");
+  const resultKicker = document.querySelector<HTMLElement>(
+    "[data-result-kicker]",
+  );
+  const resultName = document.querySelector<HTMLElement>("[data-result-name]");
+  const resultLink =
+    document.querySelector<HTMLAnchorElement>("[data-result-link]");
+  const results = {
+    focused: [
+      "1 to 10 inquiries",
+      "Focused Removal · $199 one time",
+      "#plan-focused",
+      "See Focused Removal",
+    ],
+    complete: [
+      "11 to 30 inquiries",
+      "Complete Removal · $299 one time",
+      "#plan-complete",
+      "See Complete Removal",
+    ],
+    extensive: [
+      "31 or more inquiries",
+      "Extensive Removal · $499 one time",
+      "#plan-extensive",
+      "See Extensive Removal",
+    ],
+    review: [
+      "Not sure of your count?",
+      "Start with a free personal inquiry review.",
+      "/get-started/?review=free",
+      "Get My Free Inquiry Review",
+    ],
+  } as const;
+
+  choices.forEach((choice) => {
+    choice.addEventListener("click", () => {
+      const key = choice.dataset.planChoice as keyof typeof results;
+      const [kicker, name, href, label] = results[key];
+      choices.forEach((button) => {
+        button.classList.toggle("is-selected", button === choice);
+        button.setAttribute("aria-pressed", String(button === choice));
+      });
+      if (resultKicker) resultKicker.textContent = kicker;
+      if (resultName) resultName.textContent = name;
+      if (resultLink) {
+        resultLink.href = href;
+        resultLink.innerHTML = `${label} <span>→</span>`;
+      }
+    });
+  });
+</script>
