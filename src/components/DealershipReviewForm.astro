@@ -1,0 +1,333 @@
+---
+const dealershipSituations = [
+  "The dealer sent my application to multiple lenders",
+  "I asked the dealer not to shop my credit around",
+  "I was told it would be a soft pull",
+  "I did not buy a vehicle, but the inquiries remained",
+  "I do not recognize the lender names",
+  "Something else happened",
+];
+
+const inquiryCounts = [
+  "1 to 5",
+  "6 to 10",
+  "11 to 30",
+  "31 or more",
+  "I am not sure",
+];
+
+const goals = [
+  "Buying a home",
+  "Financing or refinancing a vehicle",
+  "Business funding",
+  "Applying for a credit card or loan",
+  "Protecting my credit profile",
+  "Recovering from an upsetting dealership experience",
+  "Something else",
+];
+---
+
+<section class="intake-section dark-section dealership-intake" id="free-review">
+  <div class="container intake-layout">
+    <div class="intake-intro" data-reveal>
+      <p class="eyebrow eyebrow--light"><span></span> Free personal review</p>
+      <h2>Tell us what happened at the dealership.</h2>
+      <p>
+        Answer five focused questions so we can understand the dealership visit,
+        the inquiry count, the affected reports, and what you want to do next.
+      </p>
+      <div class="intake-security">
+        <strong>Private by design</strong>
+        <span>
+          This initial review never asks for your Social Security number, date
+          of birth, report login, payment information, or report upload.
+        </span>
+      </div>
+    </div>
+    <form
+      class="intake-form dealership-review-form"
+      data-dealership-form
+      novalidate
+      data-reveal
+      data-track="dealership-form-start"
+    >
+      <div class="form-progress" aria-label="Form progress">
+        <span data-dealer-progress-label>Step 1 of 5</span>
+        <div><i data-dealer-progress-bar></i></div>
+      </div>
+
+      <fieldset class="form-step is-active" data-dealer-step="1">
+        <legend>What happened at the dealership?</legend>
+        <p>Choose the description that fits your experience best.</p>
+        <div class="choice-grid">
+          {
+            dealershipSituations.map((option) => (
+              <label class="form-choice">
+                <input
+                  type="radio"
+                  name="dealershipSituation"
+                  value={option}
+                  required
+                />
+                <span>{option}</span>
+              </label>
+            ))
+          }
+        </div>
+      </fieldset>
+
+      <fieldset class="form-step" data-dealer-step="2" hidden>
+        <legend>How many hard inquiries are involved?</legend>
+        <p>An estimate is enough for the free review.</p>
+        <div class="choice-grid choice-grid--two">
+          {
+            inquiryCounts.map((option) => (
+              <label class="form-choice">
+                <input
+                  type="radio"
+                  name="dealershipCount"
+                  value={option}
+                  required
+                />
+                <span>{option}</span>
+              </label>
+            ))
+          }
+        </div>
+      </fieldset>
+
+      <fieldset class="form-step" data-dealer-step="3" hidden>
+        <legend>Which credit reports are affected?</legend>
+        <p>Choose every report that applies.</p>
+        <div class="choice-grid choice-grid--two">
+          {
+            ["Experian", "Equifax", "TransUnion", "I am not sure"].map(
+              (option) => (
+                <label class="form-choice">
+                  <input
+                    type="checkbox"
+                    name="dealershipBureau"
+                    value={option}
+                  />
+                  <span>{option}</span>
+                </label>
+              ),
+            )
+          }
+        </div>
+      </fieldset>
+
+      <fieldset class="form-step" data-dealer-step="4" hidden>
+        <legend>What are the inquiries affecting?</legend>
+        <p>Choose what matters most right now.</p>
+        <div class="choice-grid">
+          {
+            goals.map((option) => (
+              <label class="form-choice">
+                <input
+                  type="radio"
+                  name="dealershipGoal"
+                  value={option}
+                  required
+                />
+                <span>{option}</span>
+              </label>
+            ))
+          }
+        </div>
+      </fieldset>
+
+      <fieldset class="form-step" data-dealer-step="5" hidden>
+        <legend>Where should we send your review details?</legend>
+        <p>
+          This preview does not transmit information while secure delivery and
+          the final consent language are being completed.
+        </p>
+        <div class="contact-grid dealership-contact-grid">
+          <label>
+            <span>First name</span>
+            <input
+              type="text"
+              name="firstName"
+              autocomplete="given-name"
+              required
+            />
+          </label>
+          <label>
+            <span>Last name</span>
+            <input
+              type="text"
+              name="lastName"
+              autocomplete="family-name"
+              required
+            />
+          </label>
+          <label>
+            <span>Email address</span>
+            <input type="email" name="email" autocomplete="email" required />
+          </label>
+          <label>
+            <span>Mobile number</span>
+            <input type="tel" name="phone" autocomplete="tel" required />
+          </label>
+        </div>
+        <p class="field-heading">Preferred contact method</p>
+        <div class="choice-grid choice-grid--three">
+          {
+            ["Call", "Text", "Email"].map((option) => (
+              <label class="form-choice">
+                <input
+                  type="radio"
+                  name="dealershipContact"
+                  value={option}
+                  required
+                />
+                <span>{option}</span>
+              </label>
+            ))
+          }
+        </div>
+        <p class="field-heading">Preferred language</p>
+        <div class="choice-grid choice-grid--two">
+          {
+            ["English", "Spanish"].map((option) => (
+              <label class="form-choice">
+                <input
+                  type="radio"
+                  name="dealershipLanguage"
+                  value={option}
+                  required
+                />
+                <span>{option}</span>
+              </label>
+            ))
+          }
+        </div>
+        <p class="field-heading">Best time to reach you</p>
+        <div class="choice-grid choice-grid--three">
+          {
+            ["Morning", "Afternoon", "Evening"].map((option) => (
+              <label class="form-choice">
+                <input
+                  type="radio"
+                  name="dealershipTime"
+                  value={option}
+                  required
+                />
+                <span>{option}</span>
+              </label>
+            ))
+          }
+        </div>
+        <label class="dealership-notes">
+          <span>Anything else we should know? <small>Optional</small></span>
+          <textarea
+            name="dealershipNotes"
+            placeholder="Do not enter Social Security numbers, report logins, or other highly sensitive information."
+          ></textarea>
+        </label>
+        <button
+          class="button button--large"
+          type="submit"
+          disabled
+          aria-describedby="dealership-form-note"
+        >
+          Get My Free Inquiry Review <span>→</span>
+        </button>
+        <p class="form-connection-note" id="dealership-form-note">
+          Secure form delivery and attorney-reviewed consent language are being
+          connected before submissions are enabled.
+        </p>
+      </fieldset>
+
+      <p class="form-error" data-dealer-error aria-live="polite"></p>
+      <div class="form-controls">
+        <button
+          class="reset-link"
+          type="button"
+          data-dealer-back
+          data-track="dealership-form-back"
+          hidden>← Back</button
+        >
+        <button
+          class="button"
+          type="button"
+          data-dealer-next
+          data-track="dealership-form-next">Continue <span>→</span></button
+        >
+      </div>
+    </form>
+  </div>
+</section>
+
+<script>
+  const dealershipForm = document.querySelector<HTMLFormElement>(
+    "[data-dealership-form]",
+  );
+  const dealershipSteps = Array.from(
+    document.querySelectorAll<HTMLElement>("[data-dealer-step]"),
+  );
+  const dealershipNext =
+    document.querySelector<HTMLButtonElement>("[data-dealer-next]");
+  const dealershipBack =
+    document.querySelector<HTMLButtonElement>("[data-dealer-back]");
+  const dealershipError = document.querySelector<HTMLElement>(
+    "[data-dealer-error]",
+  );
+  const dealershipProgressLabel = document.querySelector<HTMLElement>(
+    "[data-dealer-progress-label]",
+  );
+  const dealershipProgressBar = document.querySelector<HTMLElement>(
+    "[data-dealer-progress-bar]",
+  );
+  let dealershipCurrentStep = 0;
+
+  const showDealershipStep = (index: number) => {
+    dealershipCurrentStep = Math.max(
+      0,
+      Math.min(index, dealershipSteps.length - 1),
+    );
+    dealershipSteps.forEach((step, position) => {
+      step.hidden = position !== dealershipCurrentStep;
+      step.classList.toggle("is-active", position === dealershipCurrentStep);
+    });
+    if (dealershipProgressLabel) {
+      dealershipProgressLabel.textContent = `Step ${dealershipCurrentStep + 1} of 5`;
+    }
+    if (dealershipProgressBar) {
+      dealershipProgressBar.style.width = `${((dealershipCurrentStep + 1) / 5) * 100}%`;
+    }
+    if (dealershipBack) dealershipBack.hidden = dealershipCurrentStep === 0;
+    if (dealershipNext) {
+      dealershipNext.hidden =
+        dealershipCurrentStep === dealershipSteps.length - 1;
+    }
+    if (dealershipError) dealershipError.textContent = "";
+  };
+
+  const dealershipStepIsComplete = () => {
+    const step = dealershipSteps[dealershipCurrentStep];
+    if (!step) return false;
+    if (dealershipCurrentStep === 2) {
+      return Boolean(
+        step.querySelector("input[name='dealershipBureau']:checked"),
+      );
+    }
+    return Boolean(step.querySelector("input[required]:checked"));
+  };
+
+  dealershipNext?.addEventListener("click", () => {
+    if (!dealershipStepIsComplete()) {
+      if (dealershipError) {
+        dealershipError.textContent = "Choose an answer to continue.";
+      }
+      return;
+    }
+    showDealershipStep(dealershipCurrentStep + 1);
+  });
+  dealershipBack?.addEventListener("click", () => {
+    showDealershipStep(dealershipCurrentStep - 1);
+  });
+  dealershipForm?.addEventListener("submit", (event) => event.preventDefault());
+  showDealershipStep(0);
+</script>

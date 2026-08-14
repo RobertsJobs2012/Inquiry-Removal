@@ -289,35 +289,6 @@ export const pages: SitePage[] = [
     ],
   },
   {
-    slug: "dealership-inquiries",
-    kind: "scenario",
-    eyebrow: "Dealership inquiry removal",
-    title: "One application should not tell the wrong story.",
-    description:
-      "Review dealership hard inquiries created when one financing application is sent to multiple potential lenders.",
-    aside: ["Application routing", "Multiple lenders", "Focused review"],
-    sections: [
-      {
-        heading: "Dealership shotgunning can create an inquiry cluster.",
-        body: [
-          "A dealership may send one application to multiple lenders. We review the inquiry dates, listed lender names, affected reports, and what you understood or authorized at the time.",
-        ],
-        bullets: [
-          "Identify every listed lender",
-          "Compare inquiry dates",
-          "Review the application and disclosures",
-          "Organize the affected bureau reports",
-        ],
-      },
-      {
-        heading: "Start with a personal review.",
-        body: [
-          "The number of inquiries alone does not determine the outcome. The free review helps establish what happened and which removal path may be available.",
-        ],
-      },
-    ],
-  },
-  {
     slug: "unauthorized-inquiries",
     kind: "scenario",
     eyebrow: "Unauthorized inquiry removal",

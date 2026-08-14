@@ -234,7 +234,8 @@ const resourceCards = [
           {
             (page.kind === "scenario" ||
               page.slug === "results" ||
-              page.slug === "faq") && (
+              page.slug === "faq" ||
+              page.slug === "about") && (
               <div class="process-crosslink" data-reveal>
                 <p class="eyebrow">
                   <span /> From review to follow-through
@@ -246,6 +247,11 @@ const resourceCards = [
                 <a class="text-link" href="/pricing/">
                   Compare Hard Inquiry Removal Pricing <span>→</span>
                 </a>
+                {(page.slug === "faq" || page.slug === "about") && (
+                  <a class="text-link" href="/dealership-inquiries/">
+                    Learn About Dealership Inquiry Removal <span>→</span>
+                  </a>
+                )}
               </div>
             )
           }
