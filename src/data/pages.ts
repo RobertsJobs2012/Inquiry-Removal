@@ -275,11 +275,11 @@ export const pages: SitePage[] = [
   },
   {
     slug: "free-inquiry-analysis",
-    eyebrow: "Start with understanding",
-    title: "Get your free inquiry analysis.",
+    eyebrow: "Free personal review",
+    title: "Get your free inquiry review.",
     description:
-      "Tell us what you are seeing on your reports. A specialist can help you understand whether the situation may warrant a closer review.",
-    aside: ["No automatic promises", "No pressure", "Clear next step"],
+      "Tell us what happened and what you want removed. A specialist will help organize your inquiry-removal next steps.",
+    aside: ["No pressure", "No monthly fees", "Response within 24 hours"],
     kind: "analysis",
     sections: [
       {
@@ -342,6 +342,94 @@ export const pages: SitePage[] = [
         heading: "A closer review may be appropriate.",
         body: [
           "If the inquiry remains unfamiliar or you do not believe you knowingly authorized it, a specialist review can help organize the next questions.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "dealership-inquiries",
+    eyebrow: "Dealership inquiry removal",
+    title: "One application should not tell the wrong story.",
+    description:
+      "Review dealership hard inquiries created when one financing application is sent to multiple potential lenders.",
+    aside: ["Application routing", "Multiple lenders", "Focused review"],
+    sections: [
+      {
+        heading: "Dealership shotgunning can create an inquiry cluster.",
+        body: [
+          "A dealership may send one application to multiple lenders. We review the inquiry dates, listed lender names, affected reports, and what you understood or authorized at the time.",
+        ],
+        bullets: [
+          "Identify every listed lender",
+          "Compare inquiry dates",
+          "Review the application and disclosures",
+          "Organize the affected bureau reports",
+        ],
+      },
+      {
+        heading: "Start with a personal review.",
+        body: [
+          "The number of inquiries alone does not determine the outcome. The free review helps establish what happened and which removal path may be available.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "unauthorized-inquiries",
+    eyebrow: "Unauthorized inquiry removal",
+    title: "When you did not authorize the credit check.",
+    description:
+      "Get a focused review of hard inquiries you do not recognize or do not believe you authorized.",
+    aside: [
+      "Identify the inquiry",
+      "Review authorization",
+      "Organize next steps",
+    ],
+    sections: [
+      {
+        heading: "Start with the exact report information.",
+        body: [
+          "Record the company name, inquiry date, and credit bureau. A listed name can differ from the business name you remember, so identification comes before assumptions.",
+        ],
+        bullets: [
+          "Company or furnisher name",
+          "Inquiry date",
+          "Reporting bureau",
+          "Related application or transaction",
+        ],
+      },
+      {
+        heading: "We review what happened.",
+        body: [
+          "If the inquiry remains unfamiliar or you do not believe you knowingly authorized it, we help organize the facts and determine the available removal approach.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "soft-pull-became-hard-inquiry",
+    eyebrow: "Soft-pull promise",
+    title: "You were told it would not affect your credit.",
+    description:
+      "Review a hard inquiry that appeared after a company described its credit check as a soft pull or no-impact eligibility check.",
+    aside: ["What was promised", "What was reported", "Available next steps"],
+    sections: [
+      {
+        heading: "Preserve what you were told.",
+        body: [
+          "Save the application language, advertisement, email, text message, or other disclosure that described the check as a soft inquiry or said it would not affect your credit.",
+        ],
+        bullets: [
+          "Capture the original offer language",
+          "Record the inquiry date and bureau",
+          "Identify the company shown on the report",
+          "Keep related emails or messages",
+        ],
+      },
+      {
+        heading: "Compare the promise with the report.",
+        body: [
+          "A focused review connects what you were told with what actually appeared on your credit report and helps determine the available removal path.",
         ],
       },
     ],
@@ -440,6 +528,11 @@ export const pages: SitePage[] = [
     "consumer-disclosures",
     "cancellation",
     "accessibility",
+    "contact",
+    "credit-services-agreement",
+    "text-message-terms",
+    "cookie-policy",
+    "results-disclosure",
   ].map((slug) => ({
     slug,
     eyebrow: "Trust & legal",

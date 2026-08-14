@@ -1,20 +1,24 @@
 ---
 const groups = [
   {
-    title: "Explore",
+    title: "Inquiry Removal",
     links: [
       ["How It Works", "/how-it-works/"],
-      ["Eligibility", "/eligibility/"],
+      ["Situations We Handle", "/#situations"],
       ["Results", "/results/"],
       ["Pricing", "/pricing/"],
+      ["FAQ", "/faq/"],
+      ["Get Started", "/free-inquiry-analysis/"],
     ],
   },
   {
-    title: "Learn",
+    title: "Resources",
     links: [
-      ["Resources", "/resources/"],
-      ["FAQ", "/faq/"],
-      ["Dealership Inquiries", "/dealership-hard-inquiries/"],
+      ["Experian Inquiries", "/experian-inquiry-disputes/"],
+      ["Equifax Inquiries", "/equifax-inquiry-disputes/"],
+      ["TransUnion Inquiries", "/transunion-inquiry-disputes/"],
+      ["Dealership Inquiries", "/dealership-inquiries/"],
+      ["Unauthorized Inquiries", "/unauthorized-inquiries/"],
       ["Identity Theft", "/identity-theft-inquiries/"],
     ],
   },
@@ -22,9 +26,17 @@ const groups = [
     title: "Company",
     links: [
       ["About", "/about/"],
+      ["Contact", "/contact/"],
+      ["Accessibility", "/accessibility/"],
+      ["Legal Center", "/consumer-disclosures/"],
       ["Privacy", "/privacy/"],
       ["Terms", "/terms/"],
-      ["Accessibility", "/accessibility/"],
+      ["Credit Services Agreement", "/credit-services-agreement/"],
+      ["Guarantee Terms", "/guarantee/"],
+      ["Cancellation Notice", "/cancellation/"],
+      ["Text Message Terms", "/text-message-terms/"],
+      ["Cookie Policy", "/cookie-policy/"],
+      ["Results Disclosure", "/results-disclosure/"],
     ],
   },
 ];
@@ -40,6 +52,20 @@ const groups = [
         <span>Inquiry <strong>Removal</strong></span>
       </a>
       <p>Hard Inquiry Specialists.<br /><strong>Nothing Else.</strong></p>
+      <p class="footer-description">
+        Nationwide service for Experian, Equifax, and TransUnion hard inquiries.
+      </p>
+      <div class="footer-contact">
+        <a
+          class="button button--small"
+          href="tel:+16023776626"
+          aria-label="Call Inquiry Removal at 602-377-6626"
+          >Call Inquiry Removal</a
+        >
+        <a class="text-link text-link--light" href="/contact/"
+          >Email Inquiry Removal →</a
+        >
+      </div>
     </div>
     {
       groups.map((group) => (
@@ -55,7 +81,13 @@ const groups = [
   <div class="footer-bottom">
     <p>© {new Date().getFullYear()} Inquiry Removal. All rights reserved.</p>
     <p>
-      Educational information only. Individual circumstances and results vary.
+      Inquiry Removal provides credit-report assistance focused on hard
+      inquiries. No specific deletion, timeline, approval, or credit score
+      change is guaranteed. Results vary based on individual reports,
+      documentation, creditor responses, and credit bureau investigations.
+      Consumers may dispute inaccurate credit-report information directly with
+      consumer reporting agencies at no cost. Services require a written
+      agreement and include a three-business-day right to cancel.
     </p>
   </div>
 </footer>

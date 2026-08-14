@@ -1,8 +1,8 @@
 ---
-const { dark = false } = Astro.props;
+const { dark = false, announcement = false } = Astro.props;
 const nav = [
   ["How It Works", "/how-it-works/"],
-  ["Eligibility", "/eligibility/"],
+  ["Situations We Handle", "/#situations"],
   ["Results", "/results/"],
   ["Pricing", "/pricing/"],
   ["Resources", "/resources/"],
@@ -10,7 +10,21 @@ const nav = [
 ];
 ---
 
-<header class:list={["site-header", { "site-header--dark": dark }]} data-header>
+<header
+  class:list={[
+    "site-header",
+    { "site-header--dark": dark, "site-header--announcement": announcement },
+  ]}
+  data-header
+>
+  {
+    announcement && (
+      <a class="announcement-bar" href="#free-review">
+        <span>100,437 Hard Inquiries Removed Since 2015</span>
+        <strong>Get My Free Review →</strong>
+      </a>
+    )
+  }
   <div class="nav-shell">
     <a class="wordmark" href="/" aria-label="Inquiry Removal home">
       <span class="wordmark-mark" aria-hidden="true"><i></i><i></i><i></i></span
@@ -27,7 +41,7 @@ const nav = [
         aria-label="Call Inquiry Removal">(602) 377-6626</a
       >
       <a class="button button--small" href="/free-inquiry-analysis/"
-        >Get My Free Analysis <span>→</span></a
+        >Get My Free Review <span>→</span></a
       >
       <button
         class="menu-button"
@@ -54,7 +68,7 @@ const nav = [
 </header>
 
 <a class="mobile-cta" href="/free-inquiry-analysis/"
-  >Free Analysis <span>→</span></a
+  >Free Review <span>→</span></a
 >
 
 <script>

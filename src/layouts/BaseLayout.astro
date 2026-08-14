@@ -5,10 +5,20 @@ interface Props {
   title: string;
   description: string;
   theme?: "dark" | "light";
+  ogTitle?: string;
+  ogDescription?: string;
+  schema?: Record<string, unknown> | Record<string, unknown>[];
 }
 
-const { title, description, theme = "light" } = Astro.props;
-const canonical = new URL(Astro.url.pathname, "https://www.inquiryremoval.com");
+const {
+  title,
+  description,
+  theme = "light",
+  ogTitle = title,
+  ogDescription = description,
+  schema,
+} = Astro.props;
+const canonical = new URL(Astro.url.pathname, "https://inquiryremoval.com");
 const socialImage = new URL("/og.jpg", canonical);
 ---
 
@@ -19,11 +29,12 @@ const socialImage = new URL("/og.jpg", canonical);
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
     <meta name="theme-color" content="#081B2C" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Inquiry Removal" />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
+    <meta property="og:title" content={ogTitle} />
+    <meta property="og:description" content={ogDescription} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={socialImage} />
     <meta
@@ -31,11 +42,20 @@ const socialImage = new URL("/og.jpg", canonical);
       content="Inquiry Removal — Hard Inquiry Specialists. Nothing Else."
     />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
+    <meta name="twitter:title" content={ogTitle} />
+    <meta name="twitter:description" content={ogDescription} />
     <meta name="twitter:image" content={socialImage} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.ico" />
+    {
+      schema && (
+        <script
+          is:inline
+          type="application/ld+json"
+          set:html={JSON.stringify(schema)}
+        />
+      )
+    }
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
