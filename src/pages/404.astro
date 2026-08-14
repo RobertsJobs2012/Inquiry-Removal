@@ -1,0 +1,36 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<BaseLayout
+  title="Page Not Found | Inquiry Removal"
+  description="The page you requested could not be found. Return to Inquiry Removal or explore our hard inquiry removal resources."
+  robots="noindex, follow"
+  theme="dark"
+>
+  <Header dark />
+  <main id="main-content" tabindex="-1">
+    <section class="not-found dark-section">
+      <div class="container not-found__content">
+        <p class="eyebrow eyebrow--light"><span></span> Error 404</p>
+        <h1>This page is not available.</h1>
+        <p>
+          The link may be outdated, or the page may have moved. You can return
+          home, review the situations we handle, or call us for help.
+        </p>
+        <div class="button-row">
+          <a class="button button--large" href="/">Return to the Homepage</a>
+          <a class="text-link text-link--light" href="/situations-we-handle/"
+            >Explore Situations We Handle <span>→</span></a
+          >
+        </div>
+        <a class="not-found__phone" href="tel:+16023776626"
+          >Call (602) 377-6626</a
+        >
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>

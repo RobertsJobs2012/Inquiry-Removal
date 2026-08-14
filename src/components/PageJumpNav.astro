@@ -1,0 +1,17 @@
+---
+interface Props {
+  label?: string;
+  items: Array<[string, string]>;
+}
+
+const { label = "Jump to", items } = Astro.props;
+---
+
+<nav class="page-jump" aria-label="On this page">
+  <div class="container page-jump__inner">
+    <strong>{label}</strong>
+    <div>
+      {items.map(([text, href]) => <a href={href}>{text}</a>)}
+    </div>
+  </div>
+</nav>

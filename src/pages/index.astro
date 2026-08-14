@@ -3,7 +3,11 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 import InquiryLine from "../components/InquiryLine.astro";
+import PageJumpNav from "../components/PageJumpNav.astro";
 import ReportPanel from "../components/ReportPanel.astro";
+
+const heroDescription =
+  "Inquiry Removal helps people remove unwanted hard inquiries from Experian, Equifax, and TransUnion. Hard inquiry removal is not one item buried inside a larger credit repair program. It is our entire focus. We review what happened, identify the inquiries you want removed, and manage the removal process from start to finish. Whether the inquiries came from a dealership, identity theft, a misleading “soft pull,” or a lender you do not recognize, your first step is a free, personal review.";
 
 const situations = [
   {
@@ -107,8 +111,8 @@ const schema = [
   {schema}
   theme="dark"
 >
-  <Header dark announcement />
-  <main>
+  <Header dark />
+  <main id="main-content" tabindex="-1">
     <section class="hero hero--content dark-section">
       <div class="hero-glow" aria-hidden="true"></div>
       <div class="container hero-grid">
@@ -117,15 +121,12 @@ const schema = [
             <span></span> Nationwide Hard Inquiry Removal | All Three Credit Bureaus
           </p>
           <h1>Remove Hard Inquiries From All Three Credit Reports</h1>
-          <p class="hero-description">
-            Inquiry Removal helps people remove unwanted hard inquiries from
-            Experian, Equifax, and TransUnion. Hard inquiry removal is not one
-            item buried inside a larger credit repair program. It is our entire
-            focus. We review what happened, identify the inquiries you want
-            removed, and manage the removal process from start to finish.
-            Whether the inquiries came from a dealership, identity theft, a
-            misleading “soft pull,” or a lender you do not recognize, your first
-            step is a free, personal review.
+          <p class="hero-summary">
+            Focused removal for unwanted hard inquiries across Experian,
+            Equifax, and TransUnion—with a free personal review to begin.
+          </p>
+          <p class="hero-description hero-description--desktop">
+            {heroDescription}
           </p>
           <div class="button-row">
             <a class="button" href="#free-review"
@@ -140,6 +141,10 @@ const schema = [
           <p class="cta-microcopy">
             Free review. No pressure. Response within 24 hours.
           </p>
+          <details class="hero-mobile-details">
+            <summary>Why Inquiry Removal is different</summary>
+            <p class="hero-description">{heroDescription}</p>
+          </details>
         </div>
         <div class="hero-interface" data-reveal>
           <ReportPanel />
@@ -168,7 +173,18 @@ const schema = [
       </p>
     </section>
 
-    <section class="section obstacle-section">
+    <PageJumpNav
+      items={[
+        ["The problem", "#overview"],
+        ["Situations", "#situations"],
+        ["How it works", "#process"],
+        ["Pricing", "#pricing"],
+        ["Results", "#results"],
+        ["Free review", "#free-review"],
+      ]}
+    />
+
+    <section class="section obstacle-section" id="overview">
       <div class="container obstacle-grid">
         <div data-reveal>
           <p class="eyebrow"><span></span> The problem</p>
@@ -323,7 +339,7 @@ const schema = [
       </div>
     </section>
 
-    <section class="section process-section">
+    <section class="section process-section" id="process">
       <div class="container">
         <div class="section-heading split-heading" data-reveal>
           <div>
@@ -739,6 +755,9 @@ const schema = [
               Secure form delivery is being connected before launch. This
               preview does not transmit your information.
             </p>
+            <a class="form-call-fallback" href="tel:+16023776626"
+              >Prefer to speak now? Call (602) 377-6626.</a
+            >
           </fieldset>
           <p class="form-error" data-form-error aria-live="polite"></p>
           <div class="form-controls">

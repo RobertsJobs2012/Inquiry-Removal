@@ -4,6 +4,7 @@ import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 import InquiryLine from "../components/InquiryLine.astro";
 import InquiryReviewForm from "../components/InquiryReviewForm.astro";
+import PageJumpNav from "../components/PageJumpNav.astro";
 
 const heroStages = [
   "Review your reports",
@@ -213,7 +214,7 @@ const schema = [
   theme="dark"
 >
   <Header dark />
-  <main>
+  <main id="main-content" tabindex="-1">
     <section class="how-hero dark-section">
       <div class="container how-hero__content" data-reveal>
         <nav class="breadcrumb" aria-label="Breadcrumb">
@@ -275,7 +276,18 @@ const schema = [
       </div>
     </section>
 
-    <section class="section review-section">
+    <PageJumpNav
+      items={[
+        ["Free review", "#review"],
+        ["Preparation", "#preparation"],
+        ["Full process", "#full-process"],
+        ["Updates", "#updates"],
+        ["Timing", "#timing"],
+        ["Questions", "#how-questions"],
+      ]}
+    />
+
+    <section class="section review-section" id="review">
       <div class="container review-layout">
         <div data-reveal>
           <p class="eyebrow"><span></span> Start by being heard</p><h2>
@@ -308,7 +320,7 @@ const schema = [
       </div>
     </section>
 
-    <section class="section preparation-section">
+    <section class="section preparation-section" id="preparation">
       <div class="container">
         <div class="section-heading centered-heading" data-reveal>
           <p class="eyebrow centered"><span></span> Simple expectations</p><h2>
@@ -339,7 +351,10 @@ const schema = [
       </div>
     </section>
 
-    <section class="section full-process-section dark-section">
+    <section
+      class="section full-process-section dark-section"
+      id="full-process"
+    >
       <div class="container">
         <div class="section-heading split-heading" data-reveal>
           <div>
@@ -391,7 +406,7 @@ const schema = [
       </div>
     </section>
 
-    <section class="section updates-section">
+    <section class="section updates-section" id="updates">
       <div class="container">
         <div class="section-heading split-heading" data-reveal>
           <div>
@@ -419,7 +434,7 @@ const schema = [
       </div>
     </section>
 
-    <section class="section timing-section">
+    <section class="section timing-section" id="timing">
       <div class="container">
         <div class="section-heading split-heading" data-reveal>
           <div>
@@ -468,7 +483,7 @@ const schema = [
       </div>
     </section>
 
-    <section class="section faq-section">
+    <section class="section faq-section" id="how-questions">
       <div class="container faq-layout">
         <div data-reveal>
           <p class="eyebrow"><span></span> Questions, answered</p><h2>

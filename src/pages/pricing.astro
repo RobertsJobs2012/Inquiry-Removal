@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
+import PageJumpNav from "../components/PageJumpNav.astro";
 
 const planFeatures = [
   "All affected credit bureaus",
@@ -202,7 +203,7 @@ const schema = [
   theme="dark"
 >
   <Header dark />
-  <main>
+  <main id="main-content" tabindex="-1">
     <section class="pricing-hero dark-section">
       <div class="container pricing-hero__content" data-reveal>
         <nav class="breadcrumb" aria-label="Breadcrumb">
@@ -243,7 +244,22 @@ const schema = [
       </div>
     </section>
 
-    <section class="plan-selector-section" aria-labelledby="selector-heading">
+    <PageJumpNav
+      items={[
+        ["Choose a plan", "#plan-selector"],
+        ["Plans", "#plans"],
+        ["What is included", "#included"],
+        ["Count inquiries", "#count-inquiries"],
+        ["Guarantee", "#pricing-guarantee"],
+        ["Questions", "#pricing-questions"],
+      ]}
+    />
+
+    <section
+      class="plan-selector-section"
+      id="plan-selector"
+      aria-labelledby="selector-heading"
+    >
       <div class="container plan-selector" data-reveal>
         <div>
           <p class="eyebrow"><span></span> Find your plan</p>
@@ -439,7 +455,7 @@ const schema = [
       </div>
     </section>
 
-    <section class="section included-section">
+    <section class="section included-section" id="included">
       <div class="container">
         <div class="included-heading" data-reveal>
           <p class="eyebrow"><span></span> The same complete service</p>
@@ -469,7 +485,7 @@ const schema = [
       </div>
     </section>
 
-    <section class="section counting-section dark-section">
+    <section class="section counting-section dark-section" id="count-inquiries">
       <div class="container">
         <div class="counting-heading" data-reveal>
           <p class="eyebrow eyebrow--light">
@@ -507,7 +523,7 @@ const schema = [
       </div>
     </section>
 
-    <section class="section guarantee-pricing-section">
+    <section class="section guarantee-pricing-section" id="pricing-guarantee">
       <div class="container guarantee-pricing-card" data-reveal>
         <div>
           <p class="eyebrow"><span></span> 90-day protection</p>

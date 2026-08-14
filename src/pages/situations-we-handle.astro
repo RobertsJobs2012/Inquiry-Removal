@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 import InquiryLine from "../components/InquiryLine.astro";
+import PageJumpNav from "../components/PageJumpNav.astro";
 
 const situations = [
   {
@@ -264,7 +265,7 @@ const schema = [
   theme="dark"
 >
   <Header dark />
-  <main>
+  <main id="main-content" tabindex="-1">
     <section class="situation-hub-hero dark-section">
       <div class="hub-orbit" aria-hidden="true">
         <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><b></b>
@@ -314,7 +315,18 @@ const schema = [
       </div>
     </section>
 
-    <section class="section hub-selector">
+    <PageJumpNav
+      items={[
+        ["Find my situation", "#find-situation"],
+        ["Situations", "#all-situations"],
+        ["Why it matters", "#why-it-matters"],
+        ["How it works", "#situation-process"],
+        ["Goals", "#goals"],
+        ["Questions", "#situation-questions"],
+      ]}
+    />
+
+    <section class="section hub-selector" id="find-situation">
       <div class="container">
         <div class="section-heading centered-heading" data-reveal>
           <p class="eyebrow centered">
@@ -339,7 +351,7 @@ const schema = [
       </div>
     </section>
 
-    <section class="section scenario-section">
+    <section class="section scenario-section" id="all-situations">
       <div class="container">
         <div class="section-heading split-heading" data-reveal>
           <div>
@@ -391,7 +403,7 @@ const schema = [
       </div>
     </section>
 
-    <section class="section why-situation-section">
+    <section class="section why-situation-section" id="why-it-matters">
       <div class="container why-situation-grid">
         <div data-reveal>
           <p class="eyebrow"><span></span> Details determine the path</p><h2>
@@ -420,7 +432,7 @@ const schema = [
       </div>
     </section>
 
-    <section class="section process-section">
+    <section class="section process-section" id="situation-process">
       <div class="container">
         <div class="section-heading split-heading" data-reveal>
           <div>
@@ -465,7 +477,7 @@ const schema = [
       </div>
     </section>
 
-    <section class="section goal-section dark-section">
+    <section class="section goal-section dark-section" id="goals">
       <div class="container">
         <div class="section-heading split-heading" data-reveal>
           <div>
@@ -495,7 +507,7 @@ const schema = [
       </div>
     </section>
 
-    <section class="section faq-section">
+    <section class="section faq-section" id="situation-questions">
       <div class="container faq-layout">
         <div data-reveal>
           <p class="eyebrow"><span></span> Questions, answered</p><h2>

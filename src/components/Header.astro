@@ -8,6 +8,12 @@ const nav = [
   ["Resources", "/resources/"],
   ["About", "/about/"],
 ];
+const currentPath = Astro.url.pathname;
+const isIntakePage = ["/get-started/", "/free-inquiry-analysis/"].includes(
+  currentPath,
+);
+const isCurrent = (href: string) =>
+  href === "/" ? currentPath === href : currentPath.startsWith(href);
 ---
 
 <header
@@ -32,7 +38,13 @@ const nav = [
       <span>Inquiry <strong>Removal</strong></span>
     </a>
     <nav class="desktop-nav" aria-label="Primary navigation">
-      {nav.map(([label, href]) => <a href={href}>{label}</a>)}
+      {
+        nav.map(([label, href]) => (
+          <a href={href} aria-current={isCurrent(href) ? "page" : undefined}>
+            {label}
+          </a>
+        ))
+      }
     </nav>
     <div class="nav-actions">
       <a
@@ -49,43 +61,173 @@ const nav = [
         type="button"
         aria-label="Open navigation"
         aria-expanded="false"
+        aria-controls="mobile-navigation"
         data-menu-button
       >
-        <span></span><span></span>
+        <span class="menu-button__label" data-menu-label>Menu</span>
+        <span class="menu-button__icon" aria-hidden="true">
+          <i></i><i></i><i></i>
+        </span>
       </button>
     </div>
   </div>
-  <nav class="mobile-nav" aria-label="Mobile navigation" data-mobile-nav>
+  <nav
+    class="mobile-nav"
+    id="mobile-navigation"
+    aria-label="Mobile navigation"
+    data-mobile-nav
+  >
     {
       nav.map(([label, href]) => (
-        <a href={href}>
+        <a href={href} aria-current={isCurrent(href) ? "page" : undefined}>
           {label}
           <span>→</span>
         </a>
       ))
     }
-    <a href="tel:+16023776626" aria-label="Call Inquiry Removal at 602-377-6626"
-      >Call Inquiry Removal <span>↗</span></a
+    <a
+      class="mobile-nav__phone"
+      href="tel:+16023776626"
+      aria-label="Call Inquiry Removal at 602-377-6626"
+      >Call (602) 377-6626 <span>↗</span></a
     >
+    <a class="button mobile-nav__cta" href="/get-started/"
+      >Get My Free Review <span>→</span></a
+    >
+    <p class="mobile-nav__trust">Hard inquiry specialists since 2015.</p>
   </nav>
 </header>
 
-<a class="mobile-cta" href="/get-started/">Free Review <span>→</span></a>
+{
+  !isIntakePage && (
+    <a class="mobile-cta" href="/get-started/" data-mobile-cta>
+      Get My Free Review <span>→</span>
+    </a>
+  )
+}
+<a class="back-to-top" href="#main-content" data-back-to-top
+  >Top <span aria-hidden="true">↑</span></a
+>
 
 <script>
   const header = document.querySelector("[data-header]");
   const menuButton = document.querySelector("[data-menu-button]");
   const mobileNav = document.querySelector("[data-mobile-nav]");
+  const menuLabel = document.querySelector("[data-menu-label]");
+  const mobileCta = document.querySelector("[data-mobile-cta]");
+  const backToTop = document.querySelector("[data-back-to-top]");
+  const ctaSuppressors = Array.from(
+    document.querySelectorAll(
+      "#free-review, .intake-section, .final-cta, .site-footer",
+    ),
+  );
+  const visibleSuppressors = new Set<Element>();
+  let lastScrollY = window.scrollY;
+  let menuOpen = false;
 
-  const syncHeader = () =>
+  const syncHeader = () => {
     header?.classList.toggle("is-scrolled", window.scrollY > 24);
+    const movingDown = window.scrollY > lastScrollY + 8;
+    const movingUp = window.scrollY < lastScrollY - 8;
+    if (!menuOpen && window.scrollY > 180 && movingDown) {
+      header?.classList.add("is-hidden");
+    } else if (movingUp || window.scrollY < 180 || menuOpen) {
+      header?.classList.remove("is-hidden");
+    }
+    const showFloatingActions =
+      window.scrollY > Math.min(720, window.innerHeight * 0.8);
+    mobileCta?.classList.toggle("is-scroll-ready", showFloatingActions);
+    backToTop?.classList.toggle("is-visible", window.scrollY > 1400);
+    lastScrollY = window.scrollY;
+  };
+
+  const syncMobileCta = () => {
+    mobileCta?.classList.toggle(
+      "is-suppressed",
+      visibleSuppressors.size > 0 || menuOpen,
+    );
+  };
+
+  const closeMenu = (restoreFocus = false) => {
+    menuOpen = false;
+    menuButton?.setAttribute("aria-expanded", "false");
+    menuButton?.setAttribute("aria-label", "Open navigation");
+    if (menuLabel) menuLabel.textContent = "Menu";
+    mobileNav?.classList.remove("is-open");
+    document.body.classList.remove("menu-open");
+    header?.classList.remove("is-hidden");
+    syncMobileCta();
+    if (restoreFocus && menuButton instanceof HTMLElement) menuButton.focus();
+  };
+
+  const openMenu = () => {
+    menuOpen = true;
+    menuButton?.setAttribute("aria-expanded", "true");
+    menuButton?.setAttribute("aria-label", "Close navigation");
+    if (menuLabel) menuLabel.textContent = "Close";
+    mobileNav?.classList.add("is-open");
+    document.body.classList.add("menu-open");
+    header?.classList.remove("is-hidden");
+    syncMobileCta();
+  };
+
   syncHeader();
-  window.addEventListener("scroll", syncHeader, { passive: true });
+  syncMobileCta();
+  if ("IntersectionObserver" in window) {
+    const suppressorObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) visibleSuppressors.add(entry.target);
+        else visibleSuppressors.delete(entry.target);
+      });
+      syncMobileCta();
+    });
+    ctaSuppressors.forEach((node) => suppressorObserver.observe(node));
+  }
+  window.addEventListener(
+    "scroll",
+    () => {
+      syncHeader();
+    },
+    { passive: true },
+  );
+  window.addEventListener(
+    "resize",
+    () => {
+      if (window.innerWidth > 1100 && menuOpen) closeMenu();
+      syncHeader();
+      syncMobileCta();
+    },
+    { passive: true },
+  );
 
   menuButton?.addEventListener("click", () => {
-    const open = menuButton.getAttribute("aria-expanded") === "true";
-    menuButton.setAttribute("aria-expanded", String(!open));
-    mobileNav?.classList.toggle("is-open", !open);
-    document.body.classList.toggle("menu-open", !open);
+    if (menuOpen) closeMenu();
+    else openMenu();
+  });
+
+  mobileNav?.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => closeMenu());
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (!menuOpen) return;
+    if (event.key === "Escape") {
+      event.preventDefault();
+      closeMenu(true);
+      return;
+    }
+    if (event.key !== "Tab" || !header) return;
+    const focusable = Array.from(
+      header.querySelectorAll<HTMLElement>("a[href], button:not([disabled])"),
+    ).filter((item) => item.offsetParent !== null);
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last?.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first?.focus();
+    }
   });
 </script>
