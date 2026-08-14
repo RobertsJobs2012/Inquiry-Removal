@@ -1,0 +1,280 @@
+---
+const goals = [
+  "Apply for a home",
+  "Apply for a vehicle",
+  "Qualify for business funding",
+  "Apply for credit cards",
+  "Address identity theft",
+  "Clean up my credit profile",
+  "Something else",
+];
+const situations = [
+  "A dealership sent my credit to multiple lenders",
+  "I did not authorize the inquiry",
+  "I was told it would be a soft pull",
+  "I do not recognize the company",
+  "The inquiry is duplicated",
+  "The inquiry came from identity theft",
+  "The inquiry belongs to someone else",
+  "I authorized it but want it removed",
+  "I am not sure",
+];
+---
+
+<section class="intake-section dark-section" id="free-review">
+  <div class="container intake-layout">
+    <div class="intake-intro" data-reveal>
+      <p class="eyebrow eyebrow--light"><span></span> Free personal review</p>
+      <h2>Tell us what happened.</h2>
+      <p>
+        Answer five focused questions. We never ask for your Social Security
+        number, date of birth, credit-report login, or report upload in this
+        initial form.
+      </p>
+      <div class="intake-security">
+        <strong>Private by design</strong>
+        <span>
+          Sensitive documents are collected later through a secure,
+          purpose-built method.
+        </span>
+      </div>
+    </div>
+    <form class="intake-form" data-intake-form novalidate data-reveal>
+      <div class="form-progress" aria-label="Form progress">
+        <span data-progress-label>Step 1 of 5</span>
+        <div><i data-progress-bar></i></div>
+      </div>
+      <fieldset class="form-step is-active" data-step="1">
+        <legend>What would removing these inquiries help you do?</legend>
+        <p>What do you want to accomplish?</p>
+        <div class="choice-grid">
+          {
+            goals.map((label) => (
+              <label class="form-choice">
+                <>
+                  <input type="radio" name="goal" value={label} required />
+                  <span>{label}</span>
+                </>
+              </label>
+            ))
+          }
+        </div>
+      </fieldset>
+      <fieldset class="form-step" data-step="2" hidden>
+        <legend>Which situation sounds most like yours?</legend>
+        <p>What happened?</p>
+        <div class="choice-grid">
+          {
+            situations.map((label) => (
+              <label class="form-choice">
+                <>
+                  <input type="radio" name="situation" value={label} required />
+                  <span>{label}</span>
+                </>
+              </label>
+            ))
+          }
+        </div>
+      </fieldset>
+      <fieldset class="form-step" data-step="3" hidden>
+        <legend>About how many total hard inquiries do you want removed?</legend
+        >
+        <p>How many inquiries are involved?</p>
+        <div class="choice-grid choice-grid--two">
+          {
+            ["1 to 10", "11 to 30", "31 or more", "I am not sure"].map(
+              (label) => (
+                <label class="form-choice">
+                  <>
+                    <input type="radio" name="count" value={label} required />
+                    <span>{label}</span>
+                  </>
+                </label>
+              ),
+            )
+          }
+        </div>
+      </fieldset>
+      <fieldset class="form-step" data-step="4" hidden>
+        <legend>Which reports are affected?</legend>
+        <p>Choose every report that applies.</p>
+        <div class="choice-grid choice-grid--two">
+          {
+            ["Experian", "Equifax", "TransUnion", "I am not sure"].map(
+              (label) => (
+                <label class="form-choice">
+                  <>
+                    <input type="checkbox" name="bureau" value={label} />
+                    <span>{label}</span>
+                  </>
+                </label>
+              ),
+            )
+          }
+        </div>
+        <p class="sublegend">
+          Do you currently have copies of the affected reports?
+        </p>
+        <div class="choice-grid choice-grid--three">
+          {
+            ["Yes", "No", "I need help getting them"].map((label) => (
+              <label class="form-choice">
+                <>
+                  <input type="radio" name="reports" value={label} required />
+                  <span>{label}</span>
+                </>
+              </label>
+            ))
+          }
+        </div>
+      </fieldset>
+      <fieldset class="form-step" data-step="5" hidden>
+        <legend>Where should we send your review details?</legend>
+        <p>
+          We will use this information only to contact you about your inquiry
+          review.
+        </p>
+        <div class="contact-grid">
+          <label
+            ><span>First name</span><input
+              type="text"
+              name="firstName"
+              autocomplete="given-name"
+              required
+            /></label
+          >
+          <label
+            ><span>Email address</span><input
+              type="email"
+              name="email"
+              autocomplete="email"
+              required
+            /></label
+          >
+          <label
+            ><span>Mobile phone number</span><input
+              type="tel"
+              name="phone"
+              autocomplete="tel"
+              required
+            /></label
+          >
+        </div>
+        <p class="field-heading">Preferred contact method</p>
+        <div class="choice-grid choice-grid--three">
+          {
+            ["Call", "Text", "Email"].map((label) => (
+              <label class="form-choice">
+                <>
+                  <input type="radio" name="contact" value={label} required />
+                  <span>{label}</span>
+                </>
+              </label>
+            ))
+          }
+        </div>
+        <p class="field-heading">Best time to contact</p>
+        <div class="choice-grid choice-grid--three">
+          {
+            ["Morning", "Afternoon", "Evening"].map((label) => (
+              <label class="form-choice">
+                <>
+                  <input type="radio" name="time" value={label} required />
+                  <span>{label}</span>
+                </>
+              </label>
+            ))
+          }
+        </div>
+        <label class="consent-check">
+          <input type="checkbox" name="consent" />
+          <span>
+            By providing your phone number, you agree to receive calls or text
+            messages about your inquiry review. Message frequency varies.
+            Message and data rates may apply. Reply STOP to opt out. Consent is
+            not a condition of purchase. Read our <a href="/text-message-terms/"
+              >Text Message Terms</a
+            > and <a href="/privacy/">Privacy Policy</a>.
+          </span>
+        </label>
+        <button
+          class="button button--large"
+          type="submit"
+          disabled
+          aria-describedby="form-connection-note"
+        >
+          Get My Free Inquiry Review <span>→</span>
+        </button>
+        <p class="form-connection-note" id="form-connection-note">
+          Secure form delivery is being connected before launch. This preview
+          does not transmit your information.
+        </p>
+      </fieldset>
+      <p class="form-error" data-form-error aria-live="polite"></p>
+      <div class="form-controls">
+        <button class="reset-link" type="button" data-form-back hidden
+          >← Back</button
+        >
+        <button class="button" type="button" data-form-next
+          >Continue <span>→</span></button
+        >
+      </div>
+    </form>
+  </div>
+</section>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>("[data-intake-form]");
+  const steps = Array.from(
+    document.querySelectorAll<HTMLElement>("[data-step]"),
+  );
+  const nextButton =
+    document.querySelector<HTMLButtonElement>("[data-form-next]");
+  const backButton =
+    document.querySelector<HTMLButtonElement>("[data-form-back]");
+  const error = document.querySelector<HTMLElement>("[data-form-error]");
+  const label = document.querySelector<HTMLElement>("[data-progress-label]");
+  const bar = document.querySelector<HTMLElement>("[data-progress-bar]");
+  let currentStep = 0;
+
+  const showStep = (index: number) => {
+    currentStep = Math.max(0, Math.min(index, steps.length - 1));
+    steps.forEach((step, position) => {
+      step.hidden = position !== currentStep;
+      step.classList.toggle("is-active", position === currentStep);
+    });
+    if (label) label.textContent = `Step ${currentStep + 1} of 5`;
+    if (bar) bar.style.width = `${((currentStep + 1) / 5) * 100}%`;
+    if (backButton) backButton.hidden = currentStep === 0;
+    if (nextButton) nextButton.hidden = currentStep === steps.length - 1;
+    if (error) error.textContent = "";
+  };
+
+  const stepIsComplete = () => {
+    const step = steps[currentStep];
+    if (!step) return false;
+    if (currentStep === 3) {
+      return Boolean(
+        step.querySelector("input[name='bureau']:checked") &&
+        step.querySelector("input[name='reports']:checked"),
+      );
+    }
+    return Array.from(
+      step.querySelectorAll<HTMLInputElement>("[required]"),
+    ).some(
+      (input) =>
+        input.checked || (input.type !== "radio" && input.value.trim()),
+    );
+  };
+
+  nextButton?.addEventListener("click", () => {
+    if (!stepIsComplete()) {
+      if (error) error.textContent = "Choose an answer to continue.";
+      return;
+    }
+    showStep(currentStep + 1);
+  });
+  backButton?.addEventListener("click", () => showStep(currentStep - 1));
+  form?.addEventListener("submit", (event) => event.preventDefault());
+  showStep(0);
+</script>

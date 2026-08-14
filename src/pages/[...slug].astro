@@ -231,6 +231,22 @@ const resourceCards = [
             )
           }
 
+          {
+            (page.kind === "scenario" ||
+              page.slug === "pricing" ||
+              page.slug === "faq") && (
+              <div class="process-crosslink" data-reveal>
+                <p class="eyebrow">
+                  <span /> From review to follow-through
+                </p>
+                <h2>Know what happens next.</h2>
+                <a class="text-link" href="/how-it-works/">
+                  See How the Hard Inquiry Removal Process Works <span>→</span>
+                </a>
+              </div>
+            )
+          }
+
           <div class="placeholder-panel" data-reveal>
             <strong>Content phase ready.</strong>
             <p>

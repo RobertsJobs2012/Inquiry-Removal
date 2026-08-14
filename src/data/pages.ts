@@ -16,49 +16,6 @@ export type SitePage = {
 
 export const pages: SitePage[] = [
   {
-    slug: "how-it-works",
-    eyebrow: "A focused process",
-    title: "Review. Strategy. Follow-through.",
-    description:
-      "A clear, case-specific process for understanding eligible hard inquiry issues and following them through the applicable dispute process.",
-    aside: ["01 · Review", "02 · Strategy & dispute", "03 · Follow-through"],
-    sections: [
-      {
-        heading: "Start with the circumstances.",
-        body: [
-          "We begin by organizing the inquiries and understanding the facts surrounding each one. Recognition, authorization, accuracy, identity theft, and permissible purpose may all matter.",
-        ],
-        bullets: [
-          "Identify the inquiry and bureau",
-          "Review surrounding circumstances",
-          "Separate questions from assumptions",
-        ],
-      },
-      {
-        heading: "Build a case-specific strategy.",
-        body: [
-          "Eligible issues are addressed through a process tailored to the available facts and documentation. We do not treat every inquiry or every consumer situation as identical.",
-        ],
-        bullets: [
-          "Organize supporting information",
-          "Prepare the applicable dispute",
-          "Set realistic expectations",
-        ],
-      },
-      {
-        heading: "Track what happens next.",
-        body: [
-          "Responses and documented outcomes are tracked through the process. A dispute does not guarantee deletion, and we do not promise a particular credit-score change.",
-        ],
-        bullets: [
-          "Monitor responses",
-          "Keep case records organized",
-          "Explain documented next steps",
-        ],
-      },
-    ],
-  },
-  {
     slug: "eligibility",
     eyebrow: "What can be disputed",
     title: "The facts decide—not the sales pitch.",
