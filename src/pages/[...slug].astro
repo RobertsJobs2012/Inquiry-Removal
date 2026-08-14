@@ -81,8 +81,15 @@ const resourceCards = [
             ))
           }
           <a class="button button--small" href="/free-inquiry-analysis/"
-            >Free Analysis →</a
+            >Free Review →</a
           >
+          {
+            page.kind === "scenario" && (
+              <a class="scenario-back-link" href="/situations-we-handle/">
+                ← See every hard inquiry situation we handle
+              </a>
+            )
+          }
         </aside>
         <div class="content-body">
           {

@@ -2,7 +2,7 @@
 const { dark = false, announcement = false } = Astro.props;
 const nav = [
   ["How It Works", "/how-it-works/"],
-  ["Situations We Handle", "/#situations"],
+  ["Situations We Handle", "/situations-we-handle/"],
   ["Results", "/results/"],
   ["Pricing", "/pricing/"],
   ["Resources", "/resources/"],
@@ -40,7 +40,7 @@ const nav = [
         href="tel:+16023776626"
         aria-label="Call Inquiry Removal">(602) 377-6626</a
       >
-      <a class="button button--small" href="/free-inquiry-analysis/"
+      <a class="button button--small" href="/get-started/"
         >Get My Free Review <span>→</span></a
       >
       <button
@@ -67,9 +67,7 @@ const nav = [
   </nav>
 </header>
 
-<a class="mobile-cta" href="/free-inquiry-analysis/"
-  >Free Review <span>→</span></a
->
+<a class="mobile-cta" href="/get-started/">Free Review <span>→</span></a>
 
 <script>
   const header = document.querySelector("[data-header]");

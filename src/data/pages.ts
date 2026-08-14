@@ -11,7 +11,7 @@ export type SitePage = {
   description: string;
   aside: string[];
   sections: PageSection[];
-  kind?: "resources" | "analysis";
+  kind?: "resources" | "analysis" | "scenario";
 };
 
 export const pages: SitePage[] = [
@@ -291,7 +291,25 @@ export const pages: SitePage[] = [
     ],
   },
   {
+    slug: "get-started",
+    eyebrow: "Free personal review",
+    title: "Get your free inquiry review.",
+    description:
+      "Tell us what happened and what you want removed. A specialist will help organize your inquiry-removal next steps.",
+    aside: ["No pressure", "No monthly fees", "Response within 24 hours"],
+    kind: "analysis",
+    sections: [
+      {
+        heading: "Your intake, designed around context.",
+        body: [
+          "The secure intake and consent workflow is being connected. This preview lets you review the experience without transmitting private information.",
+        ],
+      },
+    ],
+  },
+  {
     slug: "dealership-hard-inquiries",
+    kind: "scenario",
     eyebrow: "Situation guide",
     title: "One dealership. Multiple inquiries.",
     description:
@@ -320,6 +338,7 @@ export const pages: SitePage[] = [
   },
   {
     slug: "unauthorized-hard-inquiries",
+    kind: "scenario",
     eyebrow: "Situation guide",
     title: "When authorization is the question.",
     description:
@@ -348,6 +367,7 @@ export const pages: SitePage[] = [
   },
   {
     slug: "dealership-inquiries",
+    kind: "scenario",
     eyebrow: "Dealership inquiry removal",
     title: "One application should not tell the wrong story.",
     description:
@@ -376,6 +396,7 @@ export const pages: SitePage[] = [
   },
   {
     slug: "unauthorized-inquiries",
+    kind: "scenario",
     eyebrow: "Unauthorized inquiry removal",
     title: "When you did not authorize the credit check.",
     description:
@@ -408,6 +429,7 @@ export const pages: SitePage[] = [
   },
   {
     slug: "soft-pull-became-hard-inquiry",
+    kind: "scenario",
     eyebrow: "Soft-pull promise",
     title: "You were told it would not affect your credit.",
     description:
@@ -436,6 +458,7 @@ export const pages: SitePage[] = [
   },
   {
     slug: "identity-theft-inquiries",
+    kind: "scenario",
     eyebrow: "Situation guide",
     title: "Unknown inquiries can be a warning sign.",
     description:
@@ -462,6 +485,130 @@ export const pages: SitePage[] = [
         heading: "Inquiry support is one part of the response.",
         body: [
           "Final content will include appropriate official resources and clear limits on what Inquiry Removal does and does not provide.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "duplicate-inquiries",
+    kind: "scenario",
+    eyebrow: "Duplicate inquiry removal",
+    title: "When the same inquiry appears more than once.",
+    description:
+      "Review repeated company names, matching dates, and multiple hard inquiries connected to one financing event.",
+    aside: ["Compare the entries", "Connect the event", "Address each report"],
+    sections: [
+      {
+        heading: "Repeated entries need context.",
+        body: [
+          "Duplicates may appear on one report or across multiple reports. We compare creditor names, dates, bureau records, and the application event behind them.",
+        ],
+        bullets: [
+          "Match company names and dates",
+          "Compare affected bureau reports",
+          "Connect related entries to one event",
+          "Separate unrelated inquiries",
+        ],
+      },
+      {
+        heading: "Every repeated inquiry gets organized.",
+        body: [
+          "The free review helps determine whether the entries are true duplicates and how each inquiry should be addressed in the removal process.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "unrecognized-inquiries",
+    kind: "scenario",
+    eyebrow: "Unrecognized inquiry removal",
+    title: "When the creditor name does not look familiar.",
+    description:
+      "Identify the company behind an unfamiliar report entry and determine what happened before moving forward with removal.",
+    aside: ["Identify the name", "Trace the application", "Review the inquiry"],
+    sections: [
+      {
+        heading: "The reporting name may be different.",
+        body: [
+          "A store card, dealership, financing offer, or online application may appear under the name of a bank or third-party lender rather than the business name you remember.",
+        ],
+        bullets: [
+          "Record the exact reporting name",
+          "Check the inquiry date and bureau",
+          "Compare recent applications",
+          "Identify the company behind the entry",
+        ],
+      },
+      {
+        heading: "Identification comes before the removal path.",
+        body: [
+          "We help determine the source of the inquiry, connect it to what you remember, and explain the next step based on the complete story.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "incorrect-person-inquiries",
+    kind: "scenario",
+    eyebrow: "Incorrect-person inquiry removal",
+    title: "When the inquiry appears to belong to someone else.",
+    description:
+      "Review hard inquiries connected to mixed files, incorrect identifying information, data-entry problems, or another person’s activity.",
+    aside: [
+      "Document the mismatch",
+      "Separate the records",
+      "Correct the report",
+    ],
+    sections: [
+      {
+        heading: "You should not carry someone else’s inquiry.",
+        body: [
+          "An inquiry may appear because of incorrect identifying information, a mixed credit file, a data-entry problem, or another person’s application activity.",
+        ],
+        bullets: [
+          "Identify the incorrect entry",
+          "Compare personal information",
+          "Document the mismatch",
+          "Review every affected bureau",
+        ],
+      },
+      {
+        heading: "We organize the correction path.",
+        body: [
+          "Inquiry Removal helps document the mismatch and handle the inquiry-removal process with the companies and credit bureaus involved.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "authorized-inquiry-removal",
+    kind: "scenario",
+    eyebrow: "Authorized inquiry review",
+    title: "You authorized it, but still want it reviewed.",
+    description:
+      "Examine an inquiry you remember authorizing when the disclosure, reporting, outcome, or surrounding circumstances deserve a closer look.",
+    aside: [
+      "Tell the full story",
+      "Review the disclosure",
+      "Understand the path",
+    ],
+    sections: [
+      {
+        heading: "Remembering the application is only one fact.",
+        body: [
+          "Perhaps the application never led anywhere, the disclosure was unclear, the inquiry appeared differently than expected, or your goals have changed.",
+        ],
+        bullets: [
+          "Application circumstances",
+          "Disclosure language",
+          "Company identity and timing",
+          "How the inquiry was reported",
+        ],
+      },
+      {
+        heading: "Start with an honest review.",
+        body: [
+          "Tell us what happened. We examine the complete story and explain the available inquiry-removal path and next step.",
         ],
       },
     ],
