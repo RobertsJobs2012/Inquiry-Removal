@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import { SITE_ORIGIN } from "../data/discovery.mjs";
 
 interface Props {
   title: string;
@@ -19,11 +20,50 @@ const {
   ogTitle = title,
   ogDescription = description,
   ogImage = "/og.jpg",
-  robots = "index, follow",
+  robots = "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
   schema,
 } = Astro.props;
-const canonical = new URL(Astro.url.pathname, "https://inquiryremoval.com");
+const canonical = new URL(Astro.url.pathname, SITE_ORIGIN);
 const socialImage = new URL(ogImage, canonical);
+const pageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": `${canonical.href}#webpage`,
+  url: canonical.href,
+  name: title,
+  description,
+  inLanguage: "en-US",
+  isPartOf: { "@id": `${SITE_ORIGIN}/#website` },
+  about: { "@id": `${SITE_ORIGIN}/#organization` },
+};
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": `${SITE_ORIGIN}/#organization`,
+  name: "Inquiry Removal",
+  url: `${SITE_ORIGIN}/`,
+  telephone: "+1-602-377-6626",
+  founder: { "@type": "Person", name: "Robert Garcia" },
+  areaServed: { "@type": "Country", name: "United States" },
+};
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${SITE_ORIGIN}/#website`,
+  name: "Inquiry Removal",
+  url: `${SITE_ORIGIN}/`,
+  publisher: { "@id": `${SITE_ORIGIN}/#organization` },
+  inLanguage: "en-US",
+};
+const schemaGraph = schema
+  ? [
+      organizationSchema,
+      websiteSchema,
+      pageSchema,
+      ...(Array.isArray(schema) ? schema : [schema]),
+    ]
+  : [organizationSchema, websiteSchema, pageSchema];
+const serializedSchema = JSON.stringify(schemaGraph).replaceAll("<", "\\u003c");
 ---
 
 <!doctype html>
@@ -34,13 +74,18 @@ const socialImage = new URL(ogImage, canonical);
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
     <meta name="robots" content={robots} />
+    <meta name="color-scheme" content="light dark" />
     <meta name="theme-color" content="#081B2C" />
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:site_name" content="Inquiry Removal" />
     <meta property="og:title" content={ogTitle} />
     <meta property="og:description" content={ogDescription} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={socialImage} />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta
       property="og:image:alt"
       content="Inquiry Removal — Hard Inquiry Specialists. Nothing Else."
@@ -51,15 +96,9 @@ const socialImage = new URL(ogImage, canonical);
     <meta name="twitter:image" content={socialImage} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.ico" />
-    {
-      schema && (
-        <script
-          is:inline
-          type="application/ld+json"
-          set:html={JSON.stringify(schema)}
-        />
-      )
-    }
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <script is:inline type="application/ld+json" set:html={serializedSchema} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

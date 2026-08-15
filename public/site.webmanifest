@@ -1,0 +1,21 @@
+{
+  "name": "Inquiry Removal",
+  "short_name": "Inquiry Removal",
+  "description": "Nationwide hard inquiry review and removal service.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#081b2c",
+  "theme_color": "#081b2c",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/favicon.ico",
+      "sizes": "32x32",
+      "type": "image/png"
+    }
+  ]
+}

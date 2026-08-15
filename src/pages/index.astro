@@ -78,21 +78,6 @@ const faqs = [
 const schema = [
   {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    name: "Inquiry Removal",
-    url: "https://inquiryremoval.com/",
-    telephone: "+1-602-377-6626",
-    founder: { "@type": "Person", name: "Robert Garcia" },
-    areaServed: "US",
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: "Inquiry Removal",
-    url: "https://inquiryremoval.com/",
-  },
-  {
-    "@context": "https://schema.org",
     "@type": "FAQPage",
     mainEntity: faqs.map(([question, answer]) => ({
       "@type": "Question",

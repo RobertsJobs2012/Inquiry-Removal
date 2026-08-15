@@ -8,7 +8,8 @@
   "scripts": {
     "dev": "astro dev",
     "check": "astro check",
-    "build": "astro check && astro build",
+    "build": "astro check && astro build && node scripts/discovery-audit.mjs",
+    "check:discovery": "node scripts/discovery-audit.mjs",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "preview": "astro preview",

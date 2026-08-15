@@ -8,6 +8,7 @@ export type SitePage = {
   slug: string;
   eyebrow: string;
   title: string;
+  seoTitle?: string;
   description: string;
   aside: string[];
   sections: PageSection[];
@@ -231,6 +232,28 @@ export const pages: SitePage[] = [
     ],
   },
   {
+    slug: "contact",
+    eyebrow: "Contact Inquiry Removal",
+    title: "Speak with a hard inquiry specialist.",
+    description:
+      "Contact Inquiry Removal by phone for a focused review of hard inquiries appearing on Experian, Equifax, or TransUnion.",
+    aside: ["Nationwide service", "All three bureaus", "Call (602) 377-6626"],
+    sections: [
+      {
+        heading: "A direct human contact method.",
+        body: [
+          "Call (602) 377-6626 to discuss the inquiries on your credit reports and the circumstances surrounding them. Do not send Social Security numbers, dates of birth, report logins, or other highly sensitive information through ordinary messages.",
+        ],
+      },
+      {
+        heading: "Secure intake is still being connected.",
+        body: [
+          "The website intake preview does not currently transmit information. A secure delivery workflow and final consent language will be completed before online submissions are enabled.",
+        ],
+      },
+    ],
+  },
+  {
     slug: "dealership-hard-inquiries",
     kind: "scenario",
     eyebrow: "Situation guide",
@@ -294,7 +317,7 @@ export const pages: SitePage[] = [
     eyebrow: "Unauthorized inquiry removal",
     title: "When you did not authorize the credit check.",
     description:
-      "Get a focused review of hard inquiries you do not recognize or do not believe you authorized.",
+      "Get a focused review of hard inquiries you do not recognize or do not believe you authorized, including the report details and documentation to gather.",
     aside: [
       "Identify the inquiry",
       "Review authorization",
@@ -356,7 +379,7 @@ export const pages: SitePage[] = [
     eyebrow: "Situation guide",
     title: "Unknown inquiries can be a warning sign.",
     description:
-      "Educational guidance for consumers who suspect their information may have been used fraudulently.",
+      "Learn what to do when unfamiliar hard inquiries may be connected to identity theft, including what to document and when to consider broader fraud protections.",
     aside: [
       "Recognize the sign",
       "Protect your information",
@@ -446,6 +469,7 @@ export const pages: SitePage[] = [
     kind: "scenario",
     eyebrow: "Incorrect-person inquiry removal",
     title: "When the inquiry appears to belong to someone else.",
+    seoTitle: "Incorrect-Person Hard Inquiry Review | Inquiry Removal",
     description:
       "Review hard inquiries connected to mixed files, incorrect identifying information, data-entry problems, or another person’s activity.",
     aside: [
@@ -569,7 +593,6 @@ export const pages: SitePage[] = [
     "consumer-disclosures",
     "cancellation",
     "accessibility",
-    "contact",
     "credit-services-agreement",
     "text-message-terms",
     "cookie-policy",
