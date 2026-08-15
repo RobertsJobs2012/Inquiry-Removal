@@ -114,9 +114,25 @@ for (const file of htmlFiles) {
     ),
   ];
   if (jsonLdBlocks.length === 0) fail(`${pathname}: missing JSON-LD.`);
+  const definedSchemaIds = new Set();
   for (const [, json] of jsonLdBlocks) {
     try {
-      JSON.parse(json);
+      const parsed = JSON.parse(json);
+      const inspectSchema = (value) => {
+        if (!value || typeof value !== "object") return;
+        if (
+          typeof value["@id"] === "string" &&
+          Object.keys(value).some((key) => key !== "@id")
+        ) {
+          if (definedSchemaIds.has(value["@id"]))
+            fail(
+              `${pathname}: duplicate JSON-LD definition for ${value["@id"]}.`,
+            );
+          definedSchemaIds.add(value["@id"]);
+        }
+        for (const child of Object.values(value)) inspectSchema(child);
+      };
+      inspectSchema(parsed);
     } catch (error) {
       fail(`${pathname}: invalid JSON-LD (${error.message}).`);
     }
