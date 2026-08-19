@@ -4,6 +4,9 @@ import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 import PageJumpNav from "../components/PageJumpNav.astro";
 
+const heroDescription =
+  "Hard inquiry removal pricing should be easy to understand before you begin. Inquiry Removal uses three one-time plans based on the total number of hard inquiries included in your service. You will not pay a monthly membership just because a creditor or credit bureau takes longer to respond. Choose the range that matches your reports, start online, or request a free inquiry review if you are unsure which plan fits. Everything is clear before you choose what happens next.";
+
 const planFeatures = [
   "All affected credit bureaus",
   "Organized inquiry list",
@@ -211,14 +214,12 @@ const schema = [
           <span></span> One-Time Plans | No Monthly Subscriptions
         </p>
         <h1>Hard Inquiry Removal Pricing With Zero Monthly Fees</h1>
-        <p class="pricing-hero__lead">
-          Hard inquiry removal pricing should be easy to understand before you
-          begin. Inquiry Removal uses three one-time plans based on the total
-          number of hard inquiries included in your service. You will not pay a
-          monthly membership just because a creditor or credit bureau takes
-          longer to respond. Choose the range that matches your reports, start
-          online, or request a free inquiry review if you are unsure which plan
-          fits. Everything is clear before you choose what happens next.
+        <p class="hero-summary">
+          Choose from three one-time plans based on your inquiry count—with no
+          monthly membership fees.
+        </p>
+        <p class="pricing-hero__lead hero-description--desktop">
+          {heroDescription}
         </p>
         <div class="button-row">
           <a
@@ -239,6 +240,10 @@ const schema = [
         <p class="cta-microcopy">
           One-time pricing. No monthly fees. All affected bureaus included.
         </p>
+        <details class="hero-mobile-details">
+          <summary>Read full pricing details</summary>
+          <p class="hero-description">{heroDescription}</p>
+        </details>
       </div>
     </section>
 
@@ -414,6 +419,9 @@ const schema = [
             One focused process. Three clear inquiry ranges.
           </h2>
         </div>
+        <p class="pricing-table-hint" aria-hidden="true">
+          Swipe to compare plans <span>→</span>
+        </p>
         <div
           class="pricing-table-wrap"
           data-reveal

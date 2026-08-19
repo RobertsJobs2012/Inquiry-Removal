@@ -36,6 +36,7 @@ body {
 }
 body.menu-open {
   overflow: hidden;
+  overscroll-behavior: none;
 }
 .skip-link {
   position: fixed;
@@ -1937,14 +1938,6 @@ summary:focus-visible {
   color: var(--blue);
   background: #edf6ff;
 }
-.placeholder-panel {
-  padding: 40px;
-  border-left: 3px solid var(--cyan);
-  background: var(--ice);
-}
-.placeholder-panel strong {
-  color: var(--ink);
-}
 .resource-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -3502,6 +3495,9 @@ summary:focus-visible {
   max-width: 800px;
   margin-bottom: 55px;
 }
+.pricing-table-hint {
+  display: none;
+}
 .pricing-table-wrap {
   overflow-x: auto;
   border: 1px solid var(--border);
@@ -4460,6 +4456,31 @@ summary:focus-visible {
   }
 }
 
+/* Keep the first content line aligned below the fixed navigation. */
+.hero--content,
+.page-hero,
+.situation-hub-hero,
+.how-hero,
+.pricing-hero,
+.dealer-hero {
+  padding-top: 160px;
+}
+
+@media (max-width: 900px) {
+  .pricing-table-hint {
+    display: flex;
+    min-height: 44px;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    margin: -30px 0 10px;
+    color: var(--blue);
+    font-family: var(--display);
+    font-size: 0.78rem;
+    font-weight: 800;
+  }
+}
+
 @media (max-width: 760px) {
   :root {
     --container: min(100% - 32px, 1180px);
@@ -5081,6 +5102,14 @@ summary:focus-visible {
     font-size: 1rem;
     line-height: 1.6;
   }
+  .hero--content,
+  .page-hero,
+  .situation-hub-hero,
+  .how-hero,
+  .pricing-hero,
+  .dealer-hero {
+    padding-top: 125px;
+  }
   .hero-description--desktop {
     display: none;
   }
@@ -5119,6 +5148,14 @@ summary:focus-visible {
   .footer-group a,
   .content-index a,
   .inline-link {
+    min-height: 44px;
+    align-items: center;
+  }
+  .breadcrumb a,
+  .situation-card--static > a,
+  .scenario-actions > a,
+  .pricing-plan-card__guarantee {
+    display: inline-flex;
     min-height: 44px;
     align-items: center;
   }

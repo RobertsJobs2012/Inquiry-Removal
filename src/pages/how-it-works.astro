@@ -14,6 +14,9 @@ const heroStages = [
   "Track the removals",
 ];
 
+const heroDescription =
+  "The hard inquiry removal process starts with a real conversation about what happened and ends with clear follow-through on every response. You provide the affected credit reports and tell us which inquiries you want removed. Inquiry Removal organizes the information, prepares and sends the disputes, reviews incoming decisions, tracks removals, and completes additional rounds as needed. You stay informed by phone, text, or email, without learning a complicated portal or handling the process by yourself.";
+
 const reviewTopics = [
   "What caused you to look for inquiry removal",
   "Which inquiries you recognize",
@@ -222,16 +225,11 @@ const schema = [
           <span></span> A Focused Process for Experian, Equifax, and TransUnion
         </p>
         <h1>How Hard Inquiry Removal Works From Start to Finish</h1>
-        <p>
-          The hard inquiry removal process starts with a real conversation about
-          what happened and ends with clear follow-through on every response.
-          You provide the affected credit reports and tell us which inquiries
-          you want removed. Inquiry Removal organizes the information, prepares
-          and sends the disputes, reviews incoming decisions, tracks removals,
-          and completes additional rounds as needed. You stay informed by phone,
-          text, or email, without learning a complicated portal or handling the
-          process by yourself.
+        <p class="hero-summary">
+          A clear, guided process from your free review through dispute
+          preparation, follow-through, and confirmed results.
         </p>
+        <p class="hero-description--desktop">{heroDescription}</p>
         <div class="button-row">
           <a class="button" href="#free-review"
             >Get My Free Inquiry Review <span>→</span></a
@@ -244,6 +242,10 @@ const schema = [
         <p class="cta-microcopy">
           Free personal review. No monthly fees. Response within 24 hours.
         </p>
+        <details class="hero-mobile-details">
+          <summary>Read the full process</summary>
+          <p class="hero-description">{heroDescription}</p>
+        </details>
       </div>
       <div
         class="container hero-process-strip"
