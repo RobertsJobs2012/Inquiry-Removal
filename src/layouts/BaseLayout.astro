@@ -45,6 +45,12 @@ const organizationSchema = {
   telephone: "+1-602-377-6626",
   founder: { "@type": "Person", name: "Robert Garcia" },
   areaServed: { "@type": "Country", name: "United States" },
+  logo: {
+    "@type": "ImageObject",
+    url: `${SITE_ORIGIN}/brand/logo-mark-dark.png`,
+    width: 512,
+    height: 512,
+  },
 };
 const websiteSchema = {
   "@context": "https://schema.org",
@@ -96,7 +102,20 @@ const serializedSchema = JSON.stringify(schemaGraph).replaceAll("<", "\\u003c");
     <meta name="twitter:image" content={socialImage} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.ico" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link
+      rel="icon"
+      href="/brand/logo-mark-dark.png"
+      type="image/png"
+      sizes="512x512"
+      media="(prefers-color-scheme: light)"
+    />
+    <link
+      rel="icon"
+      href="/brand/logo-mark-light.png"
+      type="image/png"
+      sizes="512x512"
+      media="(prefers-color-scheme: dark)"
+    />
     <link rel="manifest" href="/site.webmanifest" />
     <script is:inline type="application/ld+json" set:html={serializedSchema} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />

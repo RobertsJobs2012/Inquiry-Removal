@@ -180,6 +180,24 @@ for (const file of htmlFiles) {
     if (!existsSync(pathnameToFile(target.pathname)))
       fail(`${pathname}: broken internal link to ${target.pathname}.`);
   }
+
+  const imageTags = html.match(/<img\b[^>]*>/gi) ?? [];
+  for (const tag of imageTags) {
+    const source = tag.match(/\bsrc=["']([^"']+)["']/i)?.[1];
+    if (!source) fail(`${pathname}: image is missing a source.`);
+    if (!/\balt=["'][^"']*["']/i.test(tag))
+      fail(`${pathname}: image is missing an alt attribute.`);
+    if (!/\bwidth=["']?\d+/i.test(tag) || !/\bheight=["']?\d+/i.test(tag))
+      fail(`${pathname}: image is missing intrinsic dimensions.`);
+    if (source) {
+      const target = new URL(decodeEntities(source), expectedCanonical);
+      if (
+        target.origin === SITE_ORIGIN &&
+        !existsSync(pathnameToFile(target.pathname))
+      )
+        fail(`${pathname}: broken image source ${target.pathname}.`);
+    }
+  }
 }
 
 const requiredFiles = [
