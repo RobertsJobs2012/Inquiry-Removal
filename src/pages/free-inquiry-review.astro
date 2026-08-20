@@ -136,8 +136,15 @@ const schema = [
             aria-hidden="true"
           />
 
+          <div class="review-experience-top">
+            <span class="review-trust-chip"><i aria-hidden="true">✓</i> Private review</span>
+            <span class="review-time">About 2 minutes</span>
+          </div>
           <div class="form-progress" aria-label="Review form progress">
-            <span data-review-progress>Step 1 of 4</span>
+            <div class="form-progress__copy">
+              <span data-review-progress>Step 1 of 4</span>
+              <strong data-review-stage>Contact</strong>
+            </div>
             <div><i data-review-progress-bar></i></div>
           </div>
 
@@ -148,7 +155,7 @@ const schema = [
               tabindex="-1"
             >
               <legend>How can we reach you?</legend>
-              <p>Start with your basic contact information.</p>
+              <p>Start with the basics. We only use this to respond to your review.</p>
               <div class="native-contact-grid">
                 <label>
                   <span>Full name</span>
@@ -341,6 +348,9 @@ const schema = [
               tabindex="-1"
             >
             </p>
+            <p class="review-auto-note" data-review-auto-note aria-live="polite">
+              Your answers stay here until you submit. You can go back anytime.
+            </p>
             <div class="form-controls native-review-controls">
               <button class="reset-link" type="button" data-review-back hidden>
                 ← Back
@@ -452,6 +462,12 @@ const schema = [
     const reviewProgressBar = document.querySelector<HTMLElement>(
       "[data-review-progress-bar]",
     );
+    const reviewStage = document.querySelector<HTMLElement>(
+      "[data-review-stage]",
+    );
+    const reviewAutoNote = document.querySelector<HTMLElement>(
+      "[data-review-auto-note]",
+    );
     const reviewBody = document.querySelector<HTMLElement>(
       "[data-review-form-body]",
     );
@@ -466,8 +482,14 @@ const schema = [
     );
     let reviewStep = 0;
     let reviewSubmitted = false;
+    let reviewAdvanceTimer: number | undefined;
+    const reviewStageNames = ["Contact", "Your situation", "Your reports", "Final details"];
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
 
     const showReviewStep = (index: number, moveFocus = true) => {
+      if (reviewAdvanceTimer) window.clearTimeout(reviewAdvanceTimer);
       reviewStep = Math.max(0, Math.min(index, reviewSteps.length - 1));
       reviewSteps.forEach((step, position) => {
         step.hidden = position !== reviewStep;
@@ -475,14 +497,41 @@ const schema = [
       });
       if (reviewProgress)
         reviewProgress.textContent = `Step ${reviewStep + 1} of ${reviewSteps.length}`;
+      if (reviewStage) reviewStage.textContent = reviewStageNames[reviewStep];
       if (reviewProgressBar)
         reviewProgressBar.style.width = `${((reviewStep + 1) / reviewSteps.length) * 100}%`;
       if (reviewBack) reviewBack.hidden = reviewStep === 0;
-      if (reviewNext) reviewNext.hidden = reviewStep === reviewSteps.length - 1;
+      if (reviewNext) {
+        reviewNext.hidden = reviewStep === reviewSteps.length - 1;
+        reviewNext.disabled = false;
+      }
       if (reviewSubmit)
         reviewSubmit.hidden = reviewStep !== reviewSteps.length - 1;
       if (reviewError) reviewError.textContent = "";
+      if (reviewAutoNote)
+        reviewAutoNote.textContent =
+          reviewStep === reviewSteps.length - 1
+            ? "Nothing is sent until you select Submit My Free Review."
+            : "Selections are saved automatically. You can go back anytime.";
       if (moveFocus) reviewSteps[reviewStep]?.focus({ preventScroll: true });
+    };
+
+    const reviewStepIsComplete = () => {
+      const step = reviewSteps[reviewStep];
+      if (!step) return false;
+
+      if (step.querySelector("[data-bureau-group]")) {
+        const bureau = step.querySelector(
+          "input[name='entry.766411755']:checked",
+        );
+        if (!bureau) return false;
+      }
+
+      return !Array.from(
+        step.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>(
+          "input[required], textarea[required]",
+        ),
+      ).some((field) => !field.checkValidity());
     };
 
     const validateReviewStep = () => {
@@ -521,12 +570,62 @@ const schema = [
       return true;
     };
 
+    const guideTo = (selector: string) => {
+      const target = reviewSteps[reviewStep]?.querySelector<HTMLElement>(selector);
+      if (!target || prefersReducedMotion) return;
+      window.setTimeout(
+        () => target.scrollIntoView({ behavior: "smooth", block: "center" }),
+        120,
+      );
+    };
+
+    const scheduleReviewAdvance = () => {
+      if (!reviewStepIsComplete()) return;
+      if (reviewAdvanceTimer) window.clearTimeout(reviewAdvanceTimer);
+      if (reviewAutoNote) reviewAutoNote.textContent = "Perfect — moving you forward…";
+      if (reviewNext) reviewNext.disabled = true;
+      reviewAdvanceTimer = window.setTimeout(() => {
+        if (reviewNext) reviewNext.disabled = false;
+        showReviewStep(reviewStep + 1);
+      }, prefersReducedMotion ? 150 : 520);
+    };
+
+    reviewForm?.addEventListener("change", (event) => {
+      const field = event.target;
+      if (!(field instanceof HTMLInputElement)) return;
+
+      const choice = field.closest<HTMLElement>(".form-choice");
+      choice?.classList.add("is-confirmed");
+      window.setTimeout(() => choice?.classList.remove("is-confirmed"), 560);
+
+      if (reviewStep === 1 && field.name === "entry.1481812974") {
+        guideTo(".native-field-heading");
+      }
+      if (reviewStep === 1 && field.name === "entry.1677473071") {
+        scheduleReviewAdvance();
+      }
+      if (reviewStep === 2 && field.name === "entry.1354254818") {
+        guideTo("[data-bureau-group]");
+      }
+      if (reviewStep === 2 && field.name === "entry.1594186053") {
+        scheduleReviewAdvance();
+      }
+      if (reviewStep === 3 && field.name === "entry.1559834442") {
+        guideTo(".native-consent-check");
+      }
+    });
+
     reviewNext?.addEventListener("click", () => {
       if (validateReviewStep()) showReviewStep(reviewStep + 1);
     });
     reviewBack?.addEventListener("click", () => showReviewStep(reviewStep - 1));
 
     reviewForm?.addEventListener("submit", (event) => {
+      if (reviewStep !== reviewSteps.length - 1) {
+        event.preventDefault();
+        if (validateReviewStep()) showReviewStep(reviewStep + 1);
+        return;
+      }
       if (!validateReviewStep()) {
         event.preventDefault();
         return;
