@@ -1,0 +1,302 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import { SITE_ORIGIN } from "../data/discovery.mjs";
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: `${SITE_ORIGIN}/`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Terms of Use",
+        item: `${SITE_ORIGIN}/terms/`,
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Terms of Use | Inquiry Removal"
+  description="Read the terms governing use of inquiryremoval.com, including website content, free reviews, communications, disclaimers, and service limitations."
+  robots="noindex, follow"
+  {schema}
+  theme="dark"
+>
+  <Header dark />
+  <main id="main-content" tabindex="-1">
+    <section class="page-hero">
+      <div class="container page-hero-grid">
+        <div>
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="/">Home</a><span>/</span><span>Terms of Use</span>
+          </nav>
+          <p class="eyebrow eyebrow--light"><span></span> Website terms</p>
+          <h1>Terms of Use</h1>
+          <p>
+            These Terms of Use govern access to inquiryremoval.com and the free
+            review, educational content, contact features, and other website
+            functions available through it.
+          </p>
+        </div>
+        <aside class="page-hero-aside" aria-label="Terms details">
+          <span>Last updated: August 20, 2026</span>
+          <span>Applies to inquiryremoval.com</span>
+          <span>Separate written agreements govern paid services</span>
+        </aside>
+      </div>
+    </section>
+
+    <section class="page-content">
+      <div class="container content-shell">
+        <nav class="content-index" aria-label="Terms sections">
+          <p>On this page</p>
+          <a href="#acceptance">Acceptance</a>
+          <a href="#website-purpose">Website purpose</a>
+          <a href="#no-guarantees">No guarantees</a>
+          <a href="#free-review">Free inquiry review</a>
+          <a href="#paid-services">Paid services</a>
+          <a href="#consumer-rights">Consumer rights</a>
+          <a href="#acceptable-use">Acceptable use</a>
+          <a href="#third-party">Third-party services</a>
+          <a href="#intellectual-property">Intellectual property</a>
+          <a href="#disclaimers">Disclaimers</a>
+          <a href="#liability">Limitation of liability</a>
+          <a href="#indemnification">Indemnification</a>
+          <a href="#changes">Changes</a>
+          <a href="#governing-law">Governing law</a>
+          <a href="#contact">Contact</a>
+        </nav>
+
+        <div class="content-body">
+          <section id="acceptance">
+            <h2>1. Acceptance of These Terms</h2>
+            <p>
+              By accessing or using inquiryremoval.com, you agree to these Terms
+              of Use and our <a class="inline-link" href="/privacy/">Privacy Policy</a>.
+              If you do not agree, do not use the website.
+            </p>
+            <p>
+              These Terms apply to website use. If you purchase services from
+              Inquiry Removal, a separate written service agreement may contain
+              additional or different terms governing those services.
+            </p>
+          </section>
+
+          <section id="website-purpose">
+            <h2>2. Website Purpose and General Information</h2>
+            <p>
+              Inquiry Removal provides information and assistance focused on hard
+              credit inquiries. Website content is intended to help visitors
+              understand common inquiry situations, available review options, and
+              the services Inquiry Removal offers.
+            </p>
+            <p>
+              Website content is general information and is not a substitute for
+              individualized legal, financial, tax, or credit counseling advice.
+              The facts of each credit-report situation can differ, and laws,
+              bureau procedures, lender practices, scoring models, and reporting
+              information may change over time.
+            </p>
+          </section>
+
+          <section id="no-guarantees">
+            <h2>3. No Guaranteed Deletions, Scores, Approvals, or Timelines</h2>
+            <p>
+              Inquiry Removal does not guarantee that any specific hard inquiry
+              will be deleted, that a particular result will occur within a
+              particular time, that a credit score will increase, or that you
+              will receive an approval, loan, card, lease, or other financial
+              product.
+            </p>
+            <p>
+              Outcomes depend on individual reports, documentation, the facts
+              surrounding each inquiry, creditor responses, credit-bureau
+              investigations, and other factors outside Inquiry Removal's control.
+              Past results do not guarantee future results.
+            </p>
+          </section>
+
+          <section id="free-review">
+            <h2>4. Free Inquiry Review</h2>
+            <p>
+              The free inquiry review is an initial screening and information
+              process. It is not a promise that an inquiry qualifies for removal,
+              not a legal conclusion, and not acceptance of a paid service
+              engagement.
+            </p>
+            <p>
+              You agree to provide information that is accurate to the best of
+              your knowledge. The initial public review form should not be used to
+              submit a Social Security number, full date of birth, credit-report
+              login, password, payment-card information, full account numbers, or
+              other highly sensitive credentials.
+            </p>
+          </section>
+
+          <section id="paid-services">
+            <h2>5. Paid Services and Written Agreements</h2>
+            <p>
+              Paid services are not governed solely by this website page. Before
+              paid services begin, applicable service terms, pricing, scope,
+              authorizations, cancellation rights, and other required disclosures
+              are addressed through the written agreement or documents presented
+              for that service.
+            </p>
+            <p>
+              If a written service agreement conflicts with these general website
+              Terms concerning the paid service, the written service agreement
+              controls to the extent of that conflict.
+            </p>
+          </section>
+
+          <section id="consumer-rights">
+            <h2>6. Your Right to Handle Credit-Report Disputes Yourself</h2>
+            <p>
+              Consumers may dispute inaccurate credit-report information directly
+              with consumer reporting agencies without hiring Inquiry Removal.
+              Government agencies and the nationwide credit bureaus provide free
+              consumer resources for obtaining reports and disputing information.
+            </p>
+            <p>
+              Inquiry Removal is an optional paid assistance service for people
+              who choose to have a specialist help organize, prepare, and follow
+              the inquiry-review process described in the applicable agreement.
+            </p>
+          </section>
+
+          <section id="acceptable-use">
+            <h2>7. Acceptable Use</h2>
+            <p>You agree not to use the website to:</p>
+            <ul>
+              <li>Submit information you know is false, misleading, or fraudulent.</li>
+              <li>Impersonate another person or submit another person's information without lawful authority.</li>
+              <li>Attempt to gain unauthorized access to website systems or connected services.</li>
+              <li>Introduce malicious code, automated abuse, scraping that disrupts the service, or other harmful activity.</li>
+              <li>Use website content or functionality in a way that violates applicable law or the rights of another person.</li>
+            </ul>
+            <p>
+              We may restrict or block access when reasonably necessary to protect
+              the website, users, service providers, or Inquiry Removal from
+              misuse, security threats, or unlawful conduct.
+            </p>
+          </section>
+
+          <section id="third-party">
+            <h2>8. Third-Party Services and Links</h2>
+            <p>
+              The website may use or link to third-party services, including
+              hosting, analytics, form-processing, credit-bureau, government, and
+              educational resources. Third parties operate under their own terms
+              and privacy practices. Inquiry Removal does not control and is not
+              responsible for the availability, content, security, or practices of
+              third-party websites or services.
+            </p>
+          </section>
+
+          <section id="intellectual-property">
+            <h2>9. Intellectual Property</h2>
+            <p>
+              Unless otherwise stated, the Inquiry Removal name, website design,
+              branding, original text, graphics, layouts, and other original
+              website materials are owned by or licensed to Inquiry Removal and
+              are protected by applicable intellectual-property laws.
+            </p>
+            <p>
+              You may use website content for ordinary personal, noncommercial
+              informational purposes. You may not copy, republish, sell,
+              distribute, create a competing commercial copy from, or remove
+              ownership notices from substantial portions of the website without
+              permission, except as permitted by law.
+            </p>
+          </section>
+
+          <section id="disclaimers">
+            <h2>10. Website Disclaimer</h2>
+            <p>
+              The website is provided on an "as available" basis. To the extent
+              permitted by law, Inquiry Removal disclaims warranties that the
+              website will always be uninterrupted, error-free, secure, or that
+              all information will always be complete, current, or suitable for a
+              particular purpose.
+            </p>
+            <p>
+              Nothing on the website should be interpreted as a representation
+              that a creditor, credit bureau, lender, scoring company, government
+              agency, or other third party has endorsed Inquiry Removal.
+            </p>
+          </section>
+
+          <section id="liability">
+            <h2>11. Limitation of Liability</h2>
+            <p>
+              To the maximum extent permitted by applicable law, Inquiry Removal
+              will not be liable for indirect, incidental, special, consequential,
+              exemplary, or punitive damages arising solely from use of or
+              inability to use the public website, including loss caused by
+              reliance on general website information or third-party resources.
+            </p>
+            <p>
+              Some jurisdictions do not allow certain exclusions or limitations,
+              so portions of this section may not apply to you. Nothing in these
+              Terms limits liability that cannot lawfully be limited.
+            </p>
+          </section>
+
+          <section id="indemnification">
+            <h2>12. Indemnification</h2>
+            <p>
+              To the extent permitted by law, you agree to be responsible for
+              losses, claims, or expenses arising from your unlawful misuse of the
+              website, your violation of these Terms, or information you knowingly
+              submit without lawful authority. This section does not apply where
+              prohibited by applicable law.
+            </p>
+          </section>
+
+          <section id="changes">
+            <h2>13. Changes to the Website or These Terms</h2>
+            <p>
+              Inquiry Removal may update website content, features, or these Terms
+              from time to time. The "Last updated" date at the top of this page
+              identifies the current version. Continued use of the website after
+              an updated version becomes effective constitutes acceptance of the
+              updated website Terms to the extent permitted by law.
+            </p>
+          </section>
+
+          <section id="governing-law">
+            <h2>14. Governing Law</h2>
+            <p>
+              These website Terms are governed by applicable United States law and
+              the law that validly applies to Inquiry Removal's website operations,
+              without overriding consumer protections that cannot lawfully be
+              waived. Any separate paid service agreement may contain its own
+              governing-law, venue, dispute-resolution, or arbitration terms.
+            </p>
+          </section>
+
+          <section id="contact">
+            <h2>15. Contact</h2>
+            <p>
+              Questions about these Terms can be submitted through our
+              <a class="inline-link" href="/contact/">Contact page</a> or by calling
+              <a class="inline-link" href="tel:+16023776626">602-377-6626</a>.
+            </p>
+          </section>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>
