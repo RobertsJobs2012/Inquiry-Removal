@@ -2,6 +2,10 @@ export type PageSection = {
   heading: string;
   body: string[];
   bullets?: string[];
+  links?: Array<{
+    label: string;
+    href: string;
+  }>;
 };
 
 export type SitePage = {
@@ -88,6 +92,112 @@ export const pages: SitePage[] = [
         heading: "Start with the situation that matches what happened.",
         body: [
           "Use the situation guides to explore dealership inquiries, unfamiliar companies, possible identity theft, duplicate reporting, and other common reasons consumers request a closer review.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "transunion-hard-inquiry-removal",
+    kind: "scenario",
+    eyebrow: "TransUnion inquiry guide",
+    title: "How to Review and Dispute Hard Inquiries on TransUnion.",
+    seoTitle: "How to Remove Hard Inquiries From TransUnion | Inquiry Removal",
+    description:
+      "Learn how to identify, verify, and dispute inaccurate, unfamiliar, or potentially fraudulent hard inquiries appearing on a TransUnion credit report.",
+    aside: [
+      "Find the exact inquiry",
+      "Verify what happened",
+      "Use the correct dispute path",
+    ],
+    sections: [
+      {
+        heading: "Start with the exact TransUnion inquiry entry.",
+        body: [
+          "Use a current TransUnion credit report and record the company name, inquiry date, and any contact information shown. A credit-monitoring summary may abbreviate or rename the company, so the full report is the stronger starting point.",
+        ],
+        bullets: [
+          "Company or furnisher name as reported",
+          "Date of the hard inquiry",
+          "Application or transaction you remember",
+          "Any unfamiliar names or duplicate entries",
+        ],
+      },
+      {
+        heading: "Decide whether the inquiry is inaccurate or unauthorized.",
+        body: [
+          "An unfamiliar name is not automatically an unauthorized inquiry. A lender, dealership, finance company, or parent company may appear under a name that differs from the brand you remember.",
+          "Accurate inquiries connected to an application you authorized are not automatically removable simply because they are unwanted. The facts, authorization, permissible purpose, and supporting records determine whether a dispute is appropriate. No deletion or score change can be guaranteed in advance.",
+        ],
+      },
+      {
+        heading: "Follow TransUnion’s inquiry-specific guidance.",
+        body: [
+          "TransUnion recommends contacting the company that placed an inquiry you do not recognize and asking why it accessed your report. If someone applied in your name, TransUnion explains that the company can send a deletion request directly to TransUnion, or you can mail information showing that the inquiry was fraudulent. TransUnion currently states that this inquiry-specific process is not available online.",
+        ],
+        links: [
+          {
+            label: "Read TransUnion’s official dispute guidance",
+            href: "https://www.transunion.com/credit-disputes/credit-disputes-faq",
+          },
+        ],
+      },
+      {
+        heading: "Remember that consumers can dispute errors for free.",
+        body: [
+          "The Consumer Financial Protection Bureau explains that consumers have the right to dispute inaccurate credit-report information. Its guidance recommends contacting both the credit reporting company and the company that supplied the information, clearly explaining the error, including supporting copies, and keeping records of what was sent.",
+        ],
+        links: [
+          {
+            label: "Read the CFPB’s credit-report dispute guide",
+            href: "https://www.consumerfinance.gov/ask-cfpb/how-do-i-dispute-an-error-on-my-credit-report-en-314/",
+          },
+        ],
+      },
+      {
+        heading: "Prepare a focused TransUnion review.",
+        body: [
+          "If you want help organizing the inquiry names, dates, authorization facts, and supporting documentation, begin with a free personal review. Do not send Social Security numbers, report logins, payment information, or original identity documents through the website form.",
+        ],
+        bullets: [
+          "Current TransUnion report",
+          "Inquiry names and dates",
+          "Related applications or dealership visits",
+          "Emails, disclosures, or other authorization records",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "areas-we-serve",
+    eyebrow: "Nationwide service",
+    title: "Hard Inquiry Review, Wherever You Live.",
+    seoTitle: "Nationwide Hard Inquiry Removal Service | Inquiry Removal",
+    description:
+      "Inquiry Removal provides remote hard inquiry review and removal support nationwide across Experian, Equifax, and TransUnion reports.",
+    aside: ["Nationwide availability", "Remote process", "All three bureaus"],
+    sections: [
+      {
+        heading: "A remote process built for nationwide service.",
+        body: [
+          "Inquiry Removal works with consumers nationwide. The review, documentation, communication, and follow-through process can be handled remotely, so service is not limited to people living near a physical office.",
+        ],
+      },
+      {
+        heading: "Your credit reports—not your ZIP code—shape the review.",
+        body: [
+          "The important facts are the inquiry names, dates, affected credit bureaus, authorization circumstances, and any documents connected to the application or transaction. Those details determine the available approach.",
+        ],
+        bullets: [
+          "Experian, Equifax, and TransUnion reports",
+          "Dealership and lender inquiries",
+          "Unrecognized or potentially unauthorized inquiries",
+          "Possible identity-theft and duplicate-inquiry situations",
+        ],
+      },
+      {
+        heading: "Start with a free personal review.",
+        body: [
+          "Tell us what appears on your reports and what happened. A specialist can help organize the situation, explain what information is needed next, and discuss whether the service fits your circumstances.",
         ],
       },
     ],

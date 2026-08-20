@@ -78,6 +78,7 @@ const resourceCards = [
     "Credit bureaus",
     "Experian, Equifax & TransUnion",
     "Read inquiry information across all three major credit reports.",
+    "/transunion-hard-inquiry-removal/",
   ],
   [
     "Consumer rights",
@@ -166,6 +167,19 @@ const resourceCards = [
                     ))}
                   </ul>
                 )}
+                {section.links && (
+                  <div class="content-source-links">
+                    {section.links.map((link) => (
+                      <a
+                        class="text-link"
+                        href={link.href}
+                        rel="external noopener"
+                      >
+                        {link.label} <span>↗</span>
+                      </a>
+                    ))}
+                  </div>
+                )}
               </section>
             ))
           }
@@ -173,11 +187,16 @@ const resourceCards = [
           {
             page.kind === "resources" && (
               <div class="resource-grid" data-reveal>
-                {resourceCards.map(([tag, title, text]) => (
+                {resourceCards.map(([tag, title, text, href]) => (
                   <article class="resource-card">
                     <span>{tag}</span>
                     <h3>{title}</h3>
                     <p>{text}</p>
+                    {href && (
+                      <a class="text-link" href={href}>
+                        Read the guide <span>→</span>
+                      </a>
+                    )}
                   </article>
                 ))}
               </div>
