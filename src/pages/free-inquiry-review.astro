@@ -292,13 +292,9 @@ const schema = [
               tabindex="-1"
               hidden
             >
-              <legend>Tell us what happened.</legend>
-              <p>A short description is enough to begin.</p>
-              <label class="native-textarea-field">
-                <span>Brief description</span>
-                <textarea name="entry.1182319941" rows="6" required></textarea>
-              </label>
-              <p class="field-heading native-field-heading">
+              <legend>How should we contact you?</legend>
+              <p>Choose the contact method that works best for you.</p>
+              <p class="field-heading">
                 How would you prefer that we contact you?
               </p>
               <div class="choice-grid">
@@ -316,6 +312,17 @@ const schema = [
                   ))
                 }
               </div>
+              <details class="native-optional-note">
+                <summary>Add a note <span>(optional)</span></summary>
+                <label class="native-textarea-field">
+                  <span>Brief description</span>
+                  <textarea
+                    name="entry.1182319941"
+                    rows="5"
+                    placeholder="Anything else you would like us to know?"
+                  ></textarea>
+                </label>
+              </details>
               <label class="consent-check native-consent-check">
                 <input
                   type="checkbox"
@@ -454,6 +461,9 @@ const schema = [
     const reviewResponse = document.querySelector<HTMLIFrameElement>(
       "[data-review-response]",
     );
+    const reviewDescription = document.querySelector<HTMLTextAreaElement>(
+      "textarea[name='entry.1182319941']",
+    );
     let reviewStep = 0;
     let reviewSubmitted = false;
 
@@ -525,6 +535,9 @@ const schema = [
       if (honeypot instanceof HTMLInputElement && honeypot.value) {
         event.preventDefault();
         return;
+      }
+      if (reviewDescription && !reviewDescription.value.trim()) {
+        reviewDescription.value = "No additional details provided.";
       }
       reviewSubmitted = true;
       if (reviewSubmit) {
