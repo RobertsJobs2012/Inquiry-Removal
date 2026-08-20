@@ -1,0 +1,246 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import PhoneReviewPanel from "../components/PhoneReviewPanel.astro";
+import { SITE_ORIGIN } from "../data/discovery.mjs";
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: `${SITE_ORIGIN}/`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "About Robert Garcia and Inquiry Removal",
+        item: `${SITE_ORIGIN}/about/`,
+      },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": `${SITE_ORIGIN}/about/#robert-garcia`,
+    name: "Robert Garcia",
+    url: `${SITE_ORIGIN}/about/`,
+    jobTitle: "Founder and Senior Credit Analyst",
+    description:
+      "Robert Garcia is the founder and Senior Credit Analyst at Inquiry Removal, a nationwide service focused exclusively on hard inquiry review and removal support.",
+    worksFor: { "@id": `${SITE_ORIGIN}/#organization` },
+    knowsAbout: [
+      "Hard credit inquiries",
+      "Credit report inquiry review",
+      "Experian inquiries",
+      "Equifax inquiries",
+      "TransUnion inquiries",
+    ],
+  },
+];
+
+const reviewSteps = [
+  {
+    number: "01",
+    title: "Read the exact report entry",
+    text: "The company name, date, bureau, and surrounding entries help establish what needs to be understood first.",
+  },
+  {
+    number: "02",
+    title: "Reconstruct what happened",
+    text: "The application, dealership visit, authorization, unfamiliar activity, or duplicate reporting provides the context a list of inquiry names cannot.",
+  },
+  {
+    number: "03",
+    title: "Compare the bureau pattern",
+    text: "Experian, Equifax, and TransUnion may not show identical information. The affected reports shape the scope of the review.",
+  },
+  {
+    number: "04",
+    title: "Explain the practical next step",
+    text: "Consumers receive a focused explanation of what may warrant action, what information is useful, and what no responsible specialist can promise in advance.",
+  },
+];
+---
+
+<BaseLayout
+  title="Robert Garcia, Founder of Inquiry Removal | About"
+  description="Meet Robert Garcia, founder and Senior Credit Analyst at Inquiry Removal, and learn why the company has specialized exclusively in hard inquiry review since 2015."
+  {schema}
+  theme="dark"
+>
+  <Header dark />
+  <main id="main-content" tabindex="-1">
+    <section class="page-hero about-hero">
+      <div class="container page-hero-grid">
+        <div>
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="/">Home</a><span>/</span><span>About</span>
+          </nav>
+          <p class="eyebrow eyebrow--light">
+            <span></span> Founder and Senior Credit Analyst
+          </p>
+          <h1>Robert Garcia and the Story Behind Inquiry Removal.</h1>
+          <p>
+            A specialist company built from firsthand frustration—and shaped
+            around one narrow mission: helping consumers understand and address
+            unwanted hard inquiries.
+          </p>
+        </div>
+        <aside class="about-identity" aria-label="Robert Garcia profile">
+          <div class="about-monogram" aria-hidden="true">RG</div>
+          <div>
+            <strong>Robert Garcia</strong>
+            <span>Founder and Senior Credit Analyst</span>
+          </div>
+          <dl>
+            <div><dt>Specializing since</dt><dd>2015</dd></div>
+            <div><dt>Focus</dt><dd>Hard inquiries only</dd></div>
+            <div><dt>Service area</dt><dd>Nationwide</dd></div>
+          </dl>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section about-origin-section">
+      <div class="container about-origin-grid">
+        <div data-reveal>
+          <p class="eyebrow"><span></span> Why the company exists</p>
+          <h2>The problem became personal before it became a business.</h2>
+        </div>
+        <div class="about-origin-copy" data-reveal>
+          <p>
+            Robert created Inquiry Removal after a dealership sent his
+            application to lenders he never wanted involved. The resulting
+            inquiries accumulated on an otherwise strong credit profile, and
+            recent inquiry activity became an obstacle when he pursued new
+            approvals.
+          </p>
+          <p>
+            That experience exposed a frustrating gap: consumers could find
+            broad credit-repair programs, but finding a specialist focused only
+            on hard inquiries was far more difficult. Robert built the company
+            he had wanted to call—focused, direct, and designed around the facts
+            behind each inquiry.
+          </p>
+          <p>
+            Since 2015, Inquiry Removal has remained intentionally specialized.
+            Hard inquiries are not one category among many here. They are the
+            entire practice.
+          </p>
+          <p class="about-signature">
+            <strong>Robert Garcia</strong>
+            <span>Founder and Senior Credit Analyst</span>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section about-method-section">
+      <div class="container">
+        <div class="section-heading split-heading" data-reveal>
+          <div>
+            <p class="eyebrow"><span></span> A fact-first review</p>
+            <h2>How Robert evaluates an inquiry situation.</h2>
+          </div>
+          <p>
+            A useful review does more than count inquiries. It connects each
+            report entry to the event, authorization, bureau pattern, and
+            consumer goal behind it.
+          </p>
+        </div>
+        <div class="about-method-grid" data-reveal>
+          {
+            reviewSteps.map((step) => (
+              <article>
+                <span>{step.number}</span>
+                <h3>{step.title}</h3>
+                <p>{step.text}</p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="section dark-section about-standards-section">
+      <div class="container about-standards-grid">
+        <div data-reveal>
+          <p class="eyebrow eyebrow--light">
+            <span></span> What specialization changes
+          </p>
+          <h2>A narrower focus creates a clearer experience.</h2>
+          <p>
+            Inquiry Removal is built for people who want focused help with hard
+            inquiries—not an open-ended monthly program covering unrelated
+            credit-report categories.
+          </p>
+          <a class="text-link text-link--light" href="/how-it-works/">
+            See the complete process <span>→</span>
+          </a>
+        </div>
+        <div class="about-standards-list" data-reveal>
+          <article>
+            <strong>Focused scope</strong>
+            <p>Hard inquiry review and removal support, nothing else.</p>
+          </article>
+          <article>
+            <strong>Plain-language expectations</strong>
+            <p>
+              No automatic eligibility, predetermined deletion, or guaranteed
+              score increase.
+            </p>
+          </article>
+          <article>
+            <strong>Privacy from the first contact</strong>
+            <p>
+              No Social Security number, date of birth, report login, payment
+              information, or document upload is needed for the initial review.
+            </p>
+          </article>
+          <article>
+            <strong>Nationwide perspective</strong>
+            <p>
+              Review support for inquiry information appearing on Experian,
+              Equifax, and TransUnion reports.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section about-accountability-section">
+      <div class="container about-accountability-card" data-reveal>
+        <div>
+          <p class="eyebrow"><span></span> Honest expectations</p>
+          <h2>A founder’s name should make accountability easier to see.</h2>
+        </div>
+        <div>
+          <p>
+            Robert’s experience explains why Inquiry Removal exists. It is not a
+            promise that another person will receive the same score movement,
+            approval result, deletion count, or timeline.
+          </p>
+          <p>
+            Every recommendation begins with the consumer’s actual reports and
+            circumstances. If a responsible answer requires more information,
+            the company says so.
+          </p>
+          <small>Page updated August 19, 2026.</small>
+        </div>
+      </div>
+    </section>
+
+    <PhoneReviewPanel
+      eyebrow="A direct next step"
+      title="Let’s start with what happened."
+      description="Share the inquiry count, affected reports, and circumstances you already know. A free personal review helps organize the situation before you decide how to proceed."
+    />
+  </main>
+  <Footer />
+</BaseLayout>

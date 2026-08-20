@@ -3,7 +3,6 @@ export const SITE_ORIGIN = "https://www.inquiryremoval.com";
 // These routes remain available for review, but are intentionally excluded
 // from search until each route is complete and intentionally approved for indexing.
 export const NON_INDEXABLE_PATHS = new Set([
-  "/about/",
   "/accessibility/",
   "/cancellation/",
   "/consumer-disclosures/",

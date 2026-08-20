@@ -4,6 +4,9 @@ import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 import PhoneReviewPanel from "../components/PhoneReviewPanel.astro";
 
+const reviewFormUrl =
+  "https://docs.google.com/forms/d/e/1FAIpQLSceniKTv612SZVC6_jf0-vb-5pNaOs-1jrpT9Qv0P5yd-Qchw/viewform";
+
 const schema = [
   {
     "@context": "https://schema.org",
@@ -49,6 +52,18 @@ const schema = [
             Every inquiry situation begins with context. Tell us what you see,
             what you remember, and what you are working toward next.
           </p>
+          <div class="button-row">
+            <a class="button" href="#online-review">
+              Begin My Free Review <span>↓</span>
+            </a>
+            <a
+              class="text-link text-link--light"
+              href="tel:+16023776626"
+              aria-label="Call Inquiry Removal at 602-377-6626"
+            >
+              Prefer to call? <span>↗</span>
+            </a>
+          </div>
         </div>
         <div class="page-hero-aside">
           <span>No pressure</span>
@@ -58,8 +73,65 @@ const schema = [
       </div>
     </section>
 
+    <section class="section review-form-section" id="online-review">
+      <div class="container review-form-launch">
+        <div data-reveal>
+          <p class="eyebrow"><span></span> Online review request</p>
+          <h2>Start with the facts you already have.</h2>
+          <p>
+            The secure review form asks for your contact information, the
+            reports involved, the approximate inquiry count, and a short
+            explanation of what happened.
+          </p>
+          <a
+            class="button button--large"
+            href={reviewFormUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-track="free-review-primary"
+          >
+            Open My Free Review Form <span>↗</span>
+          </a>
+          <p class="review-form-privacy">
+            The form opens in Google Forms. Do not provide a Social Security
+            number, date of birth, credit-report login, payment information, or
+            upload a credit report during this initial review.
+          </p>
+        </div>
+        <aside data-reveal aria-label="What the free review covers">
+          <p class="eyebrow"><span></span> What to expect</p>
+          <ol>
+            <li>
+              <span>01</span>
+              <div>
+                <strong>Complete the focused intake</strong>
+                <p>Share only the basic facts needed for an initial review.</p>
+              </div>
+            </li>
+            <li>
+              <span>02</span>
+              <div>
+                <strong>A specialist reviews the situation</strong>
+                <p>
+                  Your report pattern and circumstances guide the conversation.
+                </p>
+              </div>
+            </li>
+            <li>
+              <span>03</span>
+              <div>
+                <strong>We contact you directly</strong>
+                <p>You choose whether you prefer a phone call or email.</p>
+              </div>
+            </li>
+          </ol>
+        </aside>
+      </div>
+    </section>
+
     <PhoneReviewPanel
-      title="Talk through your inquiry situation."
+      eyebrow="Prefer a conversation?"
+      title="Call and talk through your inquiry situation."
       description="A specialist will help you organize the inquiry names, dates, affected credit reports, and circumstances surrounding what happened."
     />
 

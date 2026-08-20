@@ -62,40 +62,6 @@ export const pages: SitePage[] = [
     ],
   },
   {
-    slug: "about",
-    eyebrow: "Why we specialize",
-    title: "About Inquiry Removal.",
-    description:
-      "Inquiry Removal was built to focus exclusively on hard inquiry review and dispute support—nothing else.",
-    aside: ["Hard inquiries only", "Nationwide service", "All three bureaus"],
-    sections: [
-      {
-        heading: "Hard Inquiry Specialists. Nothing Else.",
-        body: [
-          "Inquiry Removal focuses exclusively on hard inquiry review and removal support. The service is designed for people who want a focused process instead of a broad monthly credit-repair program.",
-        ],
-      },
-      {
-        heading: "Why inquiries only?",
-        body: [
-          "Specialization creates a clearer process, a more focused service, and a brand consumers can understand immediately. Hard inquiries are not one category among many here—they are the category.",
-        ],
-      },
-      {
-        heading: "A review begins with the facts.",
-        body: [
-          "Every inquiry has context: the company name, date, affected bureau, application circumstances, and what the consumer understood at the time. Those facts shape the questions worth asking next.",
-        ],
-      },
-      {
-        heading: "Clear scope and honest expectations.",
-        body: [
-          "Inquiry Removal does not promise a particular deletion, timeline, approval, or credit-score change. Consumers receive a focused explanation of the service, pricing, and responsibilities before deciding how to proceed.",
-        ],
-      },
-    ],
-  },
-  {
     slug: "resources",
     eyebrow: "Resource center",
     title: "Understand Hard Inquiries and Your Next Step.",

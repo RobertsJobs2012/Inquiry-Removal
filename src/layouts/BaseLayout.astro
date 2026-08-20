@@ -1,5 +1,7 @@
 ---
 import "../styles/global.css";
+import Analytics from "@vercel/analytics/astro";
+import SpeedInsights from "@vercel/speed-insights/astro";
 import { SITE_ORIGIN } from "../data/discovery.mjs";
 
 interface Props {
@@ -25,6 +27,8 @@ const {
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, SITE_ORIGIN);
 const socialImage = new URL(ogImage, canonical);
+const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
+const bingSiteVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
 const pageSchema = {
   "@context": "https://schema.org",
   "@type": "WebPage",
@@ -43,7 +47,7 @@ const organizationSchema = {
   name: "Inquiry Removal",
   url: `${SITE_ORIGIN}/`,
   telephone: "+1-602-377-6626",
-  founder: { "@type": "Person", name: "Robert Garcia" },
+  founder: { "@id": `${SITE_ORIGIN}/about/#robert-garcia` },
   areaServed: { "@type": "Country", name: "United States" },
   logo: {
     "@type": "ImageObject",
@@ -80,6 +84,19 @@ const serializedSchema = JSON.stringify(schemaGraph).replaceAll("<", "\\u003c");
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
     <meta name="robots" content={robots} />
+    {
+      googleSiteVerification && (
+        <meta
+          name="google-site-verification"
+          content={googleSiteVerification}
+        />
+      )
+    }
+    {
+      bingSiteVerification && (
+        <meta name="msvalidate.01" content={bingSiteVerification} />
+      )
+    }
     <meta name="color-scheme" content="light dark" />
     <meta name="theme-color" content="#081B2C" />
     <meta property="og:type" content="website" />
@@ -129,6 +146,27 @@ const serializedSchema = JSON.stringify(schemaGraph).replaceAll("<", "\\u003c");
   <body>
     <a class="skip-link" href="#main-content">Skip to main content</a>
     <slot />
+    <Analytics />
+    <SpeedInsights />
+    <script>
+      import { track } from "@vercel/analytics";
+
+      document.addEventListener("click", (event) => {
+        const target = event.target;
+        if (!(target instanceof Element)) return;
+
+        const link = target.closest<HTMLAnchorElement>(
+          "a[data-track], a[href^='tel:']",
+        );
+        if (!link) return;
+
+        const isCall = link.href.startsWith("tel:");
+        track(isCall ? "Call Intent" : "Review Form Open", {
+          placement: link.dataset.track ?? "sitewide",
+          page: window.location.pathname,
+        });
+      });
+    </script>
     <script is:inline>
       const reduceMotion = window.matchMedia(
         "(prefers-reduced-motion: reduce)",
