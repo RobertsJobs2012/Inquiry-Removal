@@ -76,7 +76,6 @@ const isCurrent = (href: string) =>
       <button
         class="menu-button"
         type="button"
-        aria-label="Open navigation"
         aria-expanded="false"
         aria-controls="mobile-navigation"
         data-menu-button
@@ -177,7 +176,6 @@ const isCurrent = (href: string) =>
   const closeMenu = (restoreFocus = false) => {
     menuOpen = false;
     menuButton?.setAttribute("aria-expanded", "false");
-    menuButton?.setAttribute("aria-label", "Open navigation");
     if (menuLabel) menuLabel.textContent = "Menu";
     mobileNav?.classList.remove("is-open");
     document.body.classList.remove("menu-open");
@@ -189,7 +187,6 @@ const isCurrent = (href: string) =>
   const openMenu = () => {
     menuOpen = true;
     menuButton?.setAttribute("aria-expanded", "true");
-    menuButton?.setAttribute("aria-label", "Close navigation");
     if (menuLabel) menuLabel.textContent = "Close";
     mobileNav?.classList.add("is-open");
     document.body.classList.add("menu-open");

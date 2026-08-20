@@ -1,7 +1,7 @@
 :root {
   --navy: #081b2c;
   --navy-2: #0d2742;
-  --blue: #1478e6;
+  --blue: #0f70d7;
   --cyan: #16a4d8;
   --teal: #0fa58a;
   --green: #168a55;
@@ -159,7 +159,7 @@ h2 em {
 }
 .button:hover {
   transform: translateY(-2px);
-  background: #2589f5;
+  background: #0b63c0;
   box-shadow: 0 18px 38px rgba(20, 120, 230, 0.32);
 }
 .button:active {
@@ -804,7 +804,7 @@ summary:focus-visible {
   transform: translateY(-6px);
 }
 .card-number {
-  color: #9ca8b4;
+  color: #5c7388;
   font-size: 0.6rem;
 }
 .situation-icon {
@@ -1343,7 +1343,7 @@ summary:focus-visible {
 .document-top {
   display: flex;
   justify-content: space-between;
-  color: #75808b;
+  color: var(--slate);
   font-size: 0.58rem;
   font-weight: 800;
 }
@@ -1373,14 +1373,14 @@ summary:focus-visible {
 .document-highlight {
   padding: 14px;
   border-left: 3px solid var(--teal);
-  color: var(--green);
+  color: #0b6e47;
   background: rgba(15, 165, 138, 0.08);
   font-size: 0.74rem;
   font-weight: 700;
 }
 .evidence-document p {
   margin: 25px 0 0;
-  color: #8a949d;
+  color: var(--slate);
   font-size: 0.65rem;
 }
 .evidence-story {
@@ -1425,7 +1425,7 @@ summary:focus-visible {
 .case-note {
   padding-top: 20px;
   border-top: 1px solid var(--border);
-  color: #87929e;
+  color: var(--slate);
   font-size: 0.62rem;
 }
 
@@ -1781,7 +1781,7 @@ summary:focus-visible {
   justify-content: space-between;
   padding-top: 24px;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
-  color: #536a7d;
+  color: #8398a9;
   font-size: 0.57rem;
 }
 
@@ -5947,7 +5947,7 @@ summary:focus-visible {
   margin-left: auto;
   min-width: 190px;
   border-radius: 11px;
-  background: linear-gradient(135deg, #1478e6, #258af2);
+  background: linear-gradient(135deg, #0f70d7, #0b63c0);
   box-shadow:
     0 16px 34px rgba(20, 120, 230, 0.25),
     inset 0 1px 0 rgba(255, 255, 255, 0.24);
@@ -6387,7 +6387,7 @@ summary:focus-visible {
   gap: clamp(30px, 6vw, 90px);
 }
 .guide-section__number {
-  color: #cad7e4;
+  color: #5c7388;
   font-family: var(--display);
   font-size: 2.2rem;
   font-weight: 800;
