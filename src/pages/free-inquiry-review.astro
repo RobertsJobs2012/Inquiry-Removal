@@ -4,8 +4,32 @@ import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 import PhoneReviewPanel from "../components/PhoneReviewPanel.astro";
 
-const reviewFormUrl =
-  "https://docs.google.com/forms/d/e/1FAIpQLSceniKTv612SZVC6_jf0-vb-5pNaOs-1jrpT9Qv0P5yd-Qchw/viewform";
+const reviewFormAction =
+  "https://docs.google.com/forms/d/e/1FAIpQLSceniKTv612SZVC6_jf0-vb-5pNaOs-1jrpT9Qv0P5yd-Qchw/formResponse";
+const goals = [
+  "A home loan",
+  "A vehicle loan",
+  "Business financing",
+  "Credit cards or other personal credit",
+  "Addressing possible identity theft",
+  "Improving my overall credit profile",
+];
+const situations = [
+  "A dealership sent my application to multiple lenders",
+  "I did not authorize the inquiry",
+  "I was told it would be a soft pull",
+  "I do not recognize the company",
+  "The inquiry appears to be a duplicate",
+  "I may be dealing with identity theft",
+  "The inquiry belongs to someone else",
+  "I authorized it but want it reviewed",
+];
+const inquiryCounts = ["1–10", "11–30", "31 or more", "I am not sure"];
+const bureaus = ["Experian", "Equifax", "TransUnion", "I am not sure"];
+const reportCopies = ["Yes", "No", "I need help obtaining them"];
+const contactMethods = ["Email", "Phone"];
+const contactConsent =
+  "I agree that Inquiry Removal may contact me about this free inquiry review using the phone number or email address I provided.";
 
 const schema = [
   {
@@ -31,7 +55,7 @@ const schema = [
 
 <BaseLayout
   title="Free Hard Inquiry Review | Inquiry Removal"
-  description="Speak with an Inquiry Removal specialist for a free personal review of unwanted hard inquiries across Experian, Equifax, and TransUnion."
+  description="Complete a private on-site review of unwanted hard inquiries across Experian, Equifax, and TransUnion, then hear directly from an Inquiry Removal specialist."
   robots="noindex, follow"
   {schema}
   theme="dark"
@@ -74,58 +98,277 @@ const schema = [
     </section>
 
     <section class="section review-form-section" id="online-review">
-      <div class="container review-form-launch">
-        <div data-reveal>
+      <div class="container native-review-shell">
+        <div class="review-form-intro" data-reveal>
           <p class="eyebrow"><span></span> Online review request</p>
           <h2>Start with the facts you already have.</h2>
           <p>
-            The secure review form asks for your contact information, the
-            reports involved, the approximate inquiry count, and a short
-            explanation of what happened.
+            Complete the focused review here. Your answers are sent securely to
+            Inquiry Removal so a specialist can review the situation and contact
+            you using your preferred method.
           </p>
-          <a
-            class="button button--large"
-            href={reviewFormUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            data-track="free-review-primary"
-          >
-            Open My Free Review Form <span>↗</span>
-          </a>
-          <p class="review-form-privacy">
-            The form opens in Google Forms. Do not provide a Social Security
-            number, date of birth, credit-report login, payment information, or
-            upload a credit report during this initial review.
-          </p>
+          <div class="review-form-safety">
+            <strong>No sensitive documents needed</strong>
+            <span>
+              Never enter a Social Security number, date of birth, credit-report
+              login, or payment information here.
+            </span>
+          </div>
         </div>
-        <aside data-reveal aria-label="What the free review covers">
-          <p class="eyebrow"><span></span> What to expect</p>
-          <ol>
-            <li>
-              <span>01</span>
-              <div>
-                <strong>Complete the focused intake</strong>
-                <p>Share only the basic facts needed for an initial review.</p>
+
+        <form
+          class="native-review-form"
+          action={reviewFormAction}
+          method="post"
+          target="review-form-response"
+          data-review-form
+          novalidate
+          data-reveal
+        >
+          <input type="hidden" name="fvv" value="1" />
+          <input type="hidden" name="pageHistory" value="0" />
+          <input
+            class="review-form-honeypot"
+            type="text"
+            name="website"
+            tabindex="-1"
+            autocomplete="off"
+            aria-hidden="true"
+          />
+
+          <div class="form-progress" aria-label="Review form progress">
+            <span data-review-progress>Step 1 of 4</span>
+            <div><i data-review-progress-bar></i></div>
+          </div>
+
+          <div data-review-form-body>
+            <fieldset
+              class="form-step native-review-step is-active"
+              data-review-step="1"
+              tabindex="-1"
+            >
+              <legend>How can we reach you?</legend>
+              <p>Start with your basic contact information.</p>
+              <div class="native-contact-grid">
+                <label>
+                  <span>Full name</span>
+                  <input
+                    type="text"
+                    name="entry.1443643242"
+                    autocomplete="name"
+                    required
+                  />
+                </label>
+                <label>
+                  <span>Best email address</span>
+                  <input
+                    type="email"
+                    name="entry.1525553918"
+                    autocomplete="email"
+                    inputmode="email"
+                    required
+                  />
+                </label>
+                <label>
+                  <span>Best phone number</span>
+                  <input
+                    type="tel"
+                    name="entry.330440410"
+                    autocomplete="tel"
+                    inputmode="tel"
+                    required
+                  />
+                </label>
               </div>
-            </li>
-            <li>
-              <span>02</span>
-              <div>
-                <strong>A specialist reviews the situation</strong>
-                <p>
-                  Your report pattern and circumstances guide the conversation.
-                </p>
+            </fieldset>
+
+            <fieldset
+              class="form-step native-review-step"
+              data-review-step="2"
+              tabindex="-1"
+              hidden
+            >
+              <legend>What are you preparing for?</legend>
+              <p>Choose the goal that best matches your situation.</p>
+              <div class="choice-grid native-choice-grid">
+                {
+                  goals.map((goal) => (
+                    <label class="form-choice">
+                      <input
+                        type="radio"
+                        name="entry.1481812974"
+                        value={goal}
+                        required
+                      />
+                      <span>{goal}</span>
+                    </label>
+                  ))
+                }
               </div>
-            </li>
-            <li>
-              <span>03</span>
-              <div>
-                <strong>We contact you directly</strong>
-                <p>You choose whether you prefer a phone call or email.</p>
+              <p class="field-heading native-field-heading">
+                Which situation best describes what happened?
+              </p>
+              <div class="choice-grid native-choice-grid">
+                {
+                  situations.map((situation) => (
+                    <label class="form-choice">
+                      <input
+                        type="radio"
+                        name="entry.1677473071"
+                        value={situation}
+                        required
+                      />
+                      <span>{situation}</span>
+                    </label>
+                  ))
+                }
               </div>
-            </li>
-          </ol>
-        </aside>
+            </fieldset>
+
+            <fieldset
+              class="form-step native-review-step"
+              data-review-step="3"
+              tabindex="-1"
+              hidden
+            >
+              <legend>What appears on your reports?</legend>
+              <p>Estimates are completely fine for the initial review.</p>
+              <p class="field-heading">Approximate inquiry count</p>
+              <div class="choice-grid">
+                {
+                  inquiryCounts.map((count) => (
+                    <label class="form-choice">
+                      <input
+                        type="radio"
+                        name="entry.1354254818"
+                        value={count}
+                        required
+                      />
+                      <span>{count}</span>
+                    </label>
+                  ))
+                }
+              </div>
+              <p class="field-heading native-field-heading">
+                Which credit reports show the inquiries?
+              </p>
+              <div class="choice-grid" data-bureau-group>
+                {
+                  bureaus.map((bureau) => (
+                    <label class="form-choice">
+                      <input
+                        type="checkbox"
+                        name="entry.766411755"
+                        value={bureau}
+                      />
+                      <span>{bureau}</span>
+                    </label>
+                  ))
+                }
+              </div>
+              <p class="field-heading native-field-heading">
+                Do you have current copies of the affected reports?
+              </p>
+              <div class="choice-grid choice-grid--three">
+                {
+                  reportCopies.map((answer) => (
+                    <label class="form-choice">
+                      <input
+                        type="radio"
+                        name="entry.1594186053"
+                        value={answer}
+                        required
+                      />
+                      <span>{answer}</span>
+                    </label>
+                  ))
+                }
+              </div>
+            </fieldset>
+
+            <fieldset
+              class="form-step native-review-step"
+              data-review-step="4"
+              tabindex="-1"
+              hidden
+            >
+              <legend>Tell us what happened.</legend>
+              <p>A short description is enough to begin.</p>
+              <label class="native-textarea-field">
+                <span>Brief description</span>
+                <textarea name="entry.1182319941" rows="6" required></textarea>
+              </label>
+              <p class="field-heading native-field-heading">
+                How would you prefer that we contact you?
+              </p>
+              <div class="choice-grid">
+                {
+                  contactMethods.map((method) => (
+                    <label class="form-choice">
+                      <input
+                        type="radio"
+                        name="entry.1559834442"
+                        value={method}
+                        required
+                      />
+                      <span>{method}</span>
+                    </label>
+                  ))
+                }
+              </div>
+              <label class="consent-check native-consent-check">
+                <input
+                  type="checkbox"
+                  name="entry.1996946225"
+                  value={contactConsent}
+                  required
+                />
+                <span>{contactConsent}</span>
+              </label>
+            </fieldset>
+
+            <p
+              class="form-error"
+              data-review-error
+              aria-live="polite"
+              tabindex="-1"
+            >
+            </p>
+            <div class="form-controls native-review-controls">
+              <button class="reset-link" type="button" data-review-back hidden>
+                ← Back
+              </button>
+              <button class="button" type="button" data-review-next>
+                Continue <span>→</span>
+              </button>
+              <button class="button" type="submit" data-review-submit hidden>
+                Submit My Free Review <span>→</span>
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="review-form-success"
+            data-review-success
+            tabindex="-1"
+            hidden
+          >
+            <span aria-hidden="true">✓</span>
+            <p class="eyebrow"><span></span> Request received</p>
+            <h3>Thank you. Your review is now in our hands.</h3>
+            <p>
+              Inquiry Removal will review the information and contact you using
+              the method you selected. Please do not send sensitive documents or
+              account credentials by reply.
+            </p>
+          </div>
+        </form>
+
+        <iframe
+          class="review-response-frame"
+          name="review-form-response"
+          title="Review submission response"
+          data-review-response></iframe>
       </div>
     </section>
 
@@ -177,4 +420,130 @@ const schema = [
     </section>
   </main>
   <Footer />
+
+  <script>
+    import { track } from "@vercel/analytics";
+
+    const reviewForm =
+      document.querySelector<HTMLFormElement>("[data-review-form]");
+    const reviewSteps = Array.from(
+      document.querySelectorAll<HTMLElement>("[data-review-step]"),
+    );
+    const reviewNext =
+      document.querySelector<HTMLButtonElement>("[data-review-next]");
+    const reviewBack =
+      document.querySelector<HTMLButtonElement>("[data-review-back]");
+    const reviewSubmit = document.querySelector<HTMLButtonElement>(
+      "[data-review-submit]",
+    );
+    const reviewError = document.querySelector<HTMLElement>(
+      "[data-review-error]",
+    );
+    const reviewProgress = document.querySelector<HTMLElement>(
+      "[data-review-progress]",
+    );
+    const reviewProgressBar = document.querySelector<HTMLElement>(
+      "[data-review-progress-bar]",
+    );
+    const reviewBody = document.querySelector<HTMLElement>(
+      "[data-review-form-body]",
+    );
+    const reviewSuccess = document.querySelector<HTMLElement>(
+      "[data-review-success]",
+    );
+    const reviewResponse = document.querySelector<HTMLIFrameElement>(
+      "[data-review-response]",
+    );
+    let reviewStep = 0;
+    let reviewSubmitted = false;
+
+    const showReviewStep = (index: number, moveFocus = true) => {
+      reviewStep = Math.max(0, Math.min(index, reviewSteps.length - 1));
+      reviewSteps.forEach((step, position) => {
+        step.hidden = position !== reviewStep;
+        step.classList.toggle("is-active", position === reviewStep);
+      });
+      if (reviewProgress)
+        reviewProgress.textContent = `Step ${reviewStep + 1} of ${reviewSteps.length}`;
+      if (reviewProgressBar)
+        reviewProgressBar.style.width = `${((reviewStep + 1) / reviewSteps.length) * 100}%`;
+      if (reviewBack) reviewBack.hidden = reviewStep === 0;
+      if (reviewNext) reviewNext.hidden = reviewStep === reviewSteps.length - 1;
+      if (reviewSubmit)
+        reviewSubmit.hidden = reviewStep !== reviewSteps.length - 1;
+      if (reviewError) reviewError.textContent = "";
+      if (moveFocus) reviewSteps[reviewStep]?.focus({ preventScroll: true });
+    };
+
+    const validateReviewStep = () => {
+      const step = reviewSteps[reviewStep];
+      if (!step) return false;
+
+      if (step.querySelector("[data-bureau-group]")) {
+        const bureau = step.querySelector(
+          "input[name='entry.766411755']:checked",
+        );
+        if (!bureau) {
+          if (reviewError)
+            reviewError.textContent =
+              "Choose at least one credit report to continue.";
+          step
+            .querySelector<HTMLInputElement>("input[name='entry.766411755']")
+            ?.focus();
+          return false;
+        }
+      }
+
+      const invalid = Array.from(
+        step.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>(
+          "input[required], textarea[required]",
+        ),
+      ).find((field) => !field.checkValidity());
+
+      if (invalid) {
+        if (reviewError)
+          reviewError.textContent =
+            "Complete every required field to continue.";
+        invalid.focus();
+        return false;
+      }
+
+      return true;
+    };
+
+    reviewNext?.addEventListener("click", () => {
+      if (validateReviewStep()) showReviewStep(reviewStep + 1);
+    });
+    reviewBack?.addEventListener("click", () => showReviewStep(reviewStep - 1));
+
+    reviewForm?.addEventListener("submit", (event) => {
+      if (!validateReviewStep()) {
+        event.preventDefault();
+        return;
+      }
+      const honeypot = reviewForm.elements.namedItem("website");
+      if (honeypot instanceof HTMLInputElement && honeypot.value) {
+        event.preventDefault();
+        return;
+      }
+      reviewSubmitted = true;
+      if (reviewSubmit) {
+        reviewSubmit.disabled = true;
+        reviewSubmit.textContent = "Sending…";
+      }
+    });
+
+    reviewResponse?.addEventListener("load", () => {
+      if (!reviewSubmitted) return;
+      reviewSubmitted = false;
+      reviewBody?.setAttribute("hidden", "");
+      reviewSuccess?.removeAttribute("hidden");
+      reviewSuccess?.focus();
+      track("Review Form Submitted", {
+        page: window.location.pathname,
+      });
+    });
+
+    showReviewStep(0, false);
+  </script>
 </BaseLayout>
