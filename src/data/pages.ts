@@ -62,60 +62,17 @@ export const pages: SitePage[] = [
     ],
   },
   {
-    slug: "results",
-    eyebrow: "Evidence center",
-    title: "Real cases. Documented outcomes.",
-    description:
-      "A transparent evidence center designed for permissioned, redacted case documentation—not vague claims or unverified success counters.",
-    aside: ["Documentation standard", "Case format", "Individual results vary"],
-    sections: [
-      {
-        heading: "Proof before persuasion.",
-        body: [
-          "This page is structured to publish verified case material only after substantiation and client permission. Final case evidence will be redacted to protect private information.",
-        ],
-        bullets: [
-          "Situation and bureau",
-          "Number reviewed or disputed",
-          "Documented outcome",
-          "Timeline",
-          "Documentation status",
-        ],
-      },
-      {
-        heading: "Context stays attached.",
-        body: [
-          "When authentic score data is available, it will be presented as client-reported context during the service period—not as proof that inquiry removals alone caused the movement.",
-        ],
-      },
-      {
-        heading: "Case library coming next.",
-        body: [
-          "Verified cases and redacted documentation will be added during the content and compliance phase. Until then, no fictional result is presented as real.",
-        ],
-        bullets: [
-          "Dealership",
-          "Identity theft",
-          "Unauthorized",
-          "Experian",
-          "Equifax",
-          "TransUnion",
-        ],
-      },
-    ],
-  },
-  {
     slug: "about",
     eyebrow: "Why we specialize",
-    title: "Built around one problem.",
+    title: "About Inquiry Removal.",
     description:
       "Inquiry Removal was built to focus exclusively on hard inquiry review and dispute support—nothing else.",
-    aside: ["Founder story", "Specialization", "Operating philosophy"],
+    aside: ["Hard inquiries only", "Nationwide service", "All three bureaus"],
     sections: [
       {
-        heading: "A firsthand beginning.",
+        heading: "Hard Inquiry Specialists. Nothing Else.",
         body: [
-          "Robert Garcia’s final founder story will explain the personal experience that led to Inquiry Removal. Professional photography and substantiated background details will be added with the final content.",
+          "Inquiry Removal focuses exclusively on hard inquiry review and removal support. The service is designed for people who want a focused process instead of a broad monthly credit-repair program.",
         ],
       },
       {
@@ -125,9 +82,15 @@ export const pages: SitePage[] = [
         ],
       },
       {
-        heading: "Calm, precise, transparent.",
+        heading: "A review begins with the facts.",
         body: [
-          "The company is designed around evidence, honest eligibility language, defined scope, and explanations that do not require consumers to decode hype.",
+          "Every inquiry has context: the company name, date, affected bureau, application circumstances, and what the consumer understood at the time. Those facts shape the questions worth asking next.",
+        ],
+      },
+      {
+        heading: "Clear scope and honest expectations.",
+        body: [
+          "Inquiry Removal does not promise a particular deletion, timeline, approval, or credit-score change. Consumers receive a focused explanation of the service, pricing, and responsibilities before deciding how to proceed.",
         ],
       },
     ],
@@ -135,16 +98,16 @@ export const pages: SitePage[] = [
   {
     slug: "resources",
     eyebrow: "Resource center",
-    title: "Understand the report before you challenge it.",
+    title: "Understand Hard Inquiries and Your Next Step.",
     description:
       "Plain-language education about hard inquiries, authorization, credit bureaus, identity theft, dealership inquiries, and consumer dispute rights.",
     aside: ["Hard inquiry fundamentals", "Bureau guides", "Situation guides"],
     kind: "resources",
     sections: [
       {
-        heading: "Hard inquiry fundamentals",
+        heading: "Begin with the hard inquiry fundamentals.",
         body: [
-          "Final educational articles will be written to explain first and sell second.",
+          "Understand the difference between hard and soft inquiries, how inquiry information appears across the three major credit bureaus, and why the circumstances behind an entry matter.",
         ],
         bullets: [
           "Hard vs. soft inquiries",
@@ -156,9 +119,9 @@ export const pages: SitePage[] = [
         ],
       },
       {
-        heading: "Bureau and situation guides",
+        heading: "Start with the situation that matches what happened.",
         body: [
-          "Dedicated educational pathways will cover Experian, Equifax, TransUnion, dealership inquiries, unauthorized inquiries, identity theft, and preparing for financing.",
+          "Use the situation guides to explore dealership inquiries, unfamiliar companies, possible identity theft, duplicate reporting, and other common reasons consumers request a closer review.",
         ],
       },
     ],
@@ -198,57 +161,29 @@ export const pages: SitePage[] = [
     ],
   },
   {
-    slug: "free-inquiry-analysis",
-    eyebrow: "Free personal review",
-    title: "Get your free inquiry review.",
-    description:
-      "Tell us what happened and what you want removed. A specialist will help organize your inquiry-removal next steps.",
-    aside: ["No pressure", "No monthly fees", "Response within 24 hours"],
-    kind: "analysis",
-    sections: [
-      {
-        heading: "Your intake, designed around context.",
-        body: [
-          "The final secure intake and consent workflow will be connected before launch. The form below establishes the planned experience without transmitting private information yet.",
-        ],
-      },
-    ],
-  },
-  {
-    slug: "get-started",
-    eyebrow: "Free personal review",
-    title: "Get your free inquiry review.",
-    description:
-      "Tell us what happened and what you want removed. A specialist will help organize your inquiry-removal next steps.",
-    aside: ["No pressure", "No monthly fees", "Response within 24 hours"],
-    kind: "analysis",
-    sections: [
-      {
-        heading: "Your intake, designed around context.",
-        body: [
-          "The secure intake and consent workflow is being connected. This preview lets you review the experience without transmitting private information.",
-        ],
-      },
-    ],
-  },
-  {
     slug: "contact",
     eyebrow: "Contact Inquiry Removal",
     title: "Speak with a hard inquiry specialist.",
     description:
       "Contact Inquiry Removal by phone for a focused review of hard inquiries appearing on Experian, Equifax, or TransUnion.",
-    aside: ["Nationwide service", "All three bureaus", "Call (602) 377-6626"],
+    aside: ["Nationwide service", "All three bureaus", "Direct phone support"],
     sections: [
       {
         heading: "A direct human contact method.",
         body: [
-          "Call (602) 377-6626 to discuss the inquiries on your credit reports and the circumstances surrounding them. Do not send Social Security numbers, dates of birth, report logins, or other highly sensitive information through ordinary messages.",
+          "Call Inquiry Removal to discuss the inquiries on your credit reports and the circumstances surrounding them. Do not provide Social Security numbers, dates of birth, report logins, payment information, or other highly sensitive information during the initial conversation.",
         ],
       },
       {
-        heading: "Secure intake is still being connected.",
+        heading: "What to have available.",
         body: [
-          "The website intake preview does not currently transmit information. A secure delivery workflow and final consent language will be completed before online submissions are enabled.",
+          "An estimate of the inquiry count, the names of the affected credit bureaus, and a short explanation of what happened are enough to begin a free personal review.",
+        ],
+        bullets: [
+          "Approximate inquiry count",
+          "Affected credit reports",
+          "The event or application involved",
+          "What you are preparing for next",
         ],
       },
     ],
@@ -401,7 +336,7 @@ export const pages: SitePage[] = [
       {
         heading: "Inquiry support is one part of the response.",
         body: [
-          "Final content will include appropriate official resources and clear limits on what Inquiry Removal does and does not provide.",
+          "If identity theft is suspected, inquiry review should be considered alongside broader identity-protection steps. Official recovery resources, account monitoring, fraud alerts, and credit freezes may also be appropriate depending on the circumstances.",
         ],
       },
     ],
@@ -531,101 +466,4 @@ export const pages: SitePage[] = [
       },
     ],
   },
-  ...["experian", "equifax", "transunion"].map((bureau) => ({
-    slug: `${bureau}-inquiry-disputes`,
-    eyebrow: "Bureau guide",
-    title: `${bureau[0].toUpperCase() + bureau.slice(1)} inquiry disputes.`,
-    description: `Understand how hard inquiry information can appear on a ${bureau[0].toUpperCase() + bureau.slice(1)} credit report and the circumstances worth reviewing.`,
-    aside: ["Read the report", "Review the facts", "Understand next steps"],
-    sections: [
-      {
-        heading: `Start with the ${bureau[0].toUpperCase() + bureau.slice(1)} report.`,
-        body: [
-          "Identify the company, inquiry date, and surrounding application context before making assumptions about authorization or accuracy.",
-        ],
-        bullets: [
-          "Confirm the furnisher name",
-          "Record the inquiry date",
-          "Compare related applications",
-          "Preserve relevant documentation",
-        ],
-      },
-      {
-        heading: "Every bureau response requires context.",
-        body: [
-          "Final bureau-specific content and dispute guidance will be completed during the legal and editorial review phase.",
-        ],
-      },
-    ],
-  })),
-  {
-    slug: "guarantee",
-    eyebrow: "90-day framework",
-    title: "A guarantee should be clear enough to understand.",
-    description:
-      "The guarantee framework will define every trigger, qualification, responsibility, and refund step before launch.",
-    aside: ["Trigger", "Qualifications", "Responsibilities", "Refund process"],
-    sections: [
-      {
-        heading: "No hidden traps.",
-        body: [
-          "The final guarantee terms will state what triggers the guarantee, what qualifies, what the consumer must do, what the company must do, and exactly how refunds work.",
-        ],
-        bullets: [
-          "Plain-language eligibility",
-          "Specific time period",
-          "Documented responsibilities",
-          "Clear request process",
-          "Defined refund method",
-        ],
-      },
-      {
-        heading: "Final terms require legal review.",
-        body: [
-          "This page intentionally avoids inventing binding terms before the service workflow, contracts, fee timing, and legal requirements are finalized.",
-        ],
-      },
-    ],
-  },
-  ...[
-    "privacy",
-    "terms",
-    "consumer-disclosures",
-    "cancellation",
-    "accessibility",
-    "credit-services-agreement",
-    "text-message-terms",
-    "cookie-policy",
-    "results-disclosure",
-  ].map((slug) => ({
-    slug,
-    eyebrow: "Trust & legal",
-    title: slug
-      .split("-")
-      .map((word) => word[0].toUpperCase() + word.slice(1))
-      .join(" "),
-    description: `The final ${slug.replaceAll("-", " ")} policy will be completed before public launch.`,
-    aside: ["Draft framework", "Legal review required", "Final copy pending"],
-    sections: [
-      {
-        heading: "Policy framework prepared.",
-        body: [
-          "This page is reserved in the site architecture so the final reviewed policy can be published at a permanent, accessible URL.",
-        ],
-        bullets: [
-          "Plain-language summary",
-          "Effective date",
-          "Consumer rights and responsibilities",
-          "Contact information",
-          "Version history where appropriate",
-        ],
-      },
-      {
-        heading: "Final language pending.",
-        body: [
-          "Qualified counsel and the business owner will finalize this content before traffic, intake, or payment collection begins.",
-        ],
-      },
-    ],
-  })),
 ];

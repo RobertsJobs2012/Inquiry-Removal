@@ -6,6 +6,16 @@
   "trailingSlash": true,
   "redirects": [
     {
+      "source": "/get-started/",
+      "destination": "/free-inquiry-review/",
+      "permanent": true
+    },
+    {
+      "source": "/free-inquiry-analysis/",
+      "destination": "/free-inquiry-review/",
+      "permanent": true
+    },
+    {
       "source": "/dealership-hard-inquiries/",
       "destination": "/dealership-inquiries/",
       "permanent": true
@@ -14,6 +24,76 @@
       "source": "/unauthorized-hard-inquiries/",
       "destination": "/unauthorized-inquiries/",
       "permanent": true
+    },
+    {
+      "source": "/results/",
+      "destination": "/#results",
+      "permanent": false
+    },
+    {
+      "source": "/experian-inquiry-disputes/",
+      "destination": "/situations-we-handle/",
+      "permanent": false
+    },
+    {
+      "source": "/equifax-inquiry-disputes/",
+      "destination": "/situations-we-handle/",
+      "permanent": false
+    },
+    {
+      "source": "/transunion-inquiry-disputes/",
+      "destination": "/situations-we-handle/",
+      "permanent": false
+    },
+    {
+      "source": "/guarantee/",
+      "destination": "/pricing/",
+      "permanent": false
+    },
+    {
+      "source": "/privacy/",
+      "destination": "/contact/",
+      "permanent": false
+    },
+    {
+      "source": "/terms/",
+      "destination": "/contact/",
+      "permanent": false
+    },
+    {
+      "source": "/consumer-disclosures/",
+      "destination": "/contact/",
+      "permanent": false
+    },
+    {
+      "source": "/cancellation/",
+      "destination": "/contact/",
+      "permanent": false
+    },
+    {
+      "source": "/accessibility/",
+      "destination": "/contact/",
+      "permanent": false
+    },
+    {
+      "source": "/credit-services-agreement/",
+      "destination": "/contact/",
+      "permanent": false
+    },
+    {
+      "source": "/text-message-terms/",
+      "destination": "/contact/",
+      "permanent": false
+    },
+    {
+      "source": "/cookie-policy/",
+      "destination": "/contact/",
+      "permanent": false
+    },
+    {
+      "source": "/results-disclosure/",
+      "destination": "/contact/",
+      "permanent": false
     }
   ],
   "headers": [

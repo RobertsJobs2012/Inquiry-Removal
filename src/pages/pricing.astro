@@ -5,7 +5,7 @@ import Header from "../components/Header.astro";
 import PageJumpNav from "../components/PageJumpNav.astro";
 
 const heroDescription =
-  "Hard inquiry removal pricing should be easy to understand before you begin. Inquiry Removal uses three one-time plans based on the total number of hard inquiries included in your service. You will not pay a monthly membership just because a creditor or credit bureau takes longer to respond. Choose the range that matches your reports, start online, or request a free inquiry review if you are unsure which plan fits. Everything is clear before you choose what happens next.";
+  "Hard inquiry removal pricing should be easy to understand before you begin. Inquiry Removal uses three one-time plans based on the total number of hard inquiries included in your service. You will not pay a monthly membership just because a creditor or credit bureau takes longer to respond. Choose the range that matches your reports or request a free inquiry review if you are unsure which plan fits. Everything is clear before you choose what happens next.";
 
 const planFeatures = [
   "All affected credit bureaus",
@@ -74,10 +74,6 @@ const included = [
     "Direct communication",
     "Updates happen by phone, text, or email. There is no client portal, dashboard, or login requirement.",
   ],
-  [
-    "A 90-day money-back promise",
-    "If no inquiry is removed within 90 days, you may request a refund under the complete written guarantee terms.",
-  ],
 ];
 
 const countingSteps = [
@@ -110,7 +106,6 @@ const comparisonRows = [
   ["Additional rounds as needed", "Included", "Included", "Included"],
   ["Phone, text, or email updates", "Included", "Included", "Included"],
   ["Monthly fee", "None", "None", "None"],
-  ["90-day money-back promise", "Included", "Included", "Included"],
 ];
 
 const faqs = [
@@ -131,16 +126,12 @@ const faqs = [
     "Yes. Inquiry Removal does not impose a one-round cutoff. We review incoming responses and continue with additional rounds as needed under the signed service agreement. The agreement defines client responsibilities and when the service is considered complete.",
   ],
   [
-    "Can I start without scheduling a telephone call?",
-    "Yes. Select a plan and begin the inquiry removal process online. Our team receives your information and contacts you within 24 hours or sooner to explain the remaining intake steps and the affected credit reports needed.",
+    "How do I begin?",
+    "Start with a free personal review. A specialist will discuss the situation, help organize the inquiry count, and explain which one-time plan matches the service before you decide how to proceed.",
   ],
   [
     "Can I request a free review before choosing a plan?",
     "Yes. The free inquiry review is available when you want to discuss the situation, confirm the inquiry count, or understand what is included before starting. There is no pressure to choose a plan during the first conversation.",
-  ],
-  [
-    "How does the 90-day money-back promise work?",
-    "If no inquiry is removed within 90 days, you may request a refund under the written guarantee terms. Review the complete terms before starting because they define eligibility, deadlines, client cooperation, exclusions, and the refund process.",
   ],
 ];
 
@@ -161,7 +152,7 @@ const schema = [
       price: plan.price.replace("$", ""),
       priceCurrency: "USD",
       availability: "https://schema.org/InStock",
-      url: `https://www.inquiryremoval.com/get-started/?plan=${plan.id}`,
+      url: `https://www.inquiryremoval.com/free-inquiry-review/?plan=${plan.id}`,
     })),
   },
   {
@@ -196,7 +187,7 @@ const schema = [
 
 <BaseLayout
   title="Hard Inquiry Removal Pricing and Plans | Inquiry Removal"
-  description="Hard inquiry removal pricing starts at $199 with no monthly fees. Compare plans for 1 to 10, 11 to 30, or 31+ inquiries and start online."
+  description="Hard inquiry removal pricing starts at $199 with no monthly fees. Compare plans for 1 to 10, 11 to 30, or 31+ inquiries and request a free review."
   ogTitle="Hard Inquiry Removal Starting at $199"
   ogDescription="Choose one clear plan based on your total inquiries. One-time pricing, all affected bureaus, and no monthly fees."
   ogImage="/og-pricing.jpg"
@@ -224,14 +215,14 @@ const schema = [
         <div class="button-row">
           <a
             class="button button--large"
-            href="/get-started/?start=online"
+            href="/free-inquiry-review/"
             data-track="pricing-hero-start"
           >
-            Start My Inquiry Removal <span>→</span>
+            Talk With a Specialist <span>→</span>
           </a>
           <a
             class="text-link text-link--light"
-            href="/get-started/?review=free"
+            href="/free-inquiry-review/?review=free"
             data-track="pricing-hero-review"
           >
             Get My Free Inquiry Review <span>↘</span>
@@ -253,7 +244,6 @@ const schema = [
         ["Plans", "#plans"],
         ["What is included", "#included"],
         ["Count inquiries", "#count-inquiries"],
-        ["Guarantee", "#pricing-guarantee"],
         ["Questions", "#pricing-questions"],
       ]}
     />
@@ -377,31 +367,19 @@ const schema = [
                     <li>{feature}</li>
                   ))}
                 </ul>
-                <p class="pricing-plan-card__protection">
-                  <b>90-day protection:</b> If no inquiry is removed within 90
-                  days, you may request a refund under the written guarantee
-                  terms.
-                </p>
                 <a
                   class="button"
-                  href={`/get-started/?plan=${plan.id}`}
+                  href={`/free-inquiry-review/?plan=${plan.id}`}
                   data-track={`pricing-card-${plan.id}`}
                 >
                   Choose {plan.name} <span>→</span>
-                </a>
-                <a
-                  class="pricing-plan-card__guarantee"
-                  href="/guarantee/"
-                  data-track={`pricing-guarantee-${plan.id}`}
-                >
-                  Read the 90-Day Money-Back Guarantee <span>↗</span>
                 </a>
               </article>
             ))
           }
         </div>
         <p class="below-card-note">
-          Not sure which plan fits? <a href="/get-started/?review=free"
+          Not sure which plan fits? <a href="/free-inquiry-review/?review=free"
             >Get a free personal review before choosing.</a
           >
         </p>
@@ -521,41 +499,10 @@ const schema = [
         <div class="button-row">
           <a
             class="button"
-            href="/get-started/?review=free"
+            href="/free-inquiry-review/?review=free"
             data-track="pricing-help-choose"
             >Help Me Choose My Plan <span>→</span></a
           >
-        </div>
-      </div>
-    </section>
-
-    <section class="section guarantee-pricing-section" id="pricing-guarantee">
-      <div class="container guarantee-pricing-card" data-reveal>
-        <div>
-          <p class="eyebrow"><span></span> 90-day protection</p>
-          <h2>What Happens If Nothing Is Removed Within 90 Days?</h2>
-          <p>
-            If no inquiry is removed within 90 days, you may request a refund
-            under the written 90-day money-back guarantee. This promise protects
-            you from paying for a process that produces no removals during the
-            guarantee period.
-          </p>
-          <a
-            class="button"
-            href="/guarantee/"
-            data-track="pricing-guarantee-main"
-            >Read the 90-Day Money-Back Guarantee <span>→</span></a
-          >
-        </div>
-        <div class="guarantee-terms">
-          <strong>The complete written terms explain:</strong>
-          <ul>
-            <li>The refund amount</li><li>When the 90-day period begins</li><li>
-              How and when to submit a request
-            </li><li>Required client cooperation</li><li>Any exclusions</li><li>
-              Whether continued service remains available after day 90
-            </li>
-          </ul>
         </div>
       </div>
     </section>
@@ -599,26 +546,26 @@ const schema = [
         </p>
         <h2>Ready to Choose Your Inquiry Removal Plan?</h2>
         <p>
-          Select the range that matches your reports and begin online today. If
-          you are unsure of the count, start with a free review and let us help
-          organize the inquiry problem first.
+          Select the range that matches your reports. If you are unsure of the
+          count, start with a free review and let us help organize the inquiry
+          problem first.
         </p>
         <div class="button-row button-row--center">
           <a
             class="button button--large"
-            href="/get-started/?start=online"
+            href="/free-inquiry-review/?plan=help"
             data-track="pricing-final-start"
-            >Start My Inquiry Removal <span>→</span></a
+            >Help Me Choose My Plan <span>→</span></a
           >
           <a
             class="text-link text-link--light"
-            href="/get-started/?review=free"
+            href="/free-inquiry-review/?review=free"
             data-track="pricing-final-review"
             >Get My Free Inquiry Review <span>↘</span></a
           >
         </div>
         <p class="cta-microcopy">
-          One-time pricing. No monthly fees. Response within 24 hours.
+          One-time pricing. No monthly membership. Free personal review.
         </p>
       </div>
     </section>
@@ -657,7 +604,7 @@ const schema = [
     review: [
       "Not sure of your count?",
       "Start with a free personal inquiry review.",
-      "/get-started/?review=free",
+      "/free-inquiry-review/?review=free",
       "Get My Free Inquiry Review",
     ],
   } as const;

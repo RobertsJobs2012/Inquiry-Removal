@@ -121,7 +121,7 @@ const situations = [
       "You do not need to diagnose the problem before contacting us. Show us the reports, explain what you remember, and let our team sort through the details.",
     ],
     link: "Tell Us What Happened",
-    href: "/get-started/?situation=different",
+    href: "/free-inquiry-review/?situation=different",
     visual: "focus",
   },
 ];
@@ -206,7 +206,7 @@ const faqs = [
   ],
   [
     "What if none of these situations describes my case?",
-    "Choose “My situation is different” on the free-review form and describe what happened in your own words. Inquiry problems do not always fit a standard category. Our team will review the reports and circumstances rather than forcing your experience into the wrong box.",
+    "Call for a free review and describe what happened in your own words. Inquiry problems do not always fit a standard category. We review the reports and circumstances rather than forcing your experience into the wrong box.",
   ],
 ];
 
@@ -287,16 +287,14 @@ const schema = [
           what actually happened.
         </p>
         <div class="button-row">
-          <a class="button" href="/get-started/"
+          <a class="button" href="/free-inquiry-review/"
             >Get My Free Inquiry Review <span>→</span></a
-          ><a
-            class="text-link text-link--light"
-            href="/get-started/?start=online"
-            >Start My Inquiry Removal Online <span>↘</span></a
+          ><a class="text-link text-link--light" href="/free-inquiry-review/"
+            >Talk With a Specialist <span>↘</span></a
           >
         </div>
         <p class="cta-microcopy">
-          Tell us what happened. We will respond within 24 hours.
+          Tell a specialist what happened and what you want to do next.
         </p>
       </div>
     </section>
@@ -388,7 +386,9 @@ const schema = [
                       <a class="text-link" href={situation.href}>
                         {situation.link} <span>→</span>
                       </a>
-                      <a href={`/get-started/?situation=${situation.id}`}>
+                      <a
+                        href={`/free-inquiry-review/?situation=${situation.id}`}
+                      >
                         Review My Situation →
                       </a>
                     </>
@@ -411,7 +411,7 @@ const schema = [
             different stories behind them. A dealership submission,
             identity-theft application, duplicate entry, and unexpected hard
             pull should not be treated like the same event.
-          </p><a class="button" href="/get-started/"
+          </p><a class="button" href="/free-inquiry-review/"
             >Review My Situation <span>→</span></a
           >
         </div>
@@ -462,9 +462,9 @@ const schema = [
           longer, and rare cases can extend to 120 days.
         </p>
         <div class="section-cta">
-          <a class="button" href="/get-started/"
+          <a class="button" href="/free-inquiry-review/"
             >Get My Free Inquiry Review <span>→</span></a
-          ><p>Free review. No monthly fees. Response within 24 hours.</p><a
+          ><p>Free review. No pressure. No monthly membership.</p><a
             class="text-link"
             href="/how-it-works/"
             >See How the Hard Inquiry Removal Process Works <span>→</span></a
@@ -545,15 +545,13 @@ const schema = [
           no longer belongs on your reports. Now let a company that focuses
           exclusively on hard inquiry removal review the complete picture.
         </p><div class="button-row button-row--center">
-          <a class="button button--large" href="/get-started/"
+          <a class="button button--large" href="/free-inquiry-review/"
             >Get My Free Inquiry Review <span>→</span></a
-          ><a
-            class="text-link text-link--light"
-            href="/get-started/?start=online"
-            >Start My Inquiry Removal Online <span>→</span></a
+          ><a class="text-link text-link--light" href="/free-inquiry-review/"
+            >Talk With a Specialist <span>→</span></a
           >
         </div><p class="cta-microcopy">
-          Tell us what happened. We will respond within 24 hours.
+          Talk through the situation with a specialist.
         </p>
       </div>
     </section>

@@ -131,13 +131,13 @@ const resourceCards = [
                 </p>
                 <h2>Call Inquiry Removal.</h2>
                 <p>
-                  Call <a href="tel:+16023776626">(602) 377-6626</a> to speak
-                  with Inquiry Removal about a hard inquiry review.
+                  <a href="tel:+16023776626">Call Inquiry Removal</a> to speak
+                  with a specialist about a hard inquiry review.
                 </p>
               </div>
             )
           }
-          <a class="button button--small" href="/free-inquiry-analysis/"
+          <a class="button button--small" href="/free-inquiry-review/"
             >Free Review →</a
           >
           {
@@ -149,116 +149,6 @@ const resourceCards = [
           }
         </aside>
         <div class="content-body">
-          {
-            page.kind === "analysis" && (
-              <div class="analysis-panel">
-                <div>
-                  <p class="eyebrow">
-                    <span /> Secure intake preview
-                  </p>
-                  <h2>Tell us what you’re seeing.</h2>
-                  <p>
-                    The intake experience is designed, but submission is
-                    intentionally disabled until secure storage, consent
-                    language, and the service workflow are finalized.
-                  </p>
-                </div>
-                <form class="analysis-form" onsubmit="return false">
-                  <div class="field">
-                    <>
-                      <label for="name">Full name</label>
-                      <input
-                        id="name"
-                        name="name"
-                        autocomplete="name"
-                        placeholder="Your name"
-                      />
-                    </>
-                  </div>
-                  <div class="field">
-                    <>
-                      <label for="phone">Phone</label>
-                      <input
-                        id="phone"
-                        name="phone"
-                        autocomplete="tel"
-                        inputmode="tel"
-                        placeholder="(000) 000-0000"
-                      />
-                    </>
-                  </div>
-                  <div class="field field--full">
-                    <>
-                      <label for="email">Email</label>
-                      <input
-                        id="email"
-                        name="email"
-                        type="email"
-                        autocomplete="email"
-                        placeholder="you@example.com"
-                      />
-                    </>
-                  </div>
-                  <div class="field">
-                    <>
-                      <label for="situation">Situation</label>
-                      <select id="situation" name="situation">
-                        <>
-                          <option>Choose one</option>
-                          <option>Dealership inquiries</option>
-                          <option>Unknown inquiries</option>
-                          <option>Identity theft</option>
-                          <option>Preparing for financing</option>
-                          <option>Not sure</option>
-                        </>
-                      </select>
-                    </>
-                  </div>
-                  <div class="field">
-                    <>
-                      <label for="count">Approximate inquiry count</label>
-                      <select id="count" name="count">
-                        <>
-                          <option>Not sure</option>
-                          <option>1–10</option>
-                          <option>11–30</option>
-                          <option>31+</option>
-                        </>
-                      </select>
-                    </>
-                  </div>
-                  <div class="field field--full">
-                    <>
-                      <label for="notes">What would you like us to know?</label>
-                      <textarea
-                        id="notes"
-                        name="notes"
-                        placeholder="Do not enter Social Security numbers or other highly sensitive information."
-                      />
-                    </>
-                  </div>
-                  <button
-                    class="button field--full"
-                    type="button"
-                    disabled
-                    aria-describedby="form-note"
-                  >
-                    Secure submission coming before launch
-                  </button>
-                  <p class="form-note" id="form-note">
-                    This preview does not transmit or store information.
-                  </p>
-                  <a
-                    class="form-call-fallback field--full"
-                    href="tel:+16023776626"
-                  >
-                    Prefer to speak now? Call (602) 377-6626.
-                  </a>
-                </form>
-              </div>
-            )
-          }
-
           {
             page.sections.map((section, index) => (
               <section id={`section-${index + 1}`} data-reveal>

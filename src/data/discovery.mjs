@@ -1,7 +1,7 @@
 export const SITE_ORIGIN = "https://www.inquiryremoval.com";
 
 // These routes remain available for review, but are intentionally excluded
-// from search until their final content or secure workflow is approved.
+// from search until each route is complete and intentionally approved for indexing.
 export const NON_INDEXABLE_PATHS = new Set([
   "/about/",
   "/accessibility/",
@@ -13,6 +13,7 @@ export const NON_INDEXABLE_PATHS = new Set([
   "/equifax-inquiry-disputes/",
   "/experian-inquiry-disputes/",
   "/free-inquiry-analysis/",
+  "/free-inquiry-review/",
   "/get-started/",
   "/guarantee/",
   "/privacy/",
@@ -23,6 +24,13 @@ export const NON_INDEXABLE_PATHS = new Set([
   "/text-message-terms/",
   "/transunion-inquiry-disputes/",
   "/unauthorized-hard-inquiries/",
+  "/unauthorized-inquiries/",
+  "/identity-theft-inquiries/",
+  "/soft-pull-became-hard-inquiry/",
+  "/duplicate-inquiries/",
+  "/unrecognized-inquiries/",
+  "/incorrect-person-inquiries/",
+  "/authorized-inquiry-removal/",
 ]);
 
 export const isIndexablePath = (pathname) => !NON_INDEXABLE_PATHS.has(pathname);

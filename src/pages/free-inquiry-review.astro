@@ -1,0 +1,108 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import PhoneReviewPanel from "../components/PhoneReviewPanel.astro";
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://www.inquiryremoval.com/",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Free Inquiry Review",
+        item: "https://www.inquiryremoval.com/free-inquiry-review/",
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Free Hard Inquiry Review | Inquiry Removal"
+  description="Speak with an Inquiry Removal specialist for a free personal review of unwanted hard inquiries across Experian, Equifax, and TransUnion."
+  robots="noindex, follow"
+  {schema}
+  theme="dark"
+>
+  <Header dark />
+  <main id="main-content" tabindex="-1">
+    <section class="page-hero review-page-hero">
+      <div class="container page-hero-grid">
+        <div>
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="/">Home</a><span>/</span><span>Free Inquiry Review</span>
+          </nav>
+          <p class="eyebrow eyebrow--light">
+            <span></span> Free personal review
+          </p>
+          <h1>Let’s Start With What Happened.</h1>
+          <p>
+            Every inquiry situation begins with context. Tell us what you see,
+            what you remember, and what you are working toward next.
+          </p>
+        </div>
+        <div class="page-hero-aside">
+          <span>No pressure</span>
+          <span>All three credit bureaus</span>
+          <span>Nationwide service</span>
+        </div>
+      </div>
+    </section>
+
+    <PhoneReviewPanel
+      title="Talk through your inquiry situation."
+      description="A specialist will help you organize the inquiry names, dates, affected credit reports, and circumstances surrounding what happened."
+    />
+
+    <section class="section review-prep-section">
+      <div class="container">
+        <div class="section-heading split-heading" data-reveal>
+          <div>
+            <p class="eyebrow"><span></span> Before you call</p>
+            <h2>Bring the facts you already have.</h2>
+          </div>
+          <p>
+            You do not need to understand every creditor name or know exactly
+            which removal path applies. An estimate is enough to begin.
+          </p>
+        </div>
+        <div class="review-prep-grid" data-reveal>
+          <article>
+            <span>01</span>
+            <h3>The affected reports</h3>
+            <p>
+              Know whether the inquiries appear on Experian, Equifax,
+              TransUnion, or more than one report.
+            </p>
+          </article>
+          <article>
+            <span>02</span>
+            <h3>What happened</h3>
+            <p>
+              Think about the application, dealership visit, unfamiliar company,
+              duplicate entry, or identity-theft event involved.
+            </p>
+          </article>
+          <article>
+            <span>03</span>
+            <h3>Your next goal</h3>
+            <p>
+              Tell us whether you are preparing for a home, vehicle, business
+              funding, credit card, or another important application.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>

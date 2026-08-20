@@ -3,15 +3,15 @@ const { dark = false, announcement = false } = Astro.props;
 const nav = [
   ["How It Works", "/how-it-works/"],
   ["Situations We Handle", "/situations-we-handle/"],
-  ["Results", "/results/"],
   ["Pricing", "/pricing/"],
-  ["Resources", "/resources/"],
-  ["About", "/about/"],
+  ["FAQ", "/faq/"],
 ];
 const currentPath = Astro.url.pathname;
-const isIntakePage = ["/get-started/", "/free-inquiry-analysis/"].includes(
-  currentPath,
-);
+const isIntakePage = [
+  "/free-inquiry-review/",
+  "/get-started/",
+  "/free-inquiry-analysis/",
+].includes(currentPath);
 const isCurrent = (href: string) =>
   href === "/" ? currentPath === href : currentPath.startsWith(href);
 ---
@@ -67,7 +67,7 @@ const isCurrent = (href: string) =>
         aria-label="Call Inquiry Removal at 602-377-6626"
         >Call Inquiry Removal</a
       >
-      <a class="button button--small" href="/get-started/"
+      <a class="button button--small" href="/free-inquiry-review/"
         >Get My Free Review <span>→</span></a
       >
       <button
@@ -103,9 +103,9 @@ const isCurrent = (href: string) =>
       class="mobile-nav__phone"
       href="tel:+16023776626"
       aria-label="Call Inquiry Removal at 602-377-6626"
-      >Call (602) 377-6626 <span>↗</span></a
+      >Call Inquiry Removal <span>↗</span></a
     >
-    <a class="button mobile-nav__cta" href="/get-started/"
+    <a class="button mobile-nav__cta" href="/free-inquiry-review/"
       >Get My Free Review <span>→</span></a
     >
     <p class="mobile-nav__trust">Hard inquiry specialists since 2015.</p>
@@ -114,7 +114,7 @@ const isCurrent = (href: string) =>
 
 {
   !isIntakePage && (
-    <a class="mobile-cta" href="/get-started/" data-mobile-cta>
+    <a class="mobile-cta" href="/free-inquiry-review/" data-mobile-cta>
       Get My Free Review <span>→</span>
     </a>
   )

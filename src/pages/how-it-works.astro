@@ -3,7 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 import InquiryLine from "../components/InquiryLine.astro";
-import InquiryReviewForm from "../components/InquiryReviewForm.astro";
+import PhoneReviewPanel from "../components/PhoneReviewPanel.astro";
 import PageJumpNav from "../components/PageJumpNav.astro";
 
 const heroStages = [
@@ -121,10 +121,6 @@ const timing = [
     "Rare extended cases",
     "Some cases involve delayed responses, conflicting report information, identity-theft documentation, or several companies. These situations can extend beyond 90 days and may reach 120 days.",
   ],
-  [
-    "The 90-day money-back promise",
-    "If no inquiry is removed within 90 days, you may request a refund under the written guarantee terms. Complete eligibility, procedure, deadline, exclusion, and continued-service details appear in those terms.",
-  ],
 ];
 
 const faqs = [
@@ -138,7 +134,7 @@ const faqs = [
   ],
   [
     "What if I do not know how many inquiries I have?",
-    "You can still request a free review. Choose “I am not sure” on the form and explain what led you to contact us. We will help you identify the inquiry count after reviewing the affected credit reports.",
+    "You can still request a free review. Tell the specialist what led you to contact us, and we will help you identify the inquiry count after reviewing the affected credit reports.",
   ],
   [
     "What happens when I receive a bureau response?",
@@ -149,8 +145,8 @@ const faqs = [
     "We review the responses and continue with additional removal rounds as needed under your service agreement. Inquiry Removal does not treat the service as a one-letter transaction or stop automatically after the first response cycle.",
   ],
   [
-    "Can I begin the process completely online?",
-    "Yes. You can begin online by completing the inquiry-review form and selecting the online-start option. Our team will contact you within 24 hours or sooner, explain what is needed, and guide you through the remaining intake steps.",
+    "How do I begin the process?",
+    "Start by calling Inquiry Removal for a free personal review. A specialist will explain what information is useful, discuss the affected reports, and guide you through the next steps before any paid work begins.",
   ],
   [
     "How will I know when an inquiry has been removed?",
@@ -233,14 +229,12 @@ const schema = [
         <div class="button-row">
           <a class="button" href="#free-review"
             >Get My Free Inquiry Review <span>→</span></a
-          ><a
-            class="text-link text-link--light"
-            href="/get-started/?start=online"
-            >Start My Inquiry Removal Online <span>↘</span></a
+          ><a class="text-link text-link--light" href="/free-inquiry-review/"
+            >Talk With a Specialist <span>↘</span></a
           >
         </div>
         <p class="cta-microcopy">
-          Free personal review. No monthly fees. Response within 24 hours.
+          Free personal review. No pressure. No monthly membership.
         </p>
         <details class="hero-mobile-details">
           <summary>Read the full process</summary>
@@ -298,9 +292,9 @@ const schema = [
             accomplish after they are removed. We do more than count names on a
             report. We listen to the complete story.
           </p><p>
-            You can reach this step by completing the website form, scheduling a
-            call, or starting online. If you are unsure how many inquiries you
-            have or which category describes them, that is completely fine.
+            Start with a call to Inquiry Removal. If you are unsure how many
+            inquiries you have or which category describes them, that is
+            completely fine.
           </p><a class="text-link" href="/situations-we-handle/"
             >See the Hard Inquiry Situations We Handle <span>→</span></a
           >
@@ -344,9 +338,10 @@ const schema = [
             ))
           }
         </div><p class="secure-note">
-          <strong>Secure-document rule:</strong> The initial public form never requests
-          Social Security numbers, birth dates, bureau passwords, or full credit reports.
-          Sensitive documents are collected later through a secure transfer method.
+          <strong>Protect sensitive information:</strong> Do not send Social Security
+          numbers, birth dates, bureau passwords, payment information, or full credit
+          reports through a public website form. The initial call does not require
+          them.
         </p>
       </div>
     </section>
@@ -401,7 +396,10 @@ const schema = [
         </div><div class="section-cta section-cta--dark">
           <a class="button" href="#free-review"
             >Get My Free Inquiry Review <span>→</span></a
-          ><p>Tell us what happened. We will respond within 24 hours.</p>
+          ><p>
+            Tell a specialist what happened and what you want to accomplish
+            next.
+          </p>
         </div>
       </div>
     </section>
@@ -512,7 +510,10 @@ const schema = [
       </div>
     </section>
 
-    <InquiryReviewForm />
+    <PhoneReviewPanel
+      title="Talk through the process with a specialist."
+      description="Begin with your affected reports, the inquiries you want reviewed, and a clear explanation of what happened."
+    />
 
     <section class="final-cta dark-section">
       <div class="final-lines" aria-hidden="true">
@@ -528,13 +529,11 @@ const schema = [
         </p><div class="button-row button-row--center">
           <a class="button button--large" href="#free-review"
             >Get My Free Inquiry Review <span>→</span></a
-          ><a
-            class="text-link text-link--light"
-            href="/get-started/?start=online"
-            >Start My Inquiry Removal Online <span>→</span></a
+          ><a class="text-link text-link--light" href="/free-inquiry-review/"
+            >Talk With a Specialist <span>→</span></a
           >
         </div><p class="cta-microcopy">
-          Free review. No monthly fees. Response within 24 hours.
+          Free review. No pressure. No monthly membership.
         </p>
       </div>
     </section>

@@ -1,0 +1,50 @@
+---
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  description?: string;
+}
+
+const {
+  eyebrow = "Free personal review",
+  title = "Start with a real conversation.",
+  description = "Tell us what happened, which inquiries concern you, and what you are preparing for next. A focused review helps organize the situation before you decide how to proceed.",
+} = Astro.props;
+---
+
+<section class="intake-section dark-section" id="free-review">
+  <div class="container phone-review-layout">
+    <div class="intake-intro" data-reveal>
+      <p class="eyebrow eyebrow--light"><span></span>{eyebrow}</p>
+      <h2>{title}</h2>
+      <p>{description}</p>
+      <div class="intake-security">
+        <strong>Private by design</strong>
+        <span>
+          Never provide a Social Security number, date of birth, credit-report
+          login, payment information, or report upload during the initial call.
+        </span>
+      </div>
+    </div>
+    <aside class="phone-review-card" data-reveal aria-label="Call for a review">
+      <p class="eyebrow"><span></span> Speak with a specialist</p>
+      <h3>Call Inquiry Removal.</h3>
+      <p>
+        We will listen to the situation, explain what information is useful, and
+        help you identify the clearest next step.
+      </p>
+      <a
+        class="button button--large"
+        href="tel:+16023776626"
+        aria-label="Call Inquiry Removal at 602-377-6626"
+      >
+        Call Inquiry Removal <span>→</span>
+      </a>
+      <ul>
+        <li>No pressure</li>
+        <li>No sensitive documents during the first call</li>
+        <li>Nationwide service</li>
+      </ul>
+    </aside>
+  </div>
+</section>

@@ -1583,34 +1583,6 @@ summary:focus-visible {
   overflow: hidden;
   background: var(--navy-2);
 }
-.founder-placeholder {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  color: #49647a;
-  background: radial-gradient(circle at 50% 35%, #183c59, #0a2236 65%);
-}
-.founder-placeholder::before {
-  width: 160px;
-  height: 210px;
-  margin-bottom: 24px;
-  border: 1px solid rgba(121, 199, 255, 0.16);
-  border-radius: 70px 70px 20px 20px;
-  background: linear-gradient(rgba(121, 199, 255, 0.07), transparent);
-  content: "";
-}
-.founder-placeholder span {
-  font-family: var(--display);
-  font-size: 0.7rem;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-.founder-placeholder small {
-  font-size: 0.55rem;
-}
 .founder-card > div:last-child {
   position: absolute;
   right: 38px;
@@ -2255,6 +2227,65 @@ summary:focus-visible {
 .intake-intro > p:not(.eyebrow) {
   color: #a8bdcc;
 }
+.phone-review-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(420px, 1.15fr);
+  align-items: start;
+  gap: 80px;
+}
+.phone-review-card {
+  padding: clamp(34px, 5vw, 56px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+  color: var(--ink);
+  background: white;
+  box-shadow: 0 35px 80px rgba(0, 0, 0, 0.22);
+}
+.phone-review-card h3 {
+  margin: 18px 0;
+  font-size: clamp(2rem, 3.5vw, 3.25rem);
+}
+.phone-review-card > p:not(.eyebrow) {
+  color: var(--slate);
+}
+.phone-review-card .button {
+  width: 100%;
+  margin-top: 24px;
+}
+.phone-review-card ul {
+  display: grid;
+  margin: 30px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.phone-review-card li {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: 10px;
+  padding: 13px 0;
+  border-top: 1px solid var(--border);
+  color: var(--slate);
+  font-size: 0.76rem;
+}
+.phone-review-card li::before {
+  color: var(--teal-dark);
+  content: "✓";
+  font-weight: 900;
+}
+.guided-review-complete {
+  display: grid;
+  gap: 8px;
+  margin: 30px 0;
+  padding: 22px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--ice);
+}
+.guided-review-complete span {
+  color: var(--slate);
+  font-size: 0.76rem;
+  line-height: 1.65;
+}
 .intake-security {
   display: grid;
   gap: 4px;
@@ -2274,6 +2305,41 @@ summary:focus-visible {
   color: var(--ink);
   background: white;
   box-shadow: 0 35px 80px rgba(0, 0, 0, 0.22);
+}
+.review-page-hero h1 {
+  max-width: 880px;
+}
+.review-prep-section {
+  background: var(--ice);
+}
+.review-prep-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--border);
+  border-left: 1px solid var(--border);
+}
+.review-prep-grid article {
+  min-height: 260px;
+  padding: 34px;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: white;
+}
+.review-prep-grid article > span {
+  color: var(--teal-dark);
+  font-family: var(--display);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+.review-prep-grid h3 {
+  margin: 42px 0 14px;
+  font-size: 1.35rem;
+}
+.review-prep-grid p {
+  margin: 0;
+  color: var(--slate);
+  font-size: 0.78rem;
 }
 .form-progress {
   display: grid;
@@ -4179,53 +4245,6 @@ summary:focus-visible {
 .dealer-proof-grid > div > p:not(.eyebrow) {
   color: var(--slate);
 }
-.dealer-case-placeholder {
-  position: relative;
-  overflow: hidden;
-  min-height: 430px;
-  padding: 45px;
-  border: 1px solid rgba(15, 165, 138, 0.35);
-  border-radius: 14px;
-  background: white;
-}
-.dealer-case-placeholder > span {
-  color: var(--teal);
-  font-size: 0.62rem;
-  font-weight: 800;
-  letter-spacing: 0.14em;
-}
-.dealer-case-placeholder h3 {
-  max-width: 540px;
-  margin: 45px 0 18px;
-  font-size: 2.35rem;
-}
-.dealer-case-placeholder p {
-  max-width: 600px;
-  color: var(--slate);
-}
-.dealer-case-placeholder > div {
-  position: absolute;
-  right: 45px;
-  bottom: 40px;
-  left: 45px;
-}
-.dealer-case-placeholder i {
-  display: block;
-  width: 80%;
-  height: 8px;
-  margin-top: 10px;
-  border-radius: 8px;
-  background: #dce7ee;
-}
-.dealer-case-placeholder i:nth-child(2) {
-  width: 64%;
-}
-.dealer-case-placeholder i:nth-child(3) {
-  width: 91%;
-}
-.dealer-case-placeholder i:nth-child(4) {
-  width: 48%;
-}
 .dealership-intake .intake-intro {
   top: 130px;
 }
@@ -4378,6 +4397,9 @@ summary:focus-visible {
     display: none;
   }
   .intake-layout {
+    grid-template-columns: 1fr;
+  }
+  .phone-review-layout {
     grid-template-columns: 1fr;
   }
   .hub-orbit {
@@ -5042,18 +5064,6 @@ summary:focus-visible {
   .next-goal-card .button {
     width: 100%;
   }
-  .dealer-case-placeholder {
-    min-height: 470px;
-    padding: 30px 24px;
-  }
-  .dealer-case-placeholder h3 {
-    font-size: 1.9rem;
-  }
-  .dealer-case-placeholder > div {
-    right: 24px;
-    bottom: 30px;
-    left: 24px;
-  }
   .dealership-contact-grid {
     grid-template-columns: 1fr;
   }
@@ -5255,6 +5265,22 @@ summary:focus-visible {
   .intake-form {
     width: 100%;
     padding: 26px 20px;
+  }
+  .phone-review-layout {
+    gap: 44px;
+  }
+  .phone-review-card {
+    padding: 30px 24px;
+  }
+  .review-prep-grid {
+    grid-template-columns: 1fr;
+  }
+  .review-prep-grid article {
+    min-height: auto;
+    padding: 30px 26px;
+  }
+  .review-prep-grid h3 {
+    margin-top: 28px;
   }
   .form-step > p:not(.field-heading, .form-connection-note),
   .form-choice span {
