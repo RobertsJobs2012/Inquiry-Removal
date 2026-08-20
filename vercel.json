@@ -47,13 +47,13 @@
     },
     {
       "source": "/experian-inquiry-disputes/",
-      "destination": "/situations-we-handle/",
-      "permanent": false
+      "destination": "/experian-hard-inquiry-removal/",
+      "permanent": true
     },
     {
       "source": "/equifax-inquiry-disputes/",
-      "destination": "/situations-we-handle/",
-      "permanent": false
+      "destination": "/equifax-hard-inquiry-removal/",
+      "permanent": true
     },
     {
       "source": "/transunion-inquiry-disputes/",

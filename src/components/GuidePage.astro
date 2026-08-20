@@ -1,0 +1,348 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "./Header.astro";
+import Footer from "./Footer.astro";
+import type { GuidePage } from "../data/guides";
+import { SITE_ORIGIN } from "../data/discovery.mjs";
+
+interface Props {
+  page: GuidePage;
+}
+
+const { page } = Astro.props;
+const canonical = `${SITE_ORIGIN}/${page.slug}/`;
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: `${SITE_ORIGIN}/`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: page.kind === "article" ? "Resources" : "Situations We Handle",
+        item: `${SITE_ORIGIN}/${page.kind === "article" ? "resources" : "situations-we-handle"}/`,
+      },
+      { "@type": "ListItem", position: 3, name: page.title, item: canonical },
+    ],
+  },
+  page.kind === "article"
+    ? {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        headline: page.title,
+        description: page.description,
+        author: { "@type": "Person", name: "Robert Garcia" },
+        publisher: { "@id": `${SITE_ORIGIN}/#organization` },
+        dateModified: "2026-08-20",
+        mainEntityOfPage: canonical,
+      }
+    : {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        name: page.title,
+        description: page.description,
+        serviceType: "Hard inquiry review and removal",
+        provider: { "@id": `${SITE_ORIGIN}/#organization` },
+        areaServed: { "@type": "Country", name: "United States" },
+        url: canonical,
+      },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: page.faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: { "@type": "Answer", text: faq.answer },
+    })),
+  },
+];
+---
+
+<BaseLayout
+  title={page.seoTitle}
+  description={page.description}
+  robots="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+  {schema}
+  theme="dark"
+>
+  <Header dark />
+  <main id="main-content" tabindex="-1" class="guide-page">
+    <section class="guide-hero dark-section">
+      <div class="container guide-hero__grid">
+        <div class="guide-hero__copy" data-reveal>
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="/">Home</a><span>/</span><a
+              href={page.kind === "article"
+                ? "/resources/"
+                : "/situations-we-handle/"}
+              >{page.kind === "article" ? "Resources" : "Situations"}</a
+            ><span>/</span><span>{page.title}</span>
+          </nav>
+          <p class="eyebrow eyebrow--light"><span></span>{page.eyebrow}</p>
+          <h1>{page.title}</h1>
+          <p class="guide-hero__support">{page.supporting}</p>
+          <div class="button-row guide-hero__actions">
+            <a
+              class="button button--large"
+              href="/free-inquiry-review/#online-review"
+              >{page.primaryCta} <span>→</span></a
+            >
+            <a class="text-link text-link--light" href={page.secondaryTarget}
+              >{page.secondaryCta} <span>↘</span></a
+            >
+          </div>
+          <p class="cta-microcopy">
+            Free personal review. No pressure. Clear one-time pricing.
+          </p>
+        </div>
+
+        <div
+          class="guide-hero__visual"
+          role="img"
+          aria-label={`${page.title} visual placeholder`}
+          data-reveal
+        >
+          <div class="guide-visual__topline">
+            <span>Visual placeholder</span><i></i>
+          </div>
+          <strong>{page.eyebrow}</strong>
+          <div class="guide-visual__signal" aria-hidden="true">
+            <span></span><span></span><span></span><span></span>
+          </div>
+          <p>
+            A final branded graphic can replace this panel without changing the
+            page layout.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="guide-proof" aria-label="Company proof">
+      <div class="container guide-proof__grid">
+        <div><strong>100,437</strong><span>Inquiries removed</span></div>
+        <div><strong>1,123</strong><span>Clients served</span></div>
+        <div>
+          <strong>Since 2015</strong><span>Hard inquiry specialists</span>
+        </div>
+        <div><strong>4.9</strong><span>Average rating</span></div>
+      </div>
+      <p>
+        Individual results vary. No specific deletion, timeline, score increase,
+        or approval is guaranteed.
+      </p>
+    </section>
+
+    <nav class="guide-jump" aria-label="On this page">
+      <div class="container">
+        <span>On this page</span>
+        {
+          page.sections.map((section, index) => (
+            <a href={`#section-${index + 1}`}>{section.heading}</a>
+          ))
+        }
+        <a href="#questions">Questions</a>
+      </div>
+    </nav>
+
+    <section class="section guide-opening">
+      <div class="container guide-opening__grid">
+        <div class="guide-answer" data-reveal>
+          <p class="eyebrow"><span></span>{page.quickTitle}</p>
+          <p>{page.quickAnswer}</p>
+        </div>
+        <div class="guide-takeaways" data-reveal>
+          <span>What to know before you start</span>
+          <ul>
+            {page.takeaways.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
+      </div>
+      {
+        page.kind === "article" && (
+          <div class="container guide-author" data-reveal>
+            <div>
+              <>
+                <span>Written by</span>
+                <strong>Robert Garcia</strong>
+              </>
+            </div>
+            <div>
+              <>
+                <span>Role</span>
+                <strong>Founder &amp; Senior Credit Analyst</strong>
+              </>
+            </div>
+            <div>
+              <>
+                <span>Last reviewed</span>
+                <strong>August 2026</strong>
+              </>
+            </div>
+          </div>
+        )
+      }
+    </section>
+
+    <div class="guide-sections">
+      {
+        page.sections.map((section, index) => (
+          <section
+            class:list={[
+              "section",
+              "guide-section",
+              index % 2 === 1 && "guide-section--tint",
+            ]}
+            id={`section-${index + 1}`}
+          >
+            <div class="container guide-section__grid">
+              <div class="guide-section__number" aria-hidden="true">
+                {String(index + 1).padStart(2, "0")}
+              </div>
+              <div class="guide-section__content" data-reveal>
+                <h2>{section.heading}</h2>
+                {section.body.map((paragraph) => (
+                  <p>{paragraph}</p>
+                ))}
+                {section.bullets && (
+                  <ul class="guide-checklist">
+                    {section.bullets.map((bullet) => (
+                      <li>{bullet}</li>
+                    ))}
+                  </ul>
+                )}
+                {section.cards && (
+                  <div class="guide-card-grid">
+                    {section.cards.map((card) => (
+                      <article>
+                        <h3>{card.title}</h3>
+                        <p>{card.body}</p>
+                      </article>
+                    ))}
+                  </div>
+                )}
+                {section.visual && (
+                  <div
+                    class="guide-media-placeholder"
+                    role="img"
+                    aria-label={`${section.visual.title} placeholder`}
+                  >
+                    <div>
+                      <span>{section.visual.label}</span>
+                      <strong>{section.visual.title}</strong>
+                    </div>
+                    <div class="guide-media-placeholder__items">
+                      {section.visual.items.map((item) => (
+                        <span>{item}</span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </section>
+        ))
+      }
+    </div>
+
+    <section class="section guide-choice dark-section">
+      <div class="container guide-choice__grid">
+        <div data-reveal>
+          <p class="eyebrow eyebrow--light"><span></span>Your choice</p>
+          <h2>Handle it yourself—or have a specialist help.</h2>
+          <p>
+            Consumers can dispute inaccurate credit-report information directly
+            and for free. Inquiry Removal is for people who want a specialist to
+            organize the inquiries, prepare the appropriate communications, and
+            review what happens next.
+          </p>
+        </div>
+        <div class="guide-choice__actions" data-reveal>
+          <a
+            class="button button--large"
+            href="/free-inquiry-review/#online-review"
+            >{page.primaryCta} <span>→</span></a
+          >
+          <a class="text-link text-link--light" href="/pricing/"
+            >See one-time pricing <span>→</span></a
+          >
+        </div>
+      </div>
+    </section>
+
+    <section class="section guide-faq" id="questions">
+      <div class="container guide-faq__grid">
+        <div data-reveal>
+          <p class="eyebrow"><span></span>Questions answered</p>
+          <h2>{page.eyebrow} questions.</h2>
+          <p>Clear answers without promises the facts cannot support.</p>
+        </div>
+        <div class="guide-faq__list" data-reveal>
+          {
+            page.faqs.map((faq, index) => (
+              <details open={index === 0}>
+                <summary>
+                  {faq.question}
+                  <span aria-hidden="true">+</span>
+                </summary>
+                <p>{faq.answer}</p>
+              </details>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="section guide-related">
+      <div class="container guide-related__grid">
+        <div>
+          <p class="eyebrow"><span></span>Keep learning</p>
+          <h2>Related hard inquiry guides.</h2>
+          <div class="guide-related__links">
+            {
+              page.related.map((link) => (
+                <a href={link.href}>
+                  {link.label}
+                  <span>→</span>
+                </a>
+              ))
+            }
+          </div>
+        </div>
+        <aside>
+          <span>Official consumer resources</span>
+          {
+            page.sources.map((source) => (
+              <a href={source.href} rel="external noopener">
+                {source.label}
+                <span>↗</span>
+              </a>
+            ))
+          }
+        </aside>
+      </div>
+    </section>
+
+    <section class="guide-final dark-section">
+      <div class="container" data-reveal>
+        <p class="eyebrow eyebrow--light"><span></span>Free personal review</p>
+        <h2>Stop guessing about the inquiries on your report.</h2>
+        <p>
+          Start with the exact companies, dates, bureaus, and circumstances.
+          Then decide what makes sense.
+        </p>
+        <a
+          class="button button--large"
+          href="/free-inquiry-review/#online-review"
+          >{page.primaryCta} <span>→</span></a
+        >
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>
