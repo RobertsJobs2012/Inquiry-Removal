@@ -1,0 +1,303 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import { SITE_ORIGIN } from "../data/discovery.mjs";
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: `${SITE_ORIGIN}/`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Privacy Policy",
+        item: `${SITE_ORIGIN}/privacy/`,
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Privacy Policy | Inquiry Removal"
+  description="Read the Inquiry Removal privacy policy, including how website and free-review information is collected, used, protected, and shared."
+  robots="noindex, follow"
+  {schema}
+  theme="dark"
+>
+  <Header dark />
+  <main id="main-content" tabindex="-1">
+    <section class="page-hero">
+      <div class="container page-hero-grid">
+        <div>
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="/">Home</a><span>/</span><span>Privacy Policy</span>
+          </nav>
+          <p class="eyebrow eyebrow--light">
+            <span></span> Privacy and data use
+          </p>
+          <h1>Privacy Policy</h1>
+          <p>
+            This policy explains what information Inquiry Removal collects
+            through this website, why we use it, the service providers involved,
+            and the choices available to you.
+          </p>
+        </div>
+        <aside class="page-hero-aside" aria-label="Privacy policy details">
+          <span>Last updated: August 20, 2026</span>
+          <span>Applies to inquiryremoval.com</span>
+          <span>Nationwide website visitors and clients</span>
+        </aside>
+      </div>
+    </section>
+
+    <section class="page-content">
+      <div class="container content-shell">
+        <nav class="content-index" aria-label="Privacy policy sections">
+          <p>On this page</p>
+          <a href="#overview">Overview</a>
+          <a href="#information-we-collect">Information we collect</a>
+          <a href="#how-we-use-information">How we use information</a>
+          <a href="#service-providers">Service providers</a>
+          <a href="#analytics">Analytics and technology</a>
+          <a href="#sharing">When information may be shared</a>
+          <a href="#sensitive-information">Sensitive information</a>
+          <a href="#retention-security">Retention and security</a>
+          <a href="#rights-choices">Your rights and choices</a>
+          <a href="#children">Children</a>
+          <a href="#third-party-links">Third-party links</a>
+          <a href="#changes">Changes to this policy</a>
+          <a href="#contact">Contact us</a>
+        </nav>
+
+        <div class="content-body">
+          <section id="overview">
+            <h2>1. Overview</h2>
+            <p>
+              Inquiry Removal provides hard-inquiry review and removal assistance.
+              This Privacy Policy applies to information collected through
+              inquiryremoval.com, including information you submit when requesting
+              a free inquiry review, contacting us, or otherwise interacting with
+              the website.
+            </p>
+            <p>
+              This policy does not replace any privacy, authorization, or data-use
+              terms that may be included in a separate written service agreement.
+              If you become a client, additional terms may apply to information
+              that is reasonably necessary to perform the services you request.
+            </p>
+          </section>
+
+          <section id="information-we-collect">
+            <h2>2. Information We Collect</h2>
+            <h3>Information you provide directly</h3>
+            <p>
+              When you request a free review or contact Inquiry Removal, you may
+              provide information such as your name, email address, phone number,
+              preferred contact method, general credit goal, the type of inquiry
+              situation involved, approximate inquiry count, affected credit
+              bureaus, whether you have current reports, and any optional notes
+              you choose to provide.
+            </p>
+            <h3>Communications</h3>
+            <p>
+              If you communicate with us by phone, email, or through the website,
+              we may keep the information you provide and records reasonably
+              necessary to respond, document the request, provide service, or
+              maintain business records.
+            </p>
+            <h3>Technical and usage information</h3>
+            <p>
+              The website may automatically generate technical information such
+              as page views, referring pages, device or browser information,
+              approximate location derived from network information, performance
+              measurements, IP-related network data, and other diagnostic or
+              security information generated when the site is used.
+            </p>
+          </section>
+
+          <section id="how-we-use-information">
+            <h2>3. How We Use Information</h2>
+            <p>We may use information collected through the website to:</p>
+            <ul>
+              <li>Respond to free-review requests and other inquiries.</li>
+              <li>Understand the inquiry situation you ask us to review.</li>
+              <li>Communicate with you using the contact information you provide.</li>
+              <li>Provide, administer, and document requested services.</li>
+              <li>Operate, maintain, troubleshoot, and improve the website.</li>
+              <li>Measure website performance and understand general site usage.</li>
+              <li>Detect abuse, protect the website, and maintain security.</li>
+              <li>Comply with applicable legal, regulatory, or recordkeeping obligations.</li>
+            </ul>
+          </section>
+
+          <section id="service-providers">
+            <h2>4. Website Forms and Service Providers</h2>
+            <p>
+              Inquiry Removal uses third-party service providers to operate parts
+              of the website. Those providers may process information on our
+              behalf or receive technical information as part of delivering their
+              services.
+            </p>
+            <h3>Google Forms</h3>
+            <p>
+              The free inquiry review currently uses Google Forms as a submission
+              endpoint. Information entered into the review form is transmitted
+              to Google as part of that submission and made available to Inquiry
+              Removal for review. Google's handling of information is also subject
+              to its applicable privacy terms. You can review Google's
+              <a class="inline-link" href="https://policies.google.com/privacy" rel="external noopener">Privacy Policy</a>.
+            </p>
+            <h3>Vercel</h3>
+            <p>
+              The website is hosted on Vercel and uses Vercel Analytics and Speed
+              Insights. Vercel may process website traffic, network, device,
+              performance, telemetry, and other service-generated information in
+              connection with hosting, security, analytics, and performance
+              measurement. You can review Vercel's
+              <a class="inline-link" href="https://vercel.com/legal/privacy-notice" rel="external noopener">Privacy Notice</a>.
+            </p>
+          </section>
+
+          <section id="analytics">
+            <h2>5. Analytics, Cookies, and Similar Technology</h2>
+            <p>
+              We use website analytics and performance tools to understand how the
+              site is functioning and how visitors use it. Depending on the tool,
+              browser, and settings involved, these services may use cookies,
+              local storage, request information, or similar technologies.
+            </p>
+            <p>
+              You can control many browser-based technologies through your browser
+              settings. Blocking some technologies may affect how certain website
+              features operate.
+            </p>
+          </section>
+
+          <section id="sharing">
+            <h2>6. When Information May Be Shared</h2>
+            <p>
+              We may disclose information to service providers that help us host,
+              operate, secure, communicate through, or support the website and the
+              services you request. We may also disclose information when
+              reasonably necessary to comply with law, respond to valid legal
+              process, protect rights or safety, investigate misuse, or enforce
+              applicable agreements.
+            </p>
+            <p>
+              If the ownership or operation of the business changes through a
+              merger, acquisition, sale, reorganization, or similar transaction,
+              information may be transferred as part of that transaction subject
+              to applicable law.
+            </p>
+          </section>
+
+          <section id="sensitive-information">
+            <h2>7. Sensitive Information and the Initial Review</h2>
+            <p>
+              The initial website review does not require highly sensitive credit
+              or identity documents. Do not submit your Social Security number,
+              full date of birth, driver's license, credit-report login,
+              monitoring-service password, payment-card information, full account
+              numbers, or identity-theft report numbers through the initial public
+              review form.
+            </p>
+            <p>
+              If additional documentation becomes reasonably necessary after the
+              initial review, Inquiry Removal will explain what is needed and the
+              appropriate method for providing it.
+            </p>
+          </section>
+
+          <section id="retention-security">
+            <h2>8. Data Retention and Security</h2>
+            <p>
+              We retain information for as long as reasonably necessary for the
+              purpose for which it was collected, to provide requested services,
+              maintain appropriate business records, resolve disputes, enforce
+              agreements, or satisfy legal obligations. Retention periods can vary
+              depending on the type of information and the reason it was collected.
+            </p>
+            <p>
+              We use reasonable administrative and technical measures intended to
+              protect information in our control. No website, transmission method,
+              or storage system can be guaranteed to be completely secure.
+            </p>
+          </section>
+
+          <section id="rights-choices">
+            <h2>9. Your Privacy Rights and Choices</h2>
+            <p>
+              Depending on where you live and the law that applies, you may have
+              rights concerning personal information, which can include requesting
+              access, correction, deletion, or information about how it is used or
+              disclosed. Some rights are subject to exceptions and verification
+              requirements.
+            </p>
+            <p>
+              You may also ask us to update your contact information or tell us
+              that you no longer want a particular type of non-required
+              communication. To make a privacy request, use the contact methods in
+              the Contact Us section below. We will review requests as required by
+              applicable law.
+            </p>
+          </section>
+
+          <section id="children">
+            <h2>10. Children's Privacy</h2>
+            <p>
+              This website is not directed to children under 13, and Inquiry
+              Removal does not knowingly collect personal information from
+              children under 13 through the website. Paid credit-report assistance
+              is intended for individuals who are legally able to enter into the
+              applicable service agreement.
+            </p>
+          </section>
+
+          <section id="third-party-links">
+            <h2>11. Third-Party Websites and Resources</h2>
+            <p>
+              The website may link to credit bureaus, government agencies, service
+              providers, and other third-party resources. Inquiry Removal does not
+              control the privacy or security practices of those third parties.
+              Review their policies before providing information directly to them.
+            </p>
+          </section>
+
+          <section id="changes">
+            <h2>12. Changes to This Privacy Policy</h2>
+            <p>
+              We may update this Privacy Policy when our website, services,
+              providers, or legal obligations change. The "Last updated" date at
+              the top of the page identifies the current version. Material changes
+              may also be communicated through the website or another reasonable
+              method when appropriate.
+            </p>
+          </section>
+
+          <section id="contact">
+            <h2>13. Contact Us</h2>
+            <p>
+              Questions or privacy requests can be submitted through our
+              <a class="inline-link" href="/contact/">Contact page</a> or by calling
+              <a class="inline-link" href="tel:+16023776626">602-377-6626</a>.
+            </p>
+            <p>
+              For the rules governing use of this website, review our
+              <a class="inline-link" href="/terms/">Terms of Use</a>.
+            </p>
+          </section>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>
