@@ -114,11 +114,19 @@ const schema = [
             {heroDescription}
           </p>
           <div class="button-row">
-            <a class="button" href="#free-review"
+            <a
+              class="button"
+              href="#free-review"
+              data-event="Guided Review Open"
+              data-track="home-hero-guided"
+              data-context="homepage"
               >Get My Free Inquiry Review <span>→</span></a
             >
-            <a class="text-link text-link--light" href="/free-inquiry-review/"
-              >Talk With a Specialist <span>↘</span></a
+            <a
+              class="text-link text-link--light"
+              href="/free-inquiry-review/"
+              data-track="home-hero-specialist"
+              data-context="homepage">Talk With a Specialist <span>↘</span></a
             >
           </div>
           <p class="cta-microcopy">
@@ -696,6 +704,9 @@ const schema = [
             <a
               class="button button--large"
               href="/free-inquiry-review/#online-review"
+              data-track="home-guided-complete"
+              data-context="homepage-guided-review"
+              data-guided-review-link
             >
               Continue My Free Review <span>→</span>
             </a>
@@ -734,10 +745,17 @@ const schema = [
           the problem. Get a focused review from a company that has specialized
           in inquiry removal since 2015.
         </p><div class="button-row button-row--center">
-          <a class="button button--large" href="#free-review"
-            >Get My Free Inquiry Review <span>→</span></a
-          ><a class="text-link text-link--light" href="/free-inquiry-review/"
-            >Talk With a Specialist <span>→</span></a
+          <a
+            class="button button--large"
+            href="#free-review"
+            data-event="Guided Review Open"
+            data-track="home-final-guided"
+            data-context="homepage">Get My Free Inquiry Review <span>→</span></a
+          ><a
+            class="text-link text-link--light"
+            href="/free-inquiry-review/"
+            data-track="home-final-specialist"
+            data-context="homepage">Talk With a Specialist <span>→</span></a
           >
         </div><p class="cta-microcopy">
           No pressure. No monthly membership. Clear one-time pricing.
@@ -759,7 +777,67 @@ const schema = [
     const error = document.querySelector<HTMLElement>("[data-form-error]");
     const label = document.querySelector<HTMLElement>("[data-progress-label]");
     const bar = document.querySelector<HTMLElement>("[data-progress-bar]");
+    const guidedReviewLink = document.querySelector<HTMLAnchorElement>(
+      "[data-guided-review-link]",
+    );
     let currentStep = 0;
+
+    const syncGuidedReviewLink = () => {
+      if (!form || !guidedReviewLink) return;
+      const params = new URLSearchParams({
+        source: "/",
+        context: "homepage-guided-review",
+      });
+      const goalMap: Record<string, string> = {
+        "Apply for a home": "home",
+        "Apply for a vehicle": "vehicle",
+        "Qualify for business funding": "business",
+        "Apply for credit cards": "cards",
+        "Address identity theft": "identity",
+        "Clean up my credit profile": "profile",
+      };
+      const situationMap: Record<string, string> = {
+        "A dealership sent my credit to multiple lenders": "dealership",
+        "I did not authorize the inquiry": "unauthorized",
+        "I was told it would be a soft pull": "soft-pull",
+        "I do not recognize the company": "unrecognized",
+        "The inquiry is duplicated": "duplicate",
+        "The inquiry came from identity theft": "identity-theft",
+        "The inquiry belongs to someone else": "incorrect-person",
+        "I authorized it but want it removed": "authorized",
+      };
+      const countMap: Record<string, string> = {
+        "1 to 10": "focused",
+        "11 to 30": "complete",
+        "31 or more": "extensive",
+      };
+      const selectedGoal = form.querySelector<HTMLInputElement>(
+        "input[name='goal']:checked",
+      )?.value;
+      const selectedSituation = form.querySelector<HTMLInputElement>(
+        "input[name='situation']:checked",
+      )?.value;
+      const selectedCount = form.querySelector<HTMLInputElement>(
+        "input[name='count']:checked",
+      )?.value;
+      const selectedBureaus = Array.from(
+        form.querySelectorAll<HTMLInputElement>("input[name='bureau']:checked"),
+      ).map((input) => input.value.toLowerCase());
+
+      if (selectedGoal && goalMap[selectedGoal])
+        params.set("goal", goalMap[selectedGoal]);
+      if (selectedSituation && situationMap[selectedSituation])
+        params.set("situation", situationMap[selectedSituation]);
+      if (selectedCount && countMap[selectedCount])
+        params.set("plan", countMap[selectedCount]);
+      if (
+        selectedBureaus.length === 1 &&
+        ["experian", "equifax", "transunion"].includes(selectedBureaus[0])
+      )
+        params.set("bureau", selectedBureaus[0]);
+
+      guidedReviewLink.href = `/free-inquiry-review/?${params.toString()}#online-review`;
+    };
 
     const showStep = (index: number) => {
       currentStep = Math.max(0, Math.min(index, steps.length - 1));
@@ -772,6 +850,7 @@ const schema = [
       if (backButton) backButton.hidden = currentStep === 0;
       if (nextButton) nextButton.hidden = currentStep === steps.length - 1;
       if (error) error.textContent = "";
+      if (currentStep === steps.length - 1) syncGuidedReviewLink();
     };
 
     const stepIsComplete = () => {

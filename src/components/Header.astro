@@ -67,8 +67,11 @@ const isCurrent = (href: string) =>
         aria-label="Call Inquiry Removal at 602-377-6626"
         >Call Inquiry Removal</a
       >
-      <a class="button button--small" href="/free-inquiry-review/"
-        >Get My Free Review <span>→</span></a
+      <a
+        class="button button--small"
+        href="/free-inquiry-review/"
+        data-track="header-desktop"
+        data-context="sitewide">Get My Free Review <span>→</span></a
       >
       <button
         class="menu-button"
@@ -105,8 +108,11 @@ const isCurrent = (href: string) =>
       aria-label="Call Inquiry Removal at 602-377-6626"
       >Call Inquiry Removal <span>↗</span></a
     >
-    <a class="button mobile-nav__cta" href="/free-inquiry-review/"
-      >Get My Free Review <span>→</span></a
+    <a
+      class="button mobile-nav__cta"
+      href="/free-inquiry-review/"
+      data-track="header-mobile-menu"
+      data-context="sitewide">Get My Free Review <span>→</span></a
     >
     <p class="mobile-nav__trust">Hard inquiry specialists since 2015.</p>
   </nav>
@@ -114,7 +120,13 @@ const isCurrent = (href: string) =>
 
 {
   !isIntakePage && (
-    <a class="mobile-cta" href="/free-inquiry-review/" data-mobile-cta>
+    <a
+      class="mobile-cta"
+      href="/free-inquiry-review/"
+      data-mobile-cta
+      data-track="mobile-sticky"
+      data-context="sitewide"
+    >
       Get My Free Review <span>→</span>
     </a>
   )

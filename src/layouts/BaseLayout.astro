@@ -161,8 +161,12 @@ const serializedSchema = JSON.stringify(schemaGraph).replaceAll("<", "\\u003c");
         if (!link) return;
 
         const isCall = link.href.startsWith("tel:");
-        track(isCall ? "Call Intent" : "Review Form Open", {
+        const eventName = isCall
+          ? "Call Intent"
+          : (link.dataset.event ?? "Review Form Open");
+        track(eventName, {
           placement: link.dataset.track ?? "sitewide",
+          context: link.dataset.context ?? "general",
           page: window.location.pathname,
         });
       });

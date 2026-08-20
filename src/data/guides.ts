@@ -9,7 +9,6 @@ export type GuideSection = {
   bullets?: string[];
   cards?: GuideCard[];
   visual?: {
-    label: string;
     title: string;
     items: string[];
   };
@@ -23,6 +22,7 @@ export type GuideFaq = {
 export type GuidePage = {
   slug: string;
   kind: "service" | "article";
+  category: "resources" | "situations";
   eyebrow: string;
   title: string;
   seoTitle: string;
@@ -47,6 +47,7 @@ export const guidePages: GuidePage[] = [
   {
     slug: "transunion-hard-inquiry-removal",
     kind: "service",
+    category: "resources",
     eyebrow: "TransUnion hard inquiry removal",
     title: "How to Remove Hard Inquiries From TransUnion",
     seoTitle: "Remove Hard Inquiries From TransUnion | Inquiry Removal",
@@ -92,7 +93,6 @@ export const guidePages: GuidePage[] = [
           },
         ],
         visual: {
-          label: "Media placeholder",
           title: "TransUnion inquiry review graphic",
           items: ["Creditor", "Date", "Authorization", "Next step"],
         },
@@ -216,6 +216,7 @@ export const guidePages: GuidePage[] = [
   {
     slug: "experian-hard-inquiry-removal",
     kind: "service",
+    category: "resources",
     eyebrow: "Experian hard inquiry removal",
     title: "How to Remove Hard Inquiries From Experian: Know What to Do Next",
     seoTitle: "Remove Hard Inquiries From Experian | Inquiry Removal",
@@ -261,7 +262,6 @@ export const guidePages: GuidePage[] = [
           },
         ],
         visual: {
-          label: "Media placeholder",
           title: "Experian inquiry decision tree",
           items: ["Recognized", "Authorized", "Duplicated", "Fraud-related"],
         },
@@ -380,6 +380,7 @@ export const guidePages: GuidePage[] = [
   {
     slug: "equifax-hard-inquiry-removal",
     kind: "service",
+    category: "resources",
     eyebrow: "Equifax hard inquiry removal",
     title:
       "How to Remove Hard Inquiries From Equifax and Know What Happens Next",
@@ -426,7 +427,6 @@ export const guidePages: GuidePage[] = [
           },
         ],
         visual: {
-          label: "Media placeholder",
           title: "Equifax inquiry review visual",
           items: [
             "Your report",
@@ -456,7 +456,6 @@ export const guidePages: GuidePage[] = [
           "Equifax maintains the credit file, while the company behind the inquiry can often explain why it accessed the report. A focused review may involve both the reporting company and the creditor that caused the inquiry.",
         ],
         visual: {
-          label: "Media placeholder",
           title: "Consumer side vs. creditor side",
           items: ["You", "Equifax", "Company that accessed the report"],
         },
@@ -541,6 +540,7 @@ export const guidePages: GuidePage[] = [
   {
     slug: "how-to-remove-hard-inquiries",
     kind: "article",
+    category: "resources",
     eyebrow: "The complete hard inquiry removal guide",
     title: "How to Remove Hard Inquiries From Your Credit Report",
     seoTitle: "How to Remove Hard Inquiries | Inquiry Removal",
@@ -568,7 +568,6 @@ export const guidePages: GuidePage[] = [
           "The important question is not always whether you signed a separate credit-pull form. It is whether the company had a permissible reason to access the report and whether the entry accurately reflects what happened.",
         ],
         visual: {
-          label: "Media placeholder",
           title: "Hard pull vs. soft pull",
           items: [
             "Application",
@@ -687,6 +686,7 @@ export const guidePages: GuidePage[] = [
   {
     slug: "unauthorized-inquiries",
     kind: "service",
+    category: "situations",
     eyebrow: "Unauthorized hard inquiry removal",
     title: "How to Remove a Hard Inquiry You Didn't Authorize",
     seoTitle: "Remove Unauthorized Hard Inquiries | Inquiry Removal",
@@ -732,7 +732,6 @@ export const guidePages: GuidePage[] = [
           },
         ],
         visual: {
-          label: "Media placeholder",
           title: "What could this inquiry mean?",
           items: [
             "Name mismatch",
@@ -820,6 +819,7 @@ export const guidePages: GuidePage[] = [
   {
     slug: "identity-theft-inquiries",
     kind: "service",
+    category: "situations",
     eyebrow: "Identity theft hard inquiry removal",
     title: "Remove Hard Inquiries Caused by Identity Theft",
     seoTitle: "Remove Identity Theft Hard Inquiries | Inquiry Removal",
@@ -854,7 +854,6 @@ export const guidePages: GuidePage[] = [
           "Save the FTC report and recovery plan",
         ],
         visual: {
-          label: "Media placeholder",
           title: "Immediate identity-theft protection checklist",
           items: ["Contact", "Alert", "Freeze", "Report", "Monitor"],
         },
@@ -946,6 +945,7 @@ export const guidePages: GuidePage[] = [
   {
     slug: "how-to-dispute-a-hard-inquiry",
     kind: "article",
+    category: "resources",
     eyebrow: "Hard inquiry dispute guide",
     title: "How to Dispute a Hard Inquiry on Your Credit Report",
     seoTitle: "How to Dispute a Hard Inquiry | Inquiry Removal",
@@ -1007,7 +1007,6 @@ export const guidePages: GuidePage[] = [
           "Follow up",
         ],
         visual: {
-          label: "Media placeholder",
           title: "The dispute roadmap",
           items: [
             "Verify",
@@ -1116,6 +1115,7 @@ export const guidePages: GuidePage[] = [
   {
     slug: "how-long-do-hard-inquiries-stay",
     kind: "article",
+    category: "resources",
     eyebrow: "Hard inquiry timeline guide",
     title: "How Long Do Hard Inquiries Stay on Your Credit Report?",
     seoTitle: "How Long Do Hard Inquiries Stay? | Inquiry Removal",
@@ -1143,7 +1143,6 @@ export const guidePages: GuidePage[] = [
           "The reporting period and scoring impact are separate concepts. An entry can remain visible even after its influence on a particular scoring model has diminished.",
         ],
         visual: {
-          label: "Media placeholder",
           title: "The 24-month inquiry timeline",
           items: ["Day 1", "6 months", "12 months", "18 months", "24 months"],
         },

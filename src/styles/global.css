@@ -6428,7 +6428,7 @@ summary:focus-visible {
   color: var(--slate);
   font-size: 0.9rem;
 }
-.guide-media-placeholder {
+.guide-media-panel {
   margin-top: 44px;
   padding: 28px;
   border: 1px dashed #8dc6ee;
@@ -6437,33 +6437,33 @@ summary:focus-visible {
     linear-gradient(120deg, rgba(20, 120, 230, 0.07), rgba(15, 165, 138, 0.07)),
     white;
 }
-.guide-media-placeholder > div:first-child {
+.guide-media-panel > div:first-child {
   display: flex;
   justify-content: space-between;
   gap: 20px;
   align-items: baseline;
 }
-.guide-media-placeholder span,
-.guide-media-placeholder strong {
+.guide-media-panel span,
+.guide-media-panel strong {
   font-family: var(--display);
 }
-.guide-media-placeholder > div:first-child span {
+.guide-media-panel > div:first-child span {
   color: var(--blue);
   font-size: 0.67rem;
   font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
-.guide-media-placeholder > div:first-child strong {
+.guide-media-panel > div:first-child strong {
   font-size: 1.1rem;
 }
-.guide-media-placeholder__items {
+.guide-media-panel__items {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
   margin-top: 24px;
 }
-.guide-media-placeholder__items span {
+.guide-media-panel__items span {
   padding: 9px 13px;
   border: 1px solid #cfe0ed;
   border-radius: 999px;
@@ -6695,10 +6695,10 @@ summary:focus-visible {
     min-height: 0;
     padding: 24px;
   }
-  .guide-media-placeholder {
+  .guide-media-panel {
     padding: 22px;
   }
-  .guide-media-placeholder > div:first-child {
+  .guide-media-panel > div:first-child {
     display: grid;
   }
   .guide-choice {

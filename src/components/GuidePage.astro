@@ -11,6 +11,30 @@ interface Props {
 
 const { page } = Astro.props;
 const canonical = `${SITE_ORIGIN}/${page.slug}/`;
+const isResource = page.category === "resources";
+const breadcrumbName = isResource ? "Resources" : "Situations We Handle";
+const breadcrumbLabel = isResource ? "Resources" : "Situations";
+const breadcrumbHref = isResource ? "/resources/" : "/situations-we-handle/";
+const bureauBySlug: Record<string, string> = {
+  "experian-hard-inquiry-removal": "experian",
+  "equifax-hard-inquiry-removal": "equifax",
+  "transunion-hard-inquiry-removal": "transunion",
+};
+const situationBySlug: Record<string, string> = {
+  "unauthorized-inquiries": "unauthorized",
+  "identity-theft-inquiries": "identity-theft",
+};
+const reviewParams = new URLSearchParams({
+  source: `/${page.slug}/`,
+  context: page.slug,
+});
+if (bureauBySlug[page.slug])
+  reviewParams.set("bureau", bureauBySlug[page.slug]);
+if (situationBySlug[page.slug])
+  reviewParams.set("situation", situationBySlug[page.slug]);
+const reviewHref = `/free-inquiry-review/?${reviewParams.toString()}#online-review`;
+const overviewItems = page.sections.find((section) => section.visual)?.visual
+  ?.items ?? ["Inquiry", "Creditor", "Evidence", "Next step"];
 const schema = [
   {
     "@context": "https://schema.org",
@@ -25,8 +49,8 @@ const schema = [
       {
         "@type": "ListItem",
         position: 2,
-        name: page.kind === "article" ? "Resources" : "Situations We Handle",
-        item: `${SITE_ORIGIN}/${page.kind === "article" ? "resources" : "situations-we-handle"}/`,
+        name: breadcrumbName,
+        item: `${SITE_ORIGIN}${breadcrumbHref}`,
       },
       { "@type": "ListItem", position: 3, name: page.title, item: canonical },
     ],
@@ -77,11 +101,8 @@ const schema = [
       <div class="container guide-hero__grid">
         <div class="guide-hero__copy" data-reveal>
           <nav class="breadcrumb" aria-label="Breadcrumb">
-            <a href="/">Home</a><span>/</span><a
-              href={page.kind === "article"
-                ? "/resources/"
-                : "/situations-we-handle/"}
-              >{page.kind === "article" ? "Resources" : "Situations"}</a
+            <a href="/">Home</a><span>/</span><a href={breadcrumbHref}
+              >{breadcrumbLabel}</a
             ><span>/</span><span>{page.title}</span>
           </nav>
           <p class="eyebrow eyebrow--light"><span></span>{page.eyebrow}</p>
@@ -90,11 +111,18 @@ const schema = [
           <div class="button-row guide-hero__actions">
             <a
               class="button button--large"
-              href="/free-inquiry-review/#online-review"
-              >{page.primaryCta} <span>→</span></a
+              href={reviewHref}
+              data-track="guide-hero"
+              data-context={page.slug}>{page.primaryCta} <span>→</span></a
             >
-            <a class="text-link text-link--light" href={page.secondaryTarget}
-              >{page.secondaryCta} <span>↘</span></a
+            <a
+              class="text-link text-link--light"
+              href={page.secondaryTarget}
+              data-event={page.secondaryTarget.includes("results")
+                ? "Results Open"
+                : "Guide Section Open"}
+              data-track="guide-secondary"
+              data-context={page.slug}>{page.secondaryCta} <span>↘</span></a
             >
           </div>
           <p class="cta-microcopy">
@@ -102,24 +130,28 @@ const schema = [
           </p>
         </div>
 
-        <div
+        <aside
           class="guide-hero__visual"
-          role="img"
-          aria-label={`${page.title} visual placeholder`}
+          aria-label={`${page.title} review overview`}
           data-reveal
         >
           <div class="guide-visual__topline">
-            <span>Visual placeholder</span><i></i>
+            <span
+              >{
+                page.kind === "article"
+                  ? "Practical guide"
+                  : "Specialist review"
+              }</span
+            ><i></i>
           </div>
           <strong>{page.eyebrow}</strong>
           <div class="guide-visual__signal" aria-hidden="true">
             <span></span><span></span><span></span><span></span>
           </div>
           <p>
-            A final branded graphic can replace this panel without changing the
-            page layout.
+            {overviewItems.join("  ·  ")}
           </p>
-        </div>
+        </aside>
       </div>
     </section>
 
@@ -228,15 +260,14 @@ const schema = [
                 )}
                 {section.visual && (
                   <div
-                    class="guide-media-placeholder"
-                    role="img"
-                    aria-label={`${section.visual.title} placeholder`}
+                    class="guide-media-panel"
+                    aria-label={section.visual.title}
                   >
                     <div>
-                      <span>{section.visual.label}</span>
+                      <span>Review pathway</span>
                       <strong>{section.visual.title}</strong>
                     </div>
-                    <div class="guide-media-placeholder__items">
+                    <div class="guide-media-panel__items">
                       {section.visual.items.map((item) => (
                         <span>{item}</span>
                       ))}
@@ -265,11 +296,16 @@ const schema = [
         <div class="guide-choice__actions" data-reveal>
           <a
             class="button button--large"
-            href="/free-inquiry-review/#online-review"
-            >{page.primaryCta} <span>→</span></a
+            href={reviewHref}
+            data-track="guide-mid"
+            data-context={page.slug}>{page.primaryCta} <span>→</span></a
           >
-          <a class="text-link text-link--light" href="/pricing/"
-            >See one-time pricing <span>→</span></a
+          <a
+            class="text-link text-link--light"
+            href="/pricing/"
+            data-event="Pricing Open"
+            data-track="guide-pricing"
+            data-context={page.slug}>See one-time pricing <span>→</span></a
           >
         </div>
       </div>
@@ -306,7 +342,12 @@ const schema = [
           <div class="guide-related__links">
             {
               page.related.map((link) => (
-                <a href={link.href}>
+                <a
+                  href={link.href}
+                  data-event="Guide Link Open"
+                  data-track="guide-related"
+                  data-context={page.slug}
+                >
                   {link.label}
                   <span>→</span>
                 </a>
@@ -338,8 +379,9 @@ const schema = [
         </p>
         <a
           class="button button--large"
-          href="/free-inquiry-review/#online-review"
-          >{page.primaryCta} <span>→</span></a
+          href={reviewHref}
+          data-track="guide-final"
+          data-context={page.slug}>{page.primaryCta} <span>→</span></a
         >
       </div>
     </section>

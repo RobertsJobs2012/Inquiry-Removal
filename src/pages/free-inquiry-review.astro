@@ -127,6 +127,12 @@ const schema = [
         >
           <input type="hidden" name="fvv" value="1" />
           <input type="hidden" name="pageHistory" value="0" />
+          <input type="hidden" name="source_page" data-review-source-page />
+          <input
+            type="hidden"
+            name="source_context"
+            data-review-source-context
+          />
           <input
             class="review-form-honeypot"
             type="text"
@@ -137,7 +143,9 @@ const schema = [
           />
 
           <div class="review-experience-top">
-            <span class="review-trust-chip"><i aria-hidden="true">✓</i> Private review</span>
+            <span class="review-trust-chip"
+              ><i aria-hidden="true">✓</i> Private review</span
+            >
             <span class="review-time">About 2 minutes</span>
           </div>
           <div class="form-progress" aria-label="Review form progress">
@@ -155,7 +163,10 @@ const schema = [
               tabindex="-1"
             >
               <legend>How can we reach you?</legend>
-              <p>Start with the basics. We only use this to respond to your review.</p>
+              <p>
+                Start with the basics. We only use this to respond to your
+                review.
+              </p>
               <div class="native-contact-grid">
                 <label>
                   <span>Full name</span>
@@ -348,7 +359,11 @@ const schema = [
               tabindex="-1"
             >
             </p>
-            <p class="review-auto-note" data-review-auto-note aria-live="polite">
+            <p
+              class="review-auto-note"
+              data-review-auto-note
+              aria-live="polite"
+            >
               Your answers stay here until you submit. You can go back anytime.
             </p>
             <div class="form-controls native-review-controls">
@@ -480,13 +495,114 @@ const schema = [
     const reviewDescription = document.querySelector<HTMLTextAreaElement>(
       "textarea[name='entry.1182319941']",
     );
+    const reviewSourcePage = document.querySelector<HTMLInputElement>(
+      "[data-review-source-page]",
+    );
+    const reviewSourceContext = document.querySelector<HTMLInputElement>(
+      "[data-review-source-context]",
+    );
+    const reviewParams = new URLSearchParams(window.location.search);
+    const planMap: Record<string, string> = {
+      focused: "1–10",
+      complete: "11–30",
+      extensive: "31 or more",
+    };
+    const goalMap: Record<string, string> = {
+      home: "A home loan",
+      vehicle: "A vehicle loan",
+      business: "Business financing",
+      cards: "Credit cards or other personal credit",
+      identity: "Addressing possible identity theft",
+      profile: "Improving my overall credit profile",
+    };
+    const bureauMap: Record<string, string> = {
+      experian: "Experian",
+      equifax: "Equifax",
+      transunion: "TransUnion",
+    };
+    const situationMap: Record<string, string> = {
+      dealership: "A dealership sent my application to multiple lenders",
+      unauthorized: "I did not authorize the inquiry",
+      "identity-theft": "I may be dealing with identity theft",
+      "soft-pull": "I was told it would be a soft pull",
+      duplicate: "The inquiry appears to be a duplicate",
+      unrecognized: "I do not recognize the company",
+      "incorrect-person": "The inquiry belongs to someone else",
+      authorized: "I authorized it but want it reviewed",
+    };
+    const planParam = reviewParams.get("plan")?.toLowerCase() ?? "";
+    const goalParam = reviewParams.get("goal")?.toLowerCase() ?? "";
+    const bureauParam = reviewParams.get("bureau")?.toLowerCase() ?? "";
+    const situationParam = reviewParams.get("situation")?.toLowerCase() ?? "";
+    const contextParam =
+      reviewParams
+        .get("context")
+        ?.toLowerCase()
+        .replace(/[^a-z0-9-]/g, "") ?? "";
+    const requestedSource = reviewParams.get("source") ?? "";
+    const safeRequestedSource = /^\/[a-z0-9\-/]*\/$/i.test(requestedSource)
+      ? requestedSource
+      : "";
+    let referrerSource = "";
+    try {
+      const referrer = new URL(document.referrer);
+      if (referrer.origin === window.location.origin)
+        referrerSource = referrer.pathname;
+    } catch {
+      referrerSource = "";
+    }
+    const sourcePage = safeRequestedSource || referrerSource || "direct";
+    const sourceParts = [
+      contextParam,
+      planMap[planParam] ? `plan-${planParam}` : "",
+      goalMap[goalParam] ? `goal-${goalParam}` : "",
+      bureauMap[bureauParam] ? `bureau-${bureauParam}` : "",
+      situationMap[situationParam] ? `situation-${situationParam}` : "",
+    ].filter(Boolean);
+    const sourceContext = sourceParts.join("|") || "general";
     let reviewStep = 0;
     let reviewSubmitted = false;
+    let reviewStarted = false;
     let reviewAdvanceTimer: number | undefined;
-    const reviewStageNames = ["Contact", "Your situation", "Your reports", "Final details"];
+    const reviewStageNames = [
+      "Contact",
+      "Your situation",
+      "Your reports",
+      "Final details",
+    ];
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
+
+    if (reviewSourcePage) reviewSourcePage.value = sourcePage;
+    if (reviewSourceContext) reviewSourceContext.value = sourceContext;
+
+    const selectChoice = (name: string, value: string | undefined) => {
+      if (!value) return;
+      const field = Array.from(
+        reviewForm?.querySelectorAll<HTMLInputElement>(
+          `input[name='${name}']`,
+        ) ?? [],
+      ).find((input) => input.value === value);
+      if (field) field.checked = true;
+    };
+
+    selectChoice("entry.1354254818", planMap[planParam]);
+    selectChoice("entry.1481812974", goalMap[goalParam]);
+    selectChoice("entry.766411755", bureauMap[bureauParam]);
+    selectChoice("entry.1677473071", situationMap[situationParam]);
+
+    const trackReviewStart = () => {
+      if (reviewStarted) return;
+      reviewStarted = true;
+      track("Review Form Start", {
+        page: window.location.pathname,
+        source: sourcePage,
+        context: sourceContext,
+      });
+    };
+
+    reviewForm?.addEventListener("focusin", trackReviewStart, { once: true });
 
     const showReviewStep = (index: number, moveFocus = true) => {
       if (reviewAdvanceTimer) window.clearTimeout(reviewAdvanceTimer);
@@ -571,7 +687,8 @@ const schema = [
     };
 
     const guideTo = (selector: string) => {
-      const target = reviewSteps[reviewStep]?.querySelector<HTMLElement>(selector);
+      const target =
+        reviewSteps[reviewStep]?.querySelector<HTMLElement>(selector);
       if (!target || prefersReducedMotion) return;
       window.setTimeout(
         () => target.scrollIntoView({ behavior: "smooth", block: "center" }),
@@ -582,12 +699,16 @@ const schema = [
     const scheduleReviewAdvance = () => {
       if (!reviewStepIsComplete()) return;
       if (reviewAdvanceTimer) window.clearTimeout(reviewAdvanceTimer);
-      if (reviewAutoNote) reviewAutoNote.textContent = "Perfect — moving you forward…";
+      if (reviewAutoNote)
+        reviewAutoNote.textContent = "Perfect — moving you forward…";
       if (reviewNext) reviewNext.disabled = true;
-      reviewAdvanceTimer = window.setTimeout(() => {
-        if (reviewNext) reviewNext.disabled = false;
-        showReviewStep(reviewStep + 1);
-      }, prefersReducedMotion ? 150 : 520);
+      reviewAdvanceTimer = window.setTimeout(
+        () => {
+          if (reviewNext) reviewNext.disabled = false;
+          showReviewStep(reviewStep + 1);
+        },
+        prefersReducedMotion ? 150 : 520,
+      );
     };
 
     reviewForm?.addEventListener("change", (event) => {
@@ -635,8 +756,14 @@ const schema = [
         event.preventDefault();
         return;
       }
-      if (reviewDescription && !reviewDescription.value.trim()) {
-        reviewDescription.value = "No additional details provided.";
+      if (reviewDescription) {
+        const contextLine = `[Website context: source=${sourcePage}; context=${sourceContext}]`;
+        const note = reviewDescription.value.trim();
+        if (!note.includes("[Website context:")) {
+          reviewDescription.value = note
+            ? `${note}\n\n${contextLine}`
+            : contextLine;
+        }
       }
       reviewSubmitted = true;
       if (reviewSubmit) {
@@ -653,6 +780,8 @@ const schema = [
       reviewSuccess?.focus();
       track("Review Form Submitted", {
         page: window.location.pathname,
+        source: sourcePage,
+        context: sourceContext,
       });
     });
 
