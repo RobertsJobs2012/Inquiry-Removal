@@ -23,45 +23,44 @@ export const pages: SitePage[] = [
   {
     slug: "eligibility",
     eyebrow: "Hard inquiry removal eligibility",
-    title: "Hard Inquiry Removal Eligibility: What May Qualify for Review?",
+    title: "Can Your Hard Inquiries Be Removed? Start With a Free Review",
     seoTitle: "Hard Inquiry Removal Eligibility | Inquiry Removal",
     description:
-      "Hard inquiry removal eligibility depends on the inquiry, authorization, accuracy, and supporting facts. See what may qualify and get a free review.",
-    aside: [
-      "Worth reviewing",
-      "What we do not promise",
-      "Get a specialist review",
-    ],
+      "Hard inquiry removal starts with the entries you want gone. Show us what happened, and we will review the reports and explain the removal path.",
+    aside: ["Your inquiry list", "Your situation", "Your removal path"],
     sections: [
       {
-        heading: "Which hard inquiries may be worth reviewing?",
+        heading: "Which Hard Inquiries Do You Want Removed?",
         body: [
-          "A hard inquiry may deserve a closer look when you do not recognize it, did not knowingly authorize it, believe your information was used fraudulently, see inaccurate information, or question whether there was permissible purpose.",
+          "Start with the inquiries that are bothering you, whether they came from a dealership, an unfamiliar creditor, identity theft, a duplicate entry, an unexpected hard pull, or an application you remember making.",
+          "You do not need to diagnose the inquiry before contacting us. Show us what appears on the reports and tell us what happened. We will organize the details and explain the removal approach.",
         ],
         bullets: [
-          "Unknown company or creditor",
-          "No remembered authorization",
-          "Potential identity theft or fraud",
-          "Inaccurate inquiry information",
-          "Questions about permissible purpose",
+          "Dealership and lender inquiries",
+          "Unauthorized or unfamiliar inquiries",
+          "Identity-theft inquiries",
+          "Duplicate or repeated inquiries",
+          "Unexpected hard pulls",
+          "Other inquiries you want reviewed for removal",
         ],
       },
       {
-        heading: "What we do not promise.",
+        heading: "What Does Inquiry Removal Review?",
         body: [
-          "We do not promise removal of accurate information simply because someone regrets applying. We do not guarantee that every inquiry will be removed or that a credit score will increase by a particular amount.",
+          "We look at the exact report entries, creditor names, dates, affected bureaus, what happened during the application or transaction, and any information that helps explain the inquiry. The goal is to turn a confusing list into a clear removal strategy.",
         ],
         bullets: [
-          "No automatic eligibility",
-          "No predetermined deletion outcome",
-          "No guaranteed score increase",
-          "No blanket treatment of every inquiry",
+          "Experian, Equifax, and TransUnion",
+          "Inquiry names and dates",
+          "Application or dealership context",
+          "What you were told",
+          "What you want removed",
         ],
       },
       {
-        heading: "Not sure where you fit?",
+        heading: "Ready to Find Your Removal Path?",
         body: [
-          "That is exactly what the free analysis is for. A specialist can help you organize the inquiry information and understand which questions are worth asking next.",
+          "Start with the free inquiry review. If the service fits what you want handled, we will confirm the total inquiry count, explain the one-time package, and take the process from there.",
         ],
       },
     ],
@@ -175,31 +174,33 @@ export const pages: SitePage[] = [
     title: "Hard Inquiry Removal Nationwide Across All Three Credit Bureaus",
     seoTitle: "Hard Inquiry Removal Nationwide | USA | Inquiry Removal",
     description:
-      "Hard inquiry removal nationwide across Experian, Equifax, and TransUnion with remote specialist support and one-time pricing. Get a free inquiry review.",
-    aside: ["Nationwide availability", "Remote process", "All three bureaus"],
+      "Hard inquiry removal nationwide across Experian, Equifax, and TransUnion. Our remote process lets you use a focused specialist anywhere in the U.S.",
+    aside: ["Nationwide service", "Remote process", "All 3 bureaus"],
     sections: [
       {
-        heading: "How does nationwide hard inquiry removal work?",
+        heading: "Can Inquiry Removal Help You Anywhere in the United States?",
         body: [
-          "Nationwide hard inquiry removal can be handled remotely. Inquiry Removal works with consumers across the United States, so the review, documentation, communication, and follow-through process is not limited to people living near a physical office.",
+          "Yes. Inquiry Removal serves consumers nationwide through a remote process. You do not need to live near an office to have a specialist organize your inquiries, prepare the removal communications, review responses, and handle the follow-through.",
         ],
       },
       {
-        heading: "Your credit reports—not your ZIP code—shape the review.",
+        heading: "All Three Credit Bureaus. One Focused Removal Process.",
         body: [
-          "The important facts are the inquiry names, dates, affected credit bureaus, authorization circumstances, and any documents connected to the application or transaction. Those details determine the available approach.",
+          "Experian, Equifax, and TransUnion can show different inquiry lists. We work with the reports actually affected in your case and keep the inquiry-removal process organized across all of them.",
         ],
         bullets: [
-          "Experian, Equifax, and TransUnion reports",
-          "Dealership and lender inquiries",
-          "Unrecognized or potentially unauthorized inquiries",
-          "Possible identity-theft and duplicate-inquiry situations",
+          "Experian hard inquiries",
+          "Equifax hard inquiries",
+          "TransUnion hard inquiries",
+          "Dealership inquiry clusters",
+          "Unauthorized and identity-theft inquiries",
+          "Duplicate and unexpected hard pulls",
         ],
       },
       {
-        heading: "Start with a free personal review.",
+        heading: "Ready to Start Removing Your Hard Inquiries?",
         body: [
-          "Tell us what appears on your reports and what happened. A specialist can help organize the situation, explain what information is needed next, and discuss whether the service fits your circumstances.",
+          "Start with a free personal review from anywhere in the country. Tell us what happened and how many inquiries you want handled. We will confirm the one-time package that fits your total count and explain what happens next.",
         ],
       },
     ],
@@ -207,34 +208,64 @@ export const pages: SitePage[] = [
   {
     slug: "faq",
     eyebrow: "Hard inquiry removal questions",
-    title: "Hard Inquiry Removal FAQs: Eligibility, Process & Results",
+    title: "Hard Inquiry Removal FAQs: Service, Pricing, Timing & Results",
     seoTitle: "Hard Inquiry Removal FAQ | Clear Answers | Inquiry Removal",
     description:
-      "Hard inquiry removal FAQ covering eligibility, disputes, pricing, score context, all three bureaus, and what to expect. Get clear answers.",
-    aside: ["Eligibility", "Process", "Outcomes", "Consumer rights"],
+      "Hard inquiry removal FAQs covering all three bureaus, one-time packages, timing, dealership inquiries, the removal process, and what happens next.",
+    aside: ["All 3 bureaus", "One-time packages", "Removal process", "Results and timing"],
     sections: [
       {
-        heading: "Can every hard inquiry be removed?",
+        heading: "Can You Remove Hard Inquiries From All Three Credit Bureaus?",
         body: [
-          "No. Each inquiry and its surrounding circumstances must be reviewed. Accurate, authorized inquiries are not automatically removable.",
+          "Yes. Inquiry Removal works with hard inquiries appearing on Experian, Equifax, and TransUnion. If more than one report is affected, the same one-time package can include all affected bureaus based on the total inquiry count.",
         ],
       },
       {
-        heading: "Can I do this myself?",
+        heading: "How Does Inquiry Removal Handle the Process for Me?",
         body: [
-          "Yes. Consumers can dispute inaccurate credit-report information directly. Our value is specialized review, organization, documentation, process management, and follow-through.",
+          "You provide the affected reports and tell us which inquiries you want removed. We organize the entries, prepare and send the dispute communications, review responses, track removals, and continue the follow-through as needed under your service.",
         ],
       },
       {
-        heading: "Will my score increase?",
+        heading: "How Much Does Hard Inquiry Removal Cost?",
         body: [
-          "Credit scores are affected by many factors. No particular score movement is promised or attributed solely to inquiry disputes.",
+          "Pricing is one time: $199 for 1 to 10 total hard inquiries, $299 for 11 to 30, and $499 for 31 or more. There is no monthly membership fee.",
         ],
       },
       {
-        heading: "Do you cover all three bureaus?",
+        heading: "How Quickly Can Hard Inquiries Be Removed?",
         body: [
-          "The service is designed to review inquiry information appearing on Experian, Equifax, and TransUnion reports.",
+          "Some removals can appear in as little as seven days. Many cases take longer and clients should allow up to 90 days. Rare, more complicated situations can extend to 120 days because companies and bureaus respond on different schedules.",
+        ],
+      },
+      {
+        heading: "What If a Dealership Ran My Credit Multiple Times?",
+        body: [
+          "Show us the dealership-related inquiries across the affected reports. We organize the lender names, dates, and bureaus tied to the visit, then handle the inquiry-removal process and response follow-through.",
+        ],
+      },
+      {
+        heading: "What If I Remember the Application but Still Want the Inquiry Removed?",
+        body: [
+          "Tell us the complete story. We review what happened, how the inquiry was disclosed and reported, the company involved, and the surrounding circumstances, then explain the removal path available for that inquiry.",
+        ],
+      },
+      {
+        heading: "Do I Have to Send the Disputes Myself?",
+        body: [
+          "No. Inquiry Removal prepares and sends the dispute communications for you. Your main job is to provide accurate information and let us know when responses or report updates arrive.",
+        ],
+      },
+      {
+        heading: "What If the First Response Does Not Remove Every Inquiry?",
+        body: [
+          "We review what happened and continue the included follow-through with additional rounds as needed under your service agreement. The service is not designed as a one-letter transaction.",
+        ],
+      },
+      {
+        heading: "Can Every Hard Inquiry Be Removed?",
+        body: [
+          "No company can promise the outcome of every inquiry in advance. That is why the first step is a review of the actual report entries and what happened, rather than making you decide on your own before speaking with us.",
         ],
       },
     ],

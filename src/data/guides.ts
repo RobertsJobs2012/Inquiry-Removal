@@ -49,30 +49,30 @@ export const guidePages: GuidePage[] = [
     kind: "service",
     category: "resources",
     eyebrow: "TransUnion hard inquiry removal",
-    title: "How to Remove Hard Inquiries From TransUnion",
+    title: "Remove Hard Inquiries From TransUnion With Specialist Help",
     seoTitle: "Remove Hard Inquiries From TransUnion | Inquiry Removal",
     description:
-      "Need TransUnion hard inquiry removal? See what can be disputed, how TransUnion inquiry issues work, and how our specialists can help. Free review.",
+      "Remove hard inquiries from TransUnion with focused specialist help. We handle the dispute process, responses, and follow-through. Free review.",
     supporting:
-      "We review the inquiries appearing on your TransUnion report, what caused them, and which removal or dispute path fits the situation. Hard inquiry specialists—nothing else.",
-    primaryCta: "Get My Free TransUnion Review",
-    secondaryCta: "See Real Inquiry Results",
-    secondaryTarget: "/#results",
-    quickTitle: "Start with the exact inquiry",
+      "Hard inquiries are our specialty. Show us the TransUnion inquiries you want removed, tell us what happened, and we handle the process from review through disputes, responses, and follow-through.",
+    primaryCta: "Start My Free TransUnion Review",
+    secondaryCta: "See One-Time Pricing",
+    secondaryTarget: "/pricing/",
+    quickTitle: "Want the TransUnion inquiries gone?",
     quickAnswer:
-      "A questionable TransUnion hard inquiry may be challenged when the facts support a dispute. An accurate inquiry you knowingly authorized is not automatically removable simply because you later want it gone.",
+      "If hard inquiries on your TransUnion report are standing in your way, you do not have to manage the dispute process alone. Inquiry Removal organizes the entries, handles the communications, reviews the responses, tracks removals, and continues the follow-through for you.",
     takeaways: [
-      "Review the company name, inquiry date, and affected report.",
-      "An unfamiliar lender name is not automatically an unauthorized inquiry.",
-      "Different situations require different TransUnion-specific next steps.",
-      "You can dispute inaccurate credit-report information yourself for free.",
+      "TransUnion is one of our most common hard inquiry removal needs.",
+      "We handle the dispute communications and response follow-through for you.",
+      "One-time packages start at $199 and cover the affected bureaus included in your service.",
+      "Start with a free review of the inquiries you want removed.",
     ],
     sections: [
       {
-        heading: "Do you see a TransUnion inquiry you don't recognize?",
+        heading: "Which TransUnion Hard Inquiries Do You Want Removed?",
         body: [
-          "An unfamiliar lender, duplicate pull, dealership cluster, identity-theft inquiry, or hard pull you thought would be soft can each require a different response.",
-          "Sometimes a lender appears under a bank, parent company, financing partner, or legal name different from the business you remember. If you still cannot explain it, the inquiry deserves a closer look.",
+          "Maybe you have one TransUnion inquiry you do not want, a dealership cluster, an unexpected hard pull, or a long list of inquiries from several applications. Start with the exact entries on your report.",
+          "Inquiry Removal handles hard inquiries every day. We organize the list, build the removal approach, send the communications, and stay involved through the responses and follow-through.",
         ],
         cards: [
           {
@@ -218,30 +218,30 @@ export const guidePages: GuidePage[] = [
     kind: "service",
     category: "resources",
     eyebrow: "Experian hard inquiry removal",
-    title: "How to Remove Hard Inquiries From Experian: Know What to Do Next",
+    title: "Remove Hard Inquiries From Experian With Specialist Help",
     seoTitle: "Remove Hard Inquiries From Experian | Inquiry Removal",
     description:
-      "Learn what makes an Experian inquiry questionable, what to verify, and how focused hard inquiry removal works. Get a free Experian review.",
+      "Remove hard inquiries from Experian with a service focused only on inquiry removal. We handle the dispute process and follow-through. Free review.",
     supporting:
-      "We review the creditor, date, affected reports, and the circumstances behind the inquiry—then help organize the path that fits the facts.",
-    primaryCta: "Get My Free Experian Review",
-    secondaryCta: "See Real Inquiry Results",
-    secondaryTarget: "/#results",
-    quickTitle: "Can Experian hard inquiries be removed?",
+      "Hard inquiries are all we do. Show us the Experian inquiries you want removed, tell us what happened, and we handle the removal process from review through disputes, responses, and follow-through.",
+    primaryCta: "Start My Free Experian Review",
+    secondaryCta: "See One-Time Pricing",
+    secondaryTarget: "/pricing/",
+    quickTitle: "Want the Experian inquiries gone?",
     quickAnswer:
-      "A hard inquiry may be removable when it is inaccurate, unauthorized, fraudulent, duplicated, or otherwise does not belong. A legitimate inquiry connected with an application you authorized is not automatically removable.",
+      "If hard inquiries on your Experian report are getting in the way, you do not have to manage the removal process alone. Inquiry Removal specializes exclusively in hard inquiries and handles the report review, dispute communications, responses, and follow-through for you.",
     takeaways: [
-      "Use the exact Experian report entry, not only a monitoring summary.",
-      "Identify unfamiliar creditor names before assuming fraud.",
-      "Preserve documentation that supports what actually happened.",
-      "Consumers can dispute inaccurate information directly for free.",
+      "Experian hard inquiry removal is one of our core specialist services.",
+      "We handle the dispute communications and response follow-through for you.",
+      "One-time packages start at $199 and are based on total inquiry count.",
+      "Your free review starts with the inquiries you want removed and what happened.",
     ],
     sections: [
       {
-        heading: "Is there an Experian inquiry you cannot explain?",
+        heading: "Which Experian Hard Inquiries Do You Want Removed?",
         body: [
-          "You may not recognize the creditor, may not remember authorizing the pull, or may see several inquiries after one dealership visit. You may also have expected a soft pull or suspect that someone used your identity.",
-          "Those situations look similar on a report but can require very different next steps.",
+          "Maybe you have one Experian inquiry you want gone, a dealership cluster, an unexpected hard pull, or a long list of inquiries standing between you and your next application. Start with the entries on your report and what happened.",
+          "You do not need to figure out the removal process before contacting us. Inquiry Removal organizes the inquiry list, handles the communications, and stays involved through the responses and follow-through.",
         ],
         cards: [
           {
@@ -383,30 +383,30 @@ export const guidePages: GuidePage[] = [
     category: "resources",
     eyebrow: "Equifax hard inquiry removal",
     title:
-      "How to Remove Hard Inquiries From Equifax and Know What Happens Next",
+      "Remove Hard Inquiries From Equifax With Specialist Help",
     seoTitle: "Remove Hard Inquiries From Equifax | Inquiry Removal",
     description:
-      "See how Equifax hard inquiry removal works, what to verify, and when a questionable inquiry deserves review. Start with a free Equifax review.",
+      "Remove hard inquiries from Equifax with focused specialist help. We handle the dispute process, responses, and follow-through. Free review.",
     supporting:
-      "We organize the Equifax entry, the company behind it, what you authorized, and the documents that can support the appropriate next step.",
-    primaryCta: "Get My Free Equifax Review",
-    secondaryCta: "See Real Inquiry Results",
-    secondaryTarget: "/#results",
-    quickTitle: "Can hard inquiries be removed from Equifax?",
+      "Show us the Equifax inquiries you want removed and tell us what happened. We organize the entries, handle the dispute communications, review responses, and keep the removal process moving.",
+    primaryCta: "Start My Free Equifax Review",
+    secondaryCta: "See One-Time Pricing",
+    secondaryTarget: "/pricing/",
+    quickTitle: "Ready to clean up the Equifax inquiries?",
     quickAnswer:
-      "Potentially—when the inquiry is inaccurate, unauthorized, fraudulent, duplicated, or belongs to someone else. Accurate inquiries connected with legitimate applications are not automatically removable.",
+      "If Equifax hard inquiries are cluttering a credit profile you worked hard to build, you do not have to manage them yourself. Inquiry Removal focuses only on hard inquiries and handles the removal process from the first review through the responses and follow-through.",
     takeaways: [
-      "Start with the exact Equifax inquiry entry.",
-      "Identify the company behind an unfamiliar reporting name.",
-      "Compare the inquiry with what you actually authorized.",
-      "The company that accessed the report may matter alongside Equifax.",
+      "Equifax hard inquiry removal is handled as a focused specialist service.",
+      "All affected credit bureaus can be included in the same one-time package.",
+      "We prepare and send the dispute communications and review the responses.",
+      "Packages start at $199 based on the total inquiry count you want included.",
     ],
     sections: [
       {
-        heading: "Why is that inquiry showing on your Equifax report?",
+        heading: "Which Equifax Hard Inquiries Do You Want Removed?",
         body: [
-          "The company name may differ from the lender or retailer you remember. A dealership may have sent your application to several companies. You may have expected a soft pull, spotted a duplicate, or discovered an application that was never yours.",
-          "Identification comes first because the right response depends on why the inquiry exists.",
+          "Whether you are dealing with one unwanted Equifax inquiry or dozens across a larger financing event, start with the entries you want gone and the story behind them.",
+          "We organize the creditor names, dates, affected reports, and circumstances, then handle the removal process so you are not left managing every company and response yourself.",
         ],
         cards: [
           {
@@ -688,30 +688,30 @@ export const guidePages: GuidePage[] = [
     kind: "service",
     category: "situations",
     eyebrow: "Unauthorized hard inquiry removal",
-    title: "How to Remove a Hard Inquiry You Didn't Authorize",
+    title: "Remove Unauthorized Hard Inquiries From Your Credit Reports",
     seoTitle: "Remove Unauthorized Hard Inquiries | Inquiry Removal",
     description:
-      "See a hard inquiry you did not authorize? Find out why it appeared, what to verify, and how Inquiry Removal can help. Start with a free review.",
+      "Remove unauthorized hard inquiries with focused help across Experian, Equifax, and TransUnion. We handle the removal process. Free review.",
     supporting:
-      "You do not recognize the lender or remember the application. We review the company, date, bureau, and circumstances before deciding what the next step should be.",
-    primaryCta: "Get My Free Unauthorized Inquiry Review",
-    secondaryCta: "See What Could Have Caused It",
-    secondaryTarget: "#section-1",
-    quickTitle: "Do not begin with an assumption",
+      "See a hard inquiry you did not authorize? Show us the exact entry and tell us what happened. We organize the facts, handle the removal communications, and review the responses with you.",
+    primaryCta: "Start My Free Unauthorized Review",
+    secondaryCta: "See One-Time Pricing",
+    secondaryTarget: "/pricing/",
+    quickTitle: "Did a hard inquiry appear without your permission?",
     quickAnswer:
-      "An unfamiliar inquiry does not automatically mean the credit check was unauthorized. Identify the company and the possible permissible purpose first. If the inquiry still cannot be explained, document the facts and investigate it promptly.",
+      "If a hard inquiry appears on your report and you did not authorize the credit check, start with a free review. Inquiry Removal identifies the entry, organizes the circumstances, prepares the removal communications, and stays involved through the responses and follow-through.",
     takeaways: [
-      "A lender may appear under a legal name you do not recognize.",
-      "A dealership may have routed one application to several lenders.",
-      "Federal law permits credit access only for recognized permissible purposes.",
-      "A truly unexplained inquiry can be an identity-theft warning sign.",
+      "We work with unauthorized hard inquiries across Experian, Equifax, and TransUnion.",
+      "You do not have to identify every creditor or manage every dispute by yourself.",
+      "One-time packages are based on the total number of inquiries you want included.",
+      "Start by showing us the inquiry and telling us what happened.",
     ],
     sections: [
       {
-        heading: "Don't recognize the inquiry? Start here.",
+        heading: "Ready to Remove an Unauthorized Hard Inquiry?",
         body: [
-          "Search your email and messages around the inquiry date, compare recent applications, and identify whether the name belongs to a bank or finance company behind a retailer, marketplace, or dealership.",
-          "If you never applied, do not recognize the company, and cannot connect it to a legitimate transaction, the situation deserves a more urgent review.",
+          "An unfamiliar lender, a credit check you did not approve, or an inquiry tied to an event you never initiated can be frustrating when it shows up on an otherwise strong credit report.",
+          "Bring us the inquiry name, date, bureau, and your version of what happened. We organize the information and handle the removal process from there.",
         ],
         cards: [
           {
@@ -821,30 +821,30 @@ export const guidePages: GuidePage[] = [
     kind: "service",
     category: "situations",
     eyebrow: "Identity theft hard inquiry removal",
-    title: "Remove Hard Inquiries Caused by Identity Theft",
+    title: "Remove Identity Theft Hard Inquiries From Your Credit Reports",
     seoTitle: "Remove Identity Theft Hard Inquiries | Inquiry Removal",
     description:
-      "See a hard inquiry caused by identity theft? Protect your credit, understand your removal options, and get a free specialist inquiry review.",
+      "Remove hard inquiries left by identity theft across Experian, Equifax, and TransUnion. Get focused inquiry-removal help and a free review.",
     supporting:
-      "If the application was not yours, the inquiry may be only the first thing you found. Protect your credit first—then organize the affected inquiries and removal process.",
-    primaryCta: "Get My Identity Theft Review",
-    secondaryCta: "Protect My Credit First",
-    secondaryTarget: "#section-1",
-    quickTitle: "Protect first, then remove",
+      "Applications you never made can leave hard inquiries behind even when no account was opened. We focus on removing that inquiry trail while you handle the broader identity-theft recovery steps.",
+    primaryCta: "Start My Identity Theft Review",
+    secondaryCta: "See One-Time Pricing",
+    secondaryTarget: "/pricing/",
+    quickTitle: "Did identity theft leave hard inquiries behind?",
     quickAnswer:
-      "If someone used your identity to apply for credit, protect the rest of your credit immediately. Contact affected companies, place a fraud alert or credit freeze when appropriate, review all three reports, and create an FTC recovery plan.",
+      "Identity theft can leave hard inquiries from applications you never made. Inquiry Removal focuses on the inquiry damage across Experian, Equifax, and TransUnion by organizing the fraudulent entries, handling the removal communications, reviewing responses, and continuing the follow-through.",
     takeaways: [
-      "An unfamiliar inquiry can be an early sign of new-account fraud.",
-      "A credit freeze can limit access to your credit reports.",
-      "A fraud alert tells businesses to verify your identity before opening credit.",
-      "IdentityTheft.gov can create an FTC report and recovery plan.",
+      "Fraudulent applications can leave hard inquiries even when no account was opened.",
+      "We focus specifically on removing the hard inquiry trail from the affected reports.",
+      "All affected bureaus can be included in the same one-time package.",
+      "Start with the inquiries you did not make and the reports where they appear.",
     ],
     sections: [
       {
-        heading: "What should you do right now?",
+        heading: "Which Identity Theft Hard Inquiries Need to Come Off Your Reports?",
         body: [
-          "Call the fraud department of any company where you know fraud occurred. Review all three credit reports, change compromised logins, and use official identity-theft resources to document the event.",
-          "A fraud alert and a credit freeze work differently. An alert requires added identity verification; a freeze limits access to the report until you lift it.",
+          "If someone used your identity to apply for credit, the inquiry trail can remain even after you discover the fraud. Those inquiries can make your report look like you were seeking credit when you were not.",
+          "We help organize the fraudulent inquiry entries across the affected bureaus and handle the inquiry-removal process while you continue the broader steps needed to protect your identity.",
         ],
         bullets: [
           "Contact affected businesses",
