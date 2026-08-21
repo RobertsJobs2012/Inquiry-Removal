@@ -1,7 +1,9 @@
 ---
 import "../styles/global.css";
+import "../styles/premium.css";
 import Analytics from "@vercel/analytics/astro";
 import SpeedInsights from "@vercel/speed-insights/astro";
+import ExperienceLayer from "../components/ExperienceLayer.astro";
 import { SITE_ORIGIN } from "../data/discovery.mjs";
 
 interface Props {
@@ -152,6 +154,7 @@ const serializedSchema = JSON.stringify(schemaGraph).replaceAll("<", "\\u003c");
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to main content</a>
+    <ExperienceLayer />
     <slot />
     <Analytics />
     <SpeedInsights />
