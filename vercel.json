@@ -26,11 +26,6 @@
       "permanent": true
     },
     {
-      "source": "/results/",
-      "destination": "/#results",
-      "permanent": true
-    },
-    {
       "source": "/services/",
       "destination": "/situations-we-handle/",
       "permanent": true
