@@ -1,0 +1,207 @@
+/* Inquiry Removal — Material Depth Polish
+   Final mobile-first optical corrections for controls and selected bento surfaces.
+   Goal: real material depth without the "button inside a button" effect. */
+
+/* --------------------------------------------------------------------------
+   1. Primary glass controls: remove the strong inner ring.
+   The object keeps edge refraction through inset shadows, but the face reads as
+   one continuous piece of material instead of two nested controls.
+   -------------------------------------------------------------------------- */
+.button,
+.mobile-action-dock .mobile-action-dock__primary {
+  border-color: rgba(215, 240, 255, 0.78) !important;
+  background:
+    radial-gradient(110% 82% at 14% -14%, rgba(255, 255, 255, 0.72) 0%, rgba(255, 255, 255, 0.24) 27%, transparent 48%),
+    radial-gradient(70% 62% at 92% 104%, rgba(0, 39, 91, 0.28) 0%, transparent 61%),
+    linear-gradient(166deg, rgba(255, 255, 255, 0.18) 0%, transparent 28%),
+    linear-gradient(180deg, #4faaff 0%, #268ded 31%, #1476dc 62%, #0758b9 100%) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.94),
+    inset 1px 0 0 rgba(255, 255, 255, 0.28),
+    inset -1px 0 0 rgba(0, 45, 98, 0.20),
+    inset 0 -2px 0 rgba(0, 41, 90, 0.34),
+    inset 0 -9px 16px rgba(0, 47, 101, 0.10),
+    0 2px 3px rgba(3, 35, 73, 0.16),
+    0 11px 20px rgba(20, 120, 230, 0.22),
+    0 28px 48px rgba(4, 49, 102, 0.17) !important;
+}
+
+/* The previous full inset outline is the source of the nested-button look. */
+.button::after,
+.mobile-action-dock .mobile-action-dock__primary::after {
+  position: absolute !important;
+  z-index: 0 !important;
+  right: 12% !important;
+  bottom: 0 !important;
+  left: 12% !important;
+  top: auto !important;
+  width: auto !important;
+  height: 22% !important;
+  border: 0 !important;
+  border-radius: 50% 50% 14px 14px / 22% 22% 14px 14px !important;
+  background: linear-gradient(180deg, transparent 0%, rgba(0, 43, 96, 0.10) 100%) !important;
+  box-shadow: none !important;
+  content: "" !important;
+  opacity: 0.52 !important;
+  pointer-events: none;
+}
+
+/* Reflections stay broad and irregular, like a curved polished face. */
+.button::before,
+.mobile-action-dock .mobile-action-dock__primary::before {
+  top: -30% !important;
+  left: -10% !important;
+  width: 74% !important;
+  height: 62% !important;
+  border-radius: 46% 58% 62% 42% / 58% 55% 45% 42% !important;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.66) 0%, rgba(255, 255, 255, 0.22) 38%, rgba(255, 255, 255, 0.04) 64%, transparent 78%) !important;
+  opacity: 0.62 !important;
+}
+
+/* --------------------------------------------------------------------------
+   2. Jump To navigation: preserve the actual width of active labels.
+   flex-shrink was allowing the glass clip-path to squeeze labels on narrow
+   screens, which produced the small blue sliver/circle shown in the screenshot.
+   -------------------------------------------------------------------------- */
+.page-jump__inner > div {
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.page-jump__inner > div::-webkit-scrollbar {
+  display: none;
+}
+
+.page-jump a {
+  flex: 0 0 auto !important;
+  min-width: max-content;
+  white-space: nowrap;
+}
+
+.page-jump a.is-active {
+  min-width: max-content !important;
+  padding-inline: 15px !important;
+  overflow: hidden !important;
+  border-radius: 999px !important;
+}
+
+/* Keep the selected state clean. No residual underline/edge marker. */
+.page-jump a.is-active::after {
+  display: none !important;
+  content: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   3. Selected bento surfaces get real elevation.
+   These are deliberately not full glass. They are opaque/frosted cards lifted
+   from the canvas with a contact shadow plus a larger ambient shadow.
+   -------------------------------------------------------------------------- */
+.situation-card,
+.case-card,
+.resource-card,
+.included-grid article,
+.review-prep-grid article,
+.bureau-grid a {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-color: rgba(122, 157, 184, 0.20) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.92),
+    0 2px 4px rgba(8, 27, 44, 0.08),
+    0 15px 30px rgba(8, 27, 44, 0.08),
+    0 34px 72px rgba(8, 27, 44, 0.08) !important;
+  transform: translateZ(0);
+}
+
+/* Any decorative overlay must inherit the card curvature so it cannot leave
+   a squared line at the Dealer Shotgunning corner. */
+.situation-card::before,
+.case-card::before,
+.resource-card::before,
+.included-grid article::before,
+.review-prep-grid article::before,
+.bureau-grid a::before,
+.situation-card::after,
+.case-card::after,
+.resource-card::after,
+.included-grid article::after,
+.review-prep-grid article::after,
+.bureau-grid a::after {
+  border-radius: inherit !important;
+  clip-path: inset(0 round inherit);
+}
+
+/* Add a very soft incident-light edge rather than a hard internal frame. */
+.situation-card,
+.case-card,
+.resource-card,
+.included-grid article,
+.review-prep-grid article {
+  background-clip: padding-box;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .situation-card:hover,
+  .case-card:hover,
+  .resource-card:hover,
+  .included-grid article:hover,
+  .review-prep-grid article:hover,
+  .bureau-grid a:hover {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.96),
+      0 3px 5px rgba(8, 27, 44, 0.09),
+      0 20px 40px rgba(8, 27, 44, 0.10),
+      0 42px 88px rgba(8, 27, 44, 0.11) !important;
+    transform: translateY(-6px) translateZ(0);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   4. Mobile tuning: shadows need to remain believable without becoming huge.
+   -------------------------------------------------------------------------- */
+@media (max-width: 900px) {
+  .button,
+  .mobile-action-dock .mobile-action-dock__primary {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.94),
+      inset 1px 0 0 rgba(255, 255, 255, 0.24),
+      inset -1px 0 0 rgba(0, 45, 98, 0.18),
+      inset 0 -2px 0 rgba(0, 41, 90, 0.30),
+      inset 0 -7px 12px rgba(0, 47, 101, 0.08),
+      0 2px 3px rgba(3, 35, 73, 0.14),
+      0 9px 16px rgba(20, 120, 230, 0.20),
+      0 20px 34px rgba(4, 49, 102, 0.14) !important;
+  }
+
+  .situation-card,
+  .case-card,
+  .resource-card,
+  .included-grid article,
+  .review-prep-grid article,
+  .bureau-grid a {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.90),
+      0 2px 4px rgba(8, 27, 44, 0.07),
+      0 12px 24px rgba(8, 27, 44, 0.08),
+      0 24px 48px rgba(8, 27, 44, 0.06) !important;
+  }
+
+  .page-jump a.is-active {
+    padding-inline: 14px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .situation-card,
+  .case-card,
+  .resource-card,
+  .included-grid article,
+  .review-prep-grid article,
+  .bureau-grid a {
+    transition: none !important;
+  }
+}
