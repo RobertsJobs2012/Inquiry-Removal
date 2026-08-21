@@ -22,10 +22,11 @@ export type SitePage = {
 export const pages: SitePage[] = [
   {
     slug: "eligibility",
-    eyebrow: "What can be disputed",
-    title: "The facts decide—not the sales pitch.",
+    eyebrow: "Hard inquiry removal eligibility",
+    title: "Hard Inquiry Removal Eligibility: What May Qualify for Review?",
+    seoTitle: "Hard Inquiry Removal Eligibility | Inquiry Removal",
     description:
-      "Understand the situations that may warrant a closer review and the outcomes no responsible inquiry specialist should promise in advance.",
+      "Hard inquiry removal eligibility depends on the inquiry, authorization, accuracy, and supporting facts. See what may qualify and get a free review.",
     aside: [
       "Worth reviewing",
       "What we do not promise",
@@ -33,7 +34,7 @@ export const pages: SitePage[] = [
     ],
     sections: [
       {
-        heading: "Situations worth reviewing.",
+        heading: "Which hard inquiries may be worth reviewing?",
         body: [
           "A hard inquiry may deserve a closer look when you do not recognize it, did not knowingly authorize it, believe your information was used fraudulently, see inaccurate information, or question whether there was permissible purpose.",
         ],
@@ -67,17 +68,18 @@ export const pages: SitePage[] = [
   },
   {
     slug: "resources",
-    eyebrow: "Resource center",
-    title: "Understand Hard Inquiries and Your Next Step.",
+    eyebrow: "Hard inquiry resource center",
+    title: "Hard Inquiry Resources, Guides & Answers for All Three Bureaus",
+    seoTitle: "Hard Inquiry Resources | Guides & Answers | Inquiry Removal",
     description:
-      "Plain-language education about hard inquiries, authorization, credit bureaus, identity theft, dealership inquiries, and consumer dispute rights.",
+      "Hard inquiry resources and guides for removal, disputes, timelines, Experian, Equifax, TransUnion, and common situations. Explore the resource center.",
     aside: ["Hard inquiry fundamentals", "Bureau guides", "Situation guides"],
     kind: "resources",
     sections: [
       {
-        heading: "Begin with the hard inquiry fundamentals.",
+        heading: "Which hard inquiry resources should you start with?",
         body: [
-          "Understand the difference between hard and soft inquiries, how inquiry information appears across the three major credit bureaus, and why the circumstances behind an entry matter.",
+          "Start with the difference between hard and soft inquiries, how inquiry information appears across the three major credit bureaus, and why the circumstances behind an entry matter.",
         ],
         bullets: [
           "Hard vs. soft inquiries",
@@ -169,17 +171,17 @@ export const pages: SitePage[] = [
   },
   {
     slug: "areas-we-serve",
-    eyebrow: "Nationwide service",
-    title: "Hard Inquiry Review, Wherever You Live.",
-    seoTitle: "Nationwide Hard Inquiry Removal Service | Inquiry Removal",
+    eyebrow: "Nationwide hard inquiry removal",
+    title: "Hard Inquiry Removal Nationwide Across All Three Credit Bureaus",
+    seoTitle: "Hard Inquiry Removal Nationwide | USA | Inquiry Removal",
     description:
-      "Inquiry Removal provides remote hard inquiry review and removal support nationwide across Experian, Equifax, and TransUnion reports.",
+      "Hard inquiry removal nationwide across Experian, Equifax, and TransUnion with remote specialist support and one-time pricing. Get a free inquiry review.",
     aside: ["Nationwide availability", "Remote process", "All three bureaus"],
     sections: [
       {
-        heading: "A remote process built for nationwide service.",
+        heading: "How does nationwide hard inquiry removal work?",
         body: [
-          "Inquiry Removal works with consumers nationwide. The review, documentation, communication, and follow-through process can be handled remotely, so service is not limited to people living near a physical office.",
+          "Nationwide hard inquiry removal can be handled remotely. Inquiry Removal works with consumers across the United States, so the review, documentation, communication, and follow-through process is not limited to people living near a physical office.",
         ],
       },
       {
@@ -204,14 +206,15 @@ export const pages: SitePage[] = [
   },
   {
     slug: "faq",
-    eyebrow: "Questions answered",
-    title: "Clarity without fine-print fog.",
+    eyebrow: "Hard inquiry removal questions",
+    title: "Hard Inquiry Removal FAQs: Eligibility, Process & Results",
+    seoTitle: "Hard Inquiry Removal FAQ | Clear Answers | Inquiry Removal",
     description:
-      "Straight answers about eligibility, process, pricing, outcomes, score context, DIY disputes, and what to expect from an inquiry review.",
+      "Hard inquiry removal FAQ covering eligibility, disputes, pricing, score context, all three bureaus, and what to expect. Get clear answers.",
     aside: ["Eligibility", "Process", "Outcomes", "Consumer rights"],
     sections: [
       {
-        heading: "Can every inquiry be removed?",
+        heading: "Can every hard inquiry be removed?",
         body: [
           "No. Each inquiry and its surrounding circumstances must be reviewed. Accurate, authorized inquiries are not automatically removable.",
         ],
