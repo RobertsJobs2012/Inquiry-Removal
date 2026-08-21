@@ -5,6 +5,7 @@ const groups = [
     links: [
       ["How It Works", "/how-it-works/"],
       ["Situations We Handle", "/situations-we-handle/"],
+      ["Results", "/results/"],
       ["Pricing", "/pricing/"],
       ["FAQ", "/faq/"],
       ["Free Inquiry Review", "/free-inquiry-review/"],
@@ -38,6 +39,9 @@ const groups = [
 ---
 
 <footer class="site-footer">
+  <div class="footer-resolution-scene" aria-hidden="true">
+    <span>RESOLVED</span>
+  </div>
   <div class="footer-top">
     <div class="footer-brand">
       <a class="footer-logo" href="/" aria-label="Inquiry Removal home">
@@ -57,12 +61,16 @@ const groups = [
       <div class="footer-contact">
         <a
           class="button button--small"
+          href="/free-inquiry-review/"
+          data-track="footer-review"
+          data-context="sitewide"
+          >Get My Free Review <span>→</span></a
+        >
+        <a
+          class="text-link text-link--light"
           href="tel:+16023776626"
           aria-label="Call Inquiry Removal at 602-377-6626"
-          >Call Inquiry Removal</a
-        >
-        <a class="text-link text-link--light" href="/contact/"
-          >Contact Inquiry Removal →</a
+          >Call Inquiry Removal <span>↗</span></a
         >
       </div>
     </div>
