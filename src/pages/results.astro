@@ -1,0 +1,758 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import { SITE_ORIGIN } from "../data/discovery.mjs";
+
+const caseSlots = [
+  {
+    id: "CASE SLOT 01",
+    situation: "Dealership",
+    situationKey: "dealership",
+    bureau: "Multiple bureaus",
+    bureauKey: "multiple",
+    count: "11–30 inquiries",
+    countKey: "11-30",
+    headline: "Dealership financing case",
+    summary:
+      "Reserved for a verified dealership case showing the original inquiry cluster, the review path, the documented outcome, and redacted before-and-after evidence.",
+  },
+  {
+    id: "CASE SLOT 02",
+    situation: "Unauthorized",
+    situationKey: "unauthorized",
+    bureau: "Experian",
+    bureauKey: "experian",
+    count: "1–10 inquiries",
+    countKey: "1-10",
+    headline: "Unauthorized inquiry case",
+    summary:
+      "Reserved for a verified unauthorized-inquiry case with the reported circumstances, inquiry details, supporting documentation, timeline, and confirmed result.",
+  },
+  {
+    id: "CASE SLOT 03",
+    situation: "Identity theft",
+    situationKey: "identity-theft",
+    bureau: "TransUnion",
+    bureauKey: "transunion",
+    count: "1–10 inquiries",
+    countKey: "1-10",
+    headline: "Identity theft inquiry case",
+    summary:
+      "Reserved for a verified identity-theft case that can be presented without exposing the client’s identity, account information, or unrelated credit details.",
+  },
+  {
+    id: "CASE SLOT 04",
+    situation: "Other",
+    situationKey: "other",
+    bureau: "Equifax",
+    bureauKey: "equifax",
+    count: "1–10 inquiries",
+    countKey: "1-10",
+    headline: "Equifax inquiry case",
+    summary:
+      "Reserved for a verified Equifax case showing what was reviewed, what changed, how the result was documented, and the privacy-safe evidence supporting the outcome.",
+  },
+  {
+    id: "CASE SLOT 05",
+    situation: "Dealership",
+    situationKey: "dealership",
+    bureau: "Experian",
+    bureauKey: "experian",
+    count: "31+ inquiries",
+    countKey: "31-plus",
+    headline: "High-volume inquiry case",
+    summary:
+      "Reserved for a verified larger inquiry case where the complete starting list, affected reports, timeline, and documented changes can be shown accurately.",
+  },
+  {
+    id: "CASE SLOT 06",
+    situation: "Other",
+    situationKey: "other",
+    bureau: "Multiple bureaus",
+    bureauKey: "multiple",
+    count: "11–30 inquiries",
+    countKey: "11-30",
+    headline: "Multi-bureau inquiry case",
+    summary:
+      "Reserved for a verified case involving more than one bureau, with separate outcomes documented for each report rather than presenting one bureau’s result as universal.",
+  },
+];
+
+const proofTypes = [
+  [
+    "Updated credit reports",
+    "A later report can show whether a previously documented inquiry is still being reported by the applicable bureau.",
+  ],
+  [
+    "Bureau responses",
+    "Investigation responses and update notices can document how the bureau handled the inquiry information.",
+  ],
+  [
+    "Creditor correspondence",
+    "A lender or creditor response can provide additional context about authorization, identity, or the reported inquiry.",
+  ],
+  [
+    "Monitoring notifications",
+    "Monitoring alerts can supplement the record when they clearly identify an inquiry-related change on a report.",
+  ],
+];
+
+const faqs = [
+  [
+    "Are the case cards on this page real client results yet?",
+    "Not all of them yet. The current case cards are clearly labeled layout placeholders that show how verified cases will be presented. They are not presented as actual client outcomes. As documented cases are prepared and privacy-reviewed, the placeholders will be replaced with real evidence-based case studies.",
+  ],
+  [
+    "What will be required before a placeholder becomes a published case?",
+    "A published case should be supported by records that establish the starting inquiry information and the later documented outcome. Personal information must be permanently redacted from public copies before the evidence is displayed.",
+  ],
+  [
+    "Will past results guarantee what happens on my credit reports?",
+    "No. Past cases can show what happened under particular facts, but they cannot guarantee another consumer's removals, timeline, score change, approval, or bureau outcome.",
+  ],
+  [
+    "Why will client names and identifying information be hidden?",
+    "Credit reports and related correspondence can contain highly sensitive personal information. Public case evidence should show only what is reasonably necessary to understand the inquiry situation and documented result.",
+  ],
+  [
+    "Can an inquiry change on one bureau but remain on another?",
+    "Yes. Credit reports are separate records, and outcomes can differ by bureau, creditor, documentation, and the facts of the case. A result on one report should not be presented as proof that another report changed too.",
+  ],
+  [
+    "Can I request a free review before there is a case exactly like mine?",
+    "Yes. The free inquiry review looks at your actual reports, affected bureaus, inquiry count, and circumstances. You do not need to find a matching case study before asking for a review.",
+  ],
+];
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: `${SITE_ORIGIN}/`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Results & Case Studies",
+        item: `${SITE_ORIGIN}/results/`,
+      },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map(([question, answer]) => ({
+      "@type": "Question",
+      name: question,
+      acceptedAnswer: { "@type": "Answer", text: answer },
+    })),
+  },
+];
+---
+
+<BaseLayout
+  title="Hard Inquiry Removal Results | Real Cases & Proof"
+  description="Explore the Inquiry Removal evidence center and see how verified hard inquiry removal cases will document situations, bureaus, timelines, and redacted proof."
+  ogTitle="Hard Inquiry Removal Results & Documented Proof"
+  ogDescription="A transparent evidence center for hard inquiry removal case studies across Experian, Equifax, and TransUnion."
+  robots="noindex, follow"
+  {schema}
+  theme="dark"
+>
+  <Header dark />
+  <main id="main-content" tabindex="-1">
+    <section class="results-hero dark-section">
+      <div class="results-glow" aria-hidden="true"></div>
+      <div class="container results-hero__grid">
+        <div class="results-hero__copy" data-reveal>
+          <nav class="breadcrumb breadcrumb--dark" aria-label="Breadcrumb">
+            <a href="/">Home</a><span>/</span><span>Results & Case Studies</span>
+          </nav>
+          <p class="eyebrow eyebrow--light"><span></span> Documented Hard Inquiry Results</p>
+          <h1>Hard Inquiry Removal Results: Real Cases & Documented Proof</h1>
+          <p class="results-hero__summary">
+            Don’t rely on promises. See the situation, the bureau, what changed,
+            how long it took, and the redacted documentation behind each result.
+          </p>
+          <p class="results-hero__lead">
+            This evidence center is being prepared case by case. The page structure
+            is live now, but every case slot below is clearly labeled until real
+            client records are verified, privacy-reviewed, and ready to replace it.
+            No placeholder is presented as an actual client result.
+          </p>
+          <div class="button-row">
+            <a
+              class="button button--large"
+              href="/free-inquiry-review/?source=/results/&context=results"
+              data-track="results-hero-review"
+              data-context="results"
+            >Review My Inquiries <span>→</span></a>
+            <a class="text-link text-link--light" href="#case-library">
+              Explore the Case Library <span>↓</span>
+            </a>
+          </div>
+          <p class="cta-microcopy">Free personal review. No pressure. No monthly membership.</p>
+        </div>
+
+        <aside class="proof-interface" aria-label="Evidence center preview" data-reveal>
+          <div class="proof-interface__top">
+            <span>INQUIRY REMOVAL</span><span>EVIDENCE CENTER</span>
+          </div>
+          <div class="proof-flow">
+            <article>
+              <small>01 · STARTING RECORD</small>
+              <strong>Original inquiry documented</strong>
+              <div class="evidence-lines" aria-hidden="true"><i></i><i></i><i></i></div>
+            </article>
+            <span class="proof-arrow" aria-hidden="true">↓</span>
+            <article>
+              <small>02 · REVIEW</small>
+              <strong>Situation + bureau + documentation</strong>
+              <div class="proof-tags"><span>REPORT</span><span>DATE</span><span>CREDITOR</span></div>
+            </article>
+            <span class="proof-arrow" aria-hidden="true">↓</span>
+            <article class="proof-flow__verified">
+              <small>03 · UPDATED RECORD</small>
+              <strong>Confirmed change documented</strong>
+              <span class="verification-dot">Verified evidence goes here</span>
+            </article>
+          </div>
+          <p>Illustrative evidence workflow. No client result is represented in this graphic.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="results-trust" aria-label="Published company results">
+      <div class="container results-trust__grid">
+        <div><strong>100,437</strong><span>Inquiries removed</span></div>
+        <div><strong>1,123</strong><span>Clients served</span></div>
+        <div><strong>Since 2015</strong><span>Focused credit experience</span></div>
+        <div><strong>3 bureaus</strong><span>Experian · Equifax · TransUnion</span></div>
+      </div>
+      <p class="container results-trust__note">
+        Published company figures are separate from the placeholder case layouts below. Individual results vary.
+      </p>
+    </section>
+
+    <section class="section evidence-standard">
+      <div class="container evidence-standard__grid">
+        <div data-reveal>
+          <p class="eyebrow"><span></span> Proof before persuasion</p>
+          <h2>What Counts as a Hard Inquiry Removal Result?</h2>
+          <p class="section-lead">
+            A result should be tied to the underlying record. A submitted dispute,
+            an expected outcome, or an unverified statement is not the same thing
+            as documentation showing what actually changed.
+          </p>
+        </div>
+        <div class="proof-type-grid" data-reveal>
+          {proofTypes.map(([title, body]) => (
+            <article>
+              <span aria-hidden="true">✓</span>
+              <h3>{title}</h3>
+              <p>{body}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section case-library" id="case-library">
+      <div class="container">
+        <div class="section-heading split-heading" data-reveal>
+          <div>
+            <p class="eyebrow"><span></span> Results explorer</p>
+            <h2>Find Cases Similar to Your Situation</h2>
+          </div>
+          <p>
+            The filters are already built for the final evidence library. For now,
+            they organize labeled case slots. As verified cases replace the
+            placeholders, the same controls will surface the matching evidence.
+          </p>
+        </div>
+
+        <div class="results-explorer" data-reveal>
+          <div class="filter-field">
+            <label for="results-situation">What happened?</label>
+            <select id="results-situation" data-results-situation>
+              <option value="all">All situations</option>
+              <option value="dealership">Dealership financing</option>
+              <option value="unauthorized">Unauthorized inquiry</option>
+              <option value="identity-theft">Identity theft</option>
+              <option value="other">Other inquiry situations</option>
+            </select>
+          </div>
+          <div class="filter-field">
+            <label for="results-bureau">Which bureau?</label>
+            <select id="results-bureau" data-results-bureau>
+              <option value="all">All bureaus</option>
+              <option value="experian">Experian</option>
+              <option value="equifax">Equifax</option>
+              <option value="transunion">TransUnion</option>
+              <option value="multiple">Multiple bureaus</option>
+            </select>
+          </div>
+          <div class="filter-field">
+            <label for="results-count">Approximate inquiry count</label>
+            <select id="results-count" data-results-count>
+              <option value="all">Any inquiry count</option>
+              <option value="1-10">1–10</option>
+              <option value="11-30">11–30</option>
+              <option value="31-plus">31+</option>
+            </select>
+          </div>
+          <button class="button results-filter-button" type="button" data-results-filter>
+            Show Matching Case Slots
+          </button>
+        </div>
+
+        <div class="case-status" aria-live="polite" data-results-status>
+          Showing all case-layout placeholders. Verified client cases will replace these slots.
+        </div>
+
+        <div class="case-grid" data-results-grid>
+          {caseSlots.map((item) => (
+            <article
+              class="case-card"
+              data-case-card
+              data-situation={item.situationKey}
+              data-bureau={item.bureauKey}
+              data-count={item.countKey}
+            >
+              <div class="case-card__top">
+                <span>{item.id}</span>
+                <strong>SAMPLE LAYOUT · NOT A CLIENT RESULT</strong>
+              </div>
+              <div class="case-card__meta">
+                <span>{item.situation}</span><span>{item.bureau}</span><span>{item.count}</span>
+              </div>
+              <h3>{item.headline}</h3>
+              <p>{item.summary}</p>
+
+              <div class="case-card__story">
+                <div><small>THE SITUATION</small><span>Verified client context will appear here.</span></div>
+                <div><small>WHAT WE REVIEWED</small><span>Inquiry names, dates, bureaus, and relevant documentation.</span></div>
+                <div><small>DOCUMENTED OUTCOME</small><span>Confirmed result and timeline will replace this placeholder.</span></div>
+              </div>
+
+              <div class="evidence-pair" aria-label="Future before and after evidence positions">
+                <div>
+                  <small>BEFORE EVIDENCE</small>
+                  <span class="evidence-placeholder" aria-hidden="true"><i></i><i></i><i></i><b></b></span>
+                  <p>Redacted starting record goes here.</p>
+                </div>
+                <div>
+                  <small>AFTER EVIDENCE</small>
+                  <span class="evidence-placeholder evidence-placeholder--after" aria-hidden="true"><i></i><i></i><i></i><b></b></span>
+                  <p>Redacted updated record goes here.</p>
+                </div>
+              </div>
+              <p class="case-card__disclaimer">
+                Placeholder only. No inquiry count, deletion, timeline, or outcome is being claimed by this card.
+              </p>
+            </article>
+          ))}
+        </div>
+
+        <div class="no-results" hidden data-no-results>
+          <strong>No placeholder currently matches those filters.</strong>
+          <p>Reset the filters or request a free review of your actual inquiry situation.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="methodology dark-section">
+      <div class="container methodology__grid">
+        <div data-reveal>
+          <p class="eyebrow eyebrow--light"><span></span> Evidence methodology</p>
+          <h2>How Will We Verify a Published Inquiry Result?</h2>
+          <p>
+            The final case library will use a consistent evidence standard so the
+            visitor can distinguish documented change from marketing language.
+          </p>
+        </div>
+        <ol class="methodology-steps" data-reveal>
+          <li>
+            <span>01</span><div><h3>Establish the starting record</h3><p>Document the creditor or lender name, inquiry date, affected bureau, and relevant case context.</p></div>
+          </li>
+          <li>
+            <span>02</span><div><h3>Track the response path</h3><p>Keep the bureau, creditor, monitoring, or client records that explain what happened after the review began.</p></div>
+          </li>
+          <li>
+            <span>03</span><div><h3>Compare the updated record</h3><p>Compare later documentation against the starting inquiry list rather than relying on memory or expectation.</p></div>
+          </li>
+          <li>
+            <span>04</span><div><h3>Publish only what the records support</h3><p>If the available evidence does not establish a change, the case should not claim one.</p></div>
+          </li>
+        </ol>
+      </div>
+      <div class="container methodology-statement" data-reveal>
+        <strong>We count documented changes, not expectations.</strong>
+      </div>
+    </section>
+
+    <section class="section honest-results">
+      <div class="container honest-results__grid">
+        <div data-reveal>
+          <p class="eyebrow"><span></span> Real outcomes are not identical</p>
+          <h2>Not Every Hard Inquiry Case Ends the Same Way</h2>
+        </div>
+        <div data-reveal>
+          <p>
+            Some cases may result in substantial changes. Some may involve partial
+            changes. Some can require additional follow-up. And some inquiries may
+            remain when the facts or available documentation do not support a
+            different outcome.
+          </p>
+          <blockquote>
+            A Results page should show what happened, not make every case look perfect.
+          </blockquote>
+          <p>
+            When real case studies are added, the page will preserve partial or
+            mixed outcomes when those are what the documentation shows. Past
+            results will never be presented as a guarantee of another consumer’s
+            deletion, timeline, credit score, or approval.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bureau-proof">
+      <div class="container">
+        <div class="section-heading centered-heading" data-reveal>
+          <p class="eyebrow centered"><span></span> Proof by bureau</p>
+          <h2>Results Will Be Organized Across All Three Credit Bureaus</h2>
+          <p>
+            Each bureau is a separate report. The evidence library will preserve
+            that distinction instead of implying that one bureau’s outcome proves
+            another bureau changed too.
+          </p>
+        </div>
+        <div class="bureau-proof__grid" data-reveal>
+          <a href="/experian-hard-inquiry-removal/">
+            <span>EXPERIAN</span><strong>Experian inquiry guide</strong><p>Review the bureau-specific process and current guidance.</p><em>Explore Experian →</em>
+          </a>
+          <a href="/equifax-hard-inquiry-removal/">
+            <span>EQUIFAX</span><strong>Equifax inquiry guide</strong><p>See how Equifax inquiry review fits into the broader process.</p><em>Explore Equifax →</em>
+          </a>
+          <a href="/transunion-hard-inquiry-removal/">
+            <span>TRANSUNION</span><strong>TransUnion inquiry guide</strong><p>Review the TransUnion-specific inquiry and dispute pathway.</p><em>Explore TransUnion →</em>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section faq-section">
+      <div class="container faq-layout">
+        <div data-reveal>
+          <p class="eyebrow"><span></span> Results questions</p>
+          <h2>Questions About the Evidence Library</h2>
+          <p>
+            The current page is intentionally transparent about what is real today
+            and what will be replaced when verified case material is ready.
+          </p>
+        </div>
+        <div class="faq-list" data-reveal>
+          {faqs.map(([question, answer]) => (
+            <details>
+              <summary>{question}<span>+</span></summary>
+              <p>{answer}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="final-cta dark-section" id="free-review">
+      <div class="container final-cta__inner" data-reveal>
+        <p class="eyebrow eyebrow--light centered"><span></span> Your reports are the next step</p>
+        <h2>You Don’t Need a Matching Case Study to Review Your Inquiries</h2>
+        <p>
+          Tell us what happened, which reports are affected, and approximately how
+          many hard inquiries you are dealing with. The free review looks at your
+          situation rather than promising that somebody else’s result will become yours.
+        </p>
+        <a
+          class="button button--large"
+          href="/free-inquiry-review/?source=/results/&context=results-final"
+          data-track="results-final-review"
+          data-context="results"
+        >Get My Free Inquiry Review <span>→</span></a>
+        <p class="cta-microcopy">Free review · All three bureaus · Nationwide · No monthly membership</p>
+      </div>
+    </section>
+  </main>
+  <Footer />
+
+  <script>
+    const situation = document.querySelector('[data-results-situation]');
+    const bureau = document.querySelector('[data-results-bureau]');
+    const count = document.querySelector('[data-results-count]');
+    const button = document.querySelector('[data-results-filter]');
+    const cards = Array.from(document.querySelectorAll('[data-case-card]'));
+    const status = document.querySelector('[data-results-status]');
+    const noResults = document.querySelector('[data-no-results]');
+
+    const applyFilters = () => {
+      if (!(situation instanceof HTMLSelectElement)) return;
+      if (!(bureau instanceof HTMLSelectElement)) return;
+      if (!(count instanceof HTMLSelectElement)) return;
+
+      const matches = cards.filter((card) => {
+        if (!(card instanceof HTMLElement)) return false;
+        const situationMatch = situation.value === 'all' || card.dataset.situation === situation.value;
+        const bureauMatch = bureau.value === 'all' || card.dataset.bureau === bureau.value;
+        const countMatch = count.value === 'all' || card.dataset.count === count.value;
+        const visible = situationMatch && bureauMatch && countMatch;
+        card.hidden = !visible;
+        return visible;
+      });
+
+      if (status) {
+        status.textContent = matches.length
+          ? `Showing ${matches.length} matching case-layout placeholder${matches.length === 1 ? '' : 's'}. These are not client results.`
+          : 'No case-layout placeholder matches the selected filters.';
+      }
+      if (noResults instanceof HTMLElement) noResults.hidden = matches.length > 0;
+
+      const params = new URLSearchParams(window.location.search);
+      const setOrDelete = (key, value) => value === 'all' ? params.delete(key) : params.set(key, value);
+      setOrDelete('situation', situation.value);
+      setOrDelete('bureau', bureau.value);
+      setOrDelete('count', count.value);
+      const next = params.toString();
+      window.history.replaceState({}, '', `${window.location.pathname}${next ? `?${next}` : ''}#case-library`);
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    if (situation instanceof HTMLSelectElement && params.get('situation')) situation.value = params.get('situation') ?? 'all';
+    if (bureau instanceof HTMLSelectElement && params.get('bureau')) bureau.value = params.get('bureau') ?? 'all';
+    if (count instanceof HTMLSelectElement && params.get('count')) count.value = params.get('count') ?? 'all';
+    if (params.toString()) applyFilters();
+
+    button?.addEventListener('click', applyFilters);
+    situation?.addEventListener('change', applyFilters);
+    bureau?.addEventListener('change', applyFilters);
+    count?.addEventListener('change', applyFilters);
+  </script>
+
+  <style>
+    .results-hero {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(7.5rem, 12vw, 10rem) 0 clamp(4.5rem, 8vw, 7rem);
+    }
+    .results-glow {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 78% 28%, rgba(20, 164, 216, .17), transparent 29rem),
+        radial-gradient(circle at 18% 4%, rgba(15, 165, 138, .1), transparent 23rem);
+    }
+    .results-hero__grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(22rem, .92fr);
+      gap: clamp(2.5rem, 6vw, 6rem);
+      align-items: center;
+    }
+    .results-hero h1 {
+      max-width: 12ch;
+      margin: 1.1rem 0 1.25rem;
+      color: #fff;
+      font-size: clamp(3.1rem, 6.7vw, 6.8rem);
+      line-height: .94;
+      letter-spacing: -.065em;
+    }
+    .results-hero__summary {
+      max-width: 42rem;
+      margin: 0 0 1rem;
+      color: #eaf4fb;
+      font-size: clamp(1.2rem, 2vw, 1.55rem);
+      line-height: 1.48;
+    }
+    .results-hero__lead {
+      max-width: 43rem;
+      margin: 0 0 1.75rem;
+      color: #aebfca;
+      line-height: 1.78;
+    }
+    .breadcrumb--dark a, .breadcrumb--dark span { color: #9fb0bb; }
+    .proof-interface {
+      padding: clamp(1.1rem, 2vw, 1.6rem);
+      border: 1px solid rgba(111, 204, 255, .19);
+      border-radius: 1.5rem;
+      background: rgba(7, 28, 44, .78);
+      box-shadow: 0 2rem 7rem rgba(0, 0, 0, .28);
+      backdrop-filter: blur(12px);
+    }
+    .proof-interface__top {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(255,255,255,.09);
+      color: #8ba3b1;
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+    }
+    .proof-flow { display: grid; gap: .65rem; margin-top: 1rem; }
+    .proof-flow article {
+      padding: 1.15rem;
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 1rem;
+      background: rgba(255,255,255,.035);
+    }
+    .proof-flow small { display: block; margin-bottom: .45rem; color: #51c7d5; font-size: .68rem; letter-spacing: .11em; }
+    .proof-flow strong { display: block; color: #fff; font-size: 1rem; }
+    .proof-arrow { color: #35a5e8; text-align: center; }
+    .proof-flow__verified { border-color: rgba(15,165,138,.32) !important; }
+    .evidence-lines { display: grid; gap: .4rem; margin-top: .8rem; }
+    .evidence-lines i { display: block; height: .42rem; border-radius: 99px; background: rgba(255,255,255,.08); }
+    .evidence-lines i:nth-child(2) { width: 78%; }
+    .evidence-lines i:nth-child(3) { width: 55%; }
+    .proof-tags { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .85rem; }
+    .proof-tags span, .verification-dot {
+      display: inline-flex;
+      padding: .4rem .55rem;
+      border-radius: .55rem;
+      background: rgba(20,164,216,.1);
+      color: #9edcf5;
+      font-size: .68rem;
+      font-style: normal;
+      font-weight: 700;
+      letter-spacing: .05em;
+    }
+    .verification-dot { margin-top: .85rem; background: rgba(15,165,138,.12); color: #86e4d0; }
+    .proof-interface > p { margin: 1rem .25rem .15rem; color: #7f949f; font-size: .78rem; line-height: 1.55; }
+
+    .results-trust { padding: 1.5rem 0 1.1rem; border-bottom: 1px solid #dce5eb; background: #f6f9fb; }
+    .results-trust__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+    .results-trust__grid div { display: grid; gap: .2rem; }
+    .results-trust__grid strong { color: #081b2c; font-size: clamp(1.25rem, 2vw, 1.7rem); }
+    .results-trust__grid span { color: #536873; font-size: .85rem; }
+    .results-trust__note { margin-top: 1rem; color: #73858f; font-size: .78rem; }
+
+    .evidence-standard__grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(2.5rem, 6vw, 6rem); align-items: start; }
+    .section-lead { max-width: 34rem; color: #536873; line-height: 1.78; }
+    .proof-type-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .proof-type-grid article { padding: 1.4rem; border: 1px solid #dbe5eb; border-radius: 1rem; background: #fff; }
+    .proof-type-grid article > span { display: grid; place-items: center; width: 2rem; height: 2rem; margin-bottom: 1rem; border-radius: 50%; background: #e6f7f2; color: #087c66; font-weight: 800; }
+    .proof-type-grid h3 { margin: 0 0 .55rem; color: #081b2c; font-size: 1rem; }
+    .proof-type-grid p { margin: 0; color: #61747d; font-size: .9rem; line-height: 1.65; }
+
+    .case-library { background: #f5f8fa; }
+    .results-explorer {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
+      gap: .75rem;
+      align-items: end;
+      margin: 2rem 0 1rem;
+      padding: 1rem;
+      border: 1px solid #d9e4ea;
+      border-radius: 1.2rem;
+      background: #fff;
+      box-shadow: 0 1rem 3rem rgba(8,27,44,.05);
+    }
+    .filter-field { display: grid; gap: .45rem; }
+    .filter-field label { color: #334d5a; font-size: .72rem; font-weight: 700; letter-spacing: .03em; }
+    .filter-field select {
+      width: 100%;
+      min-height: 3rem;
+      padding: 0 .8rem;
+      border: 1px solid #cbd9e0;
+      border-radius: .75rem;
+      background: #fbfdfe;
+      color: #102b3b;
+      font: inherit;
+    }
+    .results-filter-button { min-height: 3rem; white-space: nowrap; }
+    .case-status { margin: 0 0 1.25rem; color: #667982; font-size: .82rem; }
+    .case-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.2rem; }
+    .case-card {
+      overflow: hidden;
+      border: 1px solid #d9e4e9;
+      border-radius: 1.25rem;
+      background: #fff;
+      box-shadow: 0 1.2rem 3rem rgba(8,27,44,.055);
+    }
+    .case-card[hidden] { display: none; }
+    .case-card__top { display: flex; justify-content: space-between; gap: 1rem; padding: .9rem 1.1rem; border-bottom: 1px solid #e1e8ec; background: #0a2133; color: #aac0cd; font-size: .67rem; letter-spacing: .08em; }
+    .case-card__top strong { color: #ffd275; font-size: .62rem; }
+    .case-card__meta { display: flex; flex-wrap: wrap; gap: .45rem; padding: 1rem 1.1rem 0; }
+    .case-card__meta span { padding: .36rem .52rem; border-radius: .5rem; background: #edf4f7; color: #42606e; font-size: .7rem; font-weight: 700; }
+    .case-card > h3 { margin: 1rem 1.1rem .45rem; color: #081b2c; font-size: 1.35rem; }
+    .case-card > p { margin: 0 1.1rem 1rem; color: #61747d; line-height: 1.65; }
+    .case-card__story { display: grid; gap: .65rem; margin: 1rem 1.1rem; padding: 1rem; border-radius: .9rem; background: #f6f9fa; }
+    .case-card__story div { display: grid; gap: .2rem; }
+    .case-card__story small { color: #1685b9; font-size: .62rem; font-weight: 800; letter-spacing: .09em; }
+    .case-card__story span { color: #405965; font-size: .82rem; }
+    .evidence-pair { display: grid; grid-template-columns: 1fr 1fr; gap: .7rem; margin: 1rem 1.1rem; }
+    .evidence-pair > div { padding: .8rem; border: 1px solid #dee7eb; border-radius: .85rem; }
+    .evidence-pair small { color: #6e818b; font-size: .62rem; font-weight: 800; letter-spacing: .08em; }
+    .evidence-pair p { margin: .65rem 0 0; color: #74858d; font-size: .72rem; }
+    .evidence-placeholder { position: relative; display: grid; gap: .3rem; min-height: 6.5rem; margin-top: .6rem; padding: .75rem; border-radius: .55rem; background: #f0f4f6; }
+    .evidence-placeholder i { display: block; width: 92%; height: .35rem; border-radius: 99px; background: #c9d4d9; }
+    .evidence-placeholder i:nth-child(2) { width: 72%; }
+    .evidence-placeholder i:nth-child(3) { width: 84%; }
+    .evidence-placeholder b { position: absolute; left: .75rem; right: .75rem; bottom: .8rem; height: 1.2rem; border: 1px dashed #86a7b7; border-radius: .35rem; }
+    .evidence-placeholder--after b { border-color: #52aa98; background: rgba(15,165,138,.06); }
+    .case-card__disclaimer { padding: .8rem 1.1rem 1.1rem; border-top: 1px solid #e8eef1; color: #8a6a35 !important; font-size: .72rem; }
+    .no-results { padding: 2rem; border: 1px dashed #b8cbd5; border-radius: 1rem; text-align: center; }
+
+    .methodology { padding: clamp(5rem, 9vw, 8rem) 0; }
+    .methodology__grid { display: grid; grid-template-columns: .7fr 1.3fr; gap: clamp(3rem, 7vw, 7rem); align-items: start; }
+    .methodology h2 { color: #fff; }
+    .methodology__grid > div > p:last-child { color: #9eb2be; line-height: 1.75; }
+    .methodology-steps { display: grid; gap: .8rem; margin: 0; padding: 0; list-style: none; }
+    .methodology-steps li { display: grid; grid-template-columns: 3.2rem 1fr; gap: 1rem; padding: 1.2rem; border: 1px solid rgba(255,255,255,.08); border-radius: 1rem; background: rgba(255,255,255,.035); }
+    .methodology-steps li > span { color: #55c7d4; font-weight: 800; }
+    .methodology-steps h3 { margin: 0 0 .4rem; color: #fff; font-size: 1rem; }
+    .methodology-steps p { margin: 0; color: #91a8b5; font-size: .88rem; line-height: 1.6; }
+    .methodology-statement { margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,.09); }
+    .methodology-statement strong { color: #fff; font-family: "Newsreader", serif; font-size: clamp(2rem, 4vw, 4rem); font-weight: 500; }
+
+    .honest-results__grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(3rem, 7vw, 7rem); }
+    .honest-results__grid > div:last-child > p { color: #536873; line-height: 1.8; }
+    .honest-results blockquote { margin: 2rem 0; padding: 1.4rem 0 1.4rem 1.4rem; border-left: 3px solid #0fa58a; color: #0a2638; font-family: "Newsreader", serif; font-size: clamp(1.6rem, 3vw, 2.45rem); line-height: 1.2; }
+
+    .bureau-proof { background: #f5f8fa; }
+    .bureau-proof__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2rem; }
+    .bureau-proof__grid a { display: grid; min-height: 15rem; padding: 1.4rem; border: 1px solid #dae4e9; border-radius: 1rem; background: #fff; color: inherit; text-decoration: none; transition: transform .2s ease, box-shadow .2s ease; }
+    .bureau-proof__grid a:hover { transform: translateY(-3px); box-shadow: 0 1rem 2.5rem rgba(8,27,44,.08); }
+    .bureau-proof__grid span { color: #1685b9; font-size: .68rem; font-weight: 800; letter-spacing: .1em; }
+    .bureau-proof__grid strong { margin-top: auto; color: #081b2c; font-size: 1.25rem; }
+    .bureau-proof__grid p { color: #62757e; line-height: 1.55; }
+    .bureau-proof__grid em { color: #087c66; font-size: .84rem; font-style: normal; font-weight: 700; }
+
+    @media (max-width: 1000px) {
+      .results-hero__grid, .evidence-standard__grid, .methodology__grid, .honest-results__grid { grid-template-columns: 1fr; }
+      .results-hero h1 { max-width: 15ch; }
+      .proof-interface { max-width: 42rem; }
+      .results-explorer { grid-template-columns: repeat(2, 1fr); }
+      .results-filter-button { width: 100%; }
+    }
+    @media (max-width: 760px) {
+      .results-hero { padding-top: 6.8rem; }
+      .results-hero h1 { font-size: clamp(2.7rem, 13vw, 4.3rem); }
+      .results-trust__grid, .proof-type-grid, .case-grid, .bureau-proof__grid { grid-template-columns: 1fr 1fr; }
+      .results-explorer { grid-template-columns: 1fr; }
+      .case-grid { grid-template-columns: 1fr; }
+      .evidence-pair { grid-template-columns: 1fr; }
+      .bureau-proof__grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 520px) {
+      .results-trust__grid { grid-template-columns: 1fr 1fr; }
+      .proof-type-grid { grid-template-columns: 1fr; }
+      .case-card__top { align-items: flex-start; flex-direction: column; }
+    }
+  </style>
+</BaseLayout>
