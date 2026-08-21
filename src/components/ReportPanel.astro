@@ -27,17 +27,37 @@ const rows = [
     <span>Illustrative interface</span>
   </div>
   <div class="bureau-tabs" role="tablist" aria-label="Credit bureaus">
-    <button class="is-active" type="button" role="tab" aria-selected="true"
+    <button
+      class="is-active"
+      type="button"
+      role="tab"
+      aria-selected="true"
+      data-bureau-tab="all"
       >All 3</button
     >
-    <button type="button" role="tab" aria-selected="false">Experian</button>
-    <button type="button" role="tab" aria-selected="false">Equifax</button>
-    <button type="button" role="tab" aria-selected="false">TransUnion</button>
+    <button
+      type="button"
+      role="tab"
+      aria-selected="false"
+      data-bureau-tab="experian">Experian</button
+    >
+    <button
+      type="button"
+      role="tab"
+      aria-selected="false"
+      data-bureau-tab="equifax">Equifax</button
+    >
+    <button
+      type="button"
+      role="tab"
+      aria-selected="false"
+      data-bureau-tab="transunion">TransUnion</button
+    >
   </div>
   <div class="report-summary">
     <div><span>Inquiries found</span><strong>07</strong></div>
-    <div><span>Flagged for review</span><strong>03</strong></div>
-    <div><span>Bureaus</span><strong>03</strong></div>
+    <div><span>Flagged for review</span><strong data-visible-count>03</strong></div>
+    <div><span>Bureaus</span><strong data-bureau-count>03</strong></div>
   </div>
   <div class="report-table">
     <div class="report-head">
@@ -47,7 +67,12 @@ const rows = [
     </div>
     {
       rows.map((row, index) => (
-        <div class="report-row" style={`--delay:${index * 120}ms`}>
+        <div
+          class="report-row"
+          style={`--delay:${index * 120}ms`}
+          data-report-row
+          data-row-bureau={row.bureau.toLowerCase()}
+        >
           <span>
             <i />
             {row.lender}
@@ -66,21 +91,110 @@ const rows = [
       ))
     }
   </div>
+  <div class="report-resolution" aria-hidden="true">
+    <span></span><i></i><span></span>
+  </div>
   <p class="report-note">
     Example workflow only. Outcomes depend on the facts of each case.
   </p>
 </div>
 
 <script>
-  document.querySelectorAll("[data-report-panel]").forEach((panel) => {
-    const tabs = panel.querySelectorAll('[role="tab"]');
+  document.querySelectorAll<HTMLElement>("[data-report-panel]").forEach((panel) => {
+    const tabs = Array.from(panel.querySelectorAll<HTMLButtonElement>("[data-bureau-tab]"));
+    const rows = Array.from(panel.querySelectorAll<HTMLElement>("[data-report-row]"));
+    const visibleCount = panel.querySelector<HTMLElement>("[data-visible-count]");
+    const bureauCount = panel.querySelector<HTMLElement>("[data-bureau-count]");
+
     tabs.forEach((tab) =>
       tab.addEventListener("click", () => {
+        const key = tab.dataset.bureauTab ?? "all";
         tabs.forEach((item) => {
-          item.classList.toggle("is-active", item === tab);
-          item.setAttribute("aria-selected", String(item === tab));
+          const active = item === tab;
+          item.classList.toggle("is-active", active);
+          item.setAttribute("aria-selected", String(active));
         });
+
+        let visible = 0;
+        rows.forEach((row) => {
+          const matches = key === "all" || row.dataset.rowBureau === key;
+          row.classList.toggle("is-filtered-out", !matches);
+          row.setAttribute("aria-hidden", String(!matches));
+          if (matches) visible += 1;
+        });
+
+        if (visibleCount) visibleCount.textContent = String(visible).padStart(2, "0");
+        if (bureauCount) bureauCount.textContent = key === "all" ? "03" : "01";
       }),
     );
   });
 </script>
+
+<style is:global>
+  .report-row {
+    transition:
+      opacity 260ms ease,
+      filter 260ms ease,
+      transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .report-row.is-filtered-out {
+    opacity: 0.14;
+    filter: saturate(0.4);
+    transform: translateX(8px) scale(0.99);
+  }
+
+  .report-resolution {
+    display: grid;
+    grid-template-columns: 8px 1fr 8px;
+    align-items: center;
+    gap: 8px;
+    margin: 18px 0 4px;
+  }
+
+  .report-resolution span {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #16a4d8;
+    box-shadow: 0 0 14px rgba(22, 164, 216, 0.42);
+  }
+
+  .report-resolution span:last-child {
+    background: #0fa58a;
+    box-shadow: 0 0 14px rgba(15, 165, 138, 0.42);
+  }
+
+  .report-resolution i {
+    position: relative;
+    height: 1px;
+    overflow: hidden;
+    border-radius: 99px;
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .report-resolution i::after {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, #16a4d8, #0fa58a);
+    content: "";
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    animation: report-resolution-line 3.8s cubic-bezier(0.22, 1, 0.36, 1) 1.2s infinite;
+  }
+
+  @keyframes report-resolution-line {
+    0%, 22% { transform: scaleX(0); opacity: 0; }
+    32% { opacity: 1; }
+    68% { transform: scaleX(1); opacity: 1; }
+    78%, 100% { transform: scaleX(1); opacity: 0.25; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .report-resolution i::after {
+      animation: none;
+      opacity: 0.8;
+      transform: scaleX(1);
+    }
+  }
+</style>
