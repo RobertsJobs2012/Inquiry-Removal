@@ -49,7 +49,6 @@
       "Apply for credit cards": "Credit cards or other personal credit",
       "Address identity theft": "Addressing possible identity theft",
       "Clean up my credit profile": "Improving my overall credit profile",
-      "Something else": "Improving my overall credit profile",
     },
     situation: {
       "A dealership sent my credit to multiple lenders":
@@ -61,7 +60,6 @@
       "The inquiry came from identity theft": "I may be dealing with identity theft",
       "The inquiry belongs to someone else": "The inquiry belongs to someone else",
       "I authorized it but want it removed": "I authorized it but want it reviewed",
-      "I am not sure": "I do not recognize the company",
     },
     count: {
       "1 to 10": "1–10",
