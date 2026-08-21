@@ -26,7 +26,7 @@ export const pages: SitePage[] = [
     title: "Can Your Hard Inquiries Be Removed? Start With a Free Review",
     seoTitle: "Hard Inquiry Removal Eligibility | Inquiry Removal",
     description:
-      "Hard inquiry removal starts with the entries you want gone. Show us what happened, and we'll review the reports and explain the removal path.",
+      "Hard inquiry removal starts with the entries you want gone. Show us what happened, and we will review the reports and explain the removal path.",
     aside: ["Your inquiry list", "Your situation", "Your removal path"],
     sections: [
       {
