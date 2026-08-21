@@ -1,0 +1,638 @@
+/* Inquiry Removal — Final Visual System
+   A single physical-material hierarchy for the entire site.
+   Loaded last. Avoid decorative card pseudo-elements: geometry lives on the real surface. */
+
+:root {
+  --sys-canvas: #f7f9fc;
+  --sys-canvas-cool: #f2f6fb;
+  --sys-paper: rgba(255,255,255,.985);
+  --sys-paper-soft: rgba(250,252,255,.965);
+  --sys-navy: #071b2c;
+  --sys-navy-2: #0a2945;
+  --sys-blue: #1478e6;
+  --sys-blue-deep: #075bbd;
+  --sys-blue-light: #55adff;
+  --sys-teal: #0fa58a;
+  --sys-ink: #152036;
+  --sys-muted: #5e6b80;
+  --sys-line: rgba(92,129,159,.16);
+  --sys-line-strong: rgba(77,119,153,.24);
+  --sys-radius-control: 999px;
+  --sys-radius-card: 24px;
+  --sys-radius-panel: 30px;
+  --sys-radius-stage: 38px;
+  --sys-contact: 0 3px 7px rgba(10,30,52,.09);
+  --sys-raised: 0 18px 38px rgba(8,31,57,.08), 0 4px 10px rgba(8,31,57,.06);
+  --sys-floating: 0 30px 70px rgba(7,35,67,.13), 0 7px 18px rgba(8,35,66,.09);
+  --sys-dark-floating: 0 34px 80px rgba(0,0,0,.29), 0 7px 20px rgba(0,0,0,.18);
+  --sys-edge-light: inset 0 1px 0 rgba(255,255,255,.96);
+  --sys-dark-edge-light: inset 0 1px 0 rgba(255,255,255,.13);
+}
+
+/* --------------------------------------------------------------------------
+   Canvas + rhythm
+   -------------------------------------------------------------------------- */
+body {
+  background:
+    radial-gradient(900px 520px at 88% 8%, rgba(20,120,230,.035), transparent 68%),
+    var(--sys-canvas);
+}
+
+.section,
+.page-content,
+.guide-opening,
+.guide-related,
+.pricing-page-plans {
+  background-color: transparent;
+}
+
+.section-heading h2,
+.split-heading h2,
+.centered-heading h2,
+.guide-section h2,
+.content-body h2,
+.pricing-heading h2 {
+  letter-spacing: -.045em;
+  text-wrap: balance;
+}
+
+.eyebrow {
+  color: #1974cf;
+}
+
+.eyebrow--light {
+  color: #79c7ff;
+}
+
+/* --------------------------------------------------------------------------
+   Primary material: blue action glass. One continuous object, no inner frame.
+   -------------------------------------------------------------------------- */
+.button,
+.mobile-action-dock .mobile-action-dock__primary,
+.pricing-grid .pricing-featured > a.button,
+.pricing-plan-card > a.button,
+.content-index > a.button {
+  border: 1px solid rgba(213,239,255,.9) !important;
+  border-radius: 18px !important;
+  color: #fff !important;
+  background:
+    radial-gradient(90% 120% at 18% -30%, rgba(255,255,255,.72) 0%, rgba(255,255,255,.18) 32%, transparent 55%),
+    linear-gradient(172deg, var(--sys-blue-light) 0%, #2b91ef 27%, var(--sys-blue) 55%, var(--sys-blue-deep) 100%) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.98),
+    inset 1px 0 0 rgba(255,255,255,.24),
+    inset -1px 0 0 rgba(1,47,101,.16),
+    inset 0 -2px 0 rgba(0,45,99,.28),
+    0 3px 5px rgba(5,44,89,.13),
+    0 13px 25px rgba(20,120,230,.20),
+    0 28px 55px rgba(5,53,112,.14) !important;
+  text-shadow: 0 1px 1px rgba(0,42,90,.2);
+}
+
+.button::after,
+.mobile-action-dock .mobile-action-dock__primary::after {
+  display: none !important;
+  content: none !important;
+}
+
+.button::before,
+.mobile-action-dock .mobile-action-dock__primary::before {
+  opacity: .42 !important;
+}
+
+@media (hover:hover) and (pointer:fine) {
+  .button:hover,
+  .pricing-plan-card > a.button:hover {
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,1),
+      inset 0 -2px 0 rgba(0,44,96,.25),
+      0 4px 7px rgba(5,44,89,.14),
+      0 18px 34px rgba(20,120,230,.24),
+      0 36px 70px rgba(5,53,112,.16) !important;
+    transform: translateY(-3px) scale(1.006);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Glass navigation family
+   -------------------------------------------------------------------------- */
+.nav-shell,
+.page-jump__inner,
+.guide-jump > .container,
+.mobile-action-dock {
+  border-color: rgba(108,151,184,.18) !important;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.91), rgba(247,251,255,.82)) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.98),
+    0 2px 5px rgba(8,32,55,.06),
+    0 17px 42px rgba(8,32,55,.10) !important;
+  backdrop-filter: blur(22px) saturate(150%);
+  -webkit-backdrop-filter: blur(22px) saturate(150%);
+}
+
+.page-jump a.is-active,
+.desktop-nav a[aria-current="page"] {
+  border-radius: 999px !important;
+  color: #fff !important;
+  background:
+    radial-gradient(85% 100% at 18% -22%, rgba(255,255,255,.55), transparent 48%),
+    linear-gradient(180deg, #3c9cf3, #1478e6 58%, #0961c3) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.85),
+    inset 0 -1px 0 rgba(0,55,113,.22),
+    0 3px 7px rgba(15,91,167,.14),
+    0 10px 21px rgba(20,120,230,.17) !important;
+  overflow: hidden !important;
+}
+
+.page-jump a.is-active::before,
+.page-jump a.is-active::after,
+.desktop-nav a[aria-current="page"]::before,
+.desktop-nav a[aria-current="page"]::after {
+  display: none !important;
+  content: none !important;
+}
+
+/* Bottom dock: glass tray, two quiet utility keys, one hero action. */
+.mobile-action-dock {
+  border-radius: 22px !important;
+}
+
+.mobile-action-dock a:not(.mobile-action-dock__primary),
+.mobile-action-dock button:not(.mobile-action-dock__primary) {
+  border: 1px solid rgba(116,151,180,.14) !important;
+  border-radius: 16px !important;
+  background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(244,248,252,.78)) !important;
+  box-shadow: inset 0 1px 0 white, 0 4px 12px rgba(8,31,57,.05) !important;
+}
+
+/* --------------------------------------------------------------------------
+   Paper / ceramic surfaces: same geometry and physics everywhere.
+   -------------------------------------------------------------------------- */
+.situation-card,
+.comparison-grid article,
+.process-grid article,
+.pricing-grid > article,
+.pricing-plan-card,
+.guarantee-note,
+.evidence-grid > article,
+.resource-card,
+.case-card,
+.guide-card-grid article,
+.guide-answer,
+.guide-takeaways,
+.guide-author,
+.guide-media-panel,
+.guide-related__grid > aside,
+.content-index,
+.process-crosslink,
+.counting-grid article,
+.included-grid article,
+.review-topic-grid > div,
+.preparation-grid article,
+.updates-grid article,
+.bureau-grid a,
+.plan-selector,
+.waiting-cost__list,
+.plan-selector__result {
+  border-color: var(--sys-line) !important;
+  background:
+    radial-gradient(70% 55% at 92% 3%, rgba(20,120,230,.035), transparent 62%),
+    var(--sys-paper) !important;
+  box-shadow:
+    var(--sys-edge-light),
+    0 3px 7px rgba(8,31,57,.06),
+    0 18px 40px rgba(8,31,57,.075),
+    0 42px 82px rgba(8,31,57,.045) !important;
+}
+
+.situation-card,
+.comparison-grid article,
+.process-grid article,
+.pricing-grid > article,
+.pricing-plan-card,
+.resource-card,
+.case-card,
+.guide-card-grid article,
+.counting-grid article,
+.included-grid article,
+.review-topic-grid > div,
+.preparation-grid article,
+.updates-grid article,
+.bureau-grid a {
+  border-radius: var(--sys-radius-card) !important;
+}
+
+.guarantee-note,
+.guide-answer,
+.guide-takeaways,
+.guide-author,
+.guide-media-panel,
+.content-index,
+.process-crosslink,
+.plan-selector,
+.plan-selector__result {
+  border-radius: var(--sys-radius-panel) !important;
+}
+
+/* Never allow decorative overlays to create an external rectangle. */
+.situation-card::before,
+.situation-card::after,
+.resource-card::before,
+.resource-card::after,
+.case-card::before,
+.case-card::after,
+.counting-grid article::before,
+.counting-grid article::after,
+.included-grid article::before,
+.included-grid article::after,
+.bureau-grid a::before,
+.bureau-grid a::after {
+  display: none !important;
+  content: none !important;
+}
+
+/* Ensure actual content always sits above translucent/animated layers. */
+.situation-card > *,
+.resource-card > *,
+.case-card > *,
+.counting-grid article > *,
+.included-grid article > *,
+.guide-card-grid article > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* --------------------------------------------------------------------------
+   Homepage flagship modules
+   -------------------------------------------------------------------------- */
+.situation-grid--eight {
+  gap: clamp(16px, 2vw, 24px) !important;
+}
+
+.situation-card {
+  min-height: 300px;
+  transition: transform .32s cubic-bezier(.22,1,.36,1), box-shadow .32s ease, border-color .25s ease;
+}
+
+.situation-card .card-number {
+  color: #1975d1 !important;
+  font-weight: 800;
+}
+
+.situation-card .situation-icon {
+  border: 1px solid rgba(20,120,230,.13);
+  background: linear-gradient(180deg, #f8fbff, #edf5ff);
+  box-shadow: inset 0 1px 0 white, 0 9px 22px rgba(15,91,167,.08);
+}
+
+@media (hover:hover) and (pointer:fine) {
+  .situation-card:hover,
+  .resource-card:hover,
+  .guide-card-grid article:hover {
+    border-color: rgba(20,120,230,.21) !important;
+    box-shadow:
+      inset 0 1px 0 white,
+      0 4px 8px rgba(8,31,57,.07),
+      0 24px 52px rgba(8,31,57,.10),
+      0 50px 95px rgba(8,31,57,.06) !important;
+    transform: translateY(-7px);
+  }
+}
+
+.specialist-section,
+.guide-choice,
+.guide-final,
+.dark-section {
+  background:
+    radial-gradient(760px 440px at 78% 28%, rgba(19,133,218,.18), transparent 68%),
+    radial-gradient(620px 350px at 18% 85%, rgba(15,165,138,.06), transparent 70%),
+    linear-gradient(135deg, #051522, var(--sys-navy) 48%, var(--sys-navy-2)) !important;
+}
+
+.specialist-section .comparison-grid article,
+.founder-story {
+  border: 1px solid rgba(132,193,232,.13) !important;
+  background: linear-gradient(145deg, rgba(15,49,76,.76), rgba(7,29,48,.82)) !important;
+  box-shadow: var(--sys-dark-edge-light), var(--sys-dark-floating) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.process-grid--four {
+  position: relative;
+}
+
+.process-grid--four article > span {
+  display: grid;
+  width: 46px;
+  height: 46px;
+  place-items: center;
+  border: 1px solid rgba(102,177,241,.35);
+  border-radius: 50%;
+  color: #0965c7;
+  background: linear-gradient(180deg, #f7fbff, #eaf4ff);
+  box-shadow: inset 0 1px 0 white, 0 9px 22px rgba(20,120,230,.11);
+}
+
+/* Evidence should feel like a dark proof stage. */
+.evidence-section {
+  padding-block: clamp(78px, 9vw, 128px);
+  color: #dcebf7;
+  background:
+    radial-gradient(700px 440px at 18% 25%, rgba(20,120,230,.16), transparent 65%),
+    linear-gradient(135deg, #061725, #08233a 58%, #0a2b47) !important;
+}
+
+.evidence-section h2,
+.evidence-section .eyebrow {
+  color: #fff;
+}
+
+.evidence-section .section-heading > p,
+.evidence-section p {
+  color: #b7cbdc;
+}
+
+.evidence-grid > article {
+  border-color: rgba(145,194,228,.15) !important;
+  background: linear-gradient(145deg, rgba(255,255,255,.95), rgba(247,251,255,.91)) !important;
+  box-shadow: var(--sys-floating) !important;
+}
+
+.evidence-grid > article,
+.evidence-grid > article p {
+  color: var(--sys-ink);
+}
+
+/* --------------------------------------------------------------------------
+   Pricing: physical product stack
+   -------------------------------------------------------------------------- */
+.pricing-plan-grid,
+.pricing-grid {
+  align-items: stretch;
+  gap: clamp(18px,2.2vw,28px) !important;
+  overflow: visible !important;
+}
+
+.pricing-plan-card,
+.pricing-grid > article {
+  overflow: visible !important;
+}
+
+.pricing-plan-card--featured,
+.pricing-grid .pricing-featured {
+  z-index: 2;
+  border: 2px solid rgba(20,120,230,.78) !important;
+  background:
+    radial-gradient(85% 48% at 50% 0%, rgba(53,151,243,.075), transparent 62%),
+    #fff !important;
+  box-shadow:
+    inset 0 1px 0 white,
+    0 5px 10px rgba(8,44,84,.08),
+    0 26px 55px rgba(20,120,230,.14),
+    0 58px 110px rgba(8,43,82,.09) !important;
+  transform: translateY(-9px);
+}
+
+.pricing-plan-card .popular,
+.pricing-grid .popular {
+  position: absolute !important;
+  z-index: 8 !important;
+  top: -17px !important;
+  left: 50% !important;
+  width: max-content !important;
+  margin: 0 !important;
+  padding: 8px 18px !important;
+  border: 1px solid rgba(210,238,255,.78) !important;
+  border-radius: 999px !important;
+  color: white !important;
+  background:
+    radial-gradient(90% 100% at 20% -20%, rgba(255,255,255,.50), transparent 48%),
+    linear-gradient(180deg,#3b9cf4,#1478e6 58%,#0863c5) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.82), 0 6px 14px rgba(7,70,137,.15), 0 14px 28px rgba(20,120,230,.18) !important;
+  transform: translateX(-50%) !important;
+}
+
+.pricing-plan-card h3,
+.pricing-grid h3 {
+  letter-spacing: -.065em;
+}
+
+.comparison-table,
+.comparison-section table {
+  border-radius: var(--sys-radius-panel);
+  overflow: hidden;
+  box-shadow: var(--sys-raised);
+}
+
+/* --------------------------------------------------------------------------
+   Guide/resource family: one publication system
+   -------------------------------------------------------------------------- */
+.guide-hero__visual {
+  border: 1px solid rgba(142,200,238,.16) !important;
+  border-radius: var(--sys-stage, 34px) !important;
+  background:
+    radial-gradient(85% 65% at 78% 18%, rgba(68,165,242,.19), transparent 62%),
+    linear-gradient(145deg, rgba(19,55,84,.86), rgba(7,28,46,.90)) !important;
+  box-shadow: var(--sys-dark-edge-light), var(--sys-dark-floating) !important;
+}
+
+.guide-proof__grid {
+  overflow: hidden;
+  border: 1px solid var(--sys-line);
+  border-radius: 0 0 24px 24px;
+  background: #fff;
+  box-shadow: 0 13px 34px rgba(8,31,57,.06);
+}
+
+.guide-jump > .container {
+  border-radius: 20px;
+}
+
+.guide-section--tint {
+  background:
+    radial-gradient(620px 380px at 92% 8%, rgba(20,120,230,.035), transparent 70%),
+    rgba(241,246,251,.66) !important;
+}
+
+.guide-section__number {
+  color: rgba(19,100,183,.16) !important;
+  font-weight: 800;
+}
+
+.guide-media-panel {
+  padding: clamp(22px,3vw,34px) !important;
+  border: 1px solid rgba(20,120,230,.15) !important;
+  background:
+    radial-gradient(70% 100% at 90% 0%, rgba(20,120,230,.08), transparent 66%),
+    linear-gradient(180deg,#fbfdff,#f2f7fc) !important;
+}
+
+.guide-media-panel__items span {
+  border: 1px solid rgba(20,120,230,.13);
+  border-radius: 999px;
+  background: rgba(255,255,255,.88);
+  box-shadow: inset 0 1px 0 white, 0 5px 14px rgba(8,31,57,.045);
+}
+
+.guide-faq__list details,
+.faq-list details {
+  border-color: var(--sys-line) !important;
+  border-radius: 18px !important;
+  background: rgba(255,255,255,.97) !important;
+  box-shadow: inset 0 1px 0 white, 0 9px 24px rgba(8,31,57,.045) !important;
+}
+
+.guide-faq__list summary span {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  place-items: center;
+  border-radius: 50%;
+  color: #0c67c7;
+  background: linear-gradient(180deg,#f8fbff,#eaf4ff);
+  box-shadow: inset 0 1px 0 white, 0 5px 13px rgba(20,120,230,.09);
+}
+
+/* --------------------------------------------------------------------------
+   Generic utility pages: editorial shell, not card soup
+   -------------------------------------------------------------------------- */
+.page-content .content-shell {
+  gap: clamp(34px,5vw,74px);
+}
+
+.content-index {
+  box-shadow: var(--sys-raised) !important;
+}
+
+.content-body > section {
+  border-top-color: rgba(93,132,162,.11) !important;
+}
+
+.content-body > section:first-child {
+  border-top: 0 !important;
+}
+
+.process-crosslink {
+  border: 1px solid rgba(20,120,230,.15) !important;
+  background:
+    radial-gradient(80% 120% at 90% 0%, rgba(20,120,230,.07), transparent 66%),
+    #fff !important;
+}
+
+/* --------------------------------------------------------------------------
+   Dark-stage consistency and final CTA
+   -------------------------------------------------------------------------- */
+.guide-final,
+.site-footer {
+  position: relative;
+}
+
+.guide-final > .container {
+  max-width: 920px;
+  text-align: center;
+}
+
+.guide-final .button {
+  margin-inline: auto;
+}
+
+/* --------------------------------------------------------------------------
+   Mobile: premium, dimensional, but quiet enough for a small viewport
+   -------------------------------------------------------------------------- */
+@media (max-width: 760px) {
+  :root {
+    --sys-radius-card: 20px;
+    --sys-radius-panel: 24px;
+  }
+
+  body {
+    background: var(--sys-canvas);
+  }
+
+  .nav-shell,
+  .page-jump__inner,
+  .guide-jump > .container {
+    box-shadow: inset 0 1px 0 white, 0 8px 22px rgba(8,31,57,.075) !important;
+  }
+
+  .button,
+  .mobile-action-dock .mobile-action-dock__primary {
+    border-radius: 17px !important;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.96),
+      inset 0 -2px 0 rgba(0,45,99,.24),
+      0 3px 5px rgba(5,44,89,.11),
+      0 10px 19px rgba(20,120,230,.18),
+      0 21px 38px rgba(5,53,112,.11) !important;
+  }
+
+  .situation-card,
+  .comparison-grid article,
+  .process-grid article,
+  .pricing-grid > article,
+  .pricing-plan-card,
+  .resource-card,
+  .case-card,
+  .guide-card-grid article,
+  .counting-grid article,
+  .included-grid article,
+  .review-topic-grid > div,
+  .preparation-grid article,
+  .updates-grid article,
+  .bureau-grid a {
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.96),
+      0 2px 4px rgba(8,31,57,.055),
+      0 12px 25px rgba(8,31,57,.07),
+      0 28px 50px rgba(8,31,57,.035) !important;
+  }
+
+  .situation-card {
+    min-height: 0;
+  }
+
+  .pricing-plan-card--featured,
+  .pricing-grid .pricing-featured {
+    margin-top: 14px;
+    transform: none;
+  }
+
+  .pricing-plan-card .popular,
+  .pricing-grid .popular {
+    top: -15px !important;
+  }
+
+  .guide-proof__grid {
+    border-radius: 0;
+  }
+
+  .guide-hero__visual {
+    border-radius: 25px !important;
+  }
+
+  .evidence-section {
+    padding-block: 72px;
+  }
+
+  .content-index > a.button {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button,
+  .situation-card,
+  .resource-card,
+  .guide-card-grid article,
+  .pricing-plan-card {
+    transition: none !important;
+    transform: none !important;
+  }
+}
