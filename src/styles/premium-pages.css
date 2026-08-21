@@ -1,0 +1,405 @@
+/* Page-level finishing layer for the Resolution Interface. */
+
+/* Hero choreography without hiding essential content. */
+.hero-copy > *,
+.how-hero__content > *,
+.pricing-hero__content > *,
+.results-hero__grid > div:first-child > *,
+.dealer-hero__copy > *,
+.page-hero-grid > div:first-child > * {
+  --hero-delay: 0ms;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-copy > .eyebrow,
+  .how-hero__content > .eyebrow,
+  .pricing-hero__content > .eyebrow,
+  .results-hero__grid > div:first-child > .eyebrow,
+  .dealer-hero__copy > .eyebrow,
+  .page-hero-grid > div:first-child > .eyebrow {
+    animation: ir-hero-copy-in 560ms cubic-bezier(0.22, 1, 0.36, 1) 80ms both;
+  }
+
+  .hero-copy > h1,
+  .how-hero__content > h1,
+  .pricing-hero__content > h1,
+  .results-hero__grid > div:first-child > h1,
+  .dealer-hero__copy > h1,
+  .page-hero-grid > div:first-child > h1 {
+    animation: ir-hero-copy-in 720ms cubic-bezier(0.22, 1, 0.36, 1) 130ms both;
+  }
+
+  .hero-copy > .hero-summary,
+  .how-hero__content > .hero-summary,
+  .pricing-hero__content > .hero-summary,
+  .results-hero__grid > div:first-child > .hero-summary,
+  .dealer-hero__copy > .hero-summary,
+  .page-hero-grid > div:first-child > p:not(.eyebrow) {
+    animation: ir-hero-copy-in 720ms cubic-bezier(0.22, 1, 0.36, 1) 190ms both;
+  }
+
+  .hero-copy > .button-row,
+  .how-hero__content > .button-row,
+  .pricing-hero__content > .button-row,
+  .results-hero__grid > div:first-child > .button-row,
+  .dealer-hero__copy > .button-row {
+    animation: ir-hero-copy-in 720ms cubic-bezier(0.22, 1, 0.36, 1) 260ms both;
+  }
+}
+
+@keyframes ir-hero-copy-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* General content shell: more editorial rhythm, less brochure feel. */
+.page-content {
+  background:
+    radial-gradient(circle at 90% 8%, rgba(15, 112, 215, 0.035), transparent 25%),
+    white;
+}
+
+.content-index {
+  border-radius: 18px;
+}
+
+.content-body > section {
+  position: relative;
+  padding: 46px 0;
+}
+
+.content-body > section + section {
+  border-top: 1px solid rgba(93, 132, 162, 0.13);
+}
+
+.content-body > section > h2 {
+  text-wrap: balance;
+}
+
+.content-body ul li::marker,
+.check-list li::marker {
+  color: #0fa58a;
+}
+
+/* Resource and scenario pages: product-like cards. */
+.resource-grid,
+.review-topic-grid,
+.preparation-grid,
+.updates-grid,
+.counting-grid,
+.included-grid,
+.bureau-grid {
+  gap: clamp(12px, 1.6vw, 20px);
+}
+
+.resource-card,
+.review-topic-grid > div,
+.preparation-grid article,
+.updates-grid article,
+.counting-grid article,
+.included-grid article,
+.bureau-grid a {
+  border-color: rgba(96, 138, 169, 0.16);
+  background:
+    radial-gradient(circle at 94% 8%, rgba(15, 112, 215, 0.04), transparent 28%),
+    white;
+  box-shadow: 0 12px 36px rgba(8, 27, 44, 0.055);
+}
+
+/* About: turn identity card into an illuminated credentials object. */
+.about-identity {
+  background:
+    radial-gradient(circle at var(--pointer-x, 50%) var(--pointer-y, 50%), rgba(121, 199, 255, 0.11), transparent 26%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.035));
+}
+
+.about-monogram {
+  position: relative;
+}
+
+.about-monogram::after {
+  position: absolute;
+  inset: 7px;
+  border: 1px solid rgba(121, 199, 255, 0.13);
+  border-radius: inherit;
+  content: "";
+}
+
+/* Dealership: preserve diagram clarity while making it feel like a product visualization. */
+.dealer-inquiry-visual {
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at var(--pointer-x, 50%) var(--pointer-y, 50%), rgba(22, 164, 216, 0.09), transparent 30%),
+    linear-gradient(145deg, rgba(16, 51, 79, 0.84), rgba(5, 24, 40, 0.86));
+  box-shadow: 0 48px 120px rgba(0, 0, 0, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.dealer-lender-lines i {
+  filter: drop-shadow(0 0 7px rgba(22, 164, 216, 0.24));
+}
+
+/* Pricing: make the selected package feel like a product decision, not a static card. */
+.pricing-page-plans {
+  background:
+    radial-gradient(circle at 12% 8%, rgba(15, 112, 215, 0.045), transparent 24%),
+    white;
+}
+
+.pricing-plan-card h3 {
+  font-variant-numeric: tabular-nums;
+}
+
+.pricing-plan-card .popular {
+  border-radius: 999px;
+  box-shadow: 0 8px 20px rgba(15, 112, 215, 0.14);
+}
+
+.waiting-cost {
+  background:
+    linear-gradient(180deg, rgba(245, 248, 252, 0.7), white),
+    white;
+}
+
+/* Results: evidence console gets the feeling of a controlled analysis environment. */
+.evidence-console article,
+.case-story > div,
+.evidence-pair > div {
+  border-radius: 14px;
+}
+
+.case-card header strong {
+  border-radius: 999px;
+}
+
+.case-card .placeholder-note {
+  border-radius: 10px;
+}
+
+.proof-types article {
+  border-radius: 16px;
+  transition:
+    transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 240ms ease,
+    box-shadow 300ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .proof-types article:hover {
+    border-color: rgba(15, 112, 215, 0.2);
+    box-shadow: 0 18px 48px rgba(8, 27, 44, 0.08);
+    transform: translateY(-3px);
+  }
+}
+
+/* Free review success becomes a premium handoff receipt. */
+.review-success-path {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 30px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.review-success-path li {
+  position: relative;
+  min-height: 118px;
+  padding: 18px;
+  border: 1px solid rgba(15, 165, 138, 0.14);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.76);
+  box-shadow: 0 12px 32px rgba(8, 27, 44, 0.055);
+}
+
+.review-success-path span {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  margin-bottom: 24px;
+  border-radius: 50%;
+  color: white;
+  background: linear-gradient(135deg, #0f70d7, #0fa58a);
+  box-shadow: 0 8px 18px rgba(15, 165, 138, 0.16);
+  font-family: var(--display);
+  font-size: 0.66rem;
+  font-weight: 800;
+}
+
+.review-success-path strong {
+  display: block;
+  color: #173247;
+  font-family: var(--display);
+  font-size: 0.82rem;
+}
+
+.review-success-path small {
+  display: block;
+  margin-top: 5px;
+  color: #66798a;
+  font-size: 0.68rem;
+  line-height: 1.45;
+}
+
+/* Native menu choreography. */
+@media (prefers-reduced-motion: no-preference) {
+  .mobile-nav.is-open .mobile-nav__primary > a,
+  .mobile-nav.is-open .mobile-nav__secondary > a,
+  .mobile-nav.is-open .mobile-nav__start,
+  .mobile-nav.is-open .mobile-nav__proof {
+    animation: ir-menu-item-in 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .mobile-nav.is-open .mobile-nav__primary > a:nth-child(1) { animation-delay: 25ms; }
+  .mobile-nav.is-open .mobile-nav__primary > a:nth-child(2) { animation-delay: 55ms; }
+  .mobile-nav.is-open .mobile-nav__primary > a:nth-child(3) { animation-delay: 85ms; }
+  .mobile-nav.is-open .mobile-nav__primary > a:nth-child(4) { animation-delay: 115ms; }
+  .mobile-nav.is-open .mobile-nav__primary > a:nth-child(5) { animation-delay: 145ms; }
+  .mobile-nav.is-open .mobile-nav__secondary > a:nth-child(1) { animation-delay: 175ms; }
+  .mobile-nav.is-open .mobile-nav__secondary > a:nth-child(2) { animation-delay: 195ms; }
+  .mobile-nav.is-open .mobile-nav__secondary > a:nth-child(3) { animation-delay: 215ms; }
+  .mobile-nav.is-open .mobile-nav__secondary > a:nth-child(4) { animation-delay: 235ms; }
+  .mobile-nav.is-open .mobile-nav__start { animation-delay: 255ms; }
+  .mobile-nav.is-open .mobile-nav__proof { animation-delay: 285ms; }
+}
+
+@keyframes ir-menu-item-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Forms: stronger thumb-zone and focus behavior. */
+.native-review-controls {
+  position: sticky;
+  z-index: 4;
+  bottom: 0;
+  padding-top: 16px;
+  background: linear-gradient(to bottom, transparent, rgba(251, 253, 255, 0.96) 30%);
+}
+
+.native-review-controls .button {
+  min-height: 54px;
+}
+
+/* 404 gets a tiny brand moment without new JavaScript. */
+.not-found::before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(620px, 74vw);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(22, 164, 216, 0.42), rgba(15, 165, 138, 0.48), transparent);
+  box-shadow: 0 0 28px rgba(22, 164, 216, 0.16);
+  content: "";
+  opacity: 0.4;
+  transform: translate(-50%, 105px);
+}
+
+/* Tablet-specific editorial geometry. */
+@media (min-width: 761px) and (max-width: 1100px) {
+  .page-hero-grid,
+  .dealer-hero__grid,
+  .results-hero__grid {
+    gap: 48px;
+  }
+
+  .situation-grid--eight,
+  .dealer-pain-grid,
+  .dealer-why-grid {
+    gap: 14px;
+  }
+
+  .review-topic-grid,
+  .preparation-grid,
+  .updates-grid,
+  .included-grid,
+  .counting-grid {
+    gap: 14px;
+  }
+
+  .native-review-shell {
+    gap: 44px;
+  }
+}
+
+/* Phone: fewer simultaneous ideas, stronger cards, thumb-safe final actions. */
+@media (max-width: 760px) {
+  .content-body > section {
+    padding: 34px 0;
+  }
+
+  .resource-card,
+  .review-topic-grid > div,
+  .preparation-grid article,
+  .updates-grid article,
+  .counting-grid article,
+  .included-grid article,
+  .bureau-grid a {
+    border-radius: 17px;
+  }
+
+  .review-success-path {
+    grid-template-columns: 1fr;
+  }
+
+  .review-success-path li {
+    min-height: 0;
+  }
+
+  .review-success-path span {
+    margin-bottom: 12px;
+  }
+
+  .native-review-controls {
+    bottom: -1px;
+    margin-inline: -4px;
+    padding: 16px 4px 4px;
+  }
+
+  .native-review-controls .button {
+    min-height: 56px;
+  }
+
+  .proof-types,
+  .case-grid {
+    gap: 12px;
+  }
+}
+
+/* Graceful glass fallback. */
+@supports not ((backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px))) {
+  .nav-shell,
+  .page-jump__inner,
+  .mobile-nav,
+  .mobile-action-dock,
+  .library .filters,
+  .resolution-stage {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .nav-shell,
+  .page-jump__inner,
+  .mobile-nav,
+  .mobile-action-dock,
+  .library .filters {
+    background: rgba(255, 255, 255, 0.98);
+  }
+
+  .site-header--dark:not(.is-scrolled) .nav-shell,
+  .resolution-stage {
+    background: #092139;
+  }
+}
