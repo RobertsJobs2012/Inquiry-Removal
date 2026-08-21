@@ -1,46 +1,8 @@
----
-const groups = [
-  {
-    title: "Inquiry Removal",
-    links: [
-      ["How It Works", "/how-it-works/"],
-      ["Situations We Handle", "/situations-we-handle/"],
-      ["Pricing", "/pricing/"],
-      ["FAQ", "/faq/"],
-      ["Free Inquiry Review", "/free-inquiry-review/"],
-    ],
-  },
-  {
-    title: "Resources",
-    links: [
-      ["How to Remove Hard Inquiries", "/how-to-remove-hard-inquiries/"],
-      ["How to Dispute an Inquiry", "/how-to-dispute-a-hard-inquiry/"],
-      ["How Long Inquiries Stay", "/how-long-do-hard-inquiries-stay/"],
-      ["Experian Inquiry Guide", "/experian-hard-inquiry-removal/"],
-      ["Equifax Inquiry Guide", "/equifax-hard-inquiry-removal/"],
-      ["TransUnion Inquiry Guide", "/transunion-hard-inquiry-removal/"],
-      ["Dealership Inquiries", "/dealership-inquiries/"],
-      ["Unauthorized Inquiries", "/unauthorized-inquiries/"],
-      ["Identity Theft", "/identity-theft-inquiries/"],
-    ],
-  },
-  {
-    title: "Company",
-    links: [
-      ["About", "/about/"],
-      ["Areas We Serve", "/areas-we-serve/"],
-      ["Contact", "/contact/"],
-      ["Privacy Policy", "/privacy/"],
-      ["Terms of Use", "/terms/"],
-    ],
-  },
-];
----
-
 <footer class="site-footer">
   <div class="footer-resolution-scene" aria-hidden="true">
     <span>RESOLVED</span>
   </div>
+
   <div class="footer-top">
     <div class="footer-brand">
       <a class="footer-logo" href="/" aria-label="Inquiry Removal home">
@@ -53,37 +15,65 @@ const groups = [
           decoding="async"
         />
       </a>
+
       <p>Hard Inquiry Specialists.<br /><strong>Nothing Else.</strong></p>
+
       <p class="footer-description">
         Nationwide service for Experian, Equifax, and TransUnion hard inquiries.
       </p>
+
       <div class="footer-contact">
         <a
           class="button button--small"
           href="/free-inquiry-review/"
           data-track="footer-review"
           data-context="sitewide"
-          >Get My Free Review <span>→</span></a
         >
+          Get My Free Review <span>→</span>
+        </a>
+
         <a
           class="text-link text-link--light"
           href="tel:+16023776626"
           aria-label="Call Inquiry Removal at 602-377-6626"
-          >Call Inquiry Removal <span>↗</span></a
         >
+          Call Inquiry Removal <span>↗</span>
+        </a>
       </div>
     </div>
-    {
-      groups.map((group) => (
-        <div class="footer-group">
-          <h2>{group.title}</h2>
-          {group.links.map(([label, href]) => (
-            <a href={href}>{label}</a>
-          ))}
-        </div>
-      ))}
-    }
+
+    <div class="footer-group">
+      <h2>Inquiry Removal</h2>
+      <a href="/how-it-works/">How It Works</a>
+      <a href="/situations-we-handle/">Situations We Handle</a>
+      <a href="/pricing/">Pricing</a>
+      <a href="/faq/">FAQ</a>
+      <a href="/free-inquiry-review/">Free Inquiry Review</a>
+    </div>
+
+    <div class="footer-group">
+      <h2>Resources</h2>
+      <a href="/how-to-remove-hard-inquiries/">How to Remove Hard Inquiries</a>
+      <a href="/how-to-dispute-a-hard-inquiry/">How to Dispute an Inquiry</a>
+      <a href="/how-long-do-hard-inquiries-stay/">How Long Inquiries Stay</a>
+      <a href="/experian-hard-inquiry-removal/">Experian Inquiry Guide</a>
+      <a href="/equifax-hard-inquiry-removal/">Equifax Inquiry Guide</a>
+      <a href="/transunion-hard-inquiry-removal/">TransUnion Inquiry Guide</a>
+      <a href="/dealership-inquiries/">Dealership Inquiries</a>
+      <a href="/unauthorized-inquiries/">Unauthorized Inquiries</a>
+      <a href="/identity-theft-inquiries/">Identity Theft</a>
+    </div>
+
+    <div class="footer-group">
+      <h2>Company</h2>
+      <a href="/about/">About</a>
+      <a href="/areas-we-serve/">Areas We Serve</a>
+      <a href="/contact/">Contact</a>
+      <a href="/privacy/">Privacy Policy</a>
+      <a href="/terms/">Terms of Use</a>
+    </div>
   </div>
+
   <div class="footer-bottom">
     <p>© {new Date().getFullYear()} Inquiry Removal. All rights reserved.</p>
     <p>
