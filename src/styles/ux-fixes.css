@@ -1,4 +1,4 @@
-/* Targeted UX fixes for sticky navigation and pricing cards. */
+/* Targeted UX fixes for sticky navigation, mobile reading flow, and pricing cards. */
 
 html {
   scroll-padding-top: 150px;
@@ -11,7 +11,7 @@ html {
   backdrop-filter: blur(24px) saturate(145%);
 }
 
-/* Dock the page jump bar directly beneath the 64px scrolled nav + 12px top inset. */
+/* Desktop/tablet jump navigation docks beneath the scrolled command center. */
 .page-jump {
   top: 76px !important;
 }
@@ -30,33 +30,94 @@ html {
   min-height: 40px;
 }
 
-/* Keep the featured pricing badge fully inside the card instead of clipping it. */
+/* Pricing page: use the site's primary blue for the featured Complete plan. */
 .pricing-plan-card--featured {
   overflow: visible;
-  padding-top: 72px;
+  border-color: var(--blue) !important;
+  box-shadow: 0 30px 65px rgba(15, 112, 215, 0.14) !important;
 }
 
+/* Match the homepage badge treatment: centered and straddling the card border. */
 .pricing-plan-card--featured .popular {
-  top: 18px;
+  top: -13px;
   z-index: 5;
   white-space: nowrap;
 }
 
+.pricing-plan-card--featured > strong,
+.pricing-plan-card--featured li::before {
+  color: var(--blue) !important;
+}
+
+/* Complete Removal comparison column should read as brand blue, not green. */
+.pricing-table thead .is-featured {
+  background: var(--blue) !important;
+  color: #fff !important;
+}
+
+.pricing-table thead .is-featured span {
+  color: rgba(255, 255, 255, 0.84) !important;
+}
+
+.pricing-table tbody .is-featured {
+  background: rgba(15, 112, 215, 0.07) !important;
+  color: var(--ink) !important;
+}
+
+/* Resource-page CTA must retain white text over the blue button. */
+.content-index > .button,
+.content-index > .button:visited,
+.content-index > .button:hover,
+.content-index > .button:focus-visible {
+  color: #fff !important;
+}
+
 @media (max-width: 900px) {
   html {
-    scroll-padding-top: 138px;
+    scroll-padding-top: 82px;
   }
 
+  /* On phones the jump bar is contextual navigation, not a second sticky header.
+     It scrolls away with the page so only the primary navbar can occupy the viewport. */
   .page-jump {
-    top: 74px !important;
+    position: relative !important;
+    top: auto !important;
+    z-index: 3;
   }
 
   .page-jump__inner {
-    min-height: 56px;
+    min-height: 54px;
     margin-top: 0 !important;
+    padding-block: 4px;
+    box-shadow: 0 8px 24px rgba(8, 27, 44, 0.08);
+  }
+
+  .page-jump a {
+    min-height: 38px;
+  }
+
+  /* Keep the mobile command center compact when it returns on upward scroll. */
+  .site-header {
+    top: 8px;
+  }
+
+  .nav-shell,
+  .site-header.is-scrolled .nav-shell {
+    height: 60px;
+    border-radius: 18px;
   }
 
   .pricing-plan-card--featured {
-    padding-top: 68px !important;
+    padding-top: 55px !important;
+    border-color: var(--blue) !important;
+  }
+
+  .pricing-plan-card--featured .popular {
+    top: -13px;
+  }
+
+  .content-index > .button {
+    color: #fff !important;
+    background: linear-gradient(135deg, #0d6ed3, #117fe7) !important;
   }
 }
