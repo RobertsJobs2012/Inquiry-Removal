@@ -30,8 +30,104 @@ interface Props {
   page?: SitePage;
   guide?: GuidePageData;
 }
-const { guide } = Astro.props;
-const page = Astro.props.page ?? pages[0];
+
+const rawGuide = Astro.props.guide;
+const rawPage = Astro.props.page ?? pages[0];
+
+const guide: GuidePageData | undefined =
+  rawGuide?.slug === "transunion-hard-inquiry-removal"
+    ? {
+        ...rawGuide,
+        sections: rawGuide.sections.map((section) =>
+          section.heading === "How can you remove a hard inquiry from TransUnion?"
+            ? {
+                ...section,
+                heading: "How Do You Remove Hard Inquiries From TransUnion?",
+              }
+            : section,
+        ),
+        faqs: [
+          ...rawGuide.faqs.map((faq) =>
+            faq.question === "Can I dispute hard inquiries on TransUnion?"
+              ? {
+                  ...faq,
+                  question: "How Do I Dispute Hard Inquiries on TransUnion?",
+                  answer:
+                    "Start with the exact TransUnion inquiry entry, identify the company that placed it, document what is inaccurate or does not belong to you, and use the current TransUnion process that fits the facts. Inquiry Removal can handle the dispute communications and follow-through for you.",
+                }
+              : faq,
+          ),
+          {
+            question:
+              "How Long Do Hard Inquiries Stay on a TransUnion Credit Report?",
+            answer:
+              "Hard inquiries generally remain visible on a credit report for up to two years, although their scoring impact can fade sooner. If a TransUnion inquiry is inaccurate, unauthorized, fraudulent, duplicated, or otherwise questionable, you do not have to simply wait for it to age off before reviewing your options.",
+          },
+        ],
+      }
+    : rawGuide;
+
+const page: SitePage =
+  rawPage.slug === "faq"
+    ? {
+        ...rawPage,
+        sections: rawPage.sections.flatMap((section) =>
+          section.heading === "How Quickly Can Hard Inquiries Be Removed?"
+            ? [
+                section,
+                {
+                  heading: "Can Hard Inquiries Be Removed in 24 Hours?",
+                  body: [
+                    "A 24-hour removal should not be promised or expected. Some inquiry removals can happen quickly, but Inquiry Removal tells clients that the process may take longer because creditors and credit bureaus respond on different schedules. Our earliest published timing is as little as seven days, not 24 hours.",
+                  ],
+                },
+                {
+                  heading: "What Happens When a Hard Inquiry Is Removed?",
+                  body: [
+                    "When a hard inquiry is removed, the entry should no longer appear on the affected credit report after the update is processed. That does not guarantee a particular score increase or approval because credit decisions and scores consider the rest of the credit profile as well.",
+                  ],
+                },
+              ]
+            : [section],
+        ),
+      }
+    : rawPage.slug === "areas-we-serve"
+      ? {
+          ...rawPage,
+          sections: rawPage.sections.flatMap((section) =>
+            section.heading === "Ready to Start Removing Your Hard Inquiries?"
+              ? [
+                  {
+                    heading:
+                      "Looking for Hard Inquiry Removal in Arizona or Phoenix?",
+                    body: [
+                      "Inquiry Removal serves Arizona consumers through the same nationwide remote process, including people in Phoenix and throughout the state. You can use the service without visiting an office, and the affected Experian, Equifax, and TransUnion reports determine the scope of the work.",
+                    ],
+                  },
+                  section,
+                ]
+              : [section],
+          ),
+        }
+      : rawPage.slug === "contact"
+        ? {
+            ...rawPage,
+            description:
+              "Contact Inquiry Removal by phone or online for a focused review of hard inquiries appearing on Experian, Equifax, or TransUnion.",
+            sections: rawPage.sections.map((section) =>
+              section.heading === "A direct human contact method."
+                ? {
+                    ...section,
+                    heading: "Call or Request Your Free Inquiry Review Online.",
+                    body: [
+                      "Call Inquiry Removal or submit the free online inquiry review to discuss the inquiries on your credit reports and the circumstances surrounding them. Do not provide Social Security numbers, dates of birth, report logins, payment information, or other highly sensitive information during the initial conversation or public website form.",
+                    ],
+                  }
+                : section,
+            ),
+          }
+        : rawPage;
+
 const pathname = `/${page.slug}/`;
 const indexable = isIndexablePath(pathname);
 const canonical = `${SITE_ORIGIN}${pathname}`;
@@ -159,10 +255,11 @@ const resourceCards = [
                   <p class="eyebrow">
                     <span /> Speak with a specialist
                   </p>
-                  <h2>Call Inquiry Removal.</h2>
+                  <h2>Call or start online.</h2>
                   <p>
-                    <a href="tel:+16023776626">Call Inquiry Removal</a> to speak
-                    with a specialist about a hard inquiry review.
+                    <a href="tel:+16023776626">Call Inquiry Removal</a> or use
+                    the free online review to speak with a specialist about your
+                    hard inquiries.
                   </p>
                 </div>
               )}
