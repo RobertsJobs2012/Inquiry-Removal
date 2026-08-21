@@ -5,6 +5,7 @@ import "../styles/premium-pages.css";
 import Analytics from "@vercel/analytics/astro";
 import SpeedInsights from "@vercel/speed-insights/astro";
 import ExperienceLayer from "../components/ExperienceLayer.astro";
+import AppFinisher from "../components/AppFinisher.astro";
 import { SITE_ORIGIN } from "../data/discovery.mjs";
 
 interface Props {
@@ -157,6 +158,7 @@ const serializedSchema = JSON.stringify(schemaGraph).replaceAll("<", "\\u003c");
     <a class="skip-link" href="#main-content">Skip to main content</a>
     <ExperienceLayer />
     <slot />
+    <AppFinisher />
     <Analytics />
     <SpeedInsights />
     <script>
