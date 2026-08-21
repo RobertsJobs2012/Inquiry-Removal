@@ -2,9 +2,16 @@
 const { dark = false, announcement = false } = Astro.props;
 const nav = [
   ["How It Works", "/how-it-works/"],
-  ["Situations We Handle", "/situations-we-handle/"],
+  ["Situations", "/situations-we-handle/"],
+  ["Results", "/results/"],
   ["Pricing", "/pricing/"],
   ["FAQ", "/faq/"],
+];
+const secondaryNav = [
+  ["Resources", "/resources/"],
+  ["About", "/about/"],
+  ["Areas We Serve", "/areas-we-serve/"],
+  ["Contact", "/contact/"],
 ];
 const currentPath = Astro.url.pathname;
 const isIntakePage = [
@@ -93,41 +100,69 @@ const isCurrent = (href: string) =>
     aria-label="Mobile navigation"
     data-mobile-nav
   >
-    {
-      nav.map(([label, href]) => (
-        <a href={href} aria-current={isCurrent(href) ? "page" : undefined}>
-          {label}
-          <span>→</span>
-        </a>
-      ))
-    }
-    <a
-      class="mobile-nav__phone"
-      href="tel:+16023776626"
-      aria-label="Call Inquiry Removal at 602-377-6626"
-      >Call Inquiry Removal <span>↗</span></a
-    >
-    <a
-      class="button mobile-nav__cta"
-      href="/free-inquiry-review/"
-      data-track="header-mobile-menu"
-      data-context="sitewide">Get My Free Review <span>→</span></a
-    >
-    <p class="mobile-nav__trust">Hard inquiry specialists since 2015.</p>
+    <p class="mobile-nav__section-label">Explore Inquiry Removal</p>
+    <div class="mobile-nav__primary">
+      {
+        nav.map(([label, href]) => (
+          <a href={href} aria-current={isCurrent(href) ? "page" : undefined}>
+            {label}
+            <span>→</span>
+          </a>
+        ))
+      }
+    </div>
+
+    <p class="mobile-nav__section-label">More</p>
+    <div class="mobile-nav__secondary">
+      {
+        secondaryNav.map(([label, href]) => (
+          <a href={href} aria-current={isCurrent(href) ? "page" : undefined}>
+            {label}
+            <span>↗</span>
+          </a>
+        ))
+      }
+    </div>
+
+    <div class="mobile-nav__start">
+      <p class="mobile-nav__section-label">Ready to start?</p>
+      <a
+        class="button mobile-nav__cta"
+        href="/free-inquiry-review/"
+        data-track="header-mobile-menu"
+        data-context="sitewide">Get My Free Inquiry Review <span>→</span></a
+      >
+      <a
+        class="mobile-nav__phone"
+        href="tel:+16023776626"
+        aria-label="Call Inquiry Removal at 602-377-6626"
+        >Call Inquiry Removal <span>↗</span></a
+      >
+    </div>
+    <p class="mobile-nav__proof">
+      <span>Hard inquiry specialists since 2015</span><i></i><span>Nationwide</span>
+    </p>
   </nav>
 </header>
 
 {
   !isIntakePage && (
-    <a
-      class="mobile-cta"
-      href="/free-inquiry-review/"
-      data-mobile-cta
-      data-track="mobile-sticky"
-      data-context="sitewide"
-    >
-      Get My Free Review <span>→</span>
-    </a>
+    <div class="mobile-action-dock" data-mobile-dock aria-label="Quick actions">
+      <button type="button" data-dock-menu aria-controls="mobile-navigation" aria-expanded="false">
+        <span aria-hidden="true">••</span><span>Explore</span>
+      </button>
+      <a href="tel:+16023776626" aria-label="Call Inquiry Removal">
+        <span aria-hidden="true">↗</span><span>Call</span>
+      </a>
+      <a
+        class="mobile-action-dock__primary"
+        href="/free-inquiry-review/"
+        data-track="mobile-action-dock"
+        data-context="sitewide"
+      >
+        <span>Free Review</span><span aria-hidden="true">→</span>
+      </a>
+    </div>
   )
 }
 <a class="back-to-top" href="#main-content" data-back-to-top
@@ -136,14 +171,15 @@ const isCurrent = (href: string) =>
 
 <script>
   const header = document.querySelector("[data-header]");
-  const menuButton = document.querySelector("[data-menu-button]");
+  const menuButton = document.querySelector<HTMLButtonElement>("[data-menu-button]");
+  const dockMenuButton = document.querySelector<HTMLButtonElement>("[data-dock-menu]");
   const mobileNav = document.querySelector("[data-mobile-nav]");
   const menuLabel = document.querySelector("[data-menu-label]");
-  const mobileCta = document.querySelector("[data-mobile-cta]");
+  const mobileDock = document.querySelector<HTMLElement>("[data-mobile-dock]");
   const backToTop = document.querySelector("[data-back-to-top]");
   const ctaSuppressors = Array.from(
     document.querySelectorAll(
-      "#free-review, .intake-section, .final-cta, .site-footer",
+      "#free-review, .intake-section, .review-form-section, .final-cta, .site-footer",
     ),
   );
   const visibleSuppressors = new Set<Element>();
@@ -160,49 +196,58 @@ const isCurrent = (href: string) =>
       header?.classList.remove("is-hidden");
     }
     const showFloatingActions =
-      window.scrollY > Math.min(720, window.innerHeight * 0.8);
-    mobileCta?.classList.toggle("is-scroll-ready", showFloatingActions);
+      window.scrollY > Math.min(640, window.innerHeight * 0.72);
+    mobileDock?.classList.toggle("is-scroll-ready", showFloatingActions);
     backToTop?.classList.toggle("is-visible", window.scrollY > 1400);
     lastScrollY = window.scrollY;
   };
 
-  const syncMobileCta = () => {
-    mobileCta?.classList.toggle(
+  const syncMobileDock = () => {
+    mobileDock?.classList.toggle(
       "is-suppressed",
       visibleSuppressors.size > 0 || menuOpen,
     );
   };
 
+  const syncMenuControls = () => {
+    menuButton?.setAttribute("aria-expanded", String(menuOpen));
+    dockMenuButton?.setAttribute("aria-expanded", String(menuOpen));
+    if (menuLabel) menuLabel.textContent = menuOpen ? "Close" : "Menu";
+  };
+
   const closeMenu = (restoreFocus = false) => {
     menuOpen = false;
-    menuButton?.setAttribute("aria-expanded", "false");
-    if (menuLabel) menuLabel.textContent = "Menu";
+    syncMenuControls();
     mobileNav?.classList.remove("is-open");
     document.body.classList.remove("menu-open");
+    mobileDock?.removeAttribute("inert");
     header?.classList.remove("is-hidden");
-    syncMobileCta();
+    syncMobileDock();
     if (restoreFocus && menuButton instanceof HTMLElement) menuButton.focus();
   };
 
   const openMenu = () => {
     menuOpen = true;
-    menuButton?.setAttribute("aria-expanded", "true");
-    if (menuLabel) menuLabel.textContent = "Close";
+    syncMenuControls();
     mobileNav?.classList.add("is-open");
     document.body.classList.add("menu-open");
+    mobileDock?.setAttribute("inert", "");
     header?.classList.remove("is-hidden");
-    syncMobileCta();
+    syncMobileDock();
+    const firstLink = mobileNav?.querySelector<HTMLElement>("a[href]");
+    window.setTimeout(() => firstLink?.focus(), 120);
   };
 
   syncHeader();
-  syncMobileCta();
+  syncMenuControls();
+  syncMobileDock();
   if ("IntersectionObserver" in window) {
     const suppressorObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) visibleSuppressors.add(entry.target);
         else visibleSuppressors.delete(entry.target);
       });
-      syncMobileCta();
+      syncMobileDock();
     });
     ctaSuppressors.forEach((node) => suppressorObserver.observe(node));
   }
@@ -218,12 +263,17 @@ const isCurrent = (href: string) =>
     () => {
       if (window.innerWidth > 1100 && menuOpen) closeMenu();
       syncHeader();
-      syncMobileCta();
+      syncMobileDock();
     },
     { passive: true },
   );
 
   menuButton?.addEventListener("click", () => {
+    if (menuOpen) closeMenu();
+    else openMenu();
+  });
+
+  dockMenuButton?.addEventListener("click", () => {
     if (menuOpen) closeMenu();
     else openMenu();
   });
