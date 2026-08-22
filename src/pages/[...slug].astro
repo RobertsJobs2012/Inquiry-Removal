@@ -11,15 +11,23 @@ import {
 } from "../data/guides";
 import { isIndexablePath, SITE_ORIGIN } from "../data/discovery.mjs";
 
+import { batchGuidePages, batchGuideSlugs } from "../data/batchGuides";
+
+const allGuidePages = [
+  ...guidePages.filter((page) => !batchGuideSlugs.has(page.slug)),
+  ...batchGuidePages,
+];
+const allGuideSlugs = new Set([...guideSlugs, ...batchGuideSlugs]);
+
 export function getStaticPaths() {
   return [
     ...pages
-      .filter((page) => !guideSlugs.has(page.slug))
+      .filter((page) => !allGuideSlugs.has(page.slug))
       .map((page) => ({
         params: { slug: page.slug },
         props: { page },
       })),
-    ...guidePages.map((guide) => ({
+    ...allGuidePages.map((guide) => ({
       params: { slug: guide.slug },
       props: { guide },
     })),
@@ -31,41 +39,8 @@ interface Props {
   guide?: GuidePageData;
 }
 
-const rawGuide = Astro.props.guide;
+const guide: GuidePageData | undefined = Astro.props.guide;
 const rawPage = Astro.props.page ?? pages[0];
-
-const guide: GuidePageData | undefined =
-  rawGuide?.slug === "transunion-hard-inquiry-removal"
-    ? {
-        ...rawGuide,
-        sections: rawGuide.sections.map((section) =>
-          section.heading === "How can you remove a hard inquiry from TransUnion?"
-            ? {
-                ...section,
-                heading: "How Do You Remove Hard Inquiries From TransUnion?",
-              }
-            : section,
-        ),
-        faqs: [
-          ...rawGuide.faqs.map((faq) =>
-            faq.question === "Can I dispute hard inquiries on TransUnion?"
-              ? {
-                  ...faq,
-                  question: "How Do I Dispute Hard Inquiries on TransUnion?",
-                  answer:
-                    "Start with the exact TransUnion inquiry entry, identify the company that placed it, document what is inaccurate or does not belong to you, and use the current TransUnion process that fits the facts. Inquiry Removal can handle the dispute communications and follow-through for you.",
-                }
-              : faq,
-          ),
-          {
-            question:
-              "How Long Do Hard Inquiries Stay on a TransUnion Credit Report?",
-            answer:
-              "Hard inquiries generally remain visible on a credit report for up to two years, although their scoring impact can fade sooner. If a TransUnion inquiry is inaccurate, unauthorized, fraudulent, duplicated, or otherwise questionable, you do not have to simply wait for it to age off before reviewing your options.",
-          },
-        ],
-      }
-    : rawGuide;
 
 const page: SitePage =
   rawPage.slug === "faq"
