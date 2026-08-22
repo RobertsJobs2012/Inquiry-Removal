@@ -7,3 +7,15 @@
 .page-jump a.is-active::after {
   display: none !important;
 }
+
+/* 2) Homepage conversion opening: keep the full SEO/conversion opening visible
+   at every breakpoint. The base stylesheet historically hid .hero-summary on
+   desktop because the old homepage used a separate desktop description. */
+.hero--content .hero-summary {
+  display: block;
+  color: #c6d5e2;
+  max-width: 42rem;
+  margin: 20px 0 0;
+  font-size: 1rem;
+  line-height: 1.6;
+}
