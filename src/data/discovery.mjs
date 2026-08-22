@@ -22,9 +22,7 @@ export const NON_INDEXABLE_PATHS = new Set([
   "/text-message-terms/",
   "/transunion-inquiry-disputes/",
   "/unauthorized-hard-inquiries/",
-  "/soft-pull-became-hard-inquiry/",
   "/duplicate-inquiries/",
-  "/unrecognized-inquiries/",
   "/incorrect-person-inquiries/",
   "/authorized-inquiry-removal/",
 ]);

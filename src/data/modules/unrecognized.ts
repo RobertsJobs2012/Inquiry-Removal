@@ -11,7 +11,7 @@ export const unrecognizedGuide: GuidePage = {
     title: "Hard Inquiry You Don't Recognize? Find Out Who Pulled Credit",
     seoTitle: "Hard Inquiry You Don't Recognize | Inquiry Removal",
     description:
-      "Hard inquiry you don't recognize? Identify the company, trace the application, review what happened, and get specialist help with the removal process.",
+      "Hard inquiry you do not recognize? Identify the company, trace the application, review what happened, and get specialist help with the removal process.",
     supporting:
       "A hard inquiry you do not recognize deserves an answer before you ignore it or assume the worst. The name on your report may belong to a bank behind a store card, a dealership lender, a financing partner, or a company you truly never dealt with. Inquiry Removal helps identify the source, connect the inquiry to any application you remember, and determine the removal path when it still does not make sense. We organize the entry, handle the dispute communications, review responses, and continue the follow-through for you.",
     primaryCta: "Identify My Unrecognized Inquiry",
