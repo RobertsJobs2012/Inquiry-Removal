@@ -6,72 +6,81 @@ import InquiryLine from "../components/InquiryLine.astro";
 import PageJumpNav from "../components/PageJumpNav.astro";
 import ReportPanel from "../components/ReportPanel.astro";
 
-const heroDescription =
-  "Inquiry Removal is built for people who want hard inquiries gone without managing the dispute process themselves. You show us the inquiries and tell us what happened. We take it from there by organizing the report entries, preparing and sending dispute communications, reviewing responses, tracking removals, and continuing the follow-through. Whether you have 10 inquiries or 100 or more, our one-time packages are based on the total number you want included.";
-
 const situations = [
   {
-    title: "Dealership Shotgunning",
-    body: "You expected one financing decision. Instead, the dealership sent your application to multiple lenders and left a trail of hard inquiries across your reports.",
+    title: "A Dealership Sent Your Credit Everywhere",
+    body: "You expected one financing decision. Instead, your application was sent to multiple lenders and you discovered a trail of hard inquiries across your reports.",
     href: "/dealership-inquiries/",
   },
   {
-    title: "Unauthorized Inquiries",
-    body: "You did not give a company permission to access your credit, but its name still appeared in the hard inquiry section.",
+    title: "You Never Authorized the Inquiry",
+    body: "A company accessed your credit and you do not remember giving permission for the hard pull.",
     href: "/unauthorized-inquiries/",
   },
   {
-    title: "Identity Theft and Fraud",
-    body: "Someone used your personal information to apply for credit, leaving inquiries behind even when no account was successfully opened.",
+    title: "Someone Used Your Identity",
+    body: "Fraudulent applications can leave hard inquiries behind even when the account itself was never successfully opened.",
     href: "/identity-theft-inquiries/",
   },
   {
-    title: "A “Soft Pull” That Became a Hard Pull",
-    body: "You were told that checking your rate or eligibility would not affect your credit, then discovered a hard inquiry afterward.",
+    title: "You Were Told It Would Be a Soft Pull",
+    body: "You were assured that checking your rate, eligibility, or financing options would not affect your credit. Then a hard inquiry appeared.",
     href: "/soft-pull-became-hard-inquiry/",
   },
   {
-    title: "Duplicate and Repeated Inquiries",
-    body: "The same company, lender, or financing event appears more than once, sometimes across multiple credit bureaus.",
+    title: "The Same Inquiry Appears More Than Once",
+    body: "A lender, dealership, or financing event appears repeatedly or across multiple reports.",
+    href: "/situations-we-handle/",
   },
   {
-    title: "Unrecognized Creditor Names",
-    body: "The name on your report does not match the store, dealership, lender, or company you remember dealing with.",
+    title: "You Do Not Recognize the Company Name",
+    body: "The inquiry name does not match the store, lender, dealership, or company you remember dealing with.",
+    href: "/unrecognized-inquiries/",
   },
   {
-    title: "Incorrect-Person Inquiries",
-    body: "An inquiry appears to belong to someone else or may have been connected to mixed or incorrect identifying information.",
+    title: "The Inquiry Does Not Belong to You",
+    body: "An inquiry may be connected to incorrect identifying information, another consumer, or a mixed-file situation.",
+    href: "/situations-we-handle/",
   },
   {
-    title: "Inquiries You Want Gone",
-    body: "Even when you remember the application, you may still want the inquiry reviewed. We examine how it happened, how it was reported, and what removal options are available.",
+    title: "You Remember the Application but Want It Reviewed",
+    body: "Tell us what happened. We review the circumstances, reporting, timing, application, and available removal approach with you.",
+    href: "/situations-we-handle/",
   },
 ];
 
 const faqs = [
   [
-    "Can you remove inquiries from all three credit bureaus?",
-    "Yes, Inquiry Removal works with hard inquiries appearing on Experian, Equifax, and TransUnion reports. If all three reports are affected, we need current copies of all three so the complete inquiry picture can be reviewed and organized correctly.",
+    "Can you work with Experian, Equifax, and TransUnion?",
+    "Yes. Inquiry Removal works with hard inquiries appearing on Experian, Equifax, and TransUnion reports. If inquiries appear on more than one bureau, the affected reports can be handled together under the applicable service plan.",
   ],
   [
     "How quickly can hard inquiries be removed?",
-    "Some hard inquiry removals can appear in as little as seven days, while many cases require more time. Most clients should allow up to 90 days, and rare situations may extend to 120 days because companies and credit bureaus respond on different schedules.",
+    "Some removals can appear in as little as seven days, while many cases require more time. Most clients should allow up to 90 days, and uncommon situations may extend longer because creditors and credit bureaus do not all respond on the same schedule.",
   ],
   [
-    "Do I need all three credit reports to begin?",
-    "You need reports from every bureau affected by the inquiries you want removed. If inquiries appear on all three reports, provide Experian, Equifax, and TransUnion. If you are unsure which reports are affected, the free review will help you identify what is needed.",
+    "Is Inquiry Removal a monthly service?",
+    "No. Inquiry Removal uses one-time pricing based on the total number of hard inquiries included in your service. Current plans are $199, $299, and $499, with no recurring monthly membership fee.",
   ],
   [
-    "Do soft inquiries affect my credit score?",
-    "Soft inquiries generally do not affect credit scores, which is why Inquiry Removal focuses on hard inquiries. Hard inquiries are connected to applications for credit and may be considered by scoring models and lenders reviewing your recent credit-seeking activity.",
+    "What if I do not know how many inquiries I have?",
+    "Start with the free inquiry review. An estimate is enough to begin. We can help organize the inquiry list and determine which plan matches the total service scope.",
   ],
   [
-    "What if I recognize or remember authorizing an inquiry?",
-    "Tell us exactly what happened during your free review. We will examine the application, disclosure, reporting, company identity, timing, and surrounding circumstances to determine the available removal approach. You do not need to decide how the inquiry should be handled before speaking with us.",
+    "What if I recognize the inquiry but still want it removed?",
+    "Tell us exactly what happened. We can review the application, disclosure, creditor identity, reporting, timing, and surrounding circumstances and explain the available removal approach.",
   ],
   [
-    "What happens after I request my free review?",
-    "Call Inquiry Removal to speak with a specialist about your inquiries, reports, circumstances, and goals. The first conversation helps organize what happened and what information may be useful before you decide whether to proceed.",
+    "Do I have to write the disputes myself?",
+    "No. Dispute preparation and submission are part of the Inquiry Removal service. You provide the necessary information and keep us updated when responses arrive.",
+  ],
+  [
+    "What happens after a response comes back?",
+    "Send it to us. We review the response against the inquiry list, determine what changed, and explain whether additional follow-up is needed.",
+  ],
+  [
+    "Do soft inquiries matter?",
+    "Soft inquiries generally do not affect your credit score. Inquiry Removal focuses on hard inquiries because hard pulls are associated with applications for credit and may be considered by scoring models and lenders reviewing recent credit activity.",
   ],
 ];
 
@@ -89,10 +98,10 @@ const schema = [
 ---
 
 <BaseLayout
-  title="Hard Inquiry Removal Service | 3 Bureaus | Inquiry Removal"
-  description="Hard inquiry removal service for Experian, Equifax, and TransUnion with one-time pricing and no monthly membership. Get a free inquiry review."
-  ogTitle="Remove Hard Inquiries From All Three Credit Reports"
-  ogDescription="One focused service for removing unwanted hard inquiries from Experian, Equifax, and TransUnion."
+  title="Hard Inquiry Removal | All 3 Bureaus | Inquiry Removal"
+  description="Hard inquiry removal across Experian, Equifax, and TransUnion with one-time pricing from $199. Get a free personal review and clear next steps."
+  ogTitle="Hard Inquiry Removal: Clear the Pulls Standing in Your Way"
+  ogDescription="Nationwide hard inquiry removal across Experian, Equifax, and TransUnion with one-time pricing and a free personal review."
   {schema}
   theme="dark"
 >
@@ -103,15 +112,11 @@ const schema = [
       <div class="container hero-grid">
         <div class="hero-copy" data-reveal>
           <p class="eyebrow eyebrow--light">
-            <span></span> Nationwide Hard Inquiry Removal | All Three Credit Bureaus
+            <span></span> Nationwide Hard Inquiry Specialists · Experian · Equifax · TransUnion
           </p>
-          <h1>Remove Hard Inquiries From All 3 Credit Reports With Expert Help</h1>
+          <h1>Hard Inquiry Removal: Clear the Pulls Standing in Your Way</h1>
           <p class="hero-summary">
-            Hard inquiries are all we do. We handle the removal process across
-            Experian, Equifax, and TransUnion so you do not have to manage it alone.
-          </p>
-          <p class="hero-description hero-description--desktop">
-            {heroDescription}
+            Hard inquiry removal is all we do. If unwanted pulls from a dealership, unfamiliar lender, identity theft, duplicate application, or misleading “soft pull” are crowding your credit reports, you do not have to figure out the next move alone. Inquiry Removal reviews what happened, organizes the inquiries across Experian, Equifax, and TransUnion, prepares and sends the disputes, reviews the responses, and continues the follow-through. Start with a free personal review and one clear goal: remove the inquiries standing between you and what comes next.
           </p>
           <div class="button-row">
             <a
@@ -130,12 +135,8 @@ const schema = [
             >
           </div>
           <p class="cta-microcopy">
-            Free review. No pressure. No monthly membership.
+            Free personal review. No pressure. No monthly membership.
           </p>
-          <details class="hero-mobile-details">
-            <summary>Why Inquiry Removal is different</summary>
-            <p class="hero-description">{heroDescription}</p>
-          </details>
         </div>
         <div class="hero-interface" data-reveal>
           <ReportPanel />
@@ -151,16 +152,13 @@ const schema = [
 
     <section class="trust-ribbon" aria-label="Company proof">
       <div class="container trust-grid">
-        <div><strong>100,437</strong><span>Inquiries removed</span></div>
+        <div><strong>100,437</strong><span>Hard inquiries removed</span></div>
         <div><strong>1,123</strong><span>Clients served</span></div>
-        <div>
-          <strong>Since 2015</strong><span>Focused credit experience</span>
-        </div>
+        <div><strong>Since 2015</strong><span>Focused inquiry experience</span></div>
         <div><strong>4.9</strong><span>Average client rating</span></div>
       </div>
       <p class="entity-declaration container">
-        Inquiry Removal is a nationwide hard inquiry removal company helping
-        consumers remove unwanted inquiries from all three major credit reports.
+        Inquiry Removal is a nationwide hard inquiry removal company focused exclusively on helping consumers address unwanted hard inquiries across all three major credit reports.
       </p>
     </section>
 
@@ -168,6 +166,7 @@ const schema = [
       items={[
         ["The problem", "#overview"],
         ["Situations", "#situations"],
+        ["Why us", "#specialists"],
         ["How it works", "#process"],
         ["Pricing", "#pricing"],
         ["Results", "#results"],
@@ -179,42 +178,26 @@ const schema = [
       <div class="container obstacle-grid">
         <div data-reveal>
           <p class="eyebrow"><span></span> The problem</p>
-          <h2>Why Are Hard Inquiries Standing in Your Way?</h2>
+          <h2>Are Hard Inquiries Getting in the Way of What You Want Next?</h2>
         </div>
         <div data-reveal>
           <p>
-            Hard inquiries can affect both your credit profile and the way
-            lenders evaluate new applications. One inquiry may look small by
-            itself, but a crowded inquiry section can make it appear that you
-            are urgently seeking credit, even when the real story is completely
-            different.
+            Maybe you went to <strong>one dealership and came home with a long list of lender inquiries</strong>. Maybe you checked your credit and found a company you do not recognize. Maybe someone used your identity. Maybe you were specifically told the credit check would be soft.
           </p>
           <p>
-            Maybe a dealership sent one application to a long list of lenders.
-            Maybe you were promised a soft pull. Maybe a company name appeared
-            that you have never seen before. Maybe someone used your identity.
-            Whatever happened, you should not have to accept a credit report
-            that tells the wrong story about you.
+            Or maybe your credit is otherwise where you want it, but your inquiry section is still telling a story that does not match what actually happened. The frustrating part is not simply seeing the inquiries. <strong>It is knowing what you are trying to do next.</strong>
           </p>
           <ul class="check-list obstacle-list">
-            <li>
-              You had strong credit, but recent inquiries became a reason for
-              denial.
-            </li>
-            <li>
-              You approved one credit check and discovered many lender inquiries
-              afterward.
-            </li>
-            <li>You were told the application would not affect your credit.</li>
-            <li>You found inquiries connected to fraud or identity theft.</li>
-            <li>
-              You want a cleaner inquiry profile before your next important
-              application.
-            </li>
+            <li>Buy a home without carrying an unwanted inquiry trail into the application.</li>
+            <li>Finance a vehicle after a dealership sent your credit to multiple lenders.</li>
+            <li>Qualify for business funding with a cleaner recent-credit profile.</li>
+            <li>Apply for credit cards without unnecessary pulls crowding the report.</li>
+            <li>Protect credit you worked hard to build before the next important application.</li>
           </ul>
-          <a class="button" href="#free-review"
-            >Review My Inquiries <span>→</span></a
-          >
+          <p>
+            If hard inquiries are the problem, Inquiry Removal was built specifically for that problem.
+          </p>
+          <a class="button" href="#free-review">Review My Inquiries <span>→</span></a>
         </div>
       </div>
     </section>
@@ -223,128 +206,117 @@ const schema = [
       <div class="container">
         <div class="section-heading split-heading" data-reveal>
           <div>
-            <p class="eyebrow"><span></span> Situations we handle</p><h2>
-              Which Hard Inquiries Do You Want Removed?
-            </h2>
+            <p class="eyebrow"><span></span> Situations we handle</p>
+            <h2>Which Hard Inquiry Situation Sounds Like Yours?</h2>
           </div>
           <p>
-            Dealership inquiries, unauthorized pulls, identity theft, duplicate
-            entries, unexpected hard pulls, and unfamiliar creditor names are
-            exactly why people come to us. Show us the inquiries you want gone,
-            and we will organize the situation and handle the removal process.
+            Hard inquiries do not all happen for the same reason. The first step is understanding what happened to you, which reports are affected, and what you want to accomplish next.
           </p>
         </div>
         <div class="situation-grid situation-grid--eight" data-reveal>
           {
             situations.map((situation, index) => (
               <article class="situation-card situation-card--static">
-                <span class="card-number">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <span class="situation-icon" aria-hidden="true">
-                  <>
-                    <i />
-                    <i />
-                  </>
-                </span>
+                <span class="card-number">{String(index + 1).padStart(2, "0")}</span>
+                <span class="situation-icon" aria-hidden="true"><><i /><i /></></span>
                 <strong>{situation.title}</strong>
                 <p>{situation.body}</p>
-                {situation.href && (
-                  <a href={situation.href}>
-                    Explore this situation <span>→</span>
-                  </a>
-                )}
+                <a href={situation.href}>Explore this situation <span>→</span></a>
               </article>
             ))
           }
         </div>
         <p class="section-link">
-          <a class="text-link" href="/situations-we-handle/"
-            >See Every Situation We Handle <span>→</span></a
-          >
+          <a class="text-link" href="/situations-we-handle/">See Every Situation We Handle <span>→</span></a>
         </p>
       </div>
     </section>
 
-    <section class="specialist-section dark-section">
+    <section class="specialist-section dark-section" id="specialists">
       <div class="container">
-        <p class="eyebrow eyebrow--light centered">
-          <span></span> Hard Inquiry Specialists. Nothing Else.
-        </p>
-        <h2 class="specialist-title" data-reveal>
-          One Problem. One Specialty. One Focus: Hard Inquiry Removal.
-        </h2>
+        <p class="eyebrow eyebrow--light centered"><span></span> Hard Inquiry Specialists. Nothing Else.</p>
+        <h2 class="specialist-title" data-reveal>Why Choose a Company That Only Removes Hard Inquiries?</h2>
         <p class="editorial-quote" data-reveal>
-          Hard inquiries are not one service among many here. They are the
-          reason this company exists.
+          Because specialization changes the entire experience. Hard inquiries are not one service among many here. They are the reason this company exists.
         </p>
         <div class="comparison-grid comparison-grid--four" data-reveal>
           <article>
-            <p>One specialized focus</p><h3>Hard inquiries only.</h3><p>
-              We do not divide our attention among collections, late payments,
-              charge-offs, and dozens of unrelated credit problems.
-            </p>
+            <p>One specialized focus</p>
+            <h3>Hard inquiries only.</h3>
+            <p>We do not divide our attention among collections, late payments, charge-offs, bankruptcies, and dozens of unrelated credit problems.</p>
           </article>
           <article>
-            <p>All three credit bureaus</p><h3>Complete report coverage.</h3><p>
-              We work with inquiry information reported by Experian, Equifax,
-              and TransUnion, based on the reports affected in your case.
-            </p>
-            <a
-              class="text-link text-link--light"
-              href="/experian-hard-inquiry-removal/"
-            >
-              Experian guide <span>→</span>
-            </a>
-            <a
-              class="text-link text-link--light"
-              href="/equifax-hard-inquiry-removal/"
-            >
-              Equifax guide <span>→</span>
-            </a>
-            <a
-              class="text-link text-link--light"
-              href="/transunion-hard-inquiry-removal/"
-            >
-              TransUnion guide <span>→</span>
-            </a>
+            <p>All three credit bureaus</p>
+            <h3>One complete inquiry picture.</h3>
+            <p>We review the reports affected in your situation and organize the inquiry trail across Experian, Equifax, and TransUnion when necessary.</p>
+            <a class="text-link text-link--light" href="/experian-hard-inquiry-removal/">Experian guide <span>→</span></a>
+            <a class="text-link text-link--light" href="/equifax-hard-inquiry-removal/">Equifax guide <span>→</span></a>
+            <a class="text-link text-link--light" href="/transunion-hard-inquiry-removal/">TransUnion guide <span>→</span></a>
           </article>
           <article>
-            <p>One-time pricing</p><h3>No monthly membership.</h3><p>
-              You choose a plan based on your total number of inquiries. There
-              are no monthly charges designed to keep you enrolled.
-            </p>
+            <p>One-time pricing</p>
+            <h3>No monthly membership.</h3>
+            <p>Your price is based on the number of hard inquiries included in the service, not how many months we can keep you enrolled.</p>
           </article>
           <article class="comparison-featured">
-            <p>Real follow-through</p><h3>More than one letter.</h3><p>
-              We continue the removal process and follow up as needed under your
-              service agreement.
-            </p>
+            <p>Continued follow-through</p>
+            <h3>More than one letter.</h3>
+            <p>Incoming responses are reviewed, confirmed changes are tracked, and additional follow-up continues as needed under your service agreement.</p>
           </article>
         </div>
+
         <article class="founder-story" data-reveal>
-          <p class="eyebrow eyebrow--light">
-            <span></span> A company born from the same frustration
-          </p>
-          <h3>Built from firsthand experience.</h3>
+          <p class="eyebrow eyebrow--light"><span></span> Built from the same frustration</p>
+          <h3>Inquiry Removal started with a dealership.</h3>
           <p>
-            Founder Robert Garcia created Inquiry Removal after a dealership
-            sent his application to lenders he never wanted involved. The
-            resulting inquiries piled onto an otherwise strong credit profile,
-            and recent inquiries began standing between him and new approvals.
+            Founder Robert Garcia created Inquiry Removal after a dealership sent his application to lenders he never wanted involved. The resulting inquiries piled onto an otherwise strong credit profile and recent inquiries began standing between him and new approvals.
           </p>
           <p>
-            Robert turned that experience into a specialized service for people
-            facing the same problem. Since 2015, he has worked as a Senior
-            Credit Analyst with one clear mission: help consumers remove
-            unwanted hard inquiries without enrolling them in a broad credit
-            repair program they do not need.
+            Instead of building another general credit repair company, Robert chose one specialty: hard inquiries. Since 2015, that focus has grown into a nationwide service for consumers dealing with unwanted pulls across Experian, Equifax, and TransUnion.
           </p>
           <strong>Robert Garcia, Founder and Senior Credit Analyst</strong>
-          <a class="text-link text-link--light" href="/about/"
-            >Meet Robert Garcia <span>→</span></a
-          >
+          <a class="text-link text-link--light" href="/about/">Meet Robert Garcia <span>→</span></a>
         </article>
+      </div>
+    </section>
+
+    <section class="section process-section" id="value">
+      <div class="container">
+        <div class="section-heading split-heading" data-reveal>
+          <div>
+            <p class="eyebrow"><span></span> What you are paying us to do</p>
+            <h2>More Than a Letter. We Take the Inquiry Problem Off Your Plate.</h2>
+          </div>
+          <p>
+            You can identify every inquiry, research every unfamiliar creditor, organize every date, prepare every communication, track every response, interpret every update, and decide what to do next. Or you can hand the problem to a company that does this every day.
+          </p>
+        </div>
+        <div class="process-grid process-grid--four" data-reveal>
+          <article>
+            <span>01</span>
+            <h3>We map the inquiry trail</h3>
+            <p>We organize creditor names, inquiry dates, affected bureaus, and the circumstances connecting multiple pulls to the same event.</p>
+          </article>
+          <article>
+            <span>02</span>
+            <h3>We prepare the dispute communications</h3>
+            <p>Once the situation is organized, we prepare the appropriate communications for the companies and credit bureaus involved.</p>
+          </article>
+          <article>
+            <span>03</span>
+            <h3>We track what comes back</h3>
+            <p>App notifications, emails, online investigation results, creditor responses, and mailed letters are matched to the original inquiry trail.</p>
+          </article>
+          <article>
+            <span>04</span>
+            <h3>We continue when more is needed</h3>
+            <p>Some inquiries can change quickly. Others require additional rounds. The service does not end simply because one letter was sent.</p>
+          </article>
+        </div>
+        <div class="section-cta">
+          <a class="button" href="#free-review">Let Us Review My Inquiries <span>→</span></a>
+          <p>That is the difference between buying a template and hiring an inquiry removal company.</p>
+        </div>
       </div>
     </section>
 
@@ -352,54 +324,39 @@ const schema = [
       <div class="container">
         <div class="section-heading split-heading" data-reveal>
           <div>
-            <p class="eyebrow"><span></span> How it works</p><h2>
-              We Handle the Hard Inquiry Removal Process for You
-            </h2>
+            <p class="eyebrow"><span></span> How it works</p>
+            <h2>How Does Hard Inquiry Removal Work?</h2>
           </div>
           <p>
-            Bring us the affected reports and tell us what happened. We organize
-            the inquiries, prepare and send the disputes, review every response,
-            track removals, and continue the follow-through for you.
+            The process is designed to take a confusing credit-report problem and turn it into a clear sequence of next steps. You bring the reports and tell us what happened. We handle the specialized work from there.
           </p>
         </div>
         <div class="process-grid process-grid--four" data-reveal>
           <article>
-            <span>01</span><h3>Show us the inquiries</h3><p>
-              We review your credit reports and talk about what happened, how
-              the inquiries are affecting you, and what you want to accomplish
-              next.
-            </p>
+            <span>01</span>
+            <h3>Start with your free inquiry review</h3>
+            <p>We review the affected reports, what caused the inquiries, which bureaus are involved, and what you want to accomplish next.</p>
           </article>
           <article>
-            <span>02</span><h3>We build and send the removal strategy</h3><p>
-              Our team organizes the inquiry information, prepares the
-              appropriate dispute communications, and sends them to the
-              companies and credit bureaus involved.
-            </p>
+            <span>02</span>
+            <h3>We organize the inquiry problem</h3>
+            <p>We identify creditor names, dates, affected bureaus, patterns, and circumstances connected to the inquiries included in your service.</p>
           </article>
           <article>
-            <span>03</span><h3>We review every response with you</h3><p>
-              You let us know when an app, email, or mailed letter reports a
-              change. We review each response, track removals, and determine the
-              next follow-up action.
-            </p>
+            <span>03</span>
+            <h3>We prepare and send the disputes</h3>
+            <p>Inquiry Removal prepares the appropriate dispute communications and sends them to the companies and credit bureaus involved.</p>
           </article>
           <article>
-            <span>04</span><h3>We keep the removal process moving</h3><p>
-              Some removals can happen in as little as seven days. Many cases
-              take longer, and rare cases can extend to 120 days. We stay
-              involved throughout the process.
-            </p>
+            <span>04</span>
+            <h3>We review responses and continue</h3>
+            <p>You send us the updates you receive. We review what changed, track removals, and continue the follow-through when another step is needed.</p>
           </article>
         </div>
         <div class="section-cta">
-          <a class="button" href="#free-review"
-            >Get My Free Inquiry Review <span>→</span></a
-          ><p>Talk through what happened with a specialist.</p><a
-            class="text-link"
-            href="/how-it-works/"
-            >See How the Hard Inquiry Removal Process Works <span>→</span></a
-          >
+          <a class="button" href="#free-review">Get My Free Inquiry Review <span>→</span></a>
+          <p>Talk through what happened before deciding whether to proceed.</p>
+          <a class="text-link" href="/how-it-works/">See the Complete Process <span>→</span></a>
         </div>
       </div>
     </section>
@@ -407,66 +364,61 @@ const schema = [
     <section class="section pricing-section" id="pricing">
       <div class="container">
         <div class="section-heading centered-heading" data-reveal>
-          <p class="eyebrow centered"><span></span> One-time pricing</p>
-          <h2>Choose Your Hard Inquiry Removal Package</h2>
+          <p class="eyebrow centered"><span></span> One problem. One clear price.</p>
+          <h2>How Much Does Hard Inquiry Removal Cost?</h2>
           <p>
-            Pick the one-time package that matches how many hard inquiries you
-            want us to handle. Whether you have a targeted list or 31 or more,
-            every package includes the affected bureaus and continued follow-through.
+            One problem should not turn into another recurring bill. Inquiry Removal uses three clear one-time plans based on the total number of hard inquiries included in your service. Every plan includes the affected credit bureaus, dispute preparation and submission, response review, and continued follow-through.
           </p>
         </div>
         <div class="pricing-grid" data-reveal>
           <article>
-            <p>Focused Removal</p><h3>$199</h3><strong
-              >1 to 10 total inquiries</strong
-            ><p class="plan-best">
-              Best for a targeted cleanup before your next application.
-            </p><ul>
-              <li>Affected credit bureau reports included</li><li>
-                Dispute preparation and submission
-              </li><li>Response review and follow-up</li><li>No monthly fee</li>
-            </ul><a href="#free-review">Choose Focused Removal <span>→</span></a
-            >
+            <p>Focused Removal</p>
+            <h3>$199</h3>
+            <strong>1 to 10 total inquiries</strong>
+            <p class="plan-best">Best for a smaller inquiry problem or targeted cleanup before an important application.</p>
+            <ul>
+              <li>All affected credit bureaus</li>
+              <li>Inquiry list organization</li>
+              <li>Dispute preparation and submission</li>
+              <li>Response review and follow-up</li>
+              <li>No monthly fee</li>
+            </ul>
+            <a href="#free-review">Choose Focused Removal <span>→</span></a>
           </article>
           <article class="pricing-featured">
-            <span class="popular">Most Popular</span><p>Complete Removal</p><h3>
-              $299
-            </h3><strong>11 to 30 total inquiries</strong><p class="plan-best">
-              Best for dealership clusters or inquiries spread across several
-              reports.
-            </p><ul>
-              <li>Experian, Equifax, and TransUnion as needed</li><li>
-                Dispute preparation and submission
-              </li><li>Response review and continued follow-up</li><li>
-                No monthly fee
-              </li>
-            </ul><a class="button" href="#free-review"
-              >Choose Complete Removal <span>→</span></a
-            >
+            <span class="popular">Most Popular</span>
+            <p>Complete Removal</p>
+            <h3>$299</h3>
+            <strong>11 to 30 total inquiries</strong>
+            <p class="plan-best">Best for dealership clusters, repeated applications, or inquiries spread across several reports.</p>
+            <ul>
+              <li>Experian, Equifax, and TransUnion as needed</li>
+              <li>Inquiry list organization</li>
+              <li>Dispute preparation and submission</li>
+              <li>Response review and continued follow-up</li>
+              <li>No monthly fee</li>
+            </ul>
+            <a class="button" href="#free-review">Choose Complete Removal <span>→</span></a>
           </article>
           <article>
-            <p>Extensive Removal</p><h3>$499</h3><strong
-              >31 or more total inquiries</strong
-            ><p class="plan-best">
-              Best for the broadest inquiry-removal scope.
-            </p><ul>
-              <li>Experian, Equifax, and TransUnion as needed</li><li>
-                Dispute preparation and submission
-              </li><li>Response review and continued follow-up</li><li>
-                No monthly fee
-              </li>
-            </ul><a href="#free-review"
-              >Choose Extensive Removal <span>→</span></a
-            >
+            <p>Extensive Removal</p>
+            <h3>$499</h3>
+            <strong>31 or more total inquiries</strong>
+            <p class="plan-best">Best for high-volume inquiry situations requiring the broadest removal scope.</p>
+            <ul>
+              <li>All affected credit bureaus</li>
+              <li>Complete inquiry organization</li>
+              <li>Dispute preparation and submission</li>
+              <li>Response review and continued follow-up</li>
+              <li>No monthly fee</li>
+            </ul>
+            <a href="#free-review">Choose Extensive Removal <span>→</span></a>
           </article>
         </div>
         <div class="guarantee-note" data-reveal>
-          <strong>Clear One-Time Pricing</strong><p>
-            Choose a plan based on the total number of hard inquiries included
-            in your service. There is no recurring monthly membership fee.
-          </p><a class="text-link" href="/pricing/"
-            >Compare Hard Inquiry Removal Pricing <span>→</span></a
-          >
+          <strong>$199 to $499 once. Not a monthly membership.</strong>
+          <p>The price is based on the size of the inquiry problem, not how long we can keep you enrolled.</p>
+          <a class="text-link" href="/pricing/">Compare Hard Inquiry Removal Pricing <span>→</span></a>
         </div>
       </div>
     </section>
@@ -475,44 +427,45 @@ const schema = [
       <div class="container">
         <div class="section-heading split-heading" data-reveal>
           <div>
-            <p class="eyebrow"><span></span> Documented results</p><h2>
-              What Do Real Inquiry Removals Look Like?
-            </h2>
+            <p class="eyebrow"><span></span> Documented results</p>
+            <h2>What Do Real Hard Inquiry Removals Look Like?</h2>
           </div>
           <p>
-            Real inquiry removals show up in credit-monitoring alerts, updated
-            credit reports, bureau investigation results, and letters confirming
-            that an inquiry was deleted. Inquiry Removal has helped 1,123
-            clients remove 100,437 hard inquiries since 2015.
+            A documented inquiry removal can appear through an updated Experian, Equifax, or TransUnion report, a credit-monitoring notification, an investigation result, a creditor response, or another record showing that an inquiry previously appearing on the report is no longer being reported. Inquiry Removal has helped 1,123 clients remove 100,437 hard inquiries since 2015.
           </p>
         </div>
         <div class="evidence-grid evidence-grid--proof" data-reveal>
           <article class="evidence-document">
-            <div class="document-top">
-              <span>DOCUMENTATION STANDARD</span><span
-                >PERSONAL DATA PROTECTED</span
-              >
-            </div><div class="redacted-lines">
-              <i></i><i></i><i></i><i></i><i></i>
-            </div><div class="document-highlight">
-              Updated reports, bureau responses, creditor letters, and account
-              notifications can help confirm what changed.
-            </div><p>Every outcome should be tied to the underlying record.</p>
+            <div class="document-top"><span>DOCUMENTATION STANDARD</span><span>PERSONAL DATA PROTECTED</span></div>
+            <div class="redacted-lines"><i></i><i></i><i></i><i></i><i></i></div>
+            <div class="document-highlight">Updated reports, bureau responses, creditor letters, and account notifications can help confirm what changed.</div>
+            <p>Every outcome should be tied to the underlying record.</p>
           </article>
           <article class="evidence-story">
-            <p class="case-id">RESULTS STANDARD</p><h3>
-              Proof before persuasion.
-            </h3><p>
-              Inquiry Removal reviews each response against the original inquiry
-              list, records confirmed changes, and explains the next step.
-              Private information stays protected throughout that review.
-            </p><p class="case-note">
-              Individual results vary. Past results do not guarantee future
-              removals or credit score changes.
-            </p><a class="button" href="/how-it-works/"
-              >See How Results Are Reviewed <span>→</span></a
-            >
+            <p class="case-id">PROOF BEFORE PERSUASION</p>
+            <h3>Look for the record, not a flashy promise.</h3>
+            <p>Inquiry Removal reviews each response against the original inquiry list, records confirmed changes, and explains the next step. Private information stays protected throughout that review.</p>
+            <p class="case-note">Individual results vary. Past results do not guarantee future removals or credit score changes.</p>
+            <a class="button" href="/results/">See Documented Results <span>→</span></a>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section obstacle-section" id="already-tried">
+      <div class="container obstacle-grid">
+        <div data-reveal>
+          <p class="eyebrow"><span></span> Already tried?</p>
+          <h2>What If You Already Tried to Remove the Inquiries Yourself?</h2>
+        </div>
+        <div data-reveal>
+          <p>
+            Then you already know how frustrating the process can become. You send something. You wait. A response comes back. The inquiry still appears. Now what?
+          </p>
+          <p>
+            That is often the point when people contact us. You do not have to keep repeating the same step simply because it is the only step you know. We can review what happened, what you already tried, what responses you received, and what the inquiry trail looks like now.
+          </p>
+          <a class="button" href="#free-review">Show Us What Happened <span>→</span></a>
         </div>
       </div>
     </section>
@@ -520,26 +473,16 @@ const schema = [
     <section class="section faq-section" id="faq">
       <div class="container faq-layout">
         <div data-reveal>
-          <p class="eyebrow"><span></span> Questions, answered</p><h2>
-            Hard Inquiry Removal Questions, Answered
-          </h2><p>
-            Straight answers about reports, timing, authorization, and what
-            happens next.
-          </p><a class="text-link" href="/faq/"
-            >View all hard inquiry removal questions <span>→</span></a
-          >
+          <p class="eyebrow"><span></span> Questions, answered</p>
+          <h2>Hard Inquiry Removal Questions</h2>
+          <p>Straight answers about reports, timing, pricing, authorization, and what happens next.</p>
+          <a class="text-link" href="/faq/">See All Hard Inquiry Removal Questions <span>→</span></a>
         </div>
         <div class="faq-list" data-reveal>
           {
             faqs.map(([question, answer], index) => (
               <details open={index === 0}>
-                <>
-                  <summary>
-                    {question}
-                    <span />
-                  </summary>
-                  <p>{answer}</p>
-                </>
+                <><summary>{question}<span /></summary><p>{answer}</p></>
               </details>
             ))
           }
@@ -550,29 +493,25 @@ const schema = [
     <section class="intake-section dark-section" id="free-review">
       <div class="container intake-layout">
         <div class="intake-intro" data-reveal>
-          <p class="eyebrow eyebrow--light">
-            <span></span> Free personal review
-          </p><h2>Tell us what happened.</h2><p>
-            Use five focused questions to organize your situation before you
-            call. Nothing you select in this guided review is transmitted or
-            stored.
-          </p><div class="intake-security">
-            <strong>Private by design</strong><span
-              >Do not enter or send sensitive information through a public
-              website form.</span
-            >
+          <p class="eyebrow eyebrow--light"><span></span> Free personal review</p>
+          <h2>Tell Us What Happened</h2>
+          <p>
+            You do not need to know what type of dispute applies, identify every creditor perfectly, or choose a plan before speaking with us. Start with five simple questions and let us organize the inquiry problem from there.
+          </p>
+          <div class="intake-security">
+            <strong>Private by design</strong>
+            <span>Your initial review does not require your Social Security number, credit-report login, payment information, or other sensitive account credentials.</span>
           </div>
         </div>
         <form class="intake-form" data-intake-form novalidate data-reveal>
           <div class="form-progress" aria-label="Form progress">
-            <span data-progress-label>Step 1 of 5</span><div>
-              <i data-progress-bar></i>
-            </div>
+            <span data-progress-label>Step 1 of 5</span>
+            <div><i data-progress-bar></i></div>
           </div>
           <fieldset class="form-step is-active" data-step="1">
-            <legend>What would removing these inquiries help you do?</legend><p>
-              What do you want to accomplish?
-            </p><div class="choice-grid">
+            <legend>What would removing these inquiries help you do?</legend>
+            <p>What do you want to accomplish?</p>
+            <div class="choice-grid">
               {
                 [
                   "Apply for a home",
@@ -583,20 +522,15 @@ const schema = [
                   "Clean up my credit profile",
                   "Something else",
                 ].map((label) => (
-                  <label class="form-choice">
-                    <>
-                      <input type="radio" name="goal" value={label} required />
-                      <span>{label}</span>
-                    </>
-                  </label>
+                  <label class="form-choice"><><input type="radio" name="goal" value={label} required /><span>{label}</span></></label>
                 ))
               }
             </div>
           </fieldset>
           <fieldset class="form-step" data-step="2" hidden>
-            <legend>Which situation sounds most like yours?</legend><p>
-              What happened?
-            </p><div class="choice-grid">
+            <legend>Which situation sounds most like yours?</legend>
+            <p>What happened?</p>
+            <div class="choice-grid">
               {
                 [
                   "A dealership sent my credit to multiple lenders",
@@ -609,97 +543,47 @@ const schema = [
                   "I authorized it but want it removed",
                   "I am not sure",
                 ].map((label) => (
-                  <label class="form-choice">
-                    <>
-                      <input
-                        type="radio"
-                        name="situation"
-                        value={label}
-                        required
-                      />
-                      <span>{label}</span>
-                    </>
-                  </label>
+                  <label class="form-choice"><><input type="radio" name="situation" value={label} required /><span>{label}</span></></label>
                 ))
               }
             </div>
           </fieldset>
           <fieldset class="form-step" data-step="3" hidden>
-            <legend
-              >About how many total hard inquiries do you want removed?</legend
-            ><p>How many inquiries are involved?</p><div
-              class="choice-grid choice-grid--two"
-            >
+            <legend>About how many total hard inquiries do you want removed?</legend>
+            <p>How many inquiries are involved?</p>
+            <div class="choice-grid choice-grid--two">
               {
-                ["1 to 10", "11 to 30", "31 or more", "I am not sure"].map(
-                  (label) => (
-                    <label class="form-choice">
-                      <>
-                        <input
-                          type="radio"
-                          name="count"
-                          value={label}
-                          required
-                        />
-                        <span>{label}</span>
-                      </>
-                    </label>
-                  ),
-                )
+                ["1 to 10", "11 to 30", "31 or more", "I am not sure"].map((label) => (
+                  <label class="form-choice"><><input type="radio" name="count" value={label} required /><span>{label}</span></></label>
+                ))
               }
             </div>
           </fieldset>
           <fieldset class="form-step" data-step="4" hidden>
-            <legend>Which reports are affected?</legend><p>
-              Choose every report that applies.
-            </p><div class="choice-grid choice-grid--two">
+            <legend>Which reports are affected?</legend>
+            <p>Choose every report that applies.</p>
+            <div class="choice-grid choice-grid--two">
               {
-                ["Experian", "Equifax", "TransUnion", "I am not sure"].map(
-                  (label) => (
-                    <label class="form-choice">
-                      <>
-                        <input type="checkbox" name="bureau" value={label} />
-                        <span>{label}</span>
-                      </>
-                    </label>
-                  ),
-                )
+                ["Experian", "Equifax", "TransUnion", "I am not sure"].map((label) => (
+                  <label class="form-choice"><><input type="checkbox" name="bureau" value={label} /><span>{label}</span></></label>
+                ))
               }
-            </div><p class="sublegend">
-              Do you currently have copies of the affected reports?
-            </p><div class="choice-grid choice-grid--three">
+            </div>
+            <p class="sublegend">Do you currently have copies of the affected reports?</p>
+            <div class="choice-grid choice-grid--three">
               {
                 ["Yes", "No", "I need help getting them"].map((label) => (
-                  <label class="form-choice">
-                    <>
-                      <input
-                        type="radio"
-                        name="reports"
-                        value={label}
-                        required
-                      />
-                      <span>{label}</span>
-                    </>
-                  </label>
+                  <label class="form-choice"><><input type="radio" name="reports" value={label} required /><span>{label}</span></></label>
                 ))
               }
             </div>
           </fieldset>
           <fieldset class="form-step" data-step="5" hidden>
             <legend>Ready to send your review request?</legend>
-            <p>
-              Continue to the secure on-site form to add your contact details
-              and send the situation to a specialist.
-            </p>
+            <p>Continue to the secure on-site form to add your contact details and send the situation to a specialist.</p>
             <div class="guided-review-complete">
-              <strong
-                >Your initial review never requires sensitive documents.</strong
-              >
-              <span>
-                Do not provide a Social Security number, date of birth,
-                credit-report login, payment information, or report upload
-                during the first conversation.
-              </span>
+              <strong>Your initial review never requires sensitive documents.</strong>
+              <span>Do not provide a Social Security number, date of birth, credit-report login, payment information, or report upload during the first conversation.</span>
             </div>
             <a
               class="button button--large"
@@ -707,26 +591,13 @@ const schema = [
               data-track="home-guided-complete"
               data-context="homepage-guided-review"
               data-guided-review-link
-            >
-              Continue My Free Review <span>→</span>
-            </a>
-            <a class="form-call-fallback" href="tel:+16023776626"
-              >Prefer to call? Call Inquiry Removal →</a
-            >
+            >Continue My Free Review <span>→</span></a>
+            <a class="form-call-fallback" href="tel:+16023776626">Prefer to call? Call Inquiry Removal →</a>
           </fieldset>
-          <p
-            class="form-error"
-            data-form-error
-            aria-live="polite"
-            tabindex="-1"
-          >
-          </p>
+          <p class="form-error" data-form-error aria-live="polite" tabindex="-1"></p>
           <div class="form-controls">
-            <button class="reset-link" type="button" data-form-back hidden
-              >← Back</button
-            ><button class="button" type="button" data-form-next
-              >Continue <span>→</span></button
-            >
+            <button class="reset-link" type="button" data-form-back hidden>← Back</button>
+            <button class="button" type="button" data-form-next>Continue <span>→</span></button>
           </div>
         </form>
       </div>
@@ -735,28 +606,16 @@ const schema = [
     <section class="final-cta dark-section">
       <div class="final-lines" aria-hidden="true"><InquiryLine compact /></div>
       <div class="container final-content" data-reveal>
-        <p class="eyebrow eyebrow--light centered">
-          <span></span> Ready when you are
-        </p><h2>Ready to Remove the Inquiries Standing in Your Way?</h2><p>
-          You do not need a broad credit repair program when hard inquiries are
-          the problem. Get a focused review from a company that has specialized
-          in inquiry removal since 2015.
-        </p><div class="button-row button-row--center">
-          <a
-            class="button button--large"
-            href="#free-review"
-            data-event="Guided Review Open"
-            data-track="home-final-guided"
-            data-context="homepage">Get My Free Inquiry Review <span>→</span></a
-          ><a
-            class="text-link text-link--light"
-            href="/free-inquiry-review/"
-            data-track="home-final-specialist"
-            data-context="homepage">Talk With a Specialist <span>→</span></a
-          >
-        </div><p class="cta-microcopy">
-          No pressure. No monthly membership. Clear one-time pricing.
+        <p class="eyebrow eyebrow--light centered"><span></span> Ready when you are</p>
+        <h2>Ready to Remove the Inquiries Standing in Your Way?</h2>
+        <p>
+          You do not need to solve the entire problem before contacting us. Bring us the reports. Tell us what happened. Tell us what you want to accomplish next. We will help you organize the inquiry problem and show you the next step.
         </p>
+        <div class="button-row button-row--center">
+          <a class="button button--large" href="#free-review" data-event="Guided Review Open" data-track="home-final-guided" data-context="homepage">Get My Free Inquiry Review <span>→</span></a>
+          <a class="text-link text-link--light" href="/free-inquiry-review/" data-track="home-final-specialist" data-context="homepage">Talk With a Specialist <span>→</span></a>
+        </div>
+        <p class="cta-microcopy">Free personal review. Nationwide service. One-time pricing. No monthly membership.</p>
       </div>
     </section>
   </main>
@@ -764,27 +623,18 @@ const schema = [
 
   <script>
     const form = document.querySelector<HTMLFormElement>("[data-intake-form]");
-    const steps = Array.from(
-      document.querySelectorAll<HTMLElement>("[data-step]"),
-    );
-    const nextButton =
-      document.querySelector<HTMLButtonElement>("[data-form-next]");
-    const backButton =
-      document.querySelector<HTMLButtonElement>("[data-form-back]");
+    const steps = Array.from(document.querySelectorAll<HTMLElement>("[data-step]"));
+    const nextButton = document.querySelector<HTMLButtonElement>("[data-form-next]");
+    const backButton = document.querySelector<HTMLButtonElement>("[data-form-back]");
     const error = document.querySelector<HTMLElement>("[data-form-error]");
     const label = document.querySelector<HTMLElement>("[data-progress-label]");
     const bar = document.querySelector<HTMLElement>("[data-progress-bar]");
-    const guidedReviewLink = document.querySelector<HTMLAnchorElement>(
-      "[data-guided-review-link]",
-    );
+    const guidedReviewLink = document.querySelector<HTMLAnchorElement>("[data-guided-review-link]");
     let currentStep = 0;
 
     const syncGuidedReviewLink = () => {
       if (!form || !guidedReviewLink) return;
-      const params = new URLSearchParams({
-        source: "/",
-        context: "homepage-guided-review",
-      });
+      const params = new URLSearchParams({ source: "/", context: "homepage-guided-review" });
       const goalMap: Record<string, string> = {
         "Apply for a home": "home",
         "Apply for a vehicle": "vehicle",
@@ -808,30 +658,15 @@ const schema = [
         "11 to 30": "complete",
         "31 or more": "extensive",
       };
-      const selectedGoal = form.querySelector<HTMLInputElement>(
-        "input[name='goal']:checked",
-      )?.value;
-      const selectedSituation = form.querySelector<HTMLInputElement>(
-        "input[name='situation']:checked",
-      )?.value;
-      const selectedCount = form.querySelector<HTMLInputElement>(
-        "input[name='count']:checked",
-      )?.value;
-      const selectedBureaus = Array.from(
-        form.querySelectorAll<HTMLInputElement>("input[name='bureau']:checked"),
-      ).map((input) => input.value.toLowerCase());
+      const selectedGoal = form.querySelector<HTMLInputElement>("input[name='goal']:checked")?.value;
+      const selectedSituation = form.querySelector<HTMLInputElement>("input[name='situation']:checked")?.value;
+      const selectedCount = form.querySelector<HTMLInputElement>("input[name='count']:checked")?.value;
+      const selectedBureaus = Array.from(form.querySelectorAll<HTMLInputElement>("input[name='bureau']:checked")).map((input) => input.value.toLowerCase());
 
-      if (selectedGoal && goalMap[selectedGoal])
-        params.set("goal", goalMap[selectedGoal]);
-      if (selectedSituation && situationMap[selectedSituation])
-        params.set("situation", situationMap[selectedSituation]);
-      if (selectedCount && countMap[selectedCount])
-        params.set("plan", countMap[selectedCount]);
-      if (
-        selectedBureaus.length === 1 &&
-        ["experian", "equifax", "transunion"].includes(selectedBureaus[0])
-      )
-        params.set("bureau", selectedBureaus[0]);
+      if (selectedGoal && goalMap[selectedGoal]) params.set("goal", goalMap[selectedGoal]);
+      if (selectedSituation && situationMap[selectedSituation]) params.set("situation", situationMap[selectedSituation]);
+      if (selectedCount && countMap[selectedCount]) params.set("plan", countMap[selectedCount]);
+      if (selectedBureaus.length === 1 && ["experian", "equifax", "transunion"].includes(selectedBureaus[0])) params.set("bureau", selectedBureaus[0]);
 
       guidedReviewLink.href = `/free-inquiry-review/?${params.toString()}#online-review`;
     };
@@ -858,11 +693,8 @@ const schema = [
         const reports = step.querySelector("input[name='reports']:checked");
         return Boolean(bureau && reports);
       }
-      return Array.from(
-        step.querySelectorAll<HTMLInputElement>("[required]"),
-      ).some(
-        (input) =>
-          input.checked || (input.type !== "radio" && input.value.trim()),
+      return Array.from(step.querySelectorAll<HTMLInputElement>("[required]")).some(
+        (input) => input.checked || (input.type !== "radio" && input.value.trim()),
       );
     };
 
