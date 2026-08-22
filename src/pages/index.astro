@@ -49,6 +49,49 @@ const situations = [
   },
 ];
 
+const processSteps = [
+  {
+    title: "Start with your free inquiry review",
+    body: "We review the affected reports, what caused the inquiries, which bureaus are involved, what you have already tried, and what you want to accomplish next.",
+  },
+  {
+    title: "We map the inquiry trail",
+    body: "We organize creditor names, dates, affected bureaus, and the circumstances connecting multiple pulls to the same event so the problem is clear before the dispute work begins.",
+  },
+  {
+    title: "We prepare and send the disputes",
+    body: "Inquiry Removal prepares the appropriate dispute communications and sends them to the companies and credit bureaus involved. You do not have to build the process from scratch yourself.",
+  },
+  {
+    title: "We review responses and continue",
+    body: "You send us the updates you receive. We review what changed, track confirmed removals, and continue the follow-through when another step is needed.",
+  },
+];
+
+const plans = [
+  {
+    name: "Focused Removal",
+    price: "$199",
+    count: "1 to 10 total inquiries",
+    best: "Best for a smaller inquiry problem or targeted cleanup before an important application.",
+    featured: false,
+  },
+  {
+    name: "Complete Removal",
+    price: "$299",
+    count: "11 to 30 total inquiries",
+    best: "Best for dealership clusters, repeated applications, or inquiries spread across several reports.",
+    featured: true,
+  },
+  {
+    name: "Extensive Removal",
+    price: "$499",
+    count: "31 or more total inquiries",
+    best: "Best for high-volume inquiry situations requiring the broadest removal scope.",
+    featured: false,
+  },
+];
+
 const faqs = [
   [
     "Can you work with Experian, Equifax, and TransUnion?",
@@ -116,7 +159,7 @@ const schema = [
           </p>
           <h1>Hard Inquiry Removal: Clear the Pulls Standing in Your Way</h1>
           <p class="hero-summary">
-            Hard inquiry removal is all we do. If unwanted pulls from a dealership, unfamiliar lender, identity theft, duplicate application, or misleading “soft pull” are crowding your credit reports, you do not have to figure out the next move alone. Inquiry Removal reviews what happened, organizes the inquiries across Experian, Equifax, and TransUnion, prepares and sends the disputes, reviews the responses, and continues the follow-through. Start with a free personal review and one clear goal: remove the inquiries standing between you and what comes next.
+            Hard inquiry removal is all we do. If unwanted pulls from a dealership, unfamiliar lender, identity theft, duplicate application, or misleading “soft pull” are crowding your credit reports, you do not have to figure out the next move alone. Since 2015, Inquiry Removal has helped 1,123 clients remove more than 100,000 hard inquiries across Experian, Equifax, and TransUnion. See how our specialized process works, which situations we handle, what the service costs, and how to start with a free personal review.
           </p>
           <div class="button-row">
             <a
@@ -134,18 +177,12 @@ const schema = [
               data-context="homepage">Talk With a Specialist <span>↘</span></a
             >
           </div>
-          <p class="cta-microcopy">
-            Free personal review. No pressure. No monthly membership.
-          </p>
+          <p class="cta-microcopy">Free personal review. No pressure. No monthly membership.</p>
         </div>
         <div class="hero-interface" data-reveal>
           <ReportPanel />
-          <div class="floating-label floating-label--one">
-            <i></i> All three bureaus
-          </div>
-          <div class="floating-label floating-label--two">
-            <i></i> Focused removal process
-          </div>
+          <div class="floating-label floating-label--one"><i></i> All three bureaus</div>
+          <div class="floating-label floating-label--two"><i></i> Focused removal process</div>
         </div>
       </div>
     </section>
@@ -158,7 +195,7 @@ const schema = [
         <div><strong>4.9</strong><span>Average client rating</span></div>
       </div>
       <p class="entity-declaration container">
-        Inquiry Removal is a nationwide hard inquiry removal company focused exclusively on helping consumers address unwanted hard inquiries across all three major credit reports.
+        Inquiry Removal is a nationwide hard inquiry removal company and specialized credit inquiry removal service focused exclusively on unwanted hard inquiries across all three major credit reports.
       </p>
     </section>
 
@@ -168,8 +205,8 @@ const schema = [
         ["Situations", "#situations"],
         ["Why us", "#specialists"],
         ["How it works", "#process"],
-        ["Pricing", "#pricing"],
         ["Results", "#results"],
+        ["Pricing", "#pricing"],
         ["Free review", "#free-review"],
       ]}
     />
@@ -181,6 +218,9 @@ const schema = [
           <h2>Are Hard Inquiries Getting in the Way of What You Want Next?</h2>
         </div>
         <div data-reveal>
+          <p>
+            <strong>They can.</strong> If hard inquiries are crowding the recent-credit section of your reports, they can become one more issue to explain or address before the next application that matters to you.
+          </p>
           <p>
             Maybe you went to <strong>one dealership and came home with a long list of lender inquiries</strong>. Maybe you checked your credit and found a company you do not recognize. Maybe someone used your identity. Maybe you were specifically told the credit check would be soft.
           </p>
@@ -194,10 +234,8 @@ const schema = [
             <li>Apply for credit cards without unnecessary pulls crowding the report.</li>
             <li>Protect credit you worked hard to build before the next important application.</li>
           </ul>
-          <p>
-            If hard inquiries are the problem, Inquiry Removal was built specifically for that problem.
-          </p>
-          <a class="button" href="#free-review">Review My Inquiries <span>→</span></a>
+          <p>If hard inquiries are the problem, Inquiry Removal was built specifically for that problem.</p>
+          <a class="text-link" href="#situations">Find My Situation <span>→</span></a>
         </div>
       </div>
     </section>
@@ -210,7 +248,7 @@ const schema = [
             <h2>Which Hard Inquiry Situation Sounds Like Yours?</h2>
           </div>
           <p>
-            Hard inquiries do not all happen for the same reason. The first step is understanding what happened to you, which reports are affected, and what you want to accomplish next.
+            <strong>The right starting point depends on why the inquiry appeared.</strong> We review the cause, the affected reports, what you remember authorizing, and what you want to accomplish next.
           </p>
         </div>
         <div class="situation-grid situation-grid--eight" data-reveal>
@@ -237,7 +275,7 @@ const schema = [
         <p class="eyebrow eyebrow--light centered"><span></span> Hard Inquiry Specialists. Nothing Else.</p>
         <h2 class="specialist-title" data-reveal>Why Choose a Company That Only Removes Hard Inquiries?</h2>
         <p class="editorial-quote" data-reveal>
-          Because specialization changes the entire experience. Hard inquiries are not one service among many here. They are the reason this company exists.
+          Because specialization changes the entire experience. Our hard inquiry removal service was built around this problem instead of treating inquiries as one small feature inside a general credit repair program.
         </p>
         <div class="comparison-grid comparison-grid--four" data-reveal>
           <article>
@@ -272,51 +310,11 @@ const schema = [
             Founder Robert Garcia created Inquiry Removal after a dealership sent his application to lenders he never wanted involved. The resulting inquiries piled onto an otherwise strong credit profile and recent inquiries began standing between him and new approvals.
           </p>
           <p>
-            Instead of building another general credit repair company, Robert chose one specialty: hard inquiries. Since 2015, that focus has grown into a nationwide service for consumers dealing with unwanted pulls across Experian, Equifax, and TransUnion.
+            Instead of building another general credit repair company, Robert chose one specialty: hard inquiries. Since 2015, that focus has grown into a nationwide inquiry removal service for consumers dealing with unwanted pulls across Experian, Equifax, and TransUnion.
           </p>
           <strong>Robert Garcia, Founder and Senior Credit Analyst</strong>
           <a class="text-link text-link--light" href="/about/">Meet Robert Garcia <span>→</span></a>
         </article>
-      </div>
-    </section>
-
-    <section class="section process-section" id="value">
-      <div class="container">
-        <div class="section-heading split-heading" data-reveal>
-          <div>
-            <p class="eyebrow"><span></span> What you are paying us to do</p>
-            <h2>More Than a Letter. We Take the Inquiry Problem Off Your Plate.</h2>
-          </div>
-          <p>
-            You can identify every inquiry, research every unfamiliar creditor, organize every date, prepare every communication, track every response, interpret every update, and decide what to do next. Or you can hand the problem to a company that does this every day.
-          </p>
-        </div>
-        <div class="process-grid process-grid--four" data-reveal>
-          <article>
-            <span>01</span>
-            <h3>We map the inquiry trail</h3>
-            <p>We organize creditor names, inquiry dates, affected bureaus, and the circumstances connecting multiple pulls to the same event.</p>
-          </article>
-          <article>
-            <span>02</span>
-            <h3>We prepare the dispute communications</h3>
-            <p>Once the situation is organized, we prepare the appropriate communications for the companies and credit bureaus involved.</p>
-          </article>
-          <article>
-            <span>03</span>
-            <h3>We track what comes back</h3>
-            <p>App notifications, emails, online investigation results, creditor responses, and mailed letters are matched to the original inquiry trail.</p>
-          </article>
-          <article>
-            <span>04</span>
-            <h3>We continue when more is needed</h3>
-            <p>Some inquiries can change quickly. Others require additional rounds. The service does not end simply because one letter was sent.</p>
-          </article>
-        </div>
-        <div class="section-cta">
-          <a class="button" href="#free-review">Let Us Review My Inquiries <span>→</span></a>
-          <p>That is the difference between buying a template and hiring an inquiry removal company.</p>
-        </div>
       </div>
     </section>
 
@@ -328,97 +326,30 @@ const schema = [
             <h2>How Does Hard Inquiry Removal Work?</h2>
           </div>
           <p>
-            The process is designed to take a confusing credit-report problem and turn it into a clear sequence of next steps. You bring the reports and tell us what happened. We handle the specialized work from there.
+            <strong>Hard inquiry removal starts with reviewing the inquiries, organizing what happened, preparing the disputes, and following the responses through additional rounds when needed.</strong> That is what turns a confusing list of pulls into a managed process with a clear next step.
           </p>
         </div>
         <div class="process-grid process-grid--four" data-reveal>
-          <article>
-            <span>01</span>
-            <h3>Start with your free inquiry review</h3>
-            <p>We review the affected reports, what caused the inquiries, which bureaus are involved, and what you want to accomplish next.</p>
-          </article>
-          <article>
-            <span>02</span>
-            <h3>We organize the inquiry problem</h3>
-            <p>We identify creditor names, dates, affected bureaus, patterns, and circumstances connected to the inquiries included in your service.</p>
-          </article>
-          <article>
-            <span>03</span>
-            <h3>We prepare and send the disputes</h3>
-            <p>Inquiry Removal prepares the appropriate dispute communications and sends them to the companies and credit bureaus involved.</p>
-          </article>
-          <article>
-            <span>04</span>
-            <h3>We review responses and continue</h3>
-            <p>You send us the updates you receive. We review what changed, track removals, and continue the follow-through when another step is needed.</p>
-          </article>
+          {
+            processSteps.map((step, index) => (
+              <article>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <h3>{step.title}</h3>
+                <p>{step.body}</p>
+              </article>
+            ))
+          }
+        </div>
+        <div class="guarantee-note" data-reveal>
+          <strong>More than a template letter.</strong>
+          <p>
+            A specialized credit inquiry removal service should make the invisible work visible: organizing creditor names and dates, matching inquiries across bureaus, preparing the communications, reviewing every response, tracking confirmed changes, and deciding what happens next.
+          </p>
+          <a class="text-link" href="/how-it-works/">See the Complete Process <span>→</span></a>
         </div>
         <div class="section-cta">
           <a class="button" href="#free-review">Get My Free Inquiry Review <span>→</span></a>
           <p>Talk through what happened before deciding whether to proceed.</p>
-          <a class="text-link" href="/how-it-works/">See the Complete Process <span>→</span></a>
-        </div>
-      </div>
-    </section>
-
-    <section class="section pricing-section" id="pricing">
-      <div class="container">
-        <div class="section-heading centered-heading" data-reveal>
-          <p class="eyebrow centered"><span></span> One problem. One clear price.</p>
-          <h2>How Much Does Hard Inquiry Removal Cost?</h2>
-          <p>
-            One problem should not turn into another recurring bill. Inquiry Removal uses three clear one-time plans based on the total number of hard inquiries included in your service. Every plan includes the affected credit bureaus, dispute preparation and submission, response review, and continued follow-through.
-          </p>
-        </div>
-        <div class="pricing-grid" data-reveal>
-          <article>
-            <p>Focused Removal</p>
-            <h3>$199</h3>
-            <strong>1 to 10 total inquiries</strong>
-            <p class="plan-best">Best for a smaller inquiry problem or targeted cleanup before an important application.</p>
-            <ul>
-              <li>All affected credit bureaus</li>
-              <li>Inquiry list organization</li>
-              <li>Dispute preparation and submission</li>
-              <li>Response review and follow-up</li>
-              <li>No monthly fee</li>
-            </ul>
-            <a href="#free-review">Choose Focused Removal <span>→</span></a>
-          </article>
-          <article class="pricing-featured">
-            <span class="popular">Most Popular</span>
-            <p>Complete Removal</p>
-            <h3>$299</h3>
-            <strong>11 to 30 total inquiries</strong>
-            <p class="plan-best">Best for dealership clusters, repeated applications, or inquiries spread across several reports.</p>
-            <ul>
-              <li>Experian, Equifax, and TransUnion as needed</li>
-              <li>Inquiry list organization</li>
-              <li>Dispute preparation and submission</li>
-              <li>Response review and continued follow-up</li>
-              <li>No monthly fee</li>
-            </ul>
-            <a class="button" href="#free-review">Choose Complete Removal <span>→</span></a>
-          </article>
-          <article>
-            <p>Extensive Removal</p>
-            <h3>$499</h3>
-            <strong>31 or more total inquiries</strong>
-            <p class="plan-best">Best for high-volume inquiry situations requiring the broadest removal scope.</p>
-            <ul>
-              <li>All affected credit bureaus</li>
-              <li>Complete inquiry organization</li>
-              <li>Dispute preparation and submission</li>
-              <li>Response review and continued follow-up</li>
-              <li>No monthly fee</li>
-            </ul>
-            <a href="#free-review">Choose Extensive Removal <span>→</span></a>
-          </article>
-        </div>
-        <div class="guarantee-note" data-reveal>
-          <strong>$199 to $499 once. Not a monthly membership.</strong>
-          <p>The price is based on the size of the inquiry problem, not how long we can keep you enrolled.</p>
-          <a class="text-link" href="/pricing/">Compare Hard Inquiry Removal Pricing <span>→</span></a>
         </div>
       </div>
     </section>
@@ -431,7 +362,7 @@ const schema = [
             <h2>What Do Real Hard Inquiry Removals Look Like?</h2>
           </div>
           <p>
-            A documented inquiry removal can appear through an updated Experian, Equifax, or TransUnion report, a credit-monitoring notification, an investigation result, a creditor response, or another record showing that an inquiry previously appearing on the report is no longer being reported. Inquiry Removal has helped 1,123 clients remove 100,437 hard inquiries since 2015.
+            <strong>Real hard inquiry removals are documented by the underlying record.</strong> An updated Experian, Equifax, or TransUnion report, a credit-monitoring notification, an investigation result, a creditor response, or another record can show that an inquiry previously appearing on the report is no longer being reported.
           </p>
         </div>
         <div class="evidence-grid evidence-grid--proof" data-reveal>
@@ -443,29 +374,63 @@ const schema = [
           </article>
           <article class="evidence-story">
             <p class="case-id">PROOF BEFORE PERSUASION</p>
-            <h3>Look for the record, not a flashy promise.</h3>
+            <h3>100,437 inquiries removed for 1,123 clients since 2015.</h3>
             <p>Inquiry Removal reviews each response against the original inquiry list, records confirmed changes, and explains the next step. Private information stays protected throughout that review.</p>
             <p class="case-note">Individual results vary. Past results do not guarantee future removals or credit score changes.</p>
             <a class="button" href="/results/">See Documented Results <span>→</span></a>
           </article>
         </div>
+
+        <div class="guarantee-note" data-reveal>
+          <strong>Your previous dispute does not end the conversation.</strong>
+          <p>
+            If you already tried to remove hard inquiries yourself, we can review what you sent, what came back, what still appears, and what the inquiry trail looks like now. You do not have to keep repeating the same step simply because it is the only step you know.
+          </p>
+          <a class="text-link" href="#free-review">Show Us What Happened <span>→</span></a>
+        </div>
       </div>
     </section>
 
-    <section class="section obstacle-section" id="already-tried">
-      <div class="container obstacle-grid">
-        <div data-reveal>
-          <p class="eyebrow"><span></span> Already tried?</p>
-          <h2>What If You Already Tried to Remove the Inquiries Yourself?</h2>
+    <section class="section pricing-section" id="pricing">
+      <div class="container">
+        <div class="section-heading centered-heading" data-reveal>
+          <p class="eyebrow centered"><span></span> One problem. One clear price.</p>
+          <h2>How Much Does Hard Inquiry Removal Cost?</h2>
+          <p>
+            <strong>Hard inquiry removal costs $199, $299, or $499 with Inquiry Removal, depending on the total number of inquiries included.</strong> Every plan includes the affected credit bureaus, inquiry organization, dispute preparation and submission, response review, and continued follow-through.
+          </p>
         </div>
-        <div data-reveal>
+        <div class="pricing-grid" data-reveal>
+          {
+            plans.map((plan) => (
+              <article class={plan.featured ? "pricing-featured" : undefined}>
+                {plan.featured && <span class="popular">Most Popular</span>}
+                <p>{plan.name}</p>
+                <h3>{plan.price}</h3>
+                <strong>{plan.count}</strong>
+                <p class="plan-best">{plan.best}</p>
+                <ul>
+                  <li>All affected credit bureaus</li>
+                  <li>Inquiry list organization</li>
+                  <li>Dispute preparation and submission</li>
+                  <li>Response review and continued follow-up</li>
+                  <li>No monthly fee</li>
+                </ul>
+                {plan.featured ? (
+                  <a class="button" href="#free-review">Choose Complete Removal <span>→</span></a>
+                ) : (
+                  <a href="/pricing/">See {plan.name} Details <span>→</span></a>
+                )}
+              </article>
+            ))
+          }
+        </div>
+        <div class="guarantee-note" data-reveal>
+          <strong>$199 to $499 once. Not a monthly membership.</strong>
           <p>
-            Then you already know how frustrating the process can become. You send something. You wait. A response comes back. The inquiry still appears. Now what?
+            This inquiry removal service is priced around the size of the inquiry problem, not how long we can keep you enrolled. If you are not sure which plan fits, start with the free review and we can organize the count first.
           </p>
-          <p>
-            That is often the point when people contact us. You do not have to keep repeating the same step simply because it is the only step you know. We can review what happened, what you already tried, what responses you received, and what the inquiry trail looks like now.
-          </p>
-          <a class="button" href="#free-review">Show Us What Happened <span>→</span></a>
+          <a class="text-link" href="/pricing/">Compare Hard Inquiry Removal Pricing <span>→</span></a>
         </div>
       </div>
     </section>
@@ -607,7 +572,7 @@ const schema = [
       <div class="final-lines" aria-hidden="true"><InquiryLine compact /></div>
       <div class="container final-content" data-reveal>
         <p class="eyebrow eyebrow--light centered"><span></span> Ready when you are</p>
-        <h2>Ready to Remove the Inquiries Standing in Your Way?</h2>
+        <h2>Remove the Inquiries Standing in Your Way</h2>
         <p>
           You do not need to solve the entire problem before contacting us. Bring us the reports. Tell us what happened. Tell us what you want to accomplish next. We will help you organize the inquiry problem and show you the next step.
         </p>
