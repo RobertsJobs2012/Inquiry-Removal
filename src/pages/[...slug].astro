@@ -13,13 +13,13 @@ import { isIndexablePath, SITE_ORIGIN } from "../data/discovery.mjs";
 
 import { batchGuidePages, batchGuideSlugs } from "../data/batchGuides";
 
-const allGuidePages = [
-  ...guidePages.filter((page) => !batchGuideSlugs.has(page.slug)),
-  ...batchGuidePages,
-];
-const allGuideSlugs = new Set([...guideSlugs, ...batchGuideSlugs]);
-
 export function getStaticPaths() {
+  const allGuidePages = [
+    ...guidePages.filter((page) => !batchGuideSlugs.has(page.slug)),
+    ...batchGuidePages,
+  ];
+  const allGuideSlugs = new Set([...guideSlugs, ...batchGuideSlugs]);
+
   return [
     ...pages
       .filter((page) => !allGuideSlugs.has(page.slug))
