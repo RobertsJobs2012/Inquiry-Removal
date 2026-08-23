@@ -1,0 +1,71 @@
+import type { GuidePage } from "./guides";
+
+export const creditCardHardInquiriesGuide: GuidePage = {
+  "slug": "credit-card-hard-inquiries",
+  "kind": "article",
+  "category": "resources",
+  "eyebrow": "Credit card hard inquiries",
+  "title": "Credit Card Hard Inquiries: Applications, Impact and Removal",
+  "seoTitle": "Credit Card Hard Inquiries | Impact & Removal Guide",
+  "description": "Credit card hard inquiries usually happen when you apply for a new card or certain credit-line increases. Learn the impact and when to review an inquiry.",
+  "supporting": "Credit card hard inquiries usually appear when you submit a formal application for a new card and can also occur with some requests for a higher credit limit. Unlike mortgage, auto, and student-loan rate shopping, multiple credit card applications are generally scored as separate inquiries rather than one shopping event. That makes application timing more important when you are trying to protect a strong credit profile. This guide explains when card issuers may pull credit, how inquiries affect scores, how long they remain, and what to do when a card-related inquiry is unfamiliar or inaccurate.",
+  "primaryCta": "Review My Credit Card Inquiries",
+  "secondaryCta": "See How Long Inquiries Stay",
+  "secondaryTarget": "/how-long-do-hard-inquiries-stay/",
+  "quickTitle": "Does applying for a credit card cause a hard inquiry?",
+  "quickAnswer": "A formal credit card application commonly creates a hard inquiry when the issuer checks your consumer credit to make an approval decision. A prequalification or prescreening process may use a soft inquiry instead, depending on the issuer. Unlike qualifying mortgage, auto-loan, and student-loan rate shopping, several credit card applications are generally not bundled into one FICO shopping event. Each application should therefore be made deliberately.",
+  "takeaways": ["Formal credit card applications commonly create hard inquiries.", "Prequalification can sometimes use a soft inquiry before a formal application.", "Credit card applications generally do not receive the same FICO rate-shopping treatment as mortgage or auto loans.", "An unfamiliar card inquiry may be an error, a partner-bank name, or a sign of fraud."],
+  "sections": [
+    {"heading": "When Do Credit Card Hard Inquiries Happen?", "body": ["A hard inquiry commonly appears when you submit a formal application for a new credit card. Some issuers may also perform a hard inquiry for certain credit-line increase requests, while others may use a soft review.", "The safest approach is to ask or read the issuer's disclosure before submitting a request when the distinction matters to you."], "cards": [{"title": "New card application", "body": "The issuer commonly checks consumer credit before making a lending decision."}, {"title": "Credit-limit request", "body": "Some issuers may use a hard inquiry; policies can vary."}, {"title": "Prequalification", "body": "Many prequalification tools use a soft inquiry before a formal application."}, {"title": "Existing-account review", "body": "Routine account reviews are generally soft inquiries rather than new applications."}], "visual": {"title": "Credit card inquiry path", "items": ["Prequalify", "Apply", "Hard pull", "Decision"]}},
+    {"heading": "How Much Can a Credit Card Inquiry Affect Your Score?", "body": ["A single hard inquiry usually has a small, temporary effect, but the exact impact depends on the rest of the credit file. Several recent applications can matter more because scoring models consider how recently and how frequently a consumer seeks new credit.", "Hard inquiries can remain on a credit report for up to two years, while FICO generally considers them for scoring for the first 12 months."]},
+    {"heading": "Do Multiple Credit Card Applications Count as One Inquiry?", "body": ["No special rate-shopping assumption should be made for a cluster of credit card applications. FICO's published shopping-window treatment focuses on qualifying mortgage, auto-loan, and student-loan inquiries where a consumer is comparing terms for one installment loan.", "Applying for several cards is different because each application can result in a separate revolving account. Space applications based on your actual credit needs rather than trying to fit them into a mortgage-style shopping window."]},
+    {"heading": "When Should a Credit Card Inquiry Be Reviewed for Removal?", "body": ["Review a card-related inquiry when you never applied, the company name cannot be connected to a card issuer or partner bank you recognize, a hard pull occurred after a clear soft-pull representation, or an entry appears duplicated or otherwise inaccurate.", "Inquiry Removal can identify the issuer behind the report name, organize the date and application facts, prepare the appropriate dispute communications, and track the response process."], "bullets": ["Card application you never submitted", "Unrecognized bank or issuer name", "Potential identity theft", "Unexpected hard pull after prequalification language", "Duplicate or inaccurate inquiry entry"]},
+    {"heading": "How Much Does Credit Card Inquiry Removal Cost?", "body": ["One-time packages are $199 for 1 to 10 total hard inquiries, $299 for 11 to 30, and $499 for 31 or more across the affected reports.", "The same package can include other hard inquiry types when they are part of your total count; pricing is not charged by creditor or bureau."]}
+  ],
+  "faqs": [
+    {"question": "Does applying for a credit card always create a hard inquiry?", "answer": "A formal application commonly does, but issuer processes vary. Prequalification or prescreening may use a soft inquiry before you decide whether to formally apply."},
+    {"question": "Do credit card preapprovals hurt my score?", "answer": "Prescreened or prequalification reviews are commonly soft inquiries and do not affect credit scores, although a later formal application can create a hard inquiry."},
+    {"question": "Do multiple credit card inquiries count as one?", "answer": "Generally no. The special rate-shopping treatment associated with mortgage, auto-loan, and student-loan inquiries should not be assumed for separate credit card applications."},
+    {"question": "How long does a credit card hard inquiry stay?", "answer": "A hard inquiry can remain on a credit report for up to two years. FICO generally considers hard inquiries in scoring for 12 months."},
+    {"question": "What if I see a card issuer I do not recognize?", "answer": "First identify whether the name belongs to a bank behind a card brand or retailer. If it still cannot be connected to an application you made, investigate the inquiry further."},
+    {"question": "Can an inaccurate credit card inquiry be removed?", "answer": "An inquiry that is inaccurate, fraudulent, unauthorized, duplicated, or otherwise reported incorrectly can be reviewed and disputed based on the facts."}
+  ],
+  "related": [{"label": "Hard inquiry vs soft inquiry", "href": "/hard-inquiry-vs-soft-inquiry/"}, {"label": "Hard inquiry credit score impact", "href": "/hard-inquiry-credit-score-impact/"}, {"label": "Who pulled my credit?", "href": "/who-pulled-my-credit/"}, {"label": "Business funding hard inquiries", "href": "/business-funding-hard-inquiries/"}],
+  "sources": [{"label": "Experian: hard pulls on credit card applications", "href": "https://www.experian.com/blogs/ask-experian/is-there-a-hard-pull-on-credit-cards-if-i-apply/"}, {"label": "Experian: how credit cards affect credit scores", "href": "https://www.experian.com/blogs/ask-experian/how-credit-cards-can-affect-your-credit-score/"}, {"label": "CFPB: what is a credit inquiry?", "href": "https://www.consumerfinance.gov/ask-cfpb/what-is-a-credit-inquiry-en-1317/"}]
+};
+
+export const duplicateInquiriesGuide: GuidePage = {
+  "slug": "duplicate-inquiries",
+  "kind": "service",
+  "category": "situations",
+  "eyebrow": "Duplicate hard inquiries",
+  "title": "Duplicate Hard Inquiries: Find and Remove Repeated Pulls",
+  "seoTitle": "Duplicate Hard Inquiry Removal Service | Inquiry Removal",
+  "description": "Duplicate hard inquiries can deserve a closer review when the same credit event appears more than once. Get specialist help across all three bureaus.",
+  "supporting": "Duplicate hard inquiries can turn one credit event into a confusing report problem, especially when the same lender, application, or financing event appears more than once. The first step is deciding whether the entries are truly duplicates or separate pulls tied to different lenders, dates, or purposes. Inquiry Removal organizes the inquiry trail across Experian, Equifax, and TransUnion, reviews the surrounding facts, prepares the dispute communications when the evidence supports it, and follows the responses through the next step. Start with a free review of the repeated entries.",
+  "primaryCta": "Review My Duplicate Inquiries",
+  "secondaryCta": "See How the Process Works",
+  "secondaryTarget": "/how-it-works/",
+  "quickTitle": "Are these hard inquiries really duplicates?",
+  "quickAnswer": "True duplicate inquiries usually involve repeated reporting of what appears to be the same credit access event, but similar-looking entries are not always duplicates. Separate lenders, separate dates, or separate applications can create legitimate multiple inquiries. The review should compare the company, date, bureau, application, and underlying event before deciding what to dispute.",
+  "takeaways": ["A repeated company name alone does not prove duplication.", "Dealership financing can create multiple lender inquiries from one application.", "Exact dates and creditor identities help separate duplicates from separate pulls.", "A factual duplicate is stronger to dispute than a vague claim that there are simply too many inquiries."],
+  "sections": [
+    {"heading": "What Counts as a Duplicate Hard Inquiry?", "body": ["A duplicate hard inquiry is a repeated inquiry entry that appears to represent the same underlying credit access event rather than a genuinely separate application or lender pull.", "Look for matching company names, dates, business context, and application records. If the entries differ materially, they may be separate inquiries rather than duplicates."], "visual": {"title": "Duplicate inquiry comparison", "items": ["Company", "Date", "Bureau", "Application", "Match"]}},
+    {"heading": "Why Can Several Similar Inquiries Appear Without Being Duplicates?", "body": ["Several similar inquiries can appear when a dealership sends an application to multiple lenders, when you submit separate applications, or when different companies access different bureaus.", "That is why a useful dispute should identify the specific duplicate relationship rather than treating every cluster as an error."]},
+    {"heading": "How Do You Document a Duplicate Inquiry?", "body": ["Document a duplicate inquiry by capturing each report entry and comparing the company name, inquiry date, bureau, transaction, and any confirmation or application records."], "bullets": ["Screenshot or copy of each entry", "Full creditor names", "Inquiry dates", "Affected bureaus", "Application or transaction records", "Explanation of why the entries represent one event"]},
+    {"heading": "How Does Inquiry Removal Handle Duplicate Pulls?", "body": ["Inquiry Removal organizes the repeated entries into a side-by-side inquiry trail, identifies which entries appear to represent the same event, prepares the dispute communications around the specific duplication issue, and reviews the responses.", "We also compare the updated reports so a change on one bureau does not get mistaken for a complete resolution across all three."]},
+    {"heading": "How Much Does Duplicate Inquiry Removal Cost?", "body": ["Duplicate inquiry removal uses the standard one-time packages: $199 for 1 to 10 total inquiries, $299 for 11 to 30, and $499 for 31 or more.", "Pricing is based on total inquiry count across the reports included in your service."]}
+  ],
+  "faqs": [
+    {"question": "Are two inquiries from the same company automatically duplicates?", "answer": "No. The same company may access a report more than once for separate applications or valid events. Compare the dates and transaction context before calling them duplicates."},
+    {"question": "Can dealership inquiries look like duplicates?", "answer": "Yes. Several auto lenders can appear close together after one dealership application. They may be separate lender inquiries even though they came from one financing event."},
+    {"question": "What evidence helps with a duplicate inquiry dispute?", "answer": "The strongest starting point is a side-by-side comparison of the entries plus records showing the underlying application or transaction was the same event."},
+    {"question": "Can duplicate inquiries appear on more than one bureau?", "answer": "Yes. Compare Experian, Equifax, and TransUnion separately because the same event can appear differently across the reports."},
+    {"question": "Should I dispute every inquiry in a cluster?", "answer": "Not automatically. Identify which entries are actually inaccurate, duplicate, unauthorized, or otherwise questionable before deciding what to challenge."},
+    {"question": "Do you guarantee duplicate inquiries will be deleted?", "answer": "No. Results depend on the facts and the investigation. No specific deletion, timeline, score increase, or approval is guaranteed."}
+  ],
+  "related": [{"label": "Dealership hard inquiries", "href": "/dealership-inquiries/"}, {"label": "How to dispute a hard inquiry", "href": "/how-to-dispute-a-hard-inquiry/"}, {"label": "Rate shopping hard inquiries", "href": "/rate-shopping-hard-inquiries/"}, {"label": "Eligibility review", "href": "/eligibility/"}],
+  "sources": [{"label": "Equifax dispute request form", "href": "https://assets.equifax.com/assets/personal/Dispute.pdf"}, {"label": "CFPB credit-report dispute guide", "href": "https://www.consumerfinance.gov/ask-cfpb/how-do-i-dispute-an-error-on-my-credit-report-en-314/"}]
+};
+
+export const sitewideBatchGuidePair4: GuidePage[] = [creditCardHardInquiriesGuide, duplicateInquiriesGuide];

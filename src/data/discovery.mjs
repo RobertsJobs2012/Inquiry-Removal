@@ -22,9 +22,6 @@ export const NON_INDEXABLE_PATHS = new Set([
   "/text-message-terms/",
   "/transunion-inquiry-disputes/",
   "/unauthorized-hard-inquiries/",
-  "/duplicate-inquiries/",
-  "/incorrect-person-inquiries/",
-  "/authorized-inquiry-removal/",
 ]);
 
 export const isIndexablePath = (pathname) => !NON_INDEXABLE_PATHS.has(pathname);

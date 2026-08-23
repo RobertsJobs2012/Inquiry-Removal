@@ -1,34 +1,67 @@
 # Inquiry Removal
 
-> Inquiry Removal is a nationwide service focused on reviewing and removing unwanted hard inquiries from Experian, Equifax, and TransUnion credit reports.
+> Inquiry Removal is a nationwide service focused exclusively on hard inquiry removal across Experian, Equifax, and TransUnion credit reports.
 
-## Primary Services
+## Start Here
 
-- [Homepage](https://www.inquiryremoval.com/): Overview of hard inquiry removal, situations, process, pricing, and the free review.
-- [How It Works](https://www.inquiryremoval.com/how-it-works/): The hard inquiry review, dispute, response, removal, and follow-up process.
-- [Situations We Handle](https://www.inquiryremoval.com/situations-we-handle/): Common hard inquiry situations and the facts considered in a review.
-- [Dealership Inquiries](https://www.inquiryremoval.com/dealership-inquiries/): Help for unwanted hard inquiries after dealership financing.
-- [Pricing](https://www.inquiryremoval.com/pricing/): One-time service plans and the scope included with each plan.
-- [Eligibility](https://www.inquiryremoval.com/eligibility/): Situations worth reviewing and outcomes that are not promised.
+- [Homepage](https://www.inquiryremoval.com/): Hard inquiry removal service overview, proof, situations, process, and free review.
+- [How It Works](https://www.inquiryremoval.com/how-it-works/): Review, organization, dispute communications, response review, and follow-through.
+- [Pricing](https://www.inquiryremoval.com/pricing/): One-time hard inquiry removal packages based on total inquiry count.
+- [Eligibility](https://www.inquiryremoval.com/eligibility/): How to determine whether an inquiry deserves removal review.
+- [Situations We Handle](https://www.inquiryremoval.com/situations-we-handle/): Route common inquiry problems to the most relevant guide.
+
+## Credit Bureau Guides
+
+- [Experian Hard Inquiry Removal](https://www.inquiryremoval.com/experian-hard-inquiry-removal/): Experian-specific inquiry identification, dispute, and removal guidance.
+- [Equifax Hard Inquiry Removal](https://www.inquiryremoval.com/equifax-hard-inquiry-removal/): Equifax-specific inquiry review, including the bureau's inquiry-removal dispute form options.
+- [TransUnion Hard Inquiry Removal](https://www.inquiryremoval.com/transunion-hard-inquiry-removal/): TransUnion-specific inquiry identification, dispute guidance, and specialist help.
 
 ## Situation Guides
 
-- [Experian Hard Inquiry Removal](https://www.inquiryremoval.com/experian-hard-inquiry-removal/): Bureau-specific review and dispute guidance for Experian inquiries.
-- [Equifax Hard Inquiry Removal](https://www.inquiryremoval.com/equifax-hard-inquiry-removal/): Bureau-specific review and dispute guidance for Equifax inquiries.
-- [TransUnion Hard Inquiry Removal](https://www.inquiryremoval.com/transunion-hard-inquiry-removal/): Bureau-specific review and dispute guidance for TransUnion inquiries.
-- [Unauthorized Inquiries](https://www.inquiryremoval.com/unauthorized-inquiries/): What to verify when a hard inquiry is unfamiliar or may not have been authorized.
-- [Identity Theft Inquiries](https://www.inquiryremoval.com/identity-theft-inquiries/): Immediate protection steps and review guidance for fraud-related inquiries.
+- [Dealership Inquiries](https://www.inquiryremoval.com/dealership-inquiries/): Multiple lender inquiries after dealership financing.
+- [Unauthorized Inquiries](https://www.inquiryremoval.com/unauthorized-inquiries/): Hard inquiries that may not have been authorized.
+- [Identity Theft Inquiries](https://www.inquiryremoval.com/identity-theft-inquiries/): Fraud-related inquiries and identity-protection steps.
+- [Soft Pull Became Hard Inquiry](https://www.inquiryremoval.com/soft-pull-became-hard-inquiry/): When a no-impact or soft-pull representation becomes a hard inquiry.
+- [Unrecognized Inquiries](https://www.inquiryremoval.com/unrecognized-inquiries/): Identify an unfamiliar creditor or inquiry source.
+- [Duplicate Inquiries](https://www.inquiryremoval.com/duplicate-inquiries/): Distinguish true duplicate reporting from separate lender pulls.
+- [Incorrect-Person Inquiries](https://www.inquiryremoval.com/incorrect-person-inquiries/): Wrong-consumer and mixed-file inquiry problems.
+- [Authorized Inquiry Review](https://www.inquiryremoval.com/authorized-inquiry-removal/): Fact-specific review when an inquiry was recognized or initially authorized.
 
-## Educational Guides
+## Core Educational Guides
 
-- [How to Remove Hard Inquiries](https://www.inquiryremoval.com/how-to-remove-hard-inquiries/): Complete guide to identifying and addressing questionable hard inquiries.
-- [How to Dispute a Hard Inquiry](https://www.inquiryremoval.com/how-to-dispute-a-hard-inquiry/): A documented step-by-step dispute roadmap.
-- [How Long Hard Inquiries Stay](https://www.inquiryremoval.com/how-long-do-hard-inquiries-stay/): The reporting timeline, score context, and rate-shopping rules.
-- [Resource Center](https://www.inquiryremoval.com/resources/): Browse the site's hard inquiry guides.
+- [How to Remove Hard Inquiries](https://www.inquiryremoval.com/how-to-remove-hard-inquiries/): Complete hard inquiry removal guide.
+- [How to Dispute a Hard Inquiry](https://www.inquiryremoval.com/how-to-dispute-a-hard-inquiry/): Step-by-step dispute roadmap.
+- [How Long Hard Inquiries Stay](https://www.inquiryremoval.com/how-long-do-hard-inquiries-stay/): Reporting and scoring timelines.
+- [What Is a Hard Inquiry?](https://www.inquiryremoval.com/what-is-a-hard-inquiry/): Definition, visibility, and common triggers.
+- [Hard Inquiry vs. Soft Inquiry](https://www.inquiryremoval.com/hard-inquiry-vs-soft-inquiry/): Practical differences between hard and soft credit checks.
+- [How Many Hard Inquiries Is Too Many?](https://www.inquiryremoval.com/how-many-hard-inquiries-is-too-many/): Inquiry-count context without a false universal cutoff.
+- [Hard Inquiry Credit Score Impact](https://www.inquiryremoval.com/hard-inquiry-credit-score-impact/): How inquiries affect scoring and how long the impact lasts.
+- [Hard Inquiry Removal Letter](https://www.inquiryremoval.com/hard-inquiry-removal-letter/): What a focused inquiry dispute letter should include.
+- [What Happens When Hard Inquiries Are Removed?](https://www.inquiryremoval.com/what-happens-when-hard-inquiries-are-removed/): Report changes, score uncertainty, and verification after removal.
+- [24-Hour Inquiry Removal](https://www.inquiryremoval.com/24-hour-inquiry-removal/): What can happen quickly and why no universal 24-hour deletion should be promised.
+- [Rate Shopping Hard Inquiries](https://www.inquiryremoval.com/rate-shopping-hard-inquiries/): FICO shopping windows and inquiry grouping.
+- [Permissible Purpose Hard Inquiries](https://www.inquiryremoval.com/permissible-purpose-hard-inquiries/): FCRA permissible-purpose fundamentals.
+- [Who Pulled My Credit?](https://www.inquiryremoval.com/who-pulled-my-credit/): Trace an unknown creditor name to the application or transaction behind it.
+
+## Loan and Funding Guides
+
+- [Mortgage Hard Inquiries](https://www.inquiryremoval.com/mortgage-hard-inquiries/): Preapproval, mortgage rate shopping, repeated pulls, and removal review.
+- [Auto Loan Hard Inquiries](https://www.inquiryremoval.com/auto-loan-hard-inquiries/): Dealership lending, shotgunning, and auto-loan rate shopping.
+- [Business Funding Hard Inquiries](https://www.inquiryremoval.com/business-funding-hard-inquiries/): When business financing affects personal credit.
+- [Credit Card Hard Inquiries](https://www.inquiryremoval.com/credit-card-hard-inquiries/): Card applications, score impact, and inquiry review.
+
+## Choosing a Service
+
+- [Inquiry Removal vs. Credit Repair](https://www.inquiryremoval.com/inquiry-removal-vs-credit-repair/): Specialist inquiry removal compared with broader credit repair.
+- [Best Hard Inquiry Removal Services](https://www.inquiryremoval.com/best-hard-inquiry-removal-services/): Transparent buyer guide to comparing service models.
+- [Arizona Hard Inquiry Removal](https://www.inquiryremoval.com/arizona-hard-inquiry-removal/): Statewide Arizona service through the nationwide remote process.
+- [Resource Center](https://www.inquiryremoval.com/resources/): Browse all hard inquiry resources.
 
 ## Company and Contact
 
-- [Frequently Asked Questions](https://www.inquiryremoval.com/faq/): Answers about eligibility, timing, credit reports, and consumer rights.
-- [Contact Inquiry Removal](https://www.inquiryremoval.com/contact/): Call Inquiry Removal at (602) 377-6626.
+- [About](https://www.inquiryremoval.com/about/): Company focus and founder background.
+- [Frequently Asked Questions](https://www.inquiryremoval.com/faq/): Service, pricing, timing, bureaus, and process answers.
+- [Areas We Serve](https://www.inquiryremoval.com/areas-we-serve/): Nationwide service coverage.
+- [Contact](https://www.inquiryremoval.com/contact/): Contact Inquiry Removal.
 
-Information on this site is general and does not guarantee a deletion, timeline, approval, or credit-score change. Consumers may dispute inaccurate credit-report information directly with consumer reporting agencies at no cost.
+Information on this site is general and does not guarantee a deletion, timeline, approval, financing outcome, or credit-score change. Consumers may dispute inaccurate credit-report information directly with consumer reporting agencies at no cost.
