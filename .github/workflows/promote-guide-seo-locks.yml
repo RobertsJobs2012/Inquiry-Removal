@@ -1,0 +1,92 @@
+name: Promote Guide SEO Locks
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/promote-guide-seo-locks.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  promote:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+          cache: npm
+
+      - name: Add GuidePage hard locks to discovery audit
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path("scripts/discovery-audit.mjs")
+          text = path.read_text()
+          marker = '  const noindex = /(?:^|,)\\s*noindex\\b/i.test(robots);\n\n'
+          if text.count(marker) != 1:
+              raise SystemExit(f"Expected one discovery-audit insertion marker; found {text.count(marker)}.")
+
+          block = r'''  const isGuidePage =
+    /<main[^>]*class=["'][^"']*\bguide-page\b[^"']*["']/i.test(html);
+  if (isGuidePage) {
+    const h1Text = getTagContent(html, "h1");
+    const openingMatch = html.match(
+      /<p[^>]*class=["'][^"']*\bguide-hero__support\b[^"']*["'][^>]*>([\s\S]*?)<\/p>/i,
+    );
+    const openingText = openingMatch
+      ? decodeEntities(openingMatch[1].replace(/<[^>]*>/g, " "))
+          .replace(/\s+/g, " ")
+          .trim()
+      : "";
+    const openingWordCount = (
+      openingText.match(/\b[\p{L}\p{N}’'-]+\b/gu) ?? []
+    ).length;
+
+    if (title.length < 50 || title.length > 60)
+      fail(
+        `${pathname}: GuidePage title is ${title.length} characters; hard lock is 50-60.`,
+      );
+    if (h1Text.length < 50 || h1Text.length > 70)
+      fail(
+        `${pathname}: GuidePage H1 is ${h1Text.length} characters; hard lock is 50-70.`,
+      );
+    if (description.length < 120 || description.length > 155)
+      fail(
+        `${pathname}: GuidePage description is ${description.length} characters; hard lock is 120-155.`,
+      );
+    if (openingWordCount < 75 || openingWordCount > 100)
+      fail(
+        `${pathname}: GuidePage opening is ${openingWordCount} words; hard lock is 75-100.`,
+      );
+  }
+
+'''
+          text = text.replace(marker, marker + block, 1)
+          path.write_text(text)
+          PY
+          git diff --check
+
+      - name: Verify permanent locks in full production build
+        run: |
+          npm ci --no-audit --no-fund
+          npm run build
+
+      - name: Commit permanent GuidePage SEO locks
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add scripts/discovery-audit.mjs
+          git commit -m "Enforce GuidePage hard SEO locks in builds"
+          git push origin HEAD:main
