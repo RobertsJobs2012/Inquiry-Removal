@@ -100,6 +100,18 @@ await run("desktop-home", { width: 1440, height: 1000 }, async (page) => {
     (await page.locator('link[rel="canonical"]').getAttribute("href")) === `${base}/`,
     "homepage canonical is unexpected",
   );
+  expect(
+    await page.locator('a[href="/duplicate-inquiries/"]').first().isVisible(),
+    "homepage duplicate inquiry card does not link directly to its guide",
+  );
+  expect(
+    await page.locator('a[href="/incorrect-person-inquiries/"]').first().isVisible(),
+    "homepage incorrect-person card does not link directly to its guide",
+  );
+  expect(
+    await page.locator('a[href="/authorized-inquiry-removal/"]').first().isVisible(),
+    "homepage authorized-review card does not link directly to its guide",
+  );
   await checkAccessibility("desktop-home", page);
 });
 
