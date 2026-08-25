@@ -21,6 +21,8 @@ export default defineConfig({
   ],
   build: {
     format: "directory",
-    inlineStylesheets: "always",
+    // Shared styles are intentionally extracted when they are large enough so
+    // visitors can reuse the browser-cached CSS across the entire site.
+    inlineStylesheets: "auto",
   },
 });

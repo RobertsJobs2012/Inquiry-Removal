@@ -1,0 +1,567 @@
+---
+import {
+  BUREAUS,
+  CONTACT_CONSENT,
+  CONTACT_METHODS,
+  GOALS,
+  INQUIRY_COUNTS,
+  REPORT_COPIES,
+  REVIEW_FIELDS,
+  SITUATIONS,
+} from "../data/reviewForm";
+---
+
+<script is:inline>
+  document.documentElement.classList.add("js");
+</script>
+
+<form
+  class="native-review-form"
+  action="/api/free-review"
+  method="post"
+  data-review-form
+  data-reveal
+>
+  <input type="hidden" name="source_page" data-review-source-page />
+  <input type="hidden" name="source_context" data-review-source-context />
+  <input
+    class="review-form-honeypot"
+    type="text"
+    name="website"
+    tabindex="-1"
+    autocomplete="off"
+    aria-hidden="true"
+  />
+
+  <div class="review-experience-top">
+    <span class="review-trust-chip"><i aria-hidden="true">✓</i> Private review</span>
+    <span class="review-time">About 2 minutes</span>
+  </div>
+
+  <div class="form-progress" aria-label="Review form progress" data-review-progress-wrap hidden>
+    <div class="form-progress__copy">
+      <span data-review-progress>Step 1 of 4</span>
+      <strong data-review-stage>Contact</strong>
+    </div>
+    <div><i data-review-progress-bar></i></div>
+  </div>
+
+  <div data-review-form-body>
+    <fieldset
+      class="form-step native-review-step is-active"
+      data-review-step="1"
+      tabindex="-1"
+    >
+      <legend>How can we reach you?</legend>
+      <p>Start with the basics. We only use this to respond to your review.</p>
+      <div class="native-contact-grid">
+        <label>
+          <span>Full name</span>
+          <input
+            type="text"
+            name={REVIEW_FIELDS.name}
+            autocomplete="name"
+            minlength="2"
+            maxlength="120"
+            required
+          />
+        </label>
+        <label>
+          <span>Best email address</span>
+          <input
+            type="email"
+            name={REVIEW_FIELDS.email}
+            autocomplete="email"
+            inputmode="email"
+            maxlength="180"
+            required
+          />
+        </label>
+        <label>
+          <span>Best phone number</span>
+          <input
+            type="tel"
+            name={REVIEW_FIELDS.phone}
+            autocomplete="tel"
+            inputmode="tel"
+            maxlength="40"
+            required
+          />
+        </label>
+      </div>
+    </fieldset>
+
+    <fieldset class="form-step native-review-step" data-review-step="2" tabindex="-1">
+      <legend>What are you preparing for?</legend>
+      <p>Choose the goal that best matches your situation.</p>
+      <div class="choice-grid native-choice-grid">
+        {
+          GOALS.map((goal) => (
+            <label class="form-choice">
+              <input type="radio" name={REVIEW_FIELDS.goal} value={goal} required />
+              <span>{goal}</span>
+            </label>
+          ))
+        }
+      </div>
+      <p class="field-heading native-field-heading">
+        Which situation best describes what happened?
+      </p>
+      <div class="choice-grid native-choice-grid">
+        {
+          SITUATIONS.map((situation) => (
+            <label class="form-choice">
+              <input
+                type="radio"
+                name={REVIEW_FIELDS.situation}
+                value={situation}
+                required
+              />
+              <span>{situation}</span>
+            </label>
+          ))
+        }
+      </div>
+    </fieldset>
+
+    <fieldset class="form-step native-review-step" data-review-step="3" tabindex="-1">
+      <legend>What appears on your reports?</legend>
+      <p>Estimates are completely fine for the initial review.</p>
+      <p class="field-heading">Approximate inquiry count</p>
+      <div class="choice-grid">
+        {
+          INQUIRY_COUNTS.map((count) => (
+            <label class="form-choice">
+              <input type="radio" name={REVIEW_FIELDS.count} value={count} required />
+              <span>{count}</span>
+            </label>
+          ))
+        }
+      </div>
+      <p class="field-heading native-field-heading">
+        Which credit reports show the inquiries?
+      </p>
+      <div class="choice-grid" data-bureau-group>
+        {
+          BUREAUS.map((bureau) => (
+            <label class="form-choice">
+              <input type="checkbox" name={REVIEW_FIELDS.bureau} value={bureau} />
+              <span>{bureau}</span>
+            </label>
+          ))
+        }
+      </div>
+      <p class="field-heading native-field-heading">
+        Do you have current copies of the affected reports?
+      </p>
+      <div class="choice-grid choice-grid--three">
+        {
+          REPORT_COPIES.map((answer) => (
+            <label class="form-choice">
+              <input
+                type="radio"
+                name={REVIEW_FIELDS.reports}
+                value={answer}
+                required
+              />
+              <span>{answer}</span>
+            </label>
+          ))
+        }
+      </div>
+    </fieldset>
+
+    <fieldset class="form-step native-review-step" data-review-step="4" tabindex="-1">
+      <legend>How should we contact you?</legend>
+      <p>Choose the contact method that works best for you.</p>
+      <p class="field-heading">How would you prefer that we contact you?</p>
+      <div class="choice-grid">
+        {
+          CONTACT_METHODS.map((method) => (
+            <label class="form-choice">
+              <input
+                type="radio"
+                name={REVIEW_FIELDS.contactMethod}
+                value={method}
+                required
+              />
+              <span>{method}</span>
+            </label>
+          ))
+        }
+      </div>
+      <details class="native-optional-note">
+        <summary>Add a note <span>(optional)</span></summary>
+        <label class="native-textarea-field">
+          <span>Brief description</span>
+          <textarea
+            name={REVIEW_FIELDS.note}
+            rows="5"
+            maxlength="2500"
+            placeholder="Anything else you would like us to know?"
+          ></textarea>
+        </label>
+      </details>
+      <label class="consent-check native-consent-check">
+        <input
+          type="checkbox"
+          name={REVIEW_FIELDS.consent}
+          value={CONTACT_CONSENT}
+          required
+        />
+        <span>
+          {CONTACT_CONSENT} By submitting this form, you also acknowledge our
+          <a href="/privacy/">Privacy Policy</a> and <a href="/terms/">Terms of Use</a>.
+        </span>
+      </label>
+    </fieldset>
+
+    <p class="form-error" data-review-error aria-live="polite" tabindex="-1"></p>
+    <p class="review-auto-note" data-review-auto-note aria-live="polite" hidden>
+      Your answers stay here until you submit. You can go back anytime.
+    </p>
+    <div class="form-controls native-review-controls">
+      <button class="reset-link" type="button" data-review-back hidden>← Back</button>
+      <button class="button" type="button" data-review-next hidden>
+        Continue <span>→</span>
+      </button>
+      <button class="button" type="submit" data-review-submit hidden>
+        Submit My Free Review <span>→</span>
+      </button>
+      <button class="button review-noscript-submit" type="submit">
+        Submit My Free Review <span>→</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="review-form-success" data-review-success tabindex="-1" hidden>
+    <span aria-hidden="true">✓</span>
+    <p class="eyebrow"><span></span> Request received</p>
+    <h3>Thank you. Your review is now in our hands.</h3>
+    <p>
+      Inquiry Removal will review the information and contact you using the method
+      you selected. Please do not send sensitive documents or account credentials
+      by reply.
+    </p>
+    <p class="review-receipt" hidden data-review-receipt-wrap>
+      Submission reference: <strong data-review-receipt></strong>
+    </p>
+  </div>
+</form>
+
+<style is:global>
+  .js .native-review-step:not(.is-active) {
+    display: none;
+  }
+
+  .js .review-noscript-submit {
+    display: none !important;
+  }
+
+  .review-receipt {
+    color: var(--slate);
+    margin-top: 18px;
+    font-size: 0.72rem;
+  }
+</style>
+
+<script>
+  import { track } from "@vercel/analytics";
+  import {
+    BUREAU_MAP,
+    CONTEXT_BUREAU_MAP,
+    CONTEXT_GOAL_MAP,
+    CONTEXT_SITUATION_MAP,
+    GOAL_MAP,
+    PLAN_MAP,
+    REVIEW_FIELDS,
+    SITUATION_MAP,
+  } from "../data/reviewForm";
+
+  const reviewForm = document.querySelector<HTMLFormElement>("[data-review-form]");
+  const reviewSteps = Array.from(
+    document.querySelectorAll<HTMLElement>("[data-review-step]"),
+  );
+  const reviewNext = document.querySelector<HTMLButtonElement>("[data-review-next]");
+  const reviewBack = document.querySelector<HTMLButtonElement>("[data-review-back]");
+  const reviewSubmit = document.querySelector<HTMLButtonElement>("[data-review-submit]");
+  const reviewError = document.querySelector<HTMLElement>("[data-review-error]");
+  const reviewProgressWrap = document.querySelector<HTMLElement>(
+    "[data-review-progress-wrap]",
+  );
+  const reviewProgress = document.querySelector<HTMLElement>("[data-review-progress]");
+  const reviewProgressBar = document.querySelector<HTMLElement>(
+    "[data-review-progress-bar]",
+  );
+  const reviewStage = document.querySelector<HTMLElement>("[data-review-stage]");
+  const reviewAutoNote = document.querySelector<HTMLElement>("[data-review-auto-note]");
+  const reviewBody = document.querySelector<HTMLElement>("[data-review-form-body]");
+  const reviewSuccess = document.querySelector<HTMLElement>("[data-review-success]");
+  const reviewReceipt = document.querySelector<HTMLElement>("[data-review-receipt]");
+  const reviewReceiptWrap = document.querySelector<HTMLElement>(
+    "[data-review-receipt-wrap]",
+  );
+  const reviewSourcePage = document.querySelector<HTMLInputElement>(
+    "[data-review-source-page]",
+  );
+  const reviewSourceContext = document.querySelector<HTMLInputElement>(
+    "[data-review-source-context]",
+  );
+
+  const reviewParams = new URLSearchParams(window.location.search);
+  const planParam = reviewParams.get("plan")?.toLowerCase() ?? "";
+  const explicitGoal = reviewParams.get("goal")?.toLowerCase() ?? "";
+  const explicitBureau = reviewParams.get("bureau")?.toLowerCase() ?? "";
+  const explicitSituation = reviewParams.get("situation")?.toLowerCase() ?? "";
+  const contextParam =
+    reviewParams
+      .get("context")
+      ?.toLowerCase()
+      .replace(/[^a-z0-9-]/g, "") ?? "";
+  const goalParam = explicitGoal || CONTEXT_GOAL_MAP[contextParam] || "";
+  const bureauParam = explicitBureau || CONTEXT_BUREAU_MAP[contextParam] || "";
+  const situationParam =
+    explicitSituation || CONTEXT_SITUATION_MAP[contextParam] || "";
+
+  const requestedSource = reviewParams.get("source") ?? "";
+  const safeRequestedSource = /^\/[a-z0-9\-/]*\/$/i.test(requestedSource)
+    ? requestedSource
+    : "";
+  let referrerSource = "";
+  try {
+    const referrer = new URL(document.referrer);
+    if (referrer.origin === window.location.origin) referrerSource = referrer.pathname;
+  } catch {
+    referrerSource = "";
+  }
+  const sourcePage = safeRequestedSource || referrerSource || "direct";
+  const sourceParts = [
+    contextParam,
+    PLAN_MAP[planParam] ? `plan-${planParam}` : "",
+    GOAL_MAP[goalParam] ? `goal-${goalParam}` : "",
+    BUREAU_MAP[bureauParam] ? `bureau-${bureauParam}` : "",
+    SITUATION_MAP[situationParam] ? `situation-${situationParam}` : "",
+  ].filter(Boolean);
+  const sourceContext = sourceParts.join("|") || "general";
+
+  if (reviewSourcePage) reviewSourcePage.value = sourcePage;
+  if (reviewSourceContext) reviewSourceContext.value = sourceContext;
+
+  const selectChoice = (name: string, value: string | undefined) => {
+    if (!value) return;
+    const field = Array.from(
+      reviewForm?.querySelectorAll<HTMLInputElement>(`input[name='${name}']`) ?? [],
+    ).find((input) => input.value === value);
+    if (field) field.checked = true;
+  };
+
+  selectChoice(REVIEW_FIELDS.count, PLAN_MAP[planParam]);
+  selectChoice(REVIEW_FIELDS.goal, GOAL_MAP[goalParam]);
+  selectChoice(REVIEW_FIELDS.bureau, BUREAU_MAP[bureauParam]);
+  selectChoice(REVIEW_FIELDS.situation, SITUATION_MAP[situationParam]);
+
+  let reviewStep = 0;
+  let reviewStarted = false;
+  let reviewAdvanceTimer: number | undefined;
+  const reviewStageNames = ["Contact", "Your situation", "Your reports", "Final details"];
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+
+  if (reviewForm) reviewForm.noValidate = true;
+  reviewProgressWrap?.removeAttribute("hidden");
+  reviewAutoNote?.removeAttribute("hidden");
+  reviewNext?.removeAttribute("hidden");
+
+  const trackReviewStart = () => {
+    if (reviewStarted) return;
+    reviewStarted = true;
+    track("Review Form Start", {
+      page: window.location.pathname,
+      source: sourcePage,
+      context: sourceContext,
+    });
+  };
+  reviewForm?.addEventListener("focusin", trackReviewStart, { once: true });
+
+  const showReviewStep = (index: number, moveFocus = true) => {
+    if (reviewAdvanceTimer) window.clearTimeout(reviewAdvanceTimer);
+    reviewStep = Math.max(0, Math.min(index, reviewSteps.length - 1));
+    reviewSteps.forEach((step, position) => {
+      step.hidden = position !== reviewStep;
+      step.classList.toggle("is-active", position === reviewStep);
+    });
+    if (reviewProgress)
+      reviewProgress.textContent = `Step ${reviewStep + 1} of ${reviewSteps.length}`;
+    if (reviewStage) reviewStage.textContent = reviewStageNames[reviewStep];
+    if (reviewProgressBar)
+      reviewProgressBar.style.width = `${((reviewStep + 1) / reviewSteps.length) * 100}%`;
+    if (reviewBack) reviewBack.hidden = reviewStep === 0;
+    if (reviewNext) {
+      reviewNext.hidden = reviewStep === reviewSteps.length - 1;
+      reviewNext.disabled = false;
+    }
+    if (reviewSubmit) reviewSubmit.hidden = reviewStep !== reviewSteps.length - 1;
+    if (reviewError) reviewError.textContent = "";
+    if (reviewAutoNote)
+      reviewAutoNote.textContent =
+        reviewStep === reviewSteps.length - 1
+          ? "Nothing is sent until you select Submit My Free Review."
+          : "Your selections stay in place. You can go back anytime.";
+    if (moveFocus) reviewSteps[reviewStep]?.focus({ preventScroll: true });
+  };
+
+  const reviewStepIsComplete = () => {
+    const step = reviewSteps[reviewStep];
+    if (!step) return false;
+    if (step.querySelector("[data-bureau-group]")) {
+      const bureau = step.querySelector(`input[name='${REVIEW_FIELDS.bureau}']:checked`);
+      if (!bureau) return false;
+    }
+    return !Array.from(
+      step.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>(
+        "input[required], textarea[required]",
+      ),
+    ).some((field) => !field.checkValidity());
+  };
+
+  const validateReviewStep = () => {
+    const step = reviewSteps[reviewStep];
+    if (!step) return false;
+    if (step.querySelector("[data-bureau-group]")) {
+      const bureau = step.querySelector(`input[name='${REVIEW_FIELDS.bureau}']:checked`);
+      if (!bureau) {
+        if (reviewError)
+          reviewError.textContent = "Choose at least one credit report to continue.";
+        step.querySelector<HTMLInputElement>(`input[name='${REVIEW_FIELDS.bureau}']`)?.focus();
+        return false;
+      }
+    }
+    const invalid = Array.from(
+      step.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>(
+        "input[required], textarea[required]",
+      ),
+    ).find((field) => !field.checkValidity());
+    if (invalid) {
+      if (reviewError) reviewError.textContent = "Complete every required field to continue.";
+      invalid.focus();
+      return false;
+    }
+    return true;
+  };
+
+  const guideTo = (selector: string) => {
+    const target = reviewSteps[reviewStep]?.querySelector<HTMLElement>(selector);
+    if (!target || prefersReducedMotion) return;
+    window.setTimeout(
+      () => target.scrollIntoView({ behavior: "smooth", block: "center" }),
+      120,
+    );
+  };
+
+  const scheduleReviewAdvance = () => {
+    if (!reviewStepIsComplete()) return;
+    if (reviewAdvanceTimer) window.clearTimeout(reviewAdvanceTimer);
+    if (reviewAutoNote) reviewAutoNote.textContent = "Perfect — moving you forward…";
+    if (reviewNext) reviewNext.disabled = true;
+    reviewAdvanceTimer = window.setTimeout(
+      () => {
+        if (reviewNext) reviewNext.disabled = false;
+        showReviewStep(reviewStep + 1);
+      },
+      prefersReducedMotion ? 150 : 520,
+    );
+  };
+
+  reviewForm?.addEventListener("change", (event) => {
+    const field = event.target;
+    if (!(field instanceof HTMLInputElement)) return;
+    const choice = field.closest<HTMLElement>(".form-choice");
+    choice?.classList.add("is-confirmed");
+    window.setTimeout(() => choice?.classList.remove("is-confirmed"), 560);
+
+    if (reviewStep === 1 && field.name === REVIEW_FIELDS.goal)
+      guideTo(".native-field-heading");
+    if (reviewStep === 1 && field.name === REVIEW_FIELDS.situation)
+      scheduleReviewAdvance();
+    if (reviewStep === 2 && field.name === REVIEW_FIELDS.count)
+      guideTo("[data-bureau-group]");
+    if (reviewStep === 2 && field.name === REVIEW_FIELDS.reports)
+      scheduleReviewAdvance();
+    if (reviewStep === 3 && field.name === REVIEW_FIELDS.contactMethod)
+      guideTo(".native-consent-check");
+  });
+
+  reviewNext?.addEventListener("click", () => {
+    if (validateReviewStep()) showReviewStep(reviewStep + 1);
+  });
+  reviewBack?.addEventListener("click", () => showReviewStep(reviewStep - 1));
+
+  reviewForm?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    if (reviewStep !== reviewSteps.length - 1) {
+      if (validateReviewStep()) showReviewStep(reviewStep + 1);
+      return;
+    }
+    if (!validateReviewStep()) return;
+
+    const originalLabel = reviewSubmit?.innerHTML ?? "Submit My Free Review";
+    if (reviewSubmit) {
+      reviewSubmit.disabled = true;
+      reviewSubmit.textContent = "Sending…";
+    }
+    reviewForm.setAttribute("aria-busy", "true");
+    if (reviewError) reviewError.textContent = "";
+
+    try {
+      const response = await fetch(reviewForm.action, {
+        method: "POST",
+        body: new FormData(reviewForm),
+        headers: { Accept: "application/json" },
+      });
+      const payload = await response.json().catch(() => ({}));
+      if (!response.ok || payload?.ok !== true) {
+        throw new Error(
+          typeof payload?.error === "string"
+            ? payload.error
+            : "We could not confirm delivery of your review request.",
+        );
+      }
+
+      reviewBody?.setAttribute("hidden", "");
+      reviewSuccess?.removeAttribute("hidden");
+      if (reviewReceipt && typeof payload.receipt === "string") {
+        reviewReceipt.textContent = payload.receipt;
+        reviewReceiptWrap?.removeAttribute("hidden");
+      }
+      reviewSuccess?.focus();
+      track("Review Form Submitted", {
+        page: window.location.pathname,
+        source: sourcePage,
+        context: sourceContext,
+      });
+    } catch (error) {
+      const message =
+        error instanceof Error
+          ? error.message
+          : "We could not confirm delivery of your review request. Please try again.";
+      if (reviewError) {
+        reviewError.textContent = `${message} You can also call Inquiry Removal at 602-377-6626.`;
+        reviewError.focus();
+      }
+      track("Review Form Submission Failed", {
+        page: window.location.pathname,
+        source: sourcePage,
+        context: sourceContext,
+      });
+      if (reviewSubmit) {
+        reviewSubmit.disabled = false;
+        reviewSubmit.innerHTML = originalLabel;
+      }
+    } finally {
+      reviewForm.removeAttribute("aria-busy");
+    }
+  });
+
+  showReviewStep(0, false);
+</script>

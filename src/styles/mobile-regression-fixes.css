@@ -19,3 +19,11 @@
   font-size: 1rem;
   line-height: 1.6;
 }
+
+/* 3) Free review must remain visible even if JavaScript or reveal enhancement
+   fails. The guided steps enhance progressively; the underlying form is usable
+   as a normal browser-validated form without scripts. */
+.native-review-form[data-reveal] {
+  opacity: 1;
+  transform: none;
+}

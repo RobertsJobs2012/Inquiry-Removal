@@ -18,6 +18,7 @@ export const NON_INDEXABLE_PATHS = new Set([
   "/privacy/",
   "/results/",
   "/results-disclosure/",
+  "/review-received/",
   "/terms/",
   "/text-message-terms/",
   "/transunion-inquiry-disputes/",

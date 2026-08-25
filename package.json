@@ -8,8 +8,10 @@
   "scripts": {
     "dev": "astro dev",
     "check": "astro check",
-    "build": "astro check && astro build && node scripts/discovery-audit.mjs",
+    "build": "astro check && astro build && node scripts/discovery-audit.mjs && node scripts/technical-audit.mjs",
     "check:discovery": "node scripts/discovery-audit.mjs",
+    "check:technical": "node scripts/technical-audit.mjs",
+    "smoke:live": "node scripts/live-smoke.mjs",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "preview": "astro preview",
@@ -28,4 +30,3 @@
     "typescript": "6.0.3"
   }
 }
-
