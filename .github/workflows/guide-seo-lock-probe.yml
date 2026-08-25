@@ -1,0 +1,91 @@
+name: Guide SEO Lock Probe
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/guide-seo-lock-probe.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+          cache: npm
+
+      - name: Build current site
+        run: |
+          npm ci --no-audit --no-fund
+          npm run build
+
+      - name: Probe hard SEO locks on GuidePage output
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from html import unescape
+          import re
+
+          failures = []
+          checked = 0
+
+          def clean(value):
+              value = re.sub(r"<[^>]+>", " ", value)
+              value = unescape(value)
+              return re.sub(r"\s+", " ", value).strip()
+
+          def words(value):
+              return re.findall(r"\b[\w’'-]+\b", clean(value), flags=re.UNICODE)
+
+          for file in Path("dist").rglob("*.html"):
+              html = file.read_text()
+              if not re.search(r'<main[^>]*class=["\'][^"\']*\bguide-page\b', html, re.I):
+                  continue
+
+              checked += 1
+              rel = file.relative_to("dist").as_posix()
+              route = "/" if rel == "index.html" else "/" + rel.removesuffix("index.html")
+
+              title_match = re.search(r"<title>([\s\S]*?)</title>", html, re.I)
+              h1_match = re.search(r"<h1[^>]*>([\s\S]*?)</h1>", html, re.I)
+              desc_match = re.search(r'<meta[^>]*name=["\']description["\'][^>]*content=["\']([^"\']*)["\']', html, re.I)
+              if not desc_match:
+                  desc_match = re.search(r'<meta[^>]*content=["\']([^"\']*)["\'][^>]*name=["\']description["\']', html, re.I)
+              opening_match = re.search(r'<p[^>]*class=["\'][^"\']*\bguide-hero__support\b[^"\']*["\'][^>]*>([\s\S]*?)</p>', html, re.I)
+
+              title = clean(title_match.group(1)) if title_match else ""
+              h1 = clean(h1_match.group(1)) if h1_match else ""
+              desc = clean(desc_match.group(1)) if desc_match else ""
+              opening = clean(opening_match.group(1)) if opening_match else ""
+              opening_words = len(words(opening))
+
+              checks = [
+                  (50 <= len(title) <= 60, f"title={len(title)} chars"),
+                  (50 <= len(h1) <= 70, f"H1={len(h1)} chars"),
+                  (120 <= len(desc) <= 155, f"description={len(desc)} chars"),
+                  (75 <= opening_words <= 100, f"opening={opening_words} words"),
+              ]
+              problems = [label for ok, label in checks if not ok]
+              if problems:
+                  failures.append(f"{route}: " + ", ".join(problems))
+
+          print(f"Checked {checked} GuidePage routes.")
+          if failures:
+              print("Hard SEO lock mismatches:")
+              for item in failures:
+                  print("-", item)
+              raise SystemExit(f"{len(failures)} GuidePage route(s) failed one or more hard SEO locks.")
+
+          print("All GuidePage routes satisfy the hard SEO locks.")
+          PY
