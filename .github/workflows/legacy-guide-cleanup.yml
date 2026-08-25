@@ -1,0 +1,191 @@
+name: Legacy Guide Cleanup
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/legacy-guide-cleanup.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+
+      - name: Remove only obsolete duplicate guide definitions
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          path = Path("src/data/guides.ts")
+          text = path.read_text()
+          marker = "export const guidePages: GuidePage[] = ["
+          start = text.index(marker) + len(marker)
+
+          remove_slugs = {
+              "transunion-hard-inquiry-removal",
+              "experian-hard-inquiry-removal",
+              "equifax-hard-inquiry-removal",
+              "unauthorized-inquiries",
+              "identity-theft-inquiries",
+          }
+          expected_remaining = {
+              "how-to-remove-hard-inquiries",
+              "how-to-dispute-a-hard-inquiry",
+              "how-long-do-hard-inquiries-stay",
+          }
+
+          def find_array_end(source, pos):
+              square = 1
+              quote = None
+              escape = False
+              line_comment = False
+              block_comment = False
+              i = pos
+              while i < len(source):
+                  ch = source[i]
+                  nxt = source[i + 1] if i + 1 < len(source) else ""
+                  if line_comment:
+                      if ch == "\n": line_comment = False
+                      i += 1; continue
+                  if block_comment:
+                      if ch == "*" and nxt == "/": block_comment = False; i += 2; continue
+                      i += 1; continue
+                  if quote:
+                      if escape: escape = False
+                      elif ch == "\\": escape = True
+                      elif ch == quote: quote = None
+                      i += 1; continue
+                  if ch in ('"', "'", "`"): quote = ch; i += 1; continue
+                  if ch == "/" and nxt == "/": line_comment = True; i += 2; continue
+                  if ch == "/" and nxt == "*": block_comment = True; i += 2; continue
+                  if ch == "[": square += 1
+                  elif ch == "]":
+                      square -= 1
+                      if square == 0: return i
+                  i += 1
+              raise SystemExit("Could not find guidePages array terminator.")
+
+          end = find_array_end(text, start)
+          body = text[start:end]
+
+          objects = []
+          i = 0
+          while i < len(body):
+              while i < len(body) and body[i] in " \t\r\n,": i += 1
+              if i >= len(body): break
+              if body[i] != "{":
+                  raise SystemExit(f"Unexpected guidePages token at offset {i}: {body[i:i+40]!r}")
+              obj_start = i
+              curly = 0
+              quote = None
+              escape = False
+              line_comment = False
+              block_comment = False
+              while i < len(body):
+                  ch = body[i]
+                  nxt = body[i + 1] if i + 1 < len(body) else ""
+                  if line_comment:
+                      if ch == "\n": line_comment = False
+                      i += 1; continue
+                  if block_comment:
+                      if ch == "*" and nxt == "/": block_comment = False; i += 2; continue
+                      i += 1; continue
+                  if quote:
+                      if escape: escape = False
+                      elif ch == "\\": escape = True
+                      elif ch == quote: quote = None
+                      i += 1; continue
+                  if ch in ('"', "'", "`"): quote = ch; i += 1; continue
+                  if ch == "/" and nxt == "/": line_comment = True; i += 2; continue
+                  if ch == "/" and nxt == "*": block_comment = True; i += 2; continue
+                  if ch == "{": curly += 1
+                  elif ch == "}":
+                      curly -= 1
+                      if curly == 0:
+                          i += 1
+                          objects.append(body[obj_start:i].strip())
+                          break
+                  i += 1
+              else:
+                  raise SystemExit("Unterminated guide object.")
+
+          slugged = []
+          for obj in objects:
+              match = re.search(r'\bslug:\s*"([^"]+)"', obj)
+              if not match:
+                  raise SystemExit("Guide object without a slug encountered.")
+              slugged.append((match.group(1), obj))
+
+          current_slugs = [slug for slug, _ in slugged]
+          missing_remove = remove_slugs - set(current_slugs)
+          if missing_remove:
+              raise SystemExit(f"Expected duplicate slugs are missing: {sorted(missing_remove)}")
+
+          retained = [(slug, obj) for slug, obj in slugged if slug not in remove_slugs]
+          remaining_slugs = {slug for slug, _ in retained}
+          if remaining_slugs != expected_remaining or len(retained) != len(expected_remaining):
+              raise SystemExit(
+                  f"Refusing cleanup. Remaining slugs were {sorted(remaining_slugs)}, expected {sorted(expected_remaining)}"
+              )
+
+          rebuilt = "\n  " + ",\n  ".join(obj for _, obj in retained) + ",\n"
+          updated = text[:start] + rebuilt + text[end:]
+          path.write_text(updated)
+
+          print("Removed:", ", ".join(sorted(remove_slugs)))
+          print("Retained:", ", ".join(sorted(remaining_slugs)))
+          PY
+
+      - name: Verify exact legacy slug set
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          text = Path("src/data/guides.ts").read_text()
+          slugs = re.findall(r'\bslug:\s*"([^"]+)"', text)
+          expected = {
+              "how-to-remove-hard-inquiries",
+              "how-to-dispute-a-hard-inquiry",
+              "how-long-do-hard-inquiries-stay",
+          }
+          found = set(slugs)
+          if found != expected or len(slugs) != 3:
+              raise SystemExit(f"Legacy guide file has unexpected slugs: {slugs}")
+          print("Verified legacy guides:", ", ".join(sorted(found)))
+          PY
+          git diff --check
+
+      - name: Install dependencies deterministically
+        run: npm ci --no-audit --no-fund
+
+      - name: Run full production build and audits
+        run: npm run build
+
+      - name: Commit cleaned guide source
+        run: |
+          if git diff --quiet -- src/data/guides.ts; then
+            echo "No legacy guide cleanup was needed."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/data/guides.ts
+          git commit -m "Remove obsolete duplicate guide definitions"
+          git push origin HEAD:main
