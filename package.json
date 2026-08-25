@@ -7,8 +7,8 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "check": "astro check",
-    "build": "astro check && astro build && node scripts/discovery-audit.mjs && node scripts/technical-audit.mjs",
+    "check": "astro check && tsc --noEmit",
+    "build": "astro check && tsc --noEmit && astro build && node scripts/discovery-audit.mjs && node scripts/technical-audit.mjs",
     "check:discovery": "node scripts/discovery-audit.mjs",
     "check:technical": "node scripts/technical-audit.mjs",
     "smoke:live": "node scripts/live-smoke.mjs",

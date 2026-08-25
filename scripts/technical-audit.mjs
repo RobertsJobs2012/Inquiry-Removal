@@ -1,4 +1,4 @@
-import { readFile, readdir, stat } from "node:fs/promises";
+import { readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 
 const DIST = path.resolve("dist");
@@ -62,12 +62,23 @@ for (const file of htmlFiles) {
   const maxInlineStyle = styleSizes.length ? Math.max(...styleSizes) : 0;
 
   if (maxInlineStyle > 50_000)
-    errors.push(`${route} contains an inline stylesheet larger than 50 KB (${maxInlineStyle} bytes).`);
+    errors.push(
+      `${route} contains an inline stylesheet larger than 50 KB (${maxInlineStyle} bytes).`,
+    );
   const bytes = Buffer.byteLength(html);
   if (indexable && bytes > 250_000)
     advisories.push(`${route} HTML is ${bytes} bytes; review document weight.`);
 
-  records.push({ route, html, title, description, canonical, robots, indexable, hrefs });
+  records.push({
+    route,
+    html,
+    title,
+    description,
+    canonical,
+    robots,
+    indexable,
+    hrefs,
+  });
 }
 
 const indexable = records.filter((record) => record.indexable);
@@ -87,7 +98,7 @@ for (const [canonical, routes] of duplicateValues("canonical"))
   errors.push(`Duplicate canonical ${canonical}: ${routes.join(", ")}`);
 for (const [title, routes] of duplicateValues("title"))
   advisories.push(`Duplicate title \"${title}\": ${routes.join(", ")}`);
-for (const [description, routes] of duplicateValues("description"))
+for (const [, routes] of duplicateValues("description"))
   advisories.push(`Duplicate meta description: ${routes.join(", ")}`);
 
 const inbound = new Map(indexable.map((record) => [record.route, 0]));
@@ -98,7 +109,8 @@ for (const record of records) {
   }
 }
 for (const [route, count] of inbound) {
-  if (route !== "/" && count === 0) advisories.push(`${route} has no internal HTML links pointing to it.`);
+  if (route !== "/" && count === 0)
+    advisories.push(`${route} has no internal HTML links pointing to it.`);
 }
 
 const reviewPage = records.find((record) => record.route === "/free-inquiry-review/");
@@ -124,4 +136,5 @@ if (errors.length) {
 console.log(
   `Technical audit passed: ${htmlFiles.length} HTML files, ${indexable.length} indexable routes, ${advisories.length} advisory item(s).`,
 );
-if (advisories.length) advisories.forEach((item) => console.log(`  advisory: ${item}`));
+if (advisories.length)
+  advisories.forEach((item) => console.log(`  advisory: ${item}`));

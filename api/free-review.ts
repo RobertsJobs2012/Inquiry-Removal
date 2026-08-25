@@ -8,7 +8,7 @@ import {
   REPORT_COPIES,
   REVIEW_FIELDS,
   SITUATIONS,
-} from "../src/data/reviewForm";
+} from "../src/data/reviewForm.js";
 
 const noStoreHeaders = {
   "Cache-Control": "no-store, max-age=0",
@@ -99,17 +99,25 @@ export async function POST(request: Request) {
   if (phone.length > 40 || phoneDigits.length < 7 || phoneDigits.length > 15)
     return fail(request, "Enter a valid phone number and try again.");
   if (!includes(GOALS, goal)) return fail(request, "Choose what you are preparing for.");
-  if (!includes(SITUATIONS, situation)) return fail(request, "Choose the situation that best describes what happened.");
-  if (!includes(INQUIRY_COUNTS, count)) return fail(request, "Choose an approximate inquiry count.");
+  if (!includes(SITUATIONS, situation))
+    return fail(request, "Choose the situation that best describes what happened.");
+  if (!includes(INQUIRY_COUNTS, count))
+    return fail(request, "Choose an approximate inquiry count.");
   if (!bureaus.length || bureaus.some((bureau) => !includes(BUREAUS, bureau)))
     return fail(request, "Choose at least one affected credit report.");
-  if (!includes(REPORT_COPIES, reports)) return fail(request, "Tell us whether you have current copies of the affected reports.");
-  if (!includes(CONTACT_METHODS, contactMethod)) return fail(request, "Choose how you would prefer to be contacted.");
-  if (consent !== CONTACT_CONSENT) return fail(request, "Please confirm the contact consent before submitting.");
-  if (note.length > 2500) return fail(request, "Please shorten the optional note and try again.");
+  if (!includes(REPORT_COPIES, reports))
+    return fail(request, "Tell us whether you have current copies of the affected reports.");
+  if (!includes(CONTACT_METHODS, contactMethod))
+    return fail(request, "Choose how you would prefer to be contacted.");
+  if (consent !== CONTACT_CONSENT)
+    return fail(request, "Please confirm the contact consent before submitting.");
+  if (note.length > 2500)
+    return fail(request, "Please shorten the optional note and try again.");
 
   const requestedSource = asString(data, "source_page");
-  const sourcePage = /^\/[a-z0-9\-/]*\/$/i.test(requestedSource) ? requestedSource : "direct";
+  const sourcePage = /^\/[a-z0-9\-/]*\/$/i.test(requestedSource)
+    ? requestedSource
+    : "direct";
   const requestedContext = asString(data, "source_context").toLowerCase();
   const sourceContext = /^[a-z0-9|\-]{1,300}$/.test(requestedContext)
     ? requestedContext
