@@ -33,20 +33,20 @@ jobs:
           node-version: "24"
 
       - name: Install project dependencies
-        run: npm ci --ignore-scripts --no-audit --no-fund
+        run: npm ci --no-audit --no-fund
 
-      - name: Install transient browser test dependency
-        run: npm install --no-save --package-lock=false --ignore-scripts --no-audit --no-fund playwright@1.55.0
+      - name: Install transient browser test dependencies
+        run: npm install --no-save --package-lock=false --ignore-scripts --no-audit --no-fund playwright@1.62.1 @axe-core/playwright@4.13.0
 
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
 
-      - name: Run production browser smoke tests
+      - name: Run production browser and accessibility smoke tests
         env:
           SITE_URL: https://www.inquiryremoval.com
         run: node scripts/browser-smoke.mjs
 
-      - name: Upload browser screenshots
+      - name: Upload browser artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:

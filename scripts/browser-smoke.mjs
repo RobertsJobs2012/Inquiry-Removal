@@ -1,5 +1,6 @@
-import { mkdir } from "node:fs/promises";
+import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
+import AxeBuilder from "@axe-core/playwright";
 import { chromium } from "playwright";
 
 const base = (process.env.SITE_URL || "https://www.inquiryremoval.com").replace(/\/$/, "");
@@ -8,6 +9,40 @@ await mkdir(artifactDir, { recursive: true });
 
 const failures = [];
 const browser = await chromium.launch({ headless: true });
+
+const expect = (condition, message) => {
+  if (!condition) throw new Error(message);
+};
+
+const checkAccessibility = async (name, page) => {
+  const results = await new AxeBuilder({ page })
+    .withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"])
+    .analyze();
+
+  await writeFile(
+    path.join(artifactDir, `${name}-axe.json`),
+    JSON.stringify(results, null, 2),
+    "utf8",
+  );
+
+  const severe = results.violations.filter((violation) =>
+    ["serious", "critical"].includes(violation.impact ?? ""),
+  );
+
+  if (!severe.length) return;
+
+  const summary = severe
+    .map((violation) => {
+      const targets = violation.nodes
+        .slice(0, 4)
+        .flatMap((node) => node.target)
+        .join(", ");
+      return `${violation.id} (${violation.impact}): ${violation.help}${targets ? ` [${targets}]` : ""}`;
+    })
+    .join(" | ");
+
+  failures.push(`${name}: serious/critical accessibility violations: ${summary}`);
+};
 
 const run = async (name, viewport, test) => {
   const context = await browser.newContext({ viewport });
@@ -50,10 +85,6 @@ const run = async (name, viewport, test) => {
   }
 };
 
-const expect = (condition, message) => {
-  if (!condition) throw new Error(message);
-};
-
 await run("desktop-home", { width: 1440, height: 1000 }, async (page) => {
   const response = await page.goto(`${base}/`, { waitUntil: "networkidle" });
   expect(response?.status() === 200, `homepage returned ${response?.status()}`);
@@ -63,6 +94,7 @@ await run("desktop-home", { width: 1440, height: 1000 }, async (page) => {
     (await page.locator('link[rel="canonical"]').getAttribute("href")) === `${base}/`,
     "homepage canonical is unexpected",
   );
+  await checkAccessibility("desktop-home", page);
 });
 
 await run("desktop-pricing", { width: 1440, height: 1000 }, async (page) => {
@@ -71,6 +103,7 @@ await run("desktop-pricing", { width: 1440, height: 1000 }, async (page) => {
   expect(await page.locator("h1").isVisible(), "pricing H1 is not visible");
   const popular = page.locator(".popular").first();
   expect(await popular.isVisible(), "Most Popular badge is not visible");
+  await checkAccessibility("desktop-pricing", page);
 });
 
 await run("desktop-resources", { width: 1440, height: 1000 }, async (page) => {
@@ -81,6 +114,15 @@ await run("desktop-resources", { width: 1440, height: 1000 }, async (page) => {
   expect((await page.locator(".resource-card").count()) >= 35, "resources hub is missing expected guide cards");
   expect(await page.locator('a[href="/duplicate-inquiries/"]').first().isVisible(), "duplicate-inquiry guide is not exposed in Resources");
   expect(await page.locator('a[href="/permissible-purpose-hard-inquiries/"]').first().isVisible(), "permissible-purpose guide is not exposed in Resources");
+  await checkAccessibility("desktop-resources", page);
+});
+
+await run("desktop-article", { width: 1440, height: 1000 }, async (page) => {
+  const response = await page.goto(`${base}/what-is-a-hard-inquiry/`, { waitUntil: "networkidle" });
+  expect(response?.status() === 200, `article returned ${response?.status()}`);
+  expect((await page.locator('meta[property="og:type"]').getAttribute("content")) === "article", "article Open Graph type is not article");
+  expect(await page.locator("h1").isVisible(), "article H1 is not visible");
+  await checkAccessibility("desktop-article", page);
 });
 
 await run("mobile-menu-header", { width: 390, height: 844 }, async (page) => {
@@ -122,6 +164,7 @@ await run("mobile-review-prefill", { width: 390, height: 844 }, async (page) => 
   await page.locator(`input[name='entry.330440410']`).fill("6025550100");
   await page.locator("[data-review-next]").click();
   expect(await page.locator("[data-review-step='2']").isVisible(), "review form did not advance to step 2");
+  await checkAccessibility("mobile-review-prefill", page);
 });
 
 await run("not-found", { width: 1280, height: 900 }, async (page) => {
@@ -147,4 +190,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Browser smoke test passed against ${base}.`);
+console.log(`Browser and accessibility smoke tests passed against ${base}.`);
