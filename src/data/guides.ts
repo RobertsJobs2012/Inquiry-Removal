@@ -50,11 +50,11 @@ export const guidePages: GuidePage[] = [
     category: "resources",
     eyebrow: "The complete hard inquiry removal guide",
     title: "How to Remove Hard Inquiries From Your Credit Report",
-    seoTitle: "How to Remove Hard Inquiries | Inquiry Removal",
+    seoTitle: "How to Remove Hard Inquiries From Credit | Inquiry Removal",
     description:
       "Learn when hard inquiries can be removed, how to dispute questionable inquiries, and when specialist help makes sense. Start with a free review.",
     supporting:
-      "Some hard inquiries belong on your report. Others deserve a much closer look. Learn how to tell the difference and choose your next step.",
+      "How to remove hard inquiries starts with separating entries that are accurate from inquiries that may be unauthorized, inaccurate, fraudulent, duplicated, connected to the wrong person, or reported differently from what you were told. Some hard inquiries belong on your credit report and cannot simply be erased because you dislike them. Others deserve a closer review. This guide shows you how to identify the inquiry, document what happened, use the correct dispute path, track responses, and decide when specialist help makes sense.",
     primaryCta: "Get My Free Inquiry Review",
     secondaryCta: "See What Type of Inquiry I Have",
     secondaryTarget: "#section-1",
@@ -196,11 +196,11 @@ export const guidePages: GuidePage[] = [
     category: "resources",
     eyebrow: "Hard inquiry dispute guide",
     title: "How to Dispute a Hard Inquiry on Your Credit Report",
-    seoTitle: "How to Dispute a Hard Inquiry | Inquiry Removal",
+    seoTitle: "How to Dispute a Hard Inquiry on Credit | Inquiry Removal",
     description:
       "Learn how to dispute a questionable hard inquiry, what evidence to include, which bureau process to use, and what happens next. Free review available.",
     supporting:
-      "Do not start with a generic letter. First identify the inquiry, the company behind it, and the exact reason you believe it is wrong.",
+      "How to dispute a hard inquiry starts with identifying the exact entry, the company behind it, the affected credit bureau, and the specific reason you believe the inquiry is wrong. Do not begin with a generic removal letter or an unsupported claim. A focused dispute explains what happened, includes relevant documentation, uses the current process for Experian, Equifax, or TransUnion, and preserves every response. This guide walks through the dispute process step by step and explains when additional follow-up may be appropriate.",
     primaryCta: "Get My Free Inquiry Review",
     secondaryCta: "See the Dispute Roadmap",
     secondaryTarget: "#section-2",
@@ -370,7 +370,7 @@ export const guidePages: GuidePage[] = [
     description:
       "Hard inquiries can stay on credit reports for up to two years, but score impact may fade sooner. See the timeline and when an inquiry deserves review.",
     supporting:
-      "Usually up to two years—but visible and hurting your score are not the same thing. See how an inquiry changes as it ages and when waiting may not be the only option.",
+      "How long do hard inquiries stay on your credit report? They can generally remain visible for up to two years, but visibility and scoring impact are not the same thing. The effect on a credit score often fades sooner, and qualifying rate-shopping inquiries may receive special treatment from scoring models. This guide explains the reporting timeline, what changes as an inquiry ages, when waiting may be reasonable, and why an inaccurate, unauthorized, fraudulent, duplicate, or incorrect-person inquiry may deserve review instead of simply being left to age off.",
     primaryCta: "Get My Free Inquiry Review",
     secondaryCta: "Check My Inquiry Timeline",
     secondaryTarget: "#section-1",
