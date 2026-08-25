@@ -88,6 +88,12 @@ const run = async (name, viewport, test) => {
 await run("desktop-home", { width: 1440, height: 1000 }, async (page) => {
   const response = await page.goto(`${base}/`, { waitUntil: "networkidle" });
   expect(response?.status() === 200, `homepage returned ${response?.status()}`);
+  const responseHeaders = response?.headers() ?? {};
+  const csp = responseHeaders["content-security-policy"] ?? "";
+  expect(Boolean(csp), "homepage is missing enforced Content-Security-Policy");
+  expect(!responseHeaders["content-security-policy-report-only"], "homepage still exposes a report-only CSP instead of enforcement");
+  expect(csp.includes("default-src 'self'"), "homepage CSP is missing the default self restriction");
+  expect(csp.includes("https://fonts.googleapis.com"), "homepage CSP is missing the approved Google Fonts origin");
   expect(await page.locator("h1").isVisible(), "homepage H1 is not visible");
   expect(await page.locator("footer.site-footer").isVisible(), "footer is not visible");
   expect(
