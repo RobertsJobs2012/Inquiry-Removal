@@ -1,0 +1,75 @@
+name: Homepage Link Polish
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/homepage-link-polish.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-links:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Point situation cards to dedicated pages
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          path = Path("src/pages/index.astro")
+          text = path.read_text()
+          replacements = [
+              (
+                  r'(The Same Inquiry Appears More Than Once</strong>.*?<a href=")/situations-we-handle/("[^>]*>Explore this situation)',
+                  r'\1/duplicate-inquiries/\2',
+                  "duplicate inquiries",
+              ),
+              (
+                  r'(The Inquiry Does Not Belong to You</strong>.*?<a href=")/situations-we-handle/("[^>]*>Explore this situation)',
+                  r'\1/incorrect-person-inquiries/\2',
+                  "incorrect-person inquiries",
+              ),
+              (
+                  r'(You Remember the Application but Want It Reviewed</strong>.*?<a href=")/situations-we-handle/("[^>]*>Explore this situation)',
+                  r'\1/authorized-inquiry-removal/\2',
+                  "authorized inquiry review",
+              ),
+          ]
+
+          for pattern, replacement, label in replacements:
+              text, count = re.subn(pattern, replacement, text, count=1, flags=re.S)
+              if count != 1:
+                  raise SystemExit(f"Expected exactly one homepage replacement for {label}; found {count}.")
+
+          path.write_text(text)
+          PY
+
+      - name: Verify exact destination changes
+        run: |
+          grep -q 'href="/duplicate-inquiries/"' src/pages/index.astro
+          grep -q 'href="/incorrect-person-inquiries/"' src/pages/index.astro
+          grep -q 'href="/authorized-inquiry-removal/"' src/pages/index.astro
+          git diff --check
+
+      - name: Commit homepage link cleanup
+        run: |
+          if git diff --quiet -- src/pages/index.astro; then
+            echo "No homepage link changes were needed."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/pages/index.astro
+          git commit -m "Point homepage situation cards to dedicated guides"
+          git push origin HEAD:main
