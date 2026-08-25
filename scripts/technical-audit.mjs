@@ -97,7 +97,7 @@ const duplicateValues = (key) => {
 for (const [canonical, routes] of duplicateValues("canonical"))
   errors.push(`Duplicate canonical ${canonical}: ${routes.join(", ")}`);
 for (const [title, routes] of duplicateValues("title"))
-  advisories.push(`Duplicate title \"${title}\": ${routes.join(", ")}`);
+  errors.push(`Duplicate title \"${title}\": ${routes.join(", ")}`);
 for (const [, routes] of duplicateValues("description"))
   advisories.push(`Duplicate meta description: ${routes.join(", ")}`);
 
@@ -110,7 +110,7 @@ for (const record of records) {
 }
 for (const [route, count] of inbound) {
   if (route !== "/" && count === 0)
-    advisories.push(`${route} has no internal HTML links pointing to it.`);
+    errors.push(`${route} has no internal HTML links pointing to it.`);
 }
 
 const reviewPage = records.find((record) => record.route === "/free-inquiry-review/");

@@ -28,6 +28,10 @@ const routes = [
   "/free-inquiry-review/",
   "/transunion-hard-inquiry-removal/",
   "/resources/",
+  "/24-hour-inquiry-removal/",
+  "/arizona-hard-inquiry-removal/",
+  "/hard-inquiry-removal-letter/",
+  "/permissible-purpose-hard-inquiries/",
   "/sitemap-index.xml",
   "/robots.txt",
 ];

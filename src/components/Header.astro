@@ -147,7 +147,12 @@ const isCurrent = (href: string) =>
 {
   !isIntakePage && (
     <div class="mobile-action-dock" data-mobile-dock aria-label="Quick actions">
-      <button type="button" data-dock-menu aria-controls="mobile-navigation" aria-expanded="false">
+      <button
+        type="button"
+        data-dock-menu
+        aria-controls="mobile-navigation"
+        aria-expanded="false"
+      >
         <span aria-hidden="true">••</span><span>Explore</span>
       </button>
       <a href="tel:+16023776626" aria-label="Call Inquiry Removal">
@@ -184,6 +189,7 @@ const isCurrent = (href: string) =>
   const visibleSuppressors = new Set<Element>();
   let lastScrollY = window.scrollY;
   let menuOpen = false;
+  let lastMenuTrigger: HTMLElement | null = null;
 
   const syncHeader = () => {
     header?.classList.toggle("is-scrolled", window.scrollY > 24);
@@ -215,6 +221,7 @@ const isCurrent = (href: string) =>
   };
 
   const closeMenu = (restoreFocus = false) => {
+    const trigger = lastMenuTrigger;
     menuOpen = false;
     syncMenuControls();
     mobileNav?.classList.remove("is-open");
@@ -222,10 +229,12 @@ const isCurrent = (href: string) =>
     mobileDock?.removeAttribute("inert");
     header?.classList.remove("is-hidden");
     syncMobileDock();
-    if (restoreFocus && menuButton instanceof HTMLElement) menuButton.focus();
+    lastMenuTrigger = null;
+    if (restoreFocus) trigger?.focus();
   };
 
-  const openMenu = () => {
+  const openMenu = (trigger: HTMLElement | null) => {
+    lastMenuTrigger = trigger;
     menuOpen = true;
     syncMenuControls();
     mobileNav?.classList.add("is-open");
@@ -269,12 +278,12 @@ const isCurrent = (href: string) =>
 
   menuButton?.addEventListener("click", () => {
     if (menuOpen) closeMenu();
-    else openMenu();
+    else openMenu(menuButton);
   });
 
   dockMenuButton?.addEventListener("click", () => {
     if (menuOpen) closeMenu();
-    else openMenu();
+    else openMenu(dockMenuButton);
   });
 
   mobileNav?.querySelectorAll("a").forEach((link) => {
