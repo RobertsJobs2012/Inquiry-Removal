@@ -19,6 +19,7 @@ interface Props {
   ogTitle?: string;
   ogDescription?: string;
   ogImage?: string;
+  ogType?: "website" | "article";
   robots?: string;
   schema?: Record<string, unknown> | Record<string, unknown>[];
 }
@@ -30,13 +31,32 @@ const {
   ogTitle = title,
   ogDescription = description,
   ogImage = "/og.jpg",
+  ogType,
   robots = "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
   schema,
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, SITE_ORIGIN);
 const socialImage = new URL(ogImage, canonical);
+const normalizedOgImage = ogImage.toLowerCase().split("?")[0];
+const socialImageType = normalizedOgImage.endsWith(".png")
+  ? "image/png"
+  : normalizedOgImage.endsWith(".webp")
+    ? "image/webp"
+    : normalizedOgImage.endsWith(".gif")
+      ? "image/gif"
+      : "image/jpeg";
 const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
 const bingSiteVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
+const schemaItems = schema
+  ? Array.isArray(schema)
+    ? schema
+    : [schema]
+  : [];
+const resolvedOgType =
+  ogType ??
+  (schemaItems.some((item) => item["@type"] === "Article")
+    ? "article"
+    : "website");
 const pageSchema = {
   "@context": "https://schema.org",
   "@type": "WebPage",
@@ -73,14 +93,12 @@ const websiteSchema = {
   publisher: { "@id": `${SITE_ORIGIN}/#organization` },
   inLanguage: "en-US",
 };
-const schemaGraph = schema
-  ? [
-      organizationSchema,
-      websiteSchema,
-      pageSchema,
-      ...(Array.isArray(schema) ? schema : [schema]),
-    ]
-  : [organizationSchema, websiteSchema, pageSchema];
+const schemaGraph = [
+  organizationSchema,
+  websiteSchema,
+  pageSchema,
+  ...schemaItems,
+];
 const serializedSchema = JSON.stringify(schemaGraph).replaceAll("<", "\\u003c");
 ---
 
@@ -107,14 +125,14 @@ const serializedSchema = JSON.stringify(schemaGraph).replaceAll("<", "\\u003c");
     }
     <meta name="color-scheme" content="light dark" />
     <meta name="theme-color" content="#081B2C" />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={resolvedOgType} />
     <meta property="og:locale" content="en_US" />
     <meta property="og:site_name" content="Inquiry Removal" />
     <meta property="og:title" content={ogTitle} />
     <meta property="og:description" content={ogDescription} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={socialImage} />
-    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:type" content={socialImageType} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta

@@ -4,22 +4,12 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import GuidePage from "../components/GuidePage.astro";
 import { pages, type SitePage } from "../data/pages";
-import {
-  guidePages,
-  guideSlugs,
-  type GuidePage as GuidePageData,
-} from "../data/guides";
+import type { GuidePage as GuidePageData } from "../data/guides";
+import { allGuidePages, allGuideSlugs } from "../data/guideRegistry";
 import { isIndexablePath, SITE_ORIGIN } from "../data/discovery.mjs";
-import { batchGuidePages, batchGuideSlugs } from "../data/batchGuides";
 import { resourceHubGroups } from "../data/resourceHub";
 
 export function getStaticPaths() {
-  const allGuidePages = [
-    ...guidePages.filter((page) => !batchGuideSlugs.has(page.slug)),
-    ...batchGuidePages,
-  ];
-  const allGuideSlugs = new Set([...guideSlugs, ...batchGuideSlugs]);
-
   return [
     ...pages
       .filter((page) => !allGuideSlugs.has(page.slug))
