@@ -73,6 +73,16 @@ await run("desktop-pricing", { width: 1440, height: 1000 }, async (page) => {
   expect(await popular.isVisible(), "Most Popular badge is not visible");
 });
 
+await run("desktop-resources", { width: 1440, height: 1000 }, async (page) => {
+  const response = await page.goto(`${base}/resources/`, { waitUntil: "networkidle" });
+  expect(response?.status() === 200, `resources returned ${response?.status()}`);
+  expect(await page.locator("h1").isVisible(), "resources H1 is not visible");
+  expect((await page.locator(".resource-hub__group").count()) === 7, "resources hub does not contain seven guide clusters");
+  expect((await page.locator(".resource-card").count()) >= 35, "resources hub is missing expected guide cards");
+  expect(await page.locator('a[href="/duplicate-inquiries/"]').first().isVisible(), "duplicate-inquiry guide is not exposed in Resources");
+  expect(await page.locator('a[href="/permissible-purpose-hard-inquiries/"]').first().isVisible(), "permissible-purpose guide is not exposed in Resources");
+});
+
 await run("mobile-menu-header", { width: 390, height: 844 }, async (page) => {
   await page.goto(`${base}/`, { waitUntil: "networkidle" });
   const menu = page.locator("[data-menu-button]");
