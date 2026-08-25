@@ -5,6 +5,9 @@
   "engines": {
     "node": "24.x"
   },
+  "allowScripts": {
+    "esbuild@0.28.2": true
+  },
   "scripts": {
     "dev": "astro dev",
     "check": "astro check && tsc --noEmit",
