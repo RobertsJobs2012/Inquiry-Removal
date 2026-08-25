@@ -1,0 +1,119 @@
+name: Legacy Guide SEO Lock Fix
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/legacy-seo-lock-fix.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+          cache: npm
+
+      - name: Apply measured legacy guide fixes
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path("src/data/guides.ts")
+          text = path.read_text()
+          replacements = {
+            'seoTitle: "How to Remove Hard Inquiries | Inquiry Removal",':
+              'seoTitle: "How to Remove Hard Inquiries From Credit | Inquiry Removal",',
+            '"Some hard inquiries belong on your report. Others deserve a much closer look. Learn how to tell the difference and choose your next step.",':
+              '"How to remove hard inquiries starts with separating entries that are accurate from inquiries that may be unauthorized, inaccurate, fraudulent, duplicated, connected to the wrong person, or reported differently from what you were told. Some hard inquiries belong on your credit report and cannot simply be erased because you dislike them. Others deserve a closer review. This guide shows you how to identify the inquiry, document what happened, use the correct dispute path, track responses, and decide when specialist help makes sense.",',
+            'seoTitle: "How to Dispute a Hard Inquiry | Inquiry Removal",':
+              'seoTitle: "How to Dispute a Hard Inquiry on Credit | Inquiry Removal",',
+            '"Do not start with a generic letter. First identify the inquiry, the company behind it, and the exact reason you believe it is wrong.",':
+              '"How to dispute a hard inquiry starts with identifying the exact entry, the company behind it, the affected credit bureau, and the specific reason you believe the inquiry is wrong. Do not begin with a generic removal letter or an unsupported claim. A focused dispute explains what happened, includes relevant documentation, uses the current process for Experian, Equifax, or TransUnion, and preserves every response. This guide walks through the dispute process step by step and explains when additional follow-up may be appropriate.",',
+            '"Usually up to two years—but visible and hurting your score are not the same thing. See how an inquiry changes as it ages and when waiting may not be the only option.",':
+              '"How long do hard inquiries stay on your credit report? They can generally remain visible for up to two years, but visibility and scoring impact are not the same thing. The effect on a credit score often fades sooner, and qualifying rate-shopping inquiries may receive special treatment from scoring models. This guide explains the reporting timeline, what changes as an inquiry ages, when waiting may be reasonable, and why an inaccurate, unauthorized, fraudulent, duplicate, or incorrect-person inquiry may deserve review instead of simply being left to age off.",',
+          }
+
+          for old, new in replacements.items():
+              count = text.count(old)
+              if count != 1:
+                  raise SystemExit(f"Expected exactly one occurrence of {old[:70]!r}; found {count}.")
+              text = text.replace(old, new, 1)
+
+          path.write_text(text)
+          PY
+          git diff --check
+
+      - name: Build current site
+        run: |
+          npm ci --no-audit --no-fund
+          npm run build
+
+      - name: Enforce hard SEO locks on every GuidePage
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from html import unescape
+          import re
+
+          failures = []
+          checked = 0
+
+          def clean(value):
+              value = re.sub(r"<[^>]+>", " ", value)
+              value = unescape(value)
+              return re.sub(r"\s+", " ", value).strip()
+
+          def words(value):
+              return re.findall(r"\b[\w’'-]+\b", clean(value), flags=re.UNICODE)
+
+          for file in Path("dist").rglob("*.html"):
+              html = file.read_text()
+              if not re.search(r'<main[^>]*class=["\'][^"\']*\bguide-page\b', html, re.I):
+                  continue
+              checked += 1
+              rel = file.relative_to("dist").as_posix()
+              route = "/" if rel == "index.html" else "/" + rel.removesuffix("index.html")
+              title = clean(re.search(r"<title>([\s\S]*?)</title>", html, re.I).group(1))
+              h1 = clean(re.search(r"<h1[^>]*>([\s\S]*?)</h1>", html, re.I).group(1))
+              desc_match = re.search(r'<meta[^>]*name=["\']description["\'][^>]*content=["\']([^"\']*)["\']', html, re.I)
+              if not desc_match:
+                  desc_match = re.search(r'<meta[^>]*content=["\']([^"\']*)["\'][^>]*name=["\']description["\']', html, re.I)
+              opening_match = re.search(r'<p[^>]*class=["\'][^"\']*\bguide-hero__support\b[^"\']*["\'][^>]*>([\s\S]*?)</p>', html, re.I)
+              desc = clean(desc_match.group(1))
+              opening_words = len(words(opening_match.group(1)))
+              problems = []
+              if not 50 <= len(title) <= 60: problems.append(f"title={len(title)}")
+              if not 50 <= len(h1) <= 70: problems.append(f"H1={len(h1)}")
+              if not 120 <= len(desc) <= 155: problems.append(f"description={len(desc)}")
+              if not 75 <= opening_words <= 100: problems.append(f"opening={opening_words}")
+              if problems: failures.append(f"{route}: " + ", ".join(problems))
+
+          if checked != 31:
+              failures.append(f"Expected 31 GuidePage routes, checked {checked}.")
+          if failures:
+              for failure in failures: print("FAIL", failure)
+              raise SystemExit(f"Hard SEO locks failed with {len(failures)} issue(s).")
+          print(f"All {checked} GuidePage routes satisfy hard SEO locks.")
+          PY
+
+      - name: Commit legacy guide lock fixes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/data/guides.ts
+          git commit -m "Bring legacy guides into hard SEO locks"
+          git push origin HEAD:main
