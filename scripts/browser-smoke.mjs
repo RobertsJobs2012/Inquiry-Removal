@@ -17,7 +17,15 @@ const run = async (name, viewport, test) => {
   const failedLocalRequests = [];
 
   page.on("console", (message) => {
-    if (message.type() === "error") consoleErrors.push(message.text());
+    if (message.type() !== "error") return;
+    const text = message.text();
+    if (
+      name === "not-found" &&
+      text.includes("Failed to load resource: the server responded with a status of 404")
+    ) {
+      return;
+    }
+    consoleErrors.push(text);
   });
   page.on("pageerror", (error) => pageErrors.push(error.message));
   page.on("requestfailed", (request) => {
