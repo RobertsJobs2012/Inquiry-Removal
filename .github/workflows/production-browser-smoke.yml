@@ -33,7 +33,7 @@ jobs:
           node-version: "24"
 
       - name: Install project dependencies
-        run: npm install --ignore-scripts --no-audit --no-fund
+        run: npm ci --ignore-scripts --no-audit --no-fund
 
       - name: Install transient browser test dependency
         run: npm install --no-save --package-lock=false --ignore-scripts --no-audit --no-fund playwright@1.55.0
