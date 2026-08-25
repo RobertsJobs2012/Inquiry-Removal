@@ -1,0 +1,51 @@
+name: Production Browser Smoke
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 12 * * *"
+  deployment_status:
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    if: >-
+      github.event_name != 'deployment_status' ||
+      (github.event.deployment_status.state == 'success' &&
+       github.event.deployment.environment == 'Production')
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+
+      - name: Install project dependencies
+        run: npm ci
+
+      - name: Install transient browser test dependency
+        run: npm install --no-save --package-lock=false playwright@1.55.0
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Run production browser smoke tests
+        env:
+          SITE_URL: https://www.inquiryremoval.com
+        run: node scripts/browser-smoke.mjs
+
+      - name: Upload browser screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: production-browser-smoke
+          path: .artifacts/browser-smoke
+          if-no-files-found: ignore
+          retention-days: 7
