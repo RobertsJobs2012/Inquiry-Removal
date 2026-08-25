@@ -10,8 +10,8 @@ import {
   type GuidePage as GuidePageData,
 } from "../data/guides";
 import { isIndexablePath, SITE_ORIGIN } from "../data/discovery.mjs";
-
 import { batchGuidePages, batchGuideSlugs } from "../data/batchGuides";
+import { resourceHubGroups } from "../data/resourceHub";
 
 export function getStaticPaths() {
   const allGuidePages = [
@@ -140,44 +140,6 @@ const schema = [
       ]
     : []),
 ];
-const resourceCards = [
-  [
-    "Fundamentals",
-    "How to remove hard inquiries",
-    "Understand which inquiries may deserve review and the complete removal process.",
-    "/how-to-remove-hard-inquiries/",
-  ],
-  [
-    "Dispute guide",
-    "How to dispute a hard inquiry",
-    "Build a specific, documented dispute instead of relying on a generic template.",
-    "/how-to-dispute-a-hard-inquiry/",
-  ],
-  [
-    "Timeline",
-    "How long inquiries stay",
-    "See the two-year reporting timeline and why visibility and score impact differ.",
-    "/how-long-do-hard-inquiries-stay/",
-  ],
-  [
-    "Experian",
-    "Experian inquiry removal",
-    "Review an Experian hard inquiry and understand the bureau-specific next step.",
-    "/experian-hard-inquiry-removal/",
-  ],
-  [
-    "Equifax",
-    "Equifax inquiry removal",
-    "Identify and review questionable inquiries appearing on an Equifax report.",
-    "/equifax-hard-inquiry-removal/",
-  ],
-  [
-    "TransUnion",
-    "TransUnion inquiry removal",
-    "Follow the inquiry-specific review path for a TransUnion report.",
-    "/transunion-hard-inquiry-removal/",
-  ],
-];
 ---
 
 {
@@ -281,18 +243,33 @@ const resourceCards = [
               ))}
 
               {page.kind === "resources" && (
-                <div class="resource-grid" data-reveal>
-                  {resourceCards.map(([tag, title, text, href]) => (
-                    <article class="resource-card">
-                      <span>{tag}</span>
-                      <h3>{title}</h3>
-                      <p>{text}</p>
-                      {href && (
-                        <a class="text-link" href={href}>
-                          Read the guide <span>→</span>
-                        </a>
-                      )}
-                    </article>
+                <div class="resource-hub">
+                  {resourceHubGroups.map((group, groupIndex) => (
+                    <section
+                      class="resource-hub__group"
+                      aria-labelledby={`resource-group-${groupIndex + 1}`}
+                      data-reveal
+                    >
+                      <div class="resource-hub__heading">
+                        <p class="eyebrow">
+                          <span /> Guide cluster {String(groupIndex + 1).padStart(2, "0")}
+                        </p>
+                        <h2 id={`resource-group-${groupIndex + 1}`}>{group.title}</h2>
+                        <p>{group.description}</p>
+                      </div>
+                      <div class="resource-grid">
+                        {group.cards.map((card) => (
+                          <article class="resource-card">
+                            <span>{card.tag}</span>
+                            <h3>{card.title}</h3>
+                            <p>{card.description}</p>
+                            <a class="text-link" href={card.href}>
+                              Read the guide <span>→</span>
+                            </a>
+                          </article>
+                        ))}
+                      </div>
+                    </section>
                   ))}
                 </div>
               )}
@@ -328,3 +305,52 @@ const resourceCards = [
     </BaseLayout>
   )
 }
+
+<style>
+  .resource-hub {
+    display: grid;
+    gap: 76px;
+    margin-top: 72px;
+  }
+
+  .resource-hub__group {
+    scroll-margin-top: 110px;
+  }
+
+  .resource-hub__heading {
+    max-width: 780px;
+    margin-bottom: 26px;
+  }
+
+  .resource-hub__heading h2 {
+    margin: 10px 0 14px;
+    font-size: clamp(2rem, 4vw, 3.35rem);
+  }
+
+  .resource-hub__heading > p:last-child {
+    max-width: 720px;
+    color: var(--slate);
+  }
+
+  .resource-hub .resource-card {
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .resource-hub .resource-card h3 {
+    font-size: 1.35rem;
+  }
+
+  .resource-hub .resource-card .text-link {
+    margin-top: auto;
+    padding-top: 12px;
+  }
+
+  @media (max-width: 720px) {
+    .resource-hub {
+      gap: 54px;
+      margin-top: 52px;
+    }
+  }
+</style>
