@@ -8,12 +8,14 @@ on:
     paths:
       - "package.json"
       - "package-lock.json"
+      - ".github/workflows/dependency-security-audit.yml"
   push:
     branches:
       - main
     paths:
       - "package.json"
       - "package-lock.json"
+      - ".github/workflows/dependency-security-audit.yml"
 
 permissions:
   contents: read
