@@ -21,8 +21,8 @@ export default defineConfig({
   ],
   build: {
     format: "directory",
-    // Shared styles are intentionally extracted when they are large enough so
-    // visitors can reuse the browser-cached CSS across the entire site.
+    // Keep the large shared stylesheet cacheable across the full site. The
+    // technical audit also prevents oversized page-level inline CSS.
     inlineStylesheets: "auto",
   },
 });

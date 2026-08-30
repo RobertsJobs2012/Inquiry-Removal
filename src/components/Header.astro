@@ -146,7 +146,7 @@ const isCurrent = (href: string) =>
 
 {
   !isIntakePage && (
-    <div class="mobile-action-dock" data-mobile-dock aria-label="Quick actions">
+    <nav class="mobile-action-dock" data-mobile-dock aria-label="Quick actions">
       <button
         type="button"
         data-dock-menu
@@ -166,12 +166,14 @@ const isCurrent = (href: string) =>
       >
         <span>Free Review</span><span aria-hidden="true">→</span>
       </a>
-    </div>
+    </nav>
   )
 }
-<a class="back-to-top" href="#main-content" data-back-to-top
-  >Top <span aria-hidden="true">↑</span></a
->
+<nav class="back-to-top-nav" aria-label="Page shortcuts">
+  <a class="back-to-top" href="#main-content" data-back-to-top
+    >Top <span aria-hidden="true">↑</span></a
+  >
+</nav>
 
 <script>
   const header = document.querySelector("[data-header]");
@@ -187,6 +189,9 @@ const isCurrent = (href: string) =>
     ),
   );
   const visibleSuppressors = new Set<Element>();
+  const pageRegions = Array.from(
+    document.querySelectorAll<HTMLElement>("main, footer"),
+  );
   let lastScrollY = window.scrollY;
   let menuOpen = false;
   let lastMenuTrigger: HTMLElement | null = null;
@@ -227,6 +232,7 @@ const isCurrent = (href: string) =>
     mobileNav?.classList.remove("is-open");
     document.body.classList.remove("menu-open");
     mobileDock?.removeAttribute("inert");
+    pageRegions.forEach((region) => region.removeAttribute("inert"));
     header?.classList.remove("is-hidden");
     syncMobileDock();
     lastMenuTrigger = null;
@@ -240,6 +246,7 @@ const isCurrent = (href: string) =>
     mobileNav?.classList.add("is-open");
     document.body.classList.add("menu-open");
     mobileDock?.setAttribute("inert", "");
+    pageRegions.forEach((region) => region.setAttribute("inert", ""));
     header?.classList.remove("is-hidden");
     syncMobileDock();
     const firstLink = mobileNav?.querySelector<HTMLElement>("a[href]");

@@ -112,7 +112,9 @@ const schema = [
           <nav class="breadcrumb" aria-label="Breadcrumb">
             <a href="/">Home</a><span>/</span><a href={breadcrumbHref}
               >{breadcrumbLabel}</a
-            ><span>/</span><span>{page.title}</span>
+            ><span class="breadcrumb-current-separator">/</span><span
+              class="breadcrumb-current">{page.title}</span
+            >
           </nav>
           <p class="eyebrow eyebrow--light"><span></span>{page.eyebrow}</p>
           <h1>{page.title}</h1>
@@ -270,6 +272,7 @@ const schema = [
                 {section.visual && (
                   <div
                     class="guide-media-panel"
+                    role="group"
                     aria-label={section.visual.title}
                   >
                     <div>

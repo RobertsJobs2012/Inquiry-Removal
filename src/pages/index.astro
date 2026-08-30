@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Footer from "../components/Footer.astro";
+import FreeReviewForm from "../components/FreeReviewForm.astro";
 import Header from "../components/Header.astro";
 import InquiryLine from "../components/InquiryLine.astro";
 import PageJumpNav from "../components/PageJumpNav.astro";
@@ -158,8 +159,11 @@ const schema = [
             <span></span> Nationwide Hard Inquiry Specialists · Experian · Equifax · TransUnion
           </p>
           <h1>Hard Inquiry Removal: Clear the Pulls Standing in Your Way</h1>
-          <p class="hero-summary">
+          <p class="hero-summary hero-summary--desktop">
             Hard inquiry removal is all we do. If unwanted pulls from a dealership, unfamiliar lender, identity theft, duplicate application, or misleading “soft pull” are crowding your credit reports, you do not have to figure out the next move alone. Since 2015, Inquiry Removal has helped 1,123 clients remove more than 100,000 hard inquiries across Experian, Equifax, and TransUnion. See how our specialized process works, which situations we handle, what the service costs, and how to start with a free personal review.
+          </p>
+          <p class="hero-summary hero-summary--mobile">
+            Unwanted dealership, lender, identity-theft, duplicate, or unexpected hard inquiries? We organize what happened and handle the removal process across all three bureaus. Start with a free personal review.
           </p>
           <div class="button-row">
             <a
@@ -461,110 +465,19 @@ const schema = [
           <p class="eyebrow eyebrow--light"><span></span> Free personal review</p>
           <h2>Tell Us What Happened</h2>
           <p>
-            You do not need to know what type of dispute applies, identify every creditor perfectly, or choose a plan before speaking with us. Start with five simple questions and let us organize the inquiry problem from there.
+            You do not need to know what type of dispute applies, identify every creditor perfectly, or choose a plan before speaking with us. Use the short guided review below. Nothing is sent until you choose Submit.
           </p>
           <div class="intake-security">
             <strong>Private by design</strong>
             <span>Your initial review does not require your Social Security number, credit-report login, payment information, or other sensitive account credentials.</span>
           </div>
         </div>
-        <form class="intake-form" data-intake-form novalidate data-reveal>
-          <div class="form-progress" aria-label="Form progress">
-            <span data-progress-label>Step 1 of 5</span>
-            <div><i data-progress-bar></i></div>
-          </div>
-          <fieldset class="form-step is-active" data-step="1">
-            <legend>What would removing these inquiries help you do?</legend>
-            <p>What do you want to accomplish?</p>
-            <div class="choice-grid">
-              {
-                [
-                  "Apply for a home",
-                  "Apply for a vehicle",
-                  "Qualify for business funding",
-                  "Apply for credit cards",
-                  "Address identity theft",
-                  "Clean up my credit profile",
-                  "Something else",
-                ].map((label) => (
-                  <label class="form-choice"><><input type="radio" name="goal" value={label} required /><span>{label}</span></></label>
-                ))
-              }
-            </div>
-          </fieldset>
-          <fieldset class="form-step" data-step="2" hidden>
-            <legend>Which situation sounds most like yours?</legend>
-            <p>What happened?</p>
-            <div class="choice-grid">
-              {
-                [
-                  "A dealership sent my credit to multiple lenders",
-                  "I did not authorize the inquiry",
-                  "I was told it would be a soft pull",
-                  "I do not recognize the company",
-                  "The inquiry is duplicated",
-                  "The inquiry came from identity theft",
-                  "The inquiry belongs to someone else",
-                  "I authorized it but want it removed",
-                  "I am not sure",
-                ].map((label) => (
-                  <label class="form-choice"><><input type="radio" name="situation" value={label} required /><span>{label}</span></></label>
-                ))
-              }
-            </div>
-          </fieldset>
-          <fieldset class="form-step" data-step="3" hidden>
-            <legend>About how many total hard inquiries do you want removed?</legend>
-            <p>How many inquiries are involved?</p>
-            <div class="choice-grid choice-grid--two">
-              {
-                ["1 to 10", "11 to 30", "31 or more", "I am not sure"].map((label) => (
-                  <label class="form-choice"><><input type="radio" name="count" value={label} required /><span>{label}</span></></label>
-                ))
-              }
-            </div>
-          </fieldset>
-          <fieldset class="form-step" data-step="4" hidden>
-            <legend>Which reports are affected?</legend>
-            <p>Choose every report that applies.</p>
-            <div class="choice-grid choice-grid--two">
-              {
-                ["Experian", "Equifax", "TransUnion", "I am not sure"].map((label) => (
-                  <label class="form-choice"><><input type="checkbox" name="bureau" value={label} /><span>{label}</span></></label>
-                ))
-              }
-            </div>
-            <p class="sublegend">Do you currently have copies of the affected reports?</p>
-            <div class="choice-grid choice-grid--three">
-              {
-                ["Yes", "No", "I need help getting them"].map((label) => (
-                  <label class="form-choice"><><input type="radio" name="reports" value={label} required /><span>{label}</span></></label>
-                ))
-              }
-            </div>
-          </fieldset>
-          <fieldset class="form-step" data-step="5" hidden>
-            <legend>Ready to send your review request?</legend>
-            <p>Continue to the secure on-site form to add your contact details and send the situation to a specialist.</p>
-            <div class="guided-review-complete">
-              <strong>Your initial review never requires sensitive documents.</strong>
-              <span>Do not provide a Social Security number, date of birth, credit-report login, payment information, or report upload during the first conversation.</span>
-            </div>
-            <a
-              class="button button--large"
-              href="/free-inquiry-review/#online-review"
-              data-track="home-guided-complete"
-              data-context="homepage-guided-review"
-              data-guided-review-link
-            >Continue My Free Review <span>→</span></a>
-            <a class="form-call-fallback" href="tel:+16023776626">Prefer to call? Call Inquiry Removal →</a>
-          </fieldset>
-          <p class="form-error" data-form-error aria-live="polite" tabindex="-1"></p>
-          <div class="form-controls">
-            <button class="reset-link" type="button" data-form-back hidden>← Back</button>
-            <button class="button" type="button" data-form-next>Continue <span>→</span></button>
-          </div>
-        </form>
+        <div class="home-review-form" data-reveal>
+          <FreeReviewForm
+            defaultSource="/"
+            defaultContext="homepage-embedded"
+          />
+        </div>
       </div>
     </section>
 
@@ -585,96 +498,4 @@ const schema = [
     </section>
   </main>
   <Footer />
-
-  <script>
-    const form = document.querySelector<HTMLFormElement>("[data-intake-form]");
-    const steps = Array.from(document.querySelectorAll<HTMLElement>("[data-step]"));
-    const nextButton = document.querySelector<HTMLButtonElement>("[data-form-next]");
-    const backButton = document.querySelector<HTMLButtonElement>("[data-form-back]");
-    const error = document.querySelector<HTMLElement>("[data-form-error]");
-    const label = document.querySelector<HTMLElement>("[data-progress-label]");
-    const bar = document.querySelector<HTMLElement>("[data-progress-bar]");
-    const guidedReviewLink = document.querySelector<HTMLAnchorElement>("[data-guided-review-link]");
-    let currentStep = 0;
-
-    const syncGuidedReviewLink = () => {
-      if (!form || !guidedReviewLink) return;
-      const params = new URLSearchParams({ source: "/", context: "homepage-guided-review" });
-      const goalMap: Record<string, string> = {
-        "Apply for a home": "home",
-        "Apply for a vehicle": "vehicle",
-        "Qualify for business funding": "business",
-        "Apply for credit cards": "cards",
-        "Address identity theft": "identity",
-        "Clean up my credit profile": "profile",
-      };
-      const situationMap: Record<string, string> = {
-        "A dealership sent my credit to multiple lenders": "dealership",
-        "I did not authorize the inquiry": "unauthorized",
-        "I was told it would be a soft pull": "soft-pull",
-        "I do not recognize the company": "unrecognized",
-        "The inquiry is duplicated": "duplicate",
-        "The inquiry came from identity theft": "identity-theft",
-        "The inquiry belongs to someone else": "incorrect-person",
-        "I authorized it but want it removed": "authorized",
-      };
-      const countMap: Record<string, string> = {
-        "1 to 10": "focused",
-        "11 to 30": "complete",
-        "31 or more": "extensive",
-      };
-      const selectedGoal = form.querySelector<HTMLInputElement>("input[name='goal']:checked")?.value;
-      const selectedSituation = form.querySelector<HTMLInputElement>("input[name='situation']:checked")?.value;
-      const selectedCount = form.querySelector<HTMLInputElement>("input[name='count']:checked")?.value;
-      const selectedBureaus = Array.from(form.querySelectorAll<HTMLInputElement>("input[name='bureau']:checked")).map((input) => input.value.toLowerCase());
-
-      if (selectedGoal && goalMap[selectedGoal]) params.set("goal", goalMap[selectedGoal]);
-      if (selectedSituation && situationMap[selectedSituation]) params.set("situation", situationMap[selectedSituation]);
-      if (selectedCount && countMap[selectedCount]) params.set("plan", countMap[selectedCount]);
-      if (selectedBureaus.length === 1 && ["experian", "equifax", "transunion"].includes(selectedBureaus[0])) params.set("bureau", selectedBureaus[0]);
-
-      guidedReviewLink.href = `/free-inquiry-review/?${params.toString()}#online-review`;
-    };
-
-    const showStep = (index: number) => {
-      currentStep = Math.max(0, Math.min(index, steps.length - 1));
-      steps.forEach((step, position) => {
-        step.hidden = position !== currentStep;
-        step.classList.toggle("is-active", position === currentStep);
-      });
-      if (label) label.textContent = `Step ${currentStep + 1} of 5`;
-      if (bar) bar.style.width = `${((currentStep + 1) / 5) * 100}%`;
-      if (backButton) backButton.hidden = currentStep === 0;
-      if (nextButton) nextButton.hidden = currentStep === steps.length - 1;
-      if (error) error.textContent = "";
-      if (currentStep === steps.length - 1) syncGuidedReviewLink();
-    };
-
-    const stepIsComplete = () => {
-      const step = steps[currentStep];
-      if (!step) return false;
-      if (currentStep === 3) {
-        const bureau = step.querySelector("input[name='bureau']:checked");
-        const reports = step.querySelector("input[name='reports']:checked");
-        return Boolean(bureau && reports);
-      }
-      return Array.from(step.querySelectorAll<HTMLInputElement>("[required]")).some(
-        (input) => input.checked || (input.type !== "radio" && input.value.trim()),
-      );
-    };
-
-    nextButton?.addEventListener("click", () => {
-      if (!stepIsComplete()) {
-        if (error) {
-          error.textContent = "Choose an answer to continue.";
-          error.focus();
-        }
-        return;
-      }
-      showStep(currentStep + 1);
-    });
-    backButton?.addEventListener("click", () => showStep(currentStep - 1));
-    form?.addEventListener("submit", (event) => event.preventDefault());
-    showStep(0);
-  </script>
 </BaseLayout>

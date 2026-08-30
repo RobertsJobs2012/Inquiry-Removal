@@ -9,6 +9,13 @@ import {
   REVIEW_FIELDS,
   SITUATIONS,
 } from "../data/reviewForm";
+
+interface Props {
+  defaultSource?: string;
+  defaultContext?: string;
+}
+
+const { defaultSource = "", defaultContext = "" } = Astro.props;
 ---
 
 <script is:inline>
@@ -20,6 +27,8 @@ import {
   action="/api/free-review"
   method="post"
   data-review-form
+  data-default-source={defaultSource}
+  data-default-context={defaultContext}
   data-reveal
 >
   <input type="hidden" name="source_page" data-review-source-page />
@@ -38,7 +47,13 @@ import {
     <span class="review-time">About 2 minutes</span>
   </div>
 
-  <div class="form-progress" aria-label="Review form progress" data-review-progress-wrap hidden>
+  <div
+    class="form-progress"
+    role="group"
+    aria-label="Review form progress"
+    data-review-progress-wrap
+    hidden
+  >
     <div class="form-progress__copy">
       <span data-review-progress>Step 1 of 4</span>
       <strong data-review-stage>Contact</strong>
@@ -318,10 +333,13 @@ import {
       .get("context")
       ?.toLowerCase()
       .replace(/[^a-z0-9-]/g, "") ?? "";
-  const goalParam = explicitGoal || CONTEXT_GOAL_MAP[contextParam] || "";
-  const bureauParam = explicitBureau || CONTEXT_BUREAU_MAP[contextParam] || "";
+  const componentSource = reviewForm?.dataset.defaultSource ?? "";
+  const componentContext = reviewForm?.dataset.defaultContext ?? "";
+  const resolvedContext = contextParam || componentContext;
+  const goalParam = explicitGoal || CONTEXT_GOAL_MAP[resolvedContext] || "";
+  const bureauParam = explicitBureau || CONTEXT_BUREAU_MAP[resolvedContext] || "";
   const situationParam =
-    explicitSituation || CONTEXT_SITUATION_MAP[contextParam] || "";
+    explicitSituation || CONTEXT_SITUATION_MAP[resolvedContext] || "";
 
   const requestedSource = reviewParams.get("source") ?? "";
   const safeRequestedSource = /^\/[a-z0-9\-/]*\/$/i.test(requestedSource)
@@ -334,9 +352,10 @@ import {
   } catch {
     referrerSource = "";
   }
-  const sourcePage = safeRequestedSource || referrerSource || "direct";
+  const sourcePage =
+    safeRequestedSource || componentSource || referrerSource || "direct";
   const sourceParts = [
-    contextParam,
+    resolvedContext,
     PLAN_MAP[planParam] ? `plan-${planParam}` : "",
     GOAL_MAP[goalParam] ? `goal-${goalParam}` : "",
     BUREAU_MAP[bureauParam] ? `bureau-${bureauParam}` : "",
