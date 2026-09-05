@@ -1,4 +1,6 @@
 ---
+import LaborDayAnnouncement from "./LaborDayAnnouncement.astro";
+
 const { dark = false, announcement = false } = Astro.props;
 const nav = [
   ["How It Works", "/how-it-works/"],
@@ -29,6 +31,7 @@ const isCurrent = (href: string) =>
   ]}
   data-header
 >
+  <LaborDayAnnouncement />
   {
     announcement && (
       <a class="announcement-bar" href="#free-review">
