@@ -161,8 +161,8 @@ await run("mobile-labor-day-offer", { width: 390, height: 844 }, async (page) =>
   const promoLink = promo.locator("a");
   expect(
     (await promoLink.getAttribute("href")) ===
-      "/free-inquiry-review/?promo=labor-day-50&source=mobile-announcement#online-review",
-    "Labor Day announcement CTA does not preserve promo tracking",
+      "/free-inquiry-review/?promo=labor-day-50&context=labor-day-50#online-review",
+    "Labor Day announcement CTA does not preserve promo attribution",
   );
   expect((await promo.textContent())?.includes("50% OFF"), "Labor Day announcement is missing the discount");
 
