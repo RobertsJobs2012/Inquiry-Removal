@@ -97,6 +97,10 @@ await run("desktop-home", { width: 1440, height: 1000 }, async (page) => {
   expect(await page.locator("h1").isVisible(), "homepage H1 is not visible");
   expect(await page.locator("footer.site-footer").isVisible(), "footer is not visible");
   expect(
+    !(await page.locator("[data-labor-day-announcement]").isVisible()),
+    "Labor Day announcement should remain hidden on desktop",
+  );
+  expect(
     (await page.locator('link[rel="canonical"]').getAttribute("href")) === `${base}/`,
     "homepage canonical is unexpected",
   );
@@ -141,6 +145,42 @@ await run("desktop-article", { width: 1440, height: 1000 }, async (page) => {
   expect((await page.locator('meta[property="og:type"]').getAttribute("content")) === "article", "article Open Graph type is not article");
   expect(await page.locator("h1").isVisible(), "article H1 is not visible");
   await checkAccessibility("desktop-article", page);
+});
+
+await run("mobile-labor-day-offer", { width: 390, height: 844 }, async (page) => {
+  const response = await page.goto(`${base}/`, { waitUntil: "networkidle" });
+  expect(response?.status() === 200, `homepage returned ${response?.status()}`);
+
+  const promo = page.locator("[data-labor-day-announcement]");
+  expect(await promo.isVisible(), "Labor Day announcement is not visible on mobile");
+  expect(
+    (await promo.getAttribute("data-offer-ends")) === "2026-09-06T23:59:59-07:00",
+    "Labor Day announcement has the wrong expiration time",
+  );
+
+  const promoLink = promo.locator("a");
+  expect(
+    (await promoLink.getAttribute("href")) ===
+      "/free-inquiry-review/?promo=labor-day-50&source=mobile-announcement#online-review",
+    "Labor Day announcement CTA does not preserve promo tracking",
+  );
+  expect((await promo.textContent())?.includes("50% OFF"), "Labor Day announcement is missing the discount");
+
+  const initialHeight = await promo.evaluate((node) => node.getBoundingClientRect().height);
+  expect(initialHeight <= 78, `Labor Day announcement is too tall on mobile (${initialHeight}px)`);
+
+  const seconds = promo.locator("[data-promo-seconds]");
+  const firstSecond = await seconds.textContent();
+  await page.waitForTimeout(1150);
+  const nextSecond = await seconds.textContent();
+  expect(firstSecond !== nextSecond, "Labor Day countdown is not ticking");
+
+  await page.evaluate(() => window.scrollTo(0, 60));
+  await page.waitForTimeout(250);
+  const compactHeight = await promo.evaluate((node) => node.getBoundingClientRect().height);
+  expect(compactHeight <= 56, `Labor Day announcement did not compact after scrolling (${compactHeight}px)`);
+
+  await checkAccessibility("mobile-labor-day-offer", page);
 });
 
 await run("mobile-menu-header", { width: 390, height: 844 }, async (page) => {
