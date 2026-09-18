@@ -1,5 +1,20 @@
 /* Page-level finishing layer for the Resolution Interface. */
 
+/* Above-the-fold copy must paint immediately. Scroll reveals remain reserved
+   for content below the first viewport so they cannot delay LCP. */
+:is(
+  .hero-copy,
+  .guide-hero__copy,
+  .how-hero__content,
+  .pricing-hero__content,
+  .dealer-hero__copy,
+  .situation-hub-hero__content,
+  .review-form-intro
+)[data-reveal] {
+  opacity: 1;
+  transform: none;
+}
+
 /* Hero choreography without hiding essential content. */
 .hero-copy > *,
 .how-hero__content > *,
@@ -61,7 +76,11 @@
 /* General content shell: more editorial rhythm, less brochure feel. */
 .page-content {
   background:
-    radial-gradient(circle at 90% 8%, rgba(15, 112, 215, 0.035), transparent 25%),
+    radial-gradient(
+      circle at 90% 8%,
+      rgba(15, 112, 215, 0.035),
+      transparent 25%
+    ),
     white;
 }
 
@@ -107,7 +126,11 @@
 .bureau-grid a {
   border-color: rgba(96, 138, 169, 0.16);
   background:
-    radial-gradient(circle at 94% 8%, rgba(15, 112, 215, 0.04), transparent 28%),
+    radial-gradient(
+      circle at 94% 8%,
+      rgba(15, 112, 215, 0.04),
+      transparent 28%
+    ),
     white;
   box-shadow: 0 12px 36px rgba(8, 27, 44, 0.055);
 }
@@ -115,8 +138,16 @@
 /* About: turn identity card into an illuminated credentials object. */
 .about-identity {
   background:
-    radial-gradient(circle at var(--pointer-x, 50%) var(--pointer-y, 50%), rgba(121, 199, 255, 0.11), transparent 26%),
-    linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.035));
+    radial-gradient(
+      circle at var(--pointer-x, 50%) var(--pointer-y, 50%),
+      rgba(121, 199, 255, 0.11),
+      transparent 26%
+    ),
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.07),
+      rgba(255, 255, 255, 0.035)
+    );
 }
 
 .about-monogram {
@@ -135,9 +166,15 @@
 .dealer-inquiry-visual {
   border-radius: 28px;
   background:
-    radial-gradient(circle at var(--pointer-x, 50%) var(--pointer-y, 50%), rgba(22, 164, 216, 0.09), transparent 30%),
+    radial-gradient(
+      circle at var(--pointer-x, 50%) var(--pointer-y, 50%),
+      rgba(22, 164, 216, 0.09),
+      transparent 30%
+    ),
     linear-gradient(145deg, rgba(16, 51, 79, 0.84), rgba(5, 24, 40, 0.86));
-  box-shadow: 0 48px 120px rgba(0, 0, 0, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  box-shadow:
+    0 48px 120px rgba(0, 0, 0, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }
 
 .dealer-lender-lines i {
@@ -147,7 +184,11 @@
 /* Pricing: make the selected package feel like a product decision, not a static card. */
 .pricing-page-plans {
   background:
-    radial-gradient(circle at 12% 8%, rgba(15, 112, 215, 0.045), transparent 24%),
+    radial-gradient(
+      circle at 12% 8%,
+      rgba(15, 112, 215, 0.045),
+      transparent 24%
+    ),
     white;
 }
 
@@ -161,9 +202,7 @@
 }
 
 .waiting-cost {
-  background:
-    linear-gradient(180deg, rgba(245, 248, 252, 0.7), white),
-    white;
+  background: linear-gradient(180deg, rgba(245, 248, 252, 0.7), white), white;
 }
 
 /* Results: evidence console gets the feeling of a controlled analysis environment. */
@@ -256,17 +295,39 @@
     animation: ir-menu-item-in 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
-  .mobile-nav.is-open .mobile-nav__primary > a:nth-child(1) { animation-delay: 25ms; }
-  .mobile-nav.is-open .mobile-nav__primary > a:nth-child(2) { animation-delay: 55ms; }
-  .mobile-nav.is-open .mobile-nav__primary > a:nth-child(3) { animation-delay: 85ms; }
-  .mobile-nav.is-open .mobile-nav__primary > a:nth-child(4) { animation-delay: 115ms; }
-  .mobile-nav.is-open .mobile-nav__primary > a:nth-child(5) { animation-delay: 145ms; }
-  .mobile-nav.is-open .mobile-nav__secondary > a:nth-child(1) { animation-delay: 175ms; }
-  .mobile-nav.is-open .mobile-nav__secondary > a:nth-child(2) { animation-delay: 195ms; }
-  .mobile-nav.is-open .mobile-nav__secondary > a:nth-child(3) { animation-delay: 215ms; }
-  .mobile-nav.is-open .mobile-nav__secondary > a:nth-child(4) { animation-delay: 235ms; }
-  .mobile-nav.is-open .mobile-nav__start { animation-delay: 255ms; }
-  .mobile-nav.is-open .mobile-nav__proof { animation-delay: 285ms; }
+  .mobile-nav.is-open .mobile-nav__primary > a:nth-child(1) {
+    animation-delay: 25ms;
+  }
+  .mobile-nav.is-open .mobile-nav__primary > a:nth-child(2) {
+    animation-delay: 55ms;
+  }
+  .mobile-nav.is-open .mobile-nav__primary > a:nth-child(3) {
+    animation-delay: 85ms;
+  }
+  .mobile-nav.is-open .mobile-nav__primary > a:nth-child(4) {
+    animation-delay: 115ms;
+  }
+  .mobile-nav.is-open .mobile-nav__primary > a:nth-child(5) {
+    animation-delay: 145ms;
+  }
+  .mobile-nav.is-open .mobile-nav__secondary > a:nth-child(1) {
+    animation-delay: 175ms;
+  }
+  .mobile-nav.is-open .mobile-nav__secondary > a:nth-child(2) {
+    animation-delay: 195ms;
+  }
+  .mobile-nav.is-open .mobile-nav__secondary > a:nth-child(3) {
+    animation-delay: 215ms;
+  }
+  .mobile-nav.is-open .mobile-nav__secondary > a:nth-child(4) {
+    animation-delay: 235ms;
+  }
+  .mobile-nav.is-open .mobile-nav__start {
+    animation-delay: 255ms;
+  }
+  .mobile-nav.is-open .mobile-nav__proof {
+    animation-delay: 285ms;
+  }
 }
 
 @keyframes ir-menu-item-in {
@@ -286,7 +347,11 @@
   z-index: 4;
   bottom: 0;
   padding-top: 16px;
-  background: linear-gradient(to bottom, transparent, rgba(251, 253, 255, 0.96) 30%);
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(251, 253, 255, 0.96) 30%
+  );
 }
 
 .native-review-controls .button {
@@ -300,7 +365,13 @@
   left: 50%;
   width: min(620px, 74vw);
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(22, 164, 216, 0.42), rgba(15, 165, 138, 0.48), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(22, 164, 216, 0.42),
+    rgba(15, 165, 138, 0.48),
+    transparent
+  );
   box-shadow: 0 0 28px rgba(22, 164, 216, 0.16);
   content: "";
   opacity: 0.4;
@@ -379,7 +450,9 @@
 }
 
 /* Graceful glass fallback. */
-@supports not ((backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px))) {
+@supports not (
+  (backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px))
+) {
   .nav-shell,
   .page-jump__inner,
   .mobile-nav,

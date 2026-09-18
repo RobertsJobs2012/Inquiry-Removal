@@ -12,9 +12,12 @@
   "scripts": {
     "dev": "astro dev",
     "check": "astro check && tsc --noEmit",
-    "build": "astro check && tsc --noEmit && astro build && node scripts/discovery-audit.mjs && node scripts/technical-audit.mjs",
+    "check:routes": "node scripts/route-hygiene.mjs",
+    "build": "npm run check:routes && astro check && tsc --noEmit && astro build && node scripts/discovery-audit.mjs && node scripts/technical-audit.mjs",
     "check:discovery": "node scripts/discovery-audit.mjs",
     "check:technical": "node scripts/technical-audit.mjs",
+    "indexnow:dry-run": "node scripts/submit-indexnow.mjs --dry-run",
+    "indexnow:submit": "node scripts/submit-indexnow.mjs",
     "smoke:live": "node scripts/live-smoke.mjs",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
@@ -22,14 +25,14 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/sitemap": "^3.7.3",
+    "@astrojs/sitemap": "^3.7.4",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
-    "astro": "7.2.9"
+    "astro": "7.3.3"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
-    "prettier": "^3.9.6",
+    "prettier": "^3.9.8",
     "prettier-plugin-astro": "^0.14.1",
     "typescript": "6.0.3"
   }

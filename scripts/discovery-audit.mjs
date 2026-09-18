@@ -120,6 +120,10 @@ for (const file of htmlFiles) {
       const parsed = JSON.parse(json);
       const inspectSchema = (value) => {
         if (!value || typeof value !== "object") return;
+        if (value["@type"] === "FAQPage")
+          fail(
+            `${pathname}: FAQPage schema is intentionally unsupported; keep the visible FAQ content without obsolete rich-result markup.`,
+          );
         if (
           typeof value["@id"] === "string" &&
           Object.keys(value).some((key) => key !== "@id")
@@ -201,6 +205,8 @@ for (const file of htmlFiles) {
 }
 
 const requiredFiles = [
+  ".well-known/security.txt",
+  "9db1eb516e99ccbf93962d2ee991beb3.txt",
   "robots.txt",
   "llms.txt",
   "site.webmanifest",

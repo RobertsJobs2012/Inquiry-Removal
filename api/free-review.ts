@@ -13,16 +13,22 @@ import {
 const noStoreHeaders = {
   "Cache-Control": "no-store, max-age=0",
   "Content-Type": "application/json; charset=utf-8",
+  "Cross-Origin-Resource-Policy": "same-origin",
+  Vary: "Accept",
   "X-Content-Type-Options": "nosniff",
 };
+
+const MAX_FORM_BYTES = 50_000;
 
 const asString = (data: FormData, name: string) => {
   const value = data.get(name);
   return typeof value === "string" ? value.trim() : "";
 };
 
-const includes = <T extends readonly string[]>(values: T, value: string): value is T[number] =>
-  values.includes(value as T[number]);
+const includes = <T extends readonly string[]>(
+  values: T,
+  value: string,
+): value is T[number] => values.includes(value as T[number]);
 
 const wantsJson = (request: Request) =>
   request.headers.get("accept")?.includes("application/json") ?? false;
@@ -63,13 +69,32 @@ export function GET() {
 
 export async function POST(request: Request) {
   const fetchSite = request.headers.get("sec-fetch-site");
-  if (fetchSite === "cross-site") return fail(request, "This submission was blocked.", 403);
+  if (fetchSite === "cross-site")
+    return fail(request, "This submission was blocked.", 403);
+
+  const origin = request.headers.get("origin");
+  if (origin && origin !== new URL(request.url).origin)
+    return fail(request, "This submission was blocked.", 403);
+
+  const contentType = request.headers.get("content-type") ?? "";
+  if (
+    !contentType.startsWith("application/x-www-form-urlencoded") &&
+    !contentType.startsWith("multipart/form-data")
+  )
+    return fail(request, "The form submission format was not accepted.", 415);
+
+  const declaredBytes = Number(request.headers.get("content-length") ?? "0");
+  if (Number.isFinite(declaredBytes) && declaredBytes > MAX_FORM_BYTES)
+    return fail(request, "The form submission was too large.", 413);
 
   let data: FormData;
   try {
     data = await request.formData();
   } catch {
-    return fail(request, "The form submission could not be read. Please try again.");
+    return fail(
+      request,
+      "The form submission could not be read. Please try again.",
+    );
   }
 
   const receipt = crypto.randomUUID();
@@ -98,19 +123,29 @@ export async function POST(request: Request) {
   const phoneDigits = phone.replace(/\D/g, "");
   if (phone.length > 40 || phoneDigits.length < 7 || phoneDigits.length > 15)
     return fail(request, "Enter a valid phone number and try again.");
-  if (!includes(GOALS, goal)) return fail(request, "Choose what you are preparing for.");
+  if (!includes(GOALS, goal))
+    return fail(request, "Choose what you are preparing for.");
   if (!includes(SITUATIONS, situation))
-    return fail(request, "Choose the situation that best describes what happened.");
+    return fail(
+      request,
+      "Choose the situation that best describes what happened.",
+    );
   if (!includes(INQUIRY_COUNTS, count))
     return fail(request, "Choose an approximate inquiry count.");
   if (!bureaus.length || bureaus.some((bureau) => !includes(BUREAUS, bureau)))
     return fail(request, "Choose at least one affected credit report.");
   if (!includes(REPORT_COPIES, reports))
-    return fail(request, "Tell us whether you have current copies of the affected reports.");
+    return fail(
+      request,
+      "Tell us whether you have current copies of the affected reports.",
+    );
   if (!includes(CONTACT_METHODS, contactMethod))
     return fail(request, "Choose how you would prefer to be contacted.");
   if (consent !== CONTACT_CONSENT)
-    return fail(request, "Please confirm the contact consent before submitting.");
+    return fail(
+      request,
+      "Please confirm the contact consent before submitting.",
+    );
   if (note.length > 2500)
     return fail(request, "Please shorten the optional note and try again.");
 

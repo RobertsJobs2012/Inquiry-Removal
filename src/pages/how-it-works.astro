@@ -189,15 +189,6 @@ const schema = [
       },
     ],
   },
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faqs.map(([question, answer]) => ({
-      "@type": "Question",
-      name: question,
-      acceptedAnswer: { "@type": "Answer", text: answer },
-    })),
-  },
 ];
 ---
 
@@ -355,11 +346,14 @@ const schema = [
           <div>
             <p class="eyebrow eyebrow--light">
               <span></span> The complete process
-            </p><h2>What Do We Handle During the Hard Inquiry Removal Process?</h2>
+            </p><h2>
+              What Do We Handle During the Hard Inquiry Removal Process?
+            </h2>
           </div><p>
-            We handle the work people usually do not want to manage themselves: report
-            review, inquiry organization, dispute preparation and sending, response
-            review, removal tracking, and continued follow-through across the affected bureaus.
+            We handle the work people usually do not want to manage themselves:
+            report review, inquiry organization, dispute preparation and
+            sending, response review, removal tracking, and continued
+            follow-through across the affected bureaus.
           </p>
         </div><div class="process-timeline" data-reveal>
           {

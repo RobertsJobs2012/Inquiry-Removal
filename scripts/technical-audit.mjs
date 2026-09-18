@@ -20,7 +20,8 @@ const routeFor = (file) => {
   const rel = path.relative(DIST, file).replaceAll(path.sep, "/");
   if (rel === "index.html") return "/";
   if (rel === "404.html") return "/404/";
-  if (rel.endsWith("/index.html")) return `/${rel.slice(0, -"index.html".length)}`;
+  if (rel.endsWith("/index.html"))
+    return `/${rel.slice(0, -"index.html".length)}`;
   return `/${rel.replace(/\.html$/, "/")}`;
 };
 
@@ -56,9 +57,9 @@ for (const file of htmlFiles) {
   const hrefs = [...html.matchAll(/<a\b[^>]*\shref=["']([^"']+)["']/gi)].map(
     (match) => match[1],
   );
-  const styleSizes = [...html.matchAll(/<style\b[^>]*>([\s\S]*?)<\/style>/gi)].map(
-    (match) => Buffer.byteLength(match[1]),
-  );
+  const styleSizes = [
+    ...html.matchAll(/<style\b[^>]*>([\s\S]*?)<\/style>/gi),
+  ].map((match) => Buffer.byteLength(match[1]));
   const maxInlineStyle = styleSizes.length ? Math.max(...styleSizes) : 0;
 
   if (maxInlineStyle > 50_000)
@@ -103,9 +104,12 @@ for (const [, routes] of duplicateValues("description"))
 
 const inbound = new Map(indexable.map((record) => [record.route, 0]));
 for (const record of records) {
-  const uniqueTargets = new Set(record.hrefs.map(normalizeInternal).filter(Boolean));
+  const uniqueTargets = new Set(
+    record.hrefs.map(normalizeInternal).filter(Boolean),
+  );
   for (const target of uniqueTargets) {
-    if (inbound.has(target)) inbound.set(target, (inbound.get(target) ?? 0) + 1);
+    if (inbound.has(target))
+      inbound.set(target, (inbound.get(target) ?? 0) + 1);
   }
 }
 for (const [route, count] of inbound) {
@@ -113,19 +117,33 @@ for (const [route, count] of inbound) {
     errors.push(`${route} has no internal HTML links pointing to it.`);
 }
 
-const reviewPage = records.find((record) => record.route === "/free-inquiry-review/");
+const reviewPage = records.find(
+  (record) => record.route === "/free-inquiry-review/",
+);
 if (!reviewPage) errors.push("Missing /free-inquiry-review/ build output.");
 else {
   if (!/action=["']\/api\/free-review["']/i.test(reviewPage.html))
     errors.push("Free review form is not routed through /api/free-review.");
   if (/docs\.google\.com\/forms/i.test(reviewPage.html))
-    errors.push("Free review HTML still exposes a direct Google Forms submission action.");
+    errors.push(
+      "Free review HTML still exposes a direct Google Forms submission action.",
+    );
 }
 
-const receiptPage = records.find((record) => record.route === "/review-received/");
+const receiptPage = records.find(
+  (record) => record.route === "/review-received/",
+);
 if (!receiptPage) errors.push("Missing /review-received/ fallback page.");
 else if (!receiptPage.robots.includes("noindex"))
   errors.push("/review-received/ must remain noindex.");
+
+const vercelConfig = JSON.parse(await readFile("vercel.json", "utf8"));
+for (const redirect of vercelConfig.redirects ?? []) {
+  if (redirect.permanent === false)
+    errors.push(
+      `${redirect.source} uses a temporary redirect; retired public URLs must use an intentional permanent redirect.`,
+    );
+}
 
 if (errors.length) {
   console.error("\nTechnical audit failed:\n");
