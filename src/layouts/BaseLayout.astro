@@ -1,4 +1,5 @@
 ---
+import "../styles/fonts.css";
 import "../styles/global.css";
 import "../styles/premium.css";
 import "../styles/premium-pages.css";
@@ -11,6 +12,7 @@ import SpeedInsights from "@vercel/speed-insights/astro";
 import ExperienceLayer from "../components/ExperienceLayer.astro";
 import AppFinisher from "../components/AppFinisher.astro";
 import { SITE_ORIGIN } from "../data/discovery.mjs";
+import displayFontUrl from "@fontsource-variable/plus-jakarta-sans/files/plus-jakarta-sans-latin-wght-normal.woff2?url";
 
 interface Props {
   title: string;
@@ -162,19 +164,13 @@ const serializedSchema = JSON.stringify(schemaGraph).replaceAll("<", "\\u003c");
     <link rel="manifest" href="/site.webmanifest" />
     <script is:inline type="application/ld+json" set:html={serializedSchema} />
     <script is:inline src="/ux-fixes.js" defer></script>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="preload"
-      as="style"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
-      onload="this.setAttribute('rel','stylesheet')"
+      as="font"
+      type="font/woff2"
+      href={displayFontUrl}
+      crossorigin
     />
-    <noscript>
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
-      />
-    </noscript>
     <title>{title}</title>
   </head>
   <body>
