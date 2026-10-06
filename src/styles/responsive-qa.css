@@ -1,0 +1,132 @@
+/* Responsive QA corrections. Keep these shared across all page templates. */
+:root {
+  --header-bottom: 82px;
+  --heading-tracking: -0.02em;
+}
+
+/* A hidden primary header must not leave an empty slot above the jump bar. */
+@media (min-width: 901px) {
+  .page-jump {
+    top: calc(var(--header-bottom) + 8px) !important;
+    transition: top 240ms ease;
+  }
+
+  .header-is-hidden .page-jump {
+    top: 8px !important;
+  }
+}
+
+/* Keep the layered material, but flatten the interactive surface. A rotated
+   child behind its preserve-3d parent was losing pointer hit-testing. */
+.hero-interface {
+  perspective: none;
+  transform-style: flat;
+}
+
+.report-panel {
+  transform: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .report-panel:hover {
+    transform: translateY(-4px);
+  }
+}
+
+main :is(h1, h2, h3),
+.native-review-step legend {
+  letter-spacing: var(--heading-tracking) !important;
+}
+
+/* Floating shortcuts must never sit on top of form controls. */
+.back-to-top.is-suppressed {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.native-review-form {
+  overflow-anchor: none;
+}
+
+/* Cards need actual reading width, not just a fixed column count. */
+.resource-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+}
+
+.resource-card {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 1100px) {
+  .mobile-nav {
+    background: #fff;
+  }
+
+  .page-content .content-shell {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 40px;
+  }
+
+  .page-content .content-index {
+    position: static;
+  }
+}
+
+@media (max-width: 767px) {
+  :root {
+    --heading-tracking: -0.015em;
+  }
+
+  /* Reduce empty travel, not content or comfortable touch targets. */
+  main
+    > :is(
+      .section,
+      .specialist-section,
+      .evidence-section,
+      .intake-section,
+      .page-content,
+      .final-cta,
+      .guide-final
+    ) {
+    padding-block: 64px;
+  }
+
+  .content-body > section {
+    margin-bottom: 24px;
+    padding-block: 28px;
+  }
+
+  .section-heading {
+    margin-bottom: 36px;
+  }
+
+  .resource-card {
+    min-height: 0;
+    padding: 24px;
+  }
+
+  .resource-card h3 {
+    margin-top: 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-jump {
+    transition: none;
+  }
+
+  .report-panel:hover {
+    transform: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .standard-grid > * {
+    min-width: 0;
+  }
+
+  main .standard-grid .proof-types {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

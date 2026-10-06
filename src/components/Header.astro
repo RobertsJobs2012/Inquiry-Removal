@@ -29,14 +29,12 @@ const isCurrent = (href: string) =>
   ]}
   data-header
 >
-  {
-    announcement && (
-      <a class="announcement-bar" href="#free-review">
-        <span>100,437 Hard Inquiries Removed Since 2015</span>
-        <strong>Get My Free Review →</strong>
-      </a>
-    )
-  }
+  {announcement && (
+    <a class="announcement-bar" href="#free-review">
+      <span>100,437 Hard Inquiries Removed Since 2015</span>
+      <strong>Get My Free Review →</strong>
+    </a>
+  )}
   <div class="nav-shell">
     <a class="wordmark" href="/" aria-label="Inquiry Removal home">
       <span class="brand-mark" aria-hidden="true">
@@ -55,30 +53,33 @@ const isCurrent = (href: string) =>
           alt=""
         />
       </span>
-      <span class="wordmark-text">Inquiry <strong>Removal</strong></span>
+      <span class="wordmark-text">
+        Inquiry <strong>Removal</strong>
+      </span>
     </a>
     <nav class="desktop-nav" aria-label="Primary navigation">
-      {
-        nav.map(([label, href]) => (
-          <a href={href} aria-current={isCurrent(href) ? "page" : undefined}>
-            {label}
-          </a>
-        ))
-      }
+      {nav.map(([label, href]) => (
+        <a href={href} aria-current={isCurrent(href) ? "page" : undefined}>
+          {label}
+        </a>
+      ))}
     </nav>
     <div class="nav-actions">
       <a
         class="phone-link"
         href="tel:+16023776626"
         aria-label="Call Inquiry Removal at 602-377-6626"
-        >Call Inquiry Removal</a
       >
+        Call Inquiry Removal
+      </a>
       <a
         class="button button--small"
         href="/free-inquiry-review/"
         data-track="header-desktop"
-        data-context="sitewide">Get My Free Review <span>→</span></a
+        data-context="sitewide"
       >
+        Get My Free Review <span>→</span>
+      </a>
       <button
         class="menu-button"
         type="button"
@@ -86,9 +87,13 @@ const isCurrent = (href: string) =>
         aria-controls="mobile-navigation"
         data-menu-button
       >
-        <span class="menu-button__label" data-menu-label>Menu</span>
+        <span class="menu-button__label" data-menu-label>
+          Menu
+        </span>
         <span class="menu-button__icon" aria-hidden="true">
-          <i></i><i></i><i></i>
+          <i></i>
+          <i></i>
+          <i></i>
         </span>
       </button>
     </div>
@@ -101,26 +106,22 @@ const isCurrent = (href: string) =>
   >
     <p class="mobile-nav__section-label">Explore Inquiry Removal</p>
     <div class="mobile-nav__primary">
-      {
-        nav.map(([label, href]) => (
-          <a href={href} aria-current={isCurrent(href) ? "page" : undefined}>
-            {label}
-            <span>→</span>
-          </a>
-        ))
-      }
+      {nav.map(([label, href]) => (
+        <a href={href} aria-current={isCurrent(href) ? "page" : undefined}>
+          {label}
+          <span>→</span>
+        </a>
+      ))}
     </div>
 
     <p class="mobile-nav__section-label">More</p>
     <div class="mobile-nav__secondary">
-      {
-        secondaryNav.map(([label, href]) => (
-          <a href={href} aria-current={isCurrent(href) ? "page" : undefined}>
-            {label}
-            <span>↗</span>
-          </a>
-        ))
-      }
+      {secondaryNav.map(([label, href]) => (
+        <a href={href} aria-current={isCurrent(href) ? "page" : undefined}>
+          {label}
+          <span>↗</span>
+        </a>
+      ))}
     </div>
 
     <div class="mobile-nav__start">
@@ -129,56 +130,64 @@ const isCurrent = (href: string) =>
         class="button mobile-nav__cta"
         href="/free-inquiry-review/"
         data-track="header-mobile-menu"
-        data-context="sitewide">Get My Free Inquiry Review <span>→</span></a
+        data-context="sitewide"
       >
+        Get My Free Inquiry Review <span>→</span>
+      </a>
       <a
         class="mobile-nav__phone"
         href="tel:+16023776626"
         aria-label="Call Inquiry Removal at 602-377-6626"
-        >Call Inquiry Removal <span>↗</span></a
       >
+        Call Inquiry Removal <span>↗</span>
+      </a>
     </div>
     <p class="mobile-nav__proof">
-      <span>Hard inquiry specialists since 2015</span><i></i><span>Nationwide</span>
+      <span>Hard inquiry specialists since 2015</span>
+      <i></i>
+      <span>Nationwide</span>
     </p>
   </nav>
 </header>
 
-{
-  !isIntakePage && (
-    <nav class="mobile-action-dock" data-mobile-dock aria-label="Quick actions">
-      <button
-        type="button"
-        data-dock-menu
-        aria-controls="mobile-navigation"
-        aria-expanded="false"
-      >
-        <span aria-hidden="true">••</span><span>Explore</span>
-      </button>
-      <a href="tel:+16023776626" aria-label="Call Inquiry Removal">
-        <span aria-hidden="true">↗</span><span>Call</span>
-      </a>
-      <a
-        class="mobile-action-dock__primary"
-        href="/free-inquiry-review/"
-        data-track="mobile-action-dock"
-        data-context="sitewide"
-      >
-        <span>Free Review</span><span aria-hidden="true">→</span>
-      </a>
-    </nav>
-  )
-}
+{!isIntakePage && (
+  <nav class="mobile-action-dock" data-mobile-dock aria-label="Quick actions">
+    <button
+      type="button"
+      data-dock-menu
+      aria-controls="mobile-navigation"
+      aria-expanded="false"
+    >
+      <span aria-hidden="true">••</span>
+      <span>Explore</span>
+    </button>
+    <a href="tel:+16023776626" aria-label="Call Inquiry Removal">
+      <span aria-hidden="true">↗</span>
+      <span>Call</span>
+    </a>
+    <a
+      class="mobile-action-dock__primary"
+      href="/free-inquiry-review/"
+      data-track="mobile-action-dock"
+      data-context="sitewide"
+    >
+      <span>Free Review</span>
+      <span aria-hidden="true">→</span>
+    </a>
+  </nav>
+)}
 <nav class="back-to-top-nav" aria-label="Page shortcuts">
-  <a class="back-to-top" href="#main-content" data-back-to-top
-    >Top <span aria-hidden="true">↑</span></a
-  >
+  <a class="back-to-top" href="#main-content" data-back-to-top>
+    Top <span aria-hidden="true">↑</span>
+  </a>
 </nav>
 
 <script>
   const header = document.querySelector("[data-header]");
-  const menuButton = document.querySelector<HTMLButtonElement>("[data-menu-button]");
-  const dockMenuButton = document.querySelector<HTMLButtonElement>("[data-dock-menu]");
+  const menuButton =
+    document.querySelector<HTMLButtonElement>("[data-menu-button]");
+  const dockMenuButton =
+    document.querySelector<HTMLButtonElement>("[data-dock-menu]");
   const mobileNav = document.querySelector("[data-mobile-nav]");
   const menuLabel = document.querySelector("[data-menu-label]");
   const mobileDock = document.querySelector<HTMLElement>("[data-mobile-dock]");
@@ -196,6 +205,22 @@ const isCurrent = (href: string) =>
   let menuOpen = false;
   let lastMenuTrigger: HTMLElement | null = null;
 
+  const syncNavigationPosition = () => {
+    document.documentElement.classList.toggle(
+      "header-is-hidden",
+      Boolean(header?.classList.contains("is-hidden")),
+    );
+  };
+
+  const measureHeader = () => {
+    if (!(header instanceof HTMLElement)) return;
+    const top = Number.parseFloat(getComputedStyle(header).top) || 0;
+    document.documentElement.style.setProperty(
+      "--header-bottom",
+      `${top + header.offsetHeight}px`,
+    );
+  };
+
   const syncHeader = () => {
     header?.classList.toggle("is-scrolled", window.scrollY > 24);
     const movingDown = window.scrollY > lastScrollY + 8;
@@ -209,6 +234,7 @@ const isCurrent = (href: string) =>
       window.scrollY > Math.min(640, window.innerHeight * 0.72);
     mobileDock?.classList.toggle("is-scroll-ready", showFloatingActions);
     backToTop?.classList.toggle("is-visible", window.scrollY > 1400);
+    syncNavigationPosition();
     lastScrollY = window.scrollY;
   };
 
@@ -216,6 +242,13 @@ const isCurrent = (href: string) =>
     mobileDock?.classList.toggle(
       "is-suppressed",
       visibleSuppressors.size > 0 || menuOpen,
+    );
+    backToTop?.classList.toggle(
+      "is-suppressed",
+      menuOpen ||
+        Array.from(visibleSuppressors).some((region) =>
+          region.matches("#free-review, .intake-section, .review-form-section"),
+        ),
     );
   };
 
@@ -234,6 +267,7 @@ const isCurrent = (href: string) =>
     mobileDock?.removeAttribute("inert");
     pageRegions.forEach((region) => region.removeAttribute("inert"));
     header?.classList.remove("is-hidden");
+    syncNavigationPosition();
     syncMobileDock();
     lastMenuTrigger = null;
     if (restoreFocus) trigger?.focus();
@@ -248,11 +282,20 @@ const isCurrent = (href: string) =>
     mobileDock?.setAttribute("inert", "");
     pageRegions.forEach((region) => region.setAttribute("inert", ""));
     header?.classList.remove("is-hidden");
+    syncNavigationPosition();
     syncMobileDock();
     const firstLink = mobileNav?.querySelector<HTMLElement>("a[href]");
     window.setTimeout(() => firstLink?.focus(), 120);
   };
 
+  measureHeader();
+  if (header && "ResizeObserver" in window) {
+    new ResizeObserver(measureHeader).observe(header);
+  }
+  header?.addEventListener("focusin", () => {
+    header.classList.remove("is-hidden");
+    syncNavigationPosition();
+  });
   syncHeader();
   syncMenuControls();
   syncMobileDock();
@@ -277,6 +320,7 @@ const isCurrent = (href: string) =>
     "resize",
     () => {
       if (window.innerWidth > 1100 && menuOpen) closeMenu();
+      measureHeader();
       syncHeader();
       syncMobileDock();
     },

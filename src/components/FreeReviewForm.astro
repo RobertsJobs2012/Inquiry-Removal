@@ -43,7 +43,9 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
   />
 
   <div class="review-experience-top">
-    <span class="review-trust-chip"><i aria-hidden="true">✓</i> Private review</span>
+    <span class="review-trust-chip">
+      <i aria-hidden="true">✓</i> Private review
+    </span>
     <span class="review-time">About 2 minutes</span>
   </div>
 
@@ -58,7 +60,9 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
       <span data-review-progress>Step 1 of 4</span>
       <strong data-review-stage>Contact</strong>
     </div>
-    <div><i data-review-progress-bar></i></div>
+    <div>
+      <i data-review-progress-bar></i>
+    </div>
   </div>
 
   <div data-review-form-body>
@@ -106,107 +110,119 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
       </div>
     </fieldset>
 
-    <fieldset class="form-step native-review-step" data-review-step="2" tabindex="-1">
+    <fieldset
+      class="form-step native-review-step"
+      data-review-step="2"
+      tabindex="-1"
+    >
       <legend>What are you preparing for?</legend>
       <p>Choose the goal that best matches your situation.</p>
       <div class="choice-grid native-choice-grid">
-        {
-          GOALS.map((goal) => (
-            <label class="form-choice">
-              <input type="radio" name={REVIEW_FIELDS.goal} value={goal} required />
-              <span>{goal}</span>
-            </label>
-          ))
-        }
+        {GOALS.map((goal) => (
+          <label class="form-choice">
+            <input
+              type="radio"
+              name={REVIEW_FIELDS.goal}
+              value={goal}
+              required
+            />
+            <span>{goal}</span>
+          </label>
+        ))}
       </div>
       <p class="field-heading native-field-heading">
         Which situation best describes what happened?
       </p>
       <div class="choice-grid native-choice-grid">
-        {
-          SITUATIONS.map((situation) => (
-            <label class="form-choice">
-              <input
-                type="radio"
-                name={REVIEW_FIELDS.situation}
-                value={situation}
-                required
-              />
-              <span>{situation}</span>
-            </label>
-          ))
-        }
+        {SITUATIONS.map((situation) => (
+          <label class="form-choice">
+            <input
+              type="radio"
+              name={REVIEW_FIELDS.situation}
+              value={situation}
+              required
+            />
+            <span>{situation}</span>
+          </label>
+        ))}
       </div>
     </fieldset>
 
-    <fieldset class="form-step native-review-step" data-review-step="3" tabindex="-1">
+    <fieldset
+      class="form-step native-review-step"
+      data-review-step="3"
+      tabindex="-1"
+    >
       <legend>What appears on your reports?</legend>
       <p>Estimates are completely fine for the initial review.</p>
       <p class="field-heading">Approximate inquiry count</p>
       <div class="choice-grid">
-        {
-          INQUIRY_COUNTS.map((count) => (
-            <label class="form-choice">
-              <input type="radio" name={REVIEW_FIELDS.count} value={count} required />
-              <span>{count}</span>
-            </label>
-          ))
-        }
+        {INQUIRY_COUNTS.map((count) => (
+          <label class="form-choice">
+            <input
+              type="radio"
+              name={REVIEW_FIELDS.count}
+              value={count}
+              required
+            />
+            <span>{count}</span>
+          </label>
+        ))}
       </div>
       <p class="field-heading native-field-heading">
         Which credit reports show the inquiries?
       </p>
       <div class="choice-grid" data-bureau-group>
-        {
-          BUREAUS.map((bureau) => (
-            <label class="form-choice">
-              <input type="checkbox" name={REVIEW_FIELDS.bureau} value={bureau} />
-              <span>{bureau}</span>
-            </label>
-          ))
-        }
+        {BUREAUS.map((bureau) => (
+          <label class="form-choice">
+            <input type="checkbox" name={REVIEW_FIELDS.bureau} value={bureau} />
+            <span>{bureau}</span>
+          </label>
+        ))}
       </div>
       <p class="field-heading native-field-heading">
         Do you have current copies of the affected reports?
       </p>
       <div class="choice-grid choice-grid--three">
-        {
-          REPORT_COPIES.map((answer) => (
-            <label class="form-choice">
-              <input
-                type="radio"
-                name={REVIEW_FIELDS.reports}
-                value={answer}
-                required
-              />
-              <span>{answer}</span>
-            </label>
-          ))
-        }
+        {REPORT_COPIES.map((answer) => (
+          <label class="form-choice">
+            <input
+              type="radio"
+              name={REVIEW_FIELDS.reports}
+              value={answer}
+              required
+            />
+            <span>{answer}</span>
+          </label>
+        ))}
       </div>
     </fieldset>
 
-    <fieldset class="form-step native-review-step" data-review-step="4" tabindex="-1">
+    <fieldset
+      class="form-step native-review-step"
+      data-review-step="4"
+      tabindex="-1"
+    >
       <legend>How should we contact you?</legend>
       <p>Choose the contact method that works best for you.</p>
       <p class="field-heading">How would you prefer that we contact you?</p>
       <div class="choice-grid">
-        {
-          CONTACT_METHODS.map((method) => (
-            <label class="form-choice">
-              <input
-                type="radio"
-                name={REVIEW_FIELDS.contactMethod}
-                value={method}
-                required
-              />
-              <span>{method}</span>
-            </label>
-          ))
-        }
+        {CONTACT_METHODS.map((method) => (
+          <label class="form-choice">
+            <input
+              type="radio"
+              name={REVIEW_FIELDS.contactMethod}
+              value={method}
+              required
+            />
+            <span>{method}</span>
+          </label>
+        ))}
       </div>
       <details class="native-optional-note">
-        <summary>Add a note <span>(optional)</span></summary>
+        <summary>
+          Add a note <span>(optional)</span>
+        </summary>
         <label class="native-textarea-field">
           <span>Brief description</span>
           <textarea
@@ -226,17 +242,25 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
         />
         <span>
           {CONTACT_CONSENT} By submitting this form, you also acknowledge our
-          <a href="/privacy/">Privacy Policy</a> and <a href="/terms/">Terms of Use</a>.
+          <a href="/privacy/">Privacy Policy</a> and{" "}
+          <a href="/terms/">Terms of Use</a>.
         </span>
       </label>
     </fieldset>
 
-    <p class="form-error" data-review-error aria-live="polite" tabindex="-1"></p>
+    <p
+      class="form-error"
+      data-review-error
+      aria-live="polite"
+      tabindex="-1"
+    ></p>
     <p class="review-auto-note" data-review-auto-note aria-live="polite" hidden>
       Your answers stay here until you submit. You can go back anytime.
     </p>
     <div class="form-controls native-review-controls">
-      <button class="reset-link" type="button" data-review-back hidden>← Back</button>
+      <button class="reset-link" type="button" data-review-back hidden>
+        ← Back
+      </button>
       <button class="button" type="button" data-review-next hidden>
         Continue <span>→</span>
       </button>
@@ -251,12 +275,14 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
 
   <div class="review-form-success" data-review-success tabindex="-1" hidden>
     <span aria-hidden="true">✓</span>
-    <p class="eyebrow"><span></span> Request received</p>
+    <p class="eyebrow">
+      <span></span> Request received
+    </p>
     <h3>Thank you. Your review is now in our hands.</h3>
     <p>
-      Inquiry Removal will review the information and contact you using the method
-      you selected. Please do not send sensitive documents or account credentials
-      by reply.
+      Inquiry Removal will review the information and contact you using the
+      method you selected. Please do not send sensitive documents or account
+      credentials by reply.
     </p>
     <p class="review-receipt" hidden data-review-receipt-wrap>
       Submission reference: <strong data-review-receipt></strong>
@@ -293,26 +319,45 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
     SITUATION_MAP,
   } from "../data/reviewForm";
 
-  const reviewForm = document.querySelector<HTMLFormElement>("[data-review-form]");
+  const reviewForm =
+    document.querySelector<HTMLFormElement>("[data-review-form]");
   const reviewSteps = Array.from(
     document.querySelectorAll<HTMLElement>("[data-review-step]"),
   );
-  const reviewNext = document.querySelector<HTMLButtonElement>("[data-review-next]");
-  const reviewBack = document.querySelector<HTMLButtonElement>("[data-review-back]");
-  const reviewSubmit = document.querySelector<HTMLButtonElement>("[data-review-submit]");
-  const reviewError = document.querySelector<HTMLElement>("[data-review-error]");
+  const reviewNext =
+    document.querySelector<HTMLButtonElement>("[data-review-next]");
+  const reviewBack =
+    document.querySelector<HTMLButtonElement>("[data-review-back]");
+  const reviewSubmit = document.querySelector<HTMLButtonElement>(
+    "[data-review-submit]",
+  );
+  const reviewError = document.querySelector<HTMLElement>(
+    "[data-review-error]",
+  );
   const reviewProgressWrap = document.querySelector<HTMLElement>(
     "[data-review-progress-wrap]",
   );
-  const reviewProgress = document.querySelector<HTMLElement>("[data-review-progress]");
+  const reviewProgress = document.querySelector<HTMLElement>(
+    "[data-review-progress]",
+  );
   const reviewProgressBar = document.querySelector<HTMLElement>(
     "[data-review-progress-bar]",
   );
-  const reviewStage = document.querySelector<HTMLElement>("[data-review-stage]");
-  const reviewAutoNote = document.querySelector<HTMLElement>("[data-review-auto-note]");
-  const reviewBody = document.querySelector<HTMLElement>("[data-review-form-body]");
-  const reviewSuccess = document.querySelector<HTMLElement>("[data-review-success]");
-  const reviewReceipt = document.querySelector<HTMLElement>("[data-review-receipt]");
+  const reviewStage = document.querySelector<HTMLElement>(
+    "[data-review-stage]",
+  );
+  const reviewAutoNote = document.querySelector<HTMLElement>(
+    "[data-review-auto-note]",
+  );
+  const reviewBody = document.querySelector<HTMLElement>(
+    "[data-review-form-body]",
+  );
+  const reviewSuccess = document.querySelector<HTMLElement>(
+    "[data-review-success]",
+  );
+  const reviewReceipt = document.querySelector<HTMLElement>(
+    "[data-review-receipt]",
+  );
   const reviewReceiptWrap = document.querySelector<HTMLElement>(
     "[data-review-receipt-wrap]",
   );
@@ -337,7 +382,8 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
   const componentContext = reviewForm?.dataset.defaultContext ?? "";
   const resolvedContext = contextParam || componentContext;
   const goalParam = explicitGoal || CONTEXT_GOAL_MAP[resolvedContext] || "";
-  const bureauParam = explicitBureau || CONTEXT_BUREAU_MAP[resolvedContext] || "";
+  const bureauParam =
+    explicitBureau || CONTEXT_BUREAU_MAP[resolvedContext] || "";
   const situationParam =
     explicitSituation || CONTEXT_SITUATION_MAP[resolvedContext] || "";
 
@@ -348,7 +394,8 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
   let referrerSource = "";
   try {
     const referrer = new URL(document.referrer);
-    if (referrer.origin === window.location.origin) referrerSource = referrer.pathname;
+    if (referrer.origin === window.location.origin)
+      referrerSource = referrer.pathname;
   } catch {
     referrerSource = "";
   }
@@ -369,7 +416,8 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
   const selectChoice = (name: string, value: string | undefined) => {
     if (!value) return;
     const field = Array.from(
-      reviewForm?.querySelectorAll<HTMLInputElement>(`input[name='${name}']`) ?? [],
+      reviewForm?.querySelectorAll<HTMLInputElement>(`input[name='${name}']`) ??
+        [],
     ).find((input) => input.value === value);
     if (field) field.checked = true;
   };
@@ -382,7 +430,13 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
   let reviewStep = 0;
   let reviewStarted = false;
   let reviewAdvanceTimer: number | undefined;
-  const reviewStageNames = ["Contact", "Your situation", "Your reports", "Final details"];
+  let reviewGuideTimer: number | undefined;
+  const reviewStageNames = [
+    "Contact",
+    "Your situation",
+    "Your reports",
+    "Final details",
+  ];
   const prefersReducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)",
   ).matches;
@@ -405,6 +459,7 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
 
   const showReviewStep = (index: number, moveFocus = true) => {
     if (reviewAdvanceTimer) window.clearTimeout(reviewAdvanceTimer);
+    if (reviewGuideTimer) window.clearTimeout(reviewGuideTimer);
     reviewStep = Math.max(0, Math.min(index, reviewSteps.length - 1));
     reviewSteps.forEach((step, position) => {
       step.hidden = position !== reviewStep;
@@ -420,21 +475,43 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
       reviewNext.hidden = reviewStep === reviewSteps.length - 1;
       reviewNext.disabled = false;
     }
-    if (reviewSubmit) reviewSubmit.hidden = reviewStep !== reviewSteps.length - 1;
+    if (reviewSubmit)
+      reviewSubmit.hidden = reviewStep !== reviewSteps.length - 1;
     if (reviewError) reviewError.textContent = "";
     if (reviewAutoNote)
       reviewAutoNote.textContent =
         reviewStep === reviewSteps.length - 1
           ? "Nothing is sent until you select Submit My Free Review."
           : "Your selections stay in place. You can go back anytime.";
-    if (moveFocus) reviewSteps[reviewStep]?.focus({ preventScroll: true });
+    if (moveFocus) {
+      // Re-anchor after the new step has laid out. Otherwise browser scroll
+      // anchoring keeps the old Continue button's position at the new step's end.
+      window.requestAnimationFrame(() => {
+        reviewSteps[reviewStep]?.focus({ preventScroll: true });
+        const start = reviewProgressWrap ?? reviewSteps[reviewStep];
+        if (!start) return;
+        const clearance =
+          Number.parseFloat(
+            getComputedStyle(document.documentElement).scrollPaddingTop,
+          ) || 96;
+        window.scrollTo({
+          top: Math.max(
+            0,
+            window.scrollY + start.getBoundingClientRect().top - clearance,
+          ),
+          behavior: "instant",
+        });
+      });
+    }
   };
 
   const reviewStepIsComplete = () => {
     const step = reviewSteps[reviewStep];
     if (!step) return false;
     if (step.querySelector("[data-bureau-group]")) {
-      const bureau = step.querySelector(`input[name='${REVIEW_FIELDS.bureau}']:checked`);
+      const bureau = step.querySelector(
+        `input[name='${REVIEW_FIELDS.bureau}']:checked`,
+      );
       if (!bureau) return false;
     }
     return !Array.from(
@@ -448,11 +525,18 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
     const step = reviewSteps[reviewStep];
     if (!step) return false;
     if (step.querySelector("[data-bureau-group]")) {
-      const bureau = step.querySelector(`input[name='${REVIEW_FIELDS.bureau}']:checked`);
+      const bureau = step.querySelector(
+        `input[name='${REVIEW_FIELDS.bureau}']:checked`,
+      );
       if (!bureau) {
         if (reviewError)
-          reviewError.textContent = "Choose at least one credit report to continue.";
-        step.querySelector<HTMLInputElement>(`input[name='${REVIEW_FIELDS.bureau}']`)?.focus();
+          reviewError.textContent =
+            "Choose at least one credit report to continue.";
+        step
+          .querySelector<HTMLInputElement>(
+            `input[name='${REVIEW_FIELDS.bureau}']`,
+          )
+          ?.focus();
         return false;
       }
     }
@@ -462,7 +546,8 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
       ),
     ).find((field) => !field.checkValidity());
     if (invalid) {
-      if (reviewError) reviewError.textContent = "Complete every required field to continue.";
+      if (reviewError)
+        reviewError.textContent = "Complete every required field to continue.";
       invalid.focus();
       return false;
     }
@@ -470,9 +555,11 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
   };
 
   const guideTo = (selector: string) => {
-    const target = reviewSteps[reviewStep]?.querySelector<HTMLElement>(selector);
+    const target =
+      reviewSteps[reviewStep]?.querySelector<HTMLElement>(selector);
     if (!target || prefersReducedMotion) return;
-    window.setTimeout(
+    if (reviewGuideTimer) window.clearTimeout(reviewGuideTimer);
+    reviewGuideTimer = window.setTimeout(
       () => target.scrollIntoView({ behavior: "smooth", block: "center" }),
       120,
     );
@@ -481,7 +568,8 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
   const scheduleReviewAdvance = () => {
     if (!reviewStepIsComplete()) return;
     if (reviewAdvanceTimer) window.clearTimeout(reviewAdvanceTimer);
-    if (reviewAutoNote) reviewAutoNote.textContent = "Perfect — moving you forward…";
+    if (reviewAutoNote)
+      reviewAutoNote.textContent = "Perfect — moving you forward…";
     if (reviewNext) reviewNext.disabled = true;
     reviewAdvanceTimer = window.setTimeout(
       () => {
