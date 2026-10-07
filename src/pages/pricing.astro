@@ -3,47 +3,13 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 import PageJumpNav from "../components/PageJumpNav.astro";
+import {
+  PRICING_PLANS as plans,
+  PLAN_FEATURES as planFeatures,
+} from "../data/pricing";
 
 const heroDescription =
-  "Hard inquiry removal pricing should be easy to understand before you begin. Inquiry Removal uses three one-time plans based on the total number of hard inquiries included in your service. You will not pay a monthly membership just because a creditor or credit bureau takes longer to respond. Choose the range that matches your reports or request a free inquiry review if you are unsure which plan fits. Everything is clear before you choose what happens next.";
-
-const planFeatures = [
-  "All affected credit bureaus",
-  "Organized inquiry list",
-  "Dispute preparation and submission",
-  "Response review",
-  "Additional follow-up as needed",
-  "Phone, text, or email communication",
-  "No monthly fees",
-];
-
-const plans = [
-  {
-    id: "focused",
-    name: "Focused Removal",
-    price: "$199",
-    count: "1 to 10 total hard inquiries",
-    bestFor:
-      "Someone with 1 to 10 total hard inquiries who wants a focused cleanup before the next important application.",
-  },
-  {
-    id: "complete",
-    name: "Complete Removal",
-    price: "$299",
-    count: "11 to 30 total hard inquiries",
-    bestFor:
-      "Someone with 11 to 30 total hard inquiries, including dealership clusters, repeated applications, or inquiries spread across several reports.",
-    popular: true,
-  },
-  {
-    id: "extensive",
-    name: "Extensive Removal",
-    price: "$499",
-    count: "31 or more total hard inquiries",
-    bestFor:
-      "Someone with 31 or more total hard inquiries who needs the broadest inquiry-removal scope across the affected reports.",
-  },
-];
+  "Hard inquiry removal pricing should be easy to understand before you begin. Inquiry Removal uses four one-time plans based on the total number of hard inquiries included in your service. You will not pay a monthly membership just because a creditor or credit bureau takes longer to respond. Choose the range that matches your reports or request a free inquiry review if you are unsure which plan fits. Everything is clear before you choose what happens next.";
 
 const included = [
   [
@@ -96,22 +62,27 @@ const countingSteps = [
 ];
 
 const comparisonRows = [
-  ["One-time price", "$199", "$299", "$499"],
-  ["Total hard inquiries", "1 to 10", "11 to 30", "31 or more"],
-  ["All affected bureaus", "Included", "Included", "Included"],
-  ["Personal inquiry review", "Included", "Included", "Included"],
-  ["Inquiry list organization", "Included", "Included", "Included"],
-  ["Dispute preparation and submission", "Included", "Included", "Included"],
-  ["Response review", "Included", "Included", "Included"],
-  ["Additional rounds as needed", "Included", "Included", "Included"],
-  ["Phone, text, or email updates", "Included", "Included", "Included"],
-  ["Monthly fee", "None", "None", "None"],
+  ["One-time price", ...plans.map((plan) => plan.price)],
+  [
+    "Total hard inquiries",
+    ...plans.map((plan) => (plan.id === "extensive" ? "31+" : plan.range)),
+  ],
+  ...[
+    "All affected bureaus",
+    "Personal inquiry review",
+    "Inquiry list organization",
+    "Dispute preparation and submission",
+    "Response review",
+    "Additional rounds as needed",
+    "Phone, text, or email updates",
+  ].map((label) => [label, ...plans.map(() => "Included")]),
+  ["Monthly fee", ...plans.map(() => "None")],
 ];
 
 const faqs = [
   [
     "Is the price monthly or one time?",
-    "Every Inquiry Removal plan has a one-time price. Focused Removal is $199, Complete Removal is $299, and Extensive Removal is $499. The service does not become a monthly membership when responses or additional rounds take longer.",
+    "Every Inquiry Removal plan has a one-time price. Focused Removal is $199, Expanded Removal is $299, Complete Removal is $399, and Extensive Removal is $499. The service does not become a monthly membership when responses or additional rounds take longer.",
   ],
   [
     "Is the price charged separately for each credit bureau?",
@@ -149,6 +120,7 @@ const schema = [
     offers: plans.map((plan) => ({
       "@type": "Offer",
       name: plan.name,
+      description: `${plan.rangeLabel} total hard inquiries. One-time pricing; all affected credit bureaus included.`,
       price: plan.price.replace("$", ""),
       priceCurrency: "USD",
       availability: "https://schema.org/InStock",
@@ -178,7 +150,7 @@ const schema = [
 
 <BaseLayout
   title="Hard Inquiry Removal Pricing and Plans | Inquiry Removal"
-  description="Hard inquiry removal pricing starts at $199 with no monthly fees. Compare plans for 1 to 10, 11 to 30, or 31+ inquiries and request a free review."
+  description="Compare one-time hard inquiry removal plans: 1–10 for $199, 11–20 for $299, 21–30 for $399, and 31+ for $499. No monthly fees. Request a free review."
   ogTitle="Hard Inquiry Removal Starting at $199"
   ogDescription="Choose one clear plan based on your total inquiries. One-time pricing, all affected bureaus, and no monthly fees."
   ogImage="/og-pricing.jpg"
@@ -190,7 +162,9 @@ const schema = [
     <section class="pricing-hero dark-section">
       <div class="container pricing-hero__content" data-reveal>
         <nav class="breadcrumb" aria-label="Breadcrumb">
-          <a href="/">Home</a><span>/</span><span>Pricing</span>
+          <a href="/">Home</a>
+          <span>/</span>
+          <span>Pricing</span>
         </nav>
         <p class="eyebrow eyebrow--light">
           <span></span> One-Time Plans | No Monthly Subscriptions
@@ -246,7 +220,9 @@ const schema = [
     >
       <div class="container plan-selector" data-reveal>
         <div>
-          <p class="eyebrow"><span></span> Find your plan</p>
+          <p class="eyebrow">
+            <span></span> Find your plan
+          </p>
           <h2 id="selector-heading">
             About how many total hard inquiries do you want removed?
           </h2>
@@ -256,21 +232,18 @@ const schema = [
           role="group"
           aria-label="Choose an estimated hard inquiry count"
         >
-          <button type="button" data-plan-choice="focused" aria-pressed="false"
-            >1 to 10 <span>See Focused Removal</span></button
-          >
-          <button type="button" data-plan-choice="complete" aria-pressed="false"
-            >11 to 30 <span>See Complete Removal</span></button
-          >
-          <button
-            type="button"
-            data-plan-choice="extensive"
-            aria-pressed="false"
-            >31 or more <span>See Extensive Removal</span></button
-          >
-          <button type="button" data-plan-choice="review" aria-pressed="false"
-            >I am not sure <span>Get My Free Review</span></button
-          >
+          {plans.map((plan) => (
+            <button
+              type="button"
+              data-plan-choice={plan.id}
+              aria-pressed="false"
+            >
+              {plan.rangeLabel} <span>See {plan.name}</span>
+            </button>
+          ))}
+          <button type="button" data-plan-choice="review" aria-pressed="false">
+            I am not sure <span>Get My Free Review</span>
+          </button>
         </div>
         <div
           class="plan-selector__result"
@@ -283,8 +256,10 @@ const schema = [
             class="button button--small"
             href="#plans"
             data-result-link
-            data-track="pricing-selector-start">View All Plans <span>→</span></a
+            data-track="pricing-selector-start"
           >
+            View All Plans <span>→</span>
+          </a>
         </div>
       </div>
     </section>
@@ -292,7 +267,9 @@ const schema = [
     <section class="section waiting-cost">
       <div class="container waiting-cost__grid">
         <div data-reveal>
-          <p class="eyebrow"><span></span> A practical comparison</p>
+          <p class="eyebrow">
+            <span></span> A practical comparison
+          </p>
           <h2>What Could Waiting to Remove Your Inquiries Cost You?</h2>
           <p class="lead">
             Waiting can mean entering your next application with the same
@@ -317,16 +294,18 @@ const schema = [
         </ol>
       </div>
       <p class="container waiting-cost__summary" data-reveal>
-        Inquiry Removal plans range from <strong>$199 to $499 once.</strong> The right
-        plan depends on how many total hard inquiries are included, not how many months
-        the process lasts.
+        Inquiry Removal plans range from <strong>$199 to $499 once.</strong> The
+        right plan depends on how many total hard inquiries are included, not
+        how many months the process lasts.
       </p>
     </section>
 
     <section class="section pricing-page-plans" id="plans">
       <div class="container">
         <div class="pricing-heading" data-reveal>
-          <p class="eyebrow centered"><span></span> Count. Choose. Start.</p>
+          <p class="eyebrow centered">
+            <span></span> Count. Choose. Start.
+          </p>
           <h2>Which Inquiry Removal Plan Fits Your Reports?</h2>
           <p>
             Choose the plan that matches your total number of hard inquiries.
@@ -335,44 +314,41 @@ const schema = [
           </p>
         </div>
         <div class="pricing-plan-grid">
-          {
-            plans.map((plan) => (
-              <article
-                id={`plan-${plan.id}`}
-                class:list={[
-                  "pricing-plan-card",
-                  { "pricing-plan-card--featured": plan.popular },
-                ]}
-                data-reveal
+          {plans.map((plan) => (
+            <article
+              id={`plan-${plan.id}`}
+              class="pricing-plan-card"
+              data-reveal
+            >
+              <p class="pricing-plan-card__name">{plan.name}</p>
+              <h3>{plan.price}</h3>
+              <strong>One Time</strong>
+              <p class="pricing-plan-card__best">
+                <b>Best for:</b> {plan.bestFor}
+              </p>
+              <ul>
+                <li class="pricing-plan-card__count">
+                  {plan.rangeLabel} total hard inquiries
+                </li>
+                {planFeatures.map((feature) => (
+                  <li>{feature}</li>
+                ))}
+              </ul>
+              <a
+                class="button"
+                href={`/free-inquiry-review/?plan=${plan.id}`}
+                data-track={`pricing-card-${plan.id}`}
               >
-                {plan.popular && <span class="popular">Most Popular</span>}
-                <p class="pricing-plan-card__name">{plan.name}</p>
-                <h3>{plan.price}</h3>
-                <strong>One Time</strong>
-                <p class="pricing-plan-card__best">
-                  <b>Best for:</b> {plan.bestFor}
-                </p>
-                <ul>
-                  <li class="pricing-plan-card__count">{plan.count}</li>
-                  {planFeatures.map((feature) => (
-                    <li>{feature}</li>
-                  ))}
-                </ul>
-                <a
-                  class="button"
-                  href={`/free-inquiry-review/?plan=${plan.id}`}
-                  data-track={`pricing-card-${plan.id}`}
-                >
-                  Choose {plan.name} <span>→</span>
-                </a>
-              </article>
-            ))
-          }
+                Choose {plan.name} <span>→</span>
+              </a>
+            </article>
+          ))}
         </div>
         <p class="below-card-note">
-          Not sure which plan fits? <a href="/free-inquiry-review/?review=free"
-            >Get a free personal review before choosing.</a
-          >
+          Not sure which plan fits?{" "}
+          <a href="/free-inquiry-review/?review=free">
+            Get a free personal review before choosing.
+          </a>
         </p>
       </div>
     </section>
@@ -383,9 +359,11 @@ const schema = [
     >
       <div class="container">
         <div class="comparison-heading" data-reveal>
-          <p class="eyebrow"><span></span> Compare every plan</p>
+          <p class="eyebrow">
+            <span></span> Compare every plan
+          </p>
           <h2 id="comparison-heading">
-            One focused process. Three clear inquiry ranges.
+            One focused process. Four clear inquiry ranges.
           </h2>
         </div>
         <p class="pricing-table-hint" aria-hidden="true">
@@ -400,31 +378,22 @@ const schema = [
         >
           <table class="pricing-table">
             <thead>
-              <tr
-                ><th scope="col">Included</th><th scope="col"
-                  >Focused Removal</th
-                ><th scope="col" class="is-featured"
-                  >Complete Removal <span>Most Popular</span></th
-                ><th scope="col">Extensive Removal</th></tr
-              >
+              <tr>
+                <th scope="col">Included</th>
+                {plans.map((plan) => (
+                  <th scope="col">{plan.name}</th>
+                ))}
+              </tr>
             </thead>
-            <tbody
-              >{
-                comparisonRows.map((row) => (
-                  <tr>
-                    {row.map((cell, index) =>
-                      index === 0 ? (
-                        <th scope="row">{cell}</th>
-                      ) : (
-                        <td class:list={{ "is-featured": index === 2 }}>
-                          {cell}
-                        </td>
-                      ),
-                    )}
-                  </tr>
-                ))
-              }</tbody
-            >
+            <tbody>
+              {comparisonRows.map((row) => (
+                <tr>
+                  {row.map((cell, index) =>
+                    index === 0 ? <th scope="row">{cell}</th> : <td>{cell}</td>,
+                  )}
+                </tr>
+              ))}
+            </tbody>
           </table>
         </div>
       </div>
@@ -433,7 +402,9 @@ const schema = [
     <section class="section included-section" id="included">
       <div class="container">
         <div class="included-heading" data-reveal>
-          <p class="eyebrow"><span></span> The same complete service</p>
+          <p class="eyebrow">
+            <span></span> The same complete service
+          </p>
           <h2>What Is Included With Every Inquiry Removal Plan?</h2>
           <p class="lead">
             Every plan includes the same focused removal process. The only
@@ -442,21 +413,19 @@ const schema = [
           </p>
         </div>
         <div class="included-grid">
-          {
-            included.map(([title, body], index) => (
-              <article data-reveal>
-                <>
-                  <span>{String(index + 1).padStart(2, "0")}</span>
-                  <h3>{title}</h3>
-                  <p>{body}</p>
-                </>
-              </article>
-            ))
-          }
+          {included.map(([title, body], index) => (
+            <article data-reveal>
+              <>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <h3>{title}</h3>
+                <p>{body}</p>
+              </>
+            </article>
+          ))}
         </div>
-        <a class="text-link" href="/how-it-works/"
-          >See How the Inquiry Removal Process Works <span>→</span></a
-        >
+        <a class="text-link" href="/how-it-works/">
+          See How the Inquiry Removal Process Works <span>→</span>
+        </a>
       </div>
     </section>
 
@@ -475,25 +444,24 @@ const schema = [
           </p>
         </div>
         <div class="counting-grid">
-          {
-            countingSteps.map(([title, body], index) => (
-              <article data-reveal>
-                <>
-                  <span>{String(index + 1).padStart(2, "0")}</span>
-                  <h3>{title}</h3>
-                  <p>{body}</p>
-                </>
-              </article>
-            ))
-          }
+          {countingSteps.map(([title, body], index) => (
+            <article data-reveal>
+              <>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <h3>{title}</h3>
+                <p>{body}</p>
+              </>
+            </article>
+          ))}
         </div>
         <div class="button-row">
           <a
             class="button"
             href="/free-inquiry-review/?review=free"
             data-track="pricing-help-choose"
-            >Help Me Choose My Plan <span>→</span></a
           >
+            Help Me Choose My Plan <span>→</span>
+          </a>
         </div>
       </div>
     </section>
@@ -501,31 +469,34 @@ const schema = [
     <section class="section faq-section" id="pricing-questions">
       <div class="container faq-layout">
         <div data-reveal>
-          <p class="eyebrow"><span></span> Clear answers</p>
+          <p class="eyebrow">
+            <span></span> Clear answers
+          </p>
           <h2>Hard Inquiry Removal Pricing Questions</h2>
           <p>
-            Want to understand the broader process? Review our <a
-              class="inline-link"
-              href="/faq/">hard inquiry removal pricing questions</a
-            > or <a class="inline-link" href="/situations-we-handle/"
-              >hard inquiry situations we handle</a
-            >.
+            Want to understand the broader process? Review our{" "}
+            <a class="inline-link" href="/faq/">
+              hard inquiry removal pricing questions
+            </a>{" "}
+            or{" "}
+            <a class="inline-link" href="/situations-we-handle/">
+              hard inquiry situations we handle
+            </a>
+            .
           </p>
         </div>
         <div class="faq-list" data-reveal>
-          {
-            faqs.map(([question, answer]) => (
-              <details>
-                <>
-                  <summary>
-                    {question}
-                    <span aria-hidden="true" />
-                  </summary>
-                  <p>{answer}</p>
-                </>
-              </details>
-            ))
-          }
+          {faqs.map(([question, answer]) => (
+            <details>
+              <>
+                <summary>
+                  {question}
+                  <span aria-hidden="true" />
+                </summary>
+                <p>{answer}</p>
+              </>
+            </details>
+          ))}
         </div>
       </div>
     </section>
@@ -546,14 +517,16 @@ const schema = [
             class="button button--large"
             href="/free-inquiry-review/?plan=help"
             data-track="pricing-final-start"
-            >Help Me Choose My Plan <span>→</span></a
           >
+            Help Me Choose My Plan <span>→</span>
+          </a>
           <a
             class="text-link text-link--light"
             href="/free-inquiry-review/?review=free"
             data-track="pricing-final-review"
-            >Get My Free Inquiry Review <span>↘</span></a
           >
+            Get My Free Inquiry Review <span>↘</span>
+          </a>
         </div>
         <p class="cta-microcopy">
           One-time pricing. No monthly membership. Free personal review.
@@ -565,6 +538,7 @@ const schema = [
 </BaseLayout>
 
 <script>
+  import { PRICING_PLANS } from "../data/pricing";
   const choices =
     document.querySelectorAll<HTMLButtonElement>("[data-plan-choice]");
   const resultKicker = document.querySelector<HTMLElement>(
@@ -573,32 +547,25 @@ const schema = [
   const resultName = document.querySelector<HTMLElement>("[data-result-name]");
   const resultLink =
     document.querySelector<HTMLAnchorElement>("[data-result-link]");
-  const results = {
-    focused: [
-      "1 to 10 inquiries",
-      "Focused Removal · $199 one time",
-      "#plan-focused",
-      "See Focused Removal",
-    ],
-    complete: [
-      "11 to 30 inquiries",
-      "Complete Removal · $299 one time",
-      "#plan-complete",
-      "See Complete Removal",
-    ],
-    extensive: [
-      "31 or more inquiries",
-      "Extensive Removal · $499 one time",
-      "#plan-extensive",
-      "See Extensive Removal",
-    ],
+  const results: Record<string, string[]> = {
+    ...Object.fromEntries(
+      PRICING_PLANS.map((plan) => [
+        plan.id,
+        [
+          `${plan.rangeLabel} inquiries`,
+          `${plan.name} · ${plan.price} one time`,
+          `#plan-${plan.id}`,
+          `See ${plan.name}`,
+        ],
+      ]),
+    ),
     review: [
       "Not sure of your count?",
       "Start with a free personal inquiry review.",
       "/free-inquiry-review/?review=free",
       "Get My Free Inquiry Review",
     ],
-  } as const;
+  };
 
   choices.forEach((choice) => {
     choice.addEventListener("click", () => {

@@ -254,7 +254,7 @@ export const resourceHubGroups: ResourceHubGroup[] = [
       {
         tag: "Pricing",
         title: "Hard Inquiry Removal Pricing",
-        description: "Compare the one-time $199, $299, and $499 packages based on total inquiry count.",
+        description: "Compare the one-time $199, $299, $399, and $499 packages based on total inquiry count.",
         href: "/pricing/",
       },
       {

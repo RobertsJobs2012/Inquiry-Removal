@@ -63,7 +63,8 @@
     },
     count: {
       "1 to 10": "1–10",
-      "11 to 30": "11–30",
+      "11 to 20": "11–20",
+      "21 to 30": "21–30",
       "31 or more": "31 or more",
       "I am not sure": "I am not sure",
     },

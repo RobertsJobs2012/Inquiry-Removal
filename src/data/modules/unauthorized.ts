@@ -85,7 +85,7 @@ export const unauthorizedGuide: GuidePage = {
       {
         heading: "How Much Does Unauthorized Inquiry Removal Cost?",
         body: [
-          "Unauthorized inquiry removal uses Inquiry Removal's standard one-time pricing: $199 for 1 to 10 total inquiries, $299 for 11 to 30, and $499 for 31 or more.",
+          "Unauthorized inquiry removal uses Inquiry Removal's standard one-time pricing: $199 for 1 to 10 total inquiries, $299 for 11 to 20, $399 for 21 to 30, and $499 for 31 or more.",
           "The same plan can include the affected Experian, Equifax, and TransUnion reports based on the total inquiry count. Start with the free review if you are not sure how many inquiries are involved.",
         ],
       },

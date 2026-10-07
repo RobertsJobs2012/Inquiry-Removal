@@ -5,12 +5,12 @@ import Header from "../components/Header.astro";
 import { SITE_ORIGIN } from "../data/discovery.mjs";
 
 const cases = [
-  ["CASE SLOT 01", "dealership", "multiple", "11-30", "Dealership financing", "Multiple bureaus", "11–30 inquiries"],
+  ["CASE SLOT 01", "dealership", "multiple", "11-20", "Dealership financing", "Multiple bureaus", "11–20 inquiries"],
   ["CASE SLOT 02", "unauthorized", "experian", "1-10", "Unauthorized inquiry", "Experian", "1–10 inquiries"],
   ["CASE SLOT 03", "identity-theft", "transunion", "1-10", "Identity theft", "TransUnion", "1–10 inquiries"],
   ["CASE SLOT 04", "other", "equifax", "1-10", "Inquiry review", "Equifax", "1–10 inquiries"],
   ["CASE SLOT 05", "dealership", "experian", "31-plus", "High-volume dealership", "Experian", "31+ inquiries"],
-  ["CASE SLOT 06", "other", "multiple", "11-30", "Multi-bureau review", "Multiple bureaus", "11–30 inquiries"],
+  ["CASE SLOT 06", "other", "multiple", "21-30", "Multi-bureau review", "Multiple bureaus", "21–30 inquiries"],
 ];
 
 const proofTypes = [
@@ -117,7 +117,7 @@ const schema = [
         <div class="filters" data-reveal>
           <label>What happened?<select data-situation><option value="all">All situations</option><option value="dealership">Dealership financing</option><option value="unauthorized">Unauthorized inquiry</option><option value="identity-theft">Identity theft</option><option value="other">Other</option></select></label>
           <label>Which bureau?<select data-bureau><option value="all">All bureaus</option><option value="experian">Experian</option><option value="equifax">Equifax</option><option value="transunion">TransUnion</option><option value="multiple">Multiple bureaus</option></select></label>
-          <label>Inquiry count<select data-count><option value="all">Any count</option><option value="1-10">1–10</option><option value="11-30">11–30</option><option value="31-plus">31+</option></select></label>
+          <label>Inquiry count<select data-count><option value="all">Any count</option><option value="1-10">1–10</option><option value="11-20">11–20</option><option value="21-30">21–30</option><option value="31-plus">31+</option></select></label>
         </div>
         <p class="filter-status" data-status aria-live="polite">Showing all case-layout placeholders. These are not client results.</p>
 

@@ -184,8 +184,49 @@ await run("desktop-pricing", { width: 1440, height: 1000 }, async (page) => {
   });
   expect(response?.status() === 200, `pricing returned ${response?.status()}`);
   expect(await page.locator("h1").isVisible(), "pricing H1 is not visible");
-  const popular = page.locator(".popular").first();
-  expect(await popular.isVisible(), "Most Popular badge is not visible");
+  expect(
+    (await page.locator(".pricing-plan-card").count()) === 4,
+    "pricing must show four plans",
+  );
+  expect(
+    (await page.locator(".popular").count()) === 0,
+    "unverified popularity badge remains",
+  );
+  expect(
+    (await page.locator(".pricing-table thead th").count()) === 5,
+    "comparison must contain all four plans",
+  );
+  for (const [id, price, range] of [
+    ["focused", "$199", "1 to 10"],
+    ["expanded", "$299", "11 to 20"],
+    ["complete", "$399", "21 to 30"],
+    ["extensive", "$499", "31 or more"],
+  ]) {
+    const card = page.locator(`#plan-${id}`);
+    expect(
+      (await card.locator("h3").innerText()) === price,
+      `${id} price mismatch`,
+    );
+    expect(
+      (await card.innerText()).includes(`${range} total hard inquiries`),
+      `${id} range mismatch`,
+    );
+    expect(
+      (await card.locator("a").getAttribute("href")) ===
+        `/free-inquiry-review/?plan=${id}`,
+      `${id} link mismatch`,
+    );
+    await page.locator(`[data-plan-choice='${id}']`).click();
+    expect(
+      (await page.locator("[data-result-name]").innerText()).includes(price),
+      `${id} selector price mismatch`,
+    );
+    expect(
+      (await page.locator("[data-result-link]").getAttribute("href")) ===
+        `#plan-${id}`,
+      `${id} selector destination mismatch`,
+    );
+  }
   await checkAccessibility("desktop-pricing", page);
 });
 

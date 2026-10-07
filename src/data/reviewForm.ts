@@ -1,3 +1,5 @@
+export { INQUIRY_COUNTS, PLAN_MAP } from "./pricing.js";
+
 export const GOOGLE_REVIEW_FORM_ACTION =
   "https://docs.google.com/forms/d/e/1FAIpQLSceniKTv612SZVC6_jf0-vb-5pNaOs-1jrpT9Qv0P5yd-Qchw/formResponse";
 
@@ -35,19 +37,12 @@ export const SITUATIONS = [
   "I authorized it but want it reviewed",
 ] as const;
 
-export const INQUIRY_COUNTS = ["1–10", "11–30", "31 or more", "I am not sure"] as const;
 export const BUREAUS = ["Experian", "Equifax", "TransUnion", "I am not sure"] as const;
 export const REPORT_COPIES = ["Yes", "No", "I need help obtaining them"] as const;
 export const CONTACT_METHODS = ["Email", "Phone"] as const;
 
 export const CONTACT_CONSENT =
   "I agree that Inquiry Removal may contact me about this free inquiry review using the phone number or email address I provided.";
-
-export const PLAN_MAP: Record<string, (typeof INQUIRY_COUNTS)[number]> = {
-  focused: "1–10",
-  complete: "11–30",
-  extensive: "31 or more",
-};
 
 export const GOAL_MAP: Record<string, (typeof GOALS)[number]> = {
   home: "A home loan",

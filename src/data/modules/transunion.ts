@@ -88,7 +88,7 @@ export const transunionGuide: GuidePage = {
       {
         heading: "How Much Does TransUnion Hard Inquiry Removal Cost?",
         body: [
-          "TransUnion hard inquiry removal costs $199 for 1 to 10 total inquiries, $299 for 11 to 30, or $499 for 31 or more under Inquiry Removal's current one-time plans.",
+          "TransUnion hard inquiry removal costs $199 for 1 to 10 total inquiries, $299 for 11 to 20, $399 for 21 to 30, or $499 for 31 or more under Inquiry Removal's current one-time plans.",
           "The count can include inquiries across Experian, Equifax, and TransUnion when more than one bureau is affected. There is no monthly membership fee, and you can start with the free review if you are not sure which inquiry count applies.",
         ],
       },

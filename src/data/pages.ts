@@ -229,7 +229,7 @@ export const pages: SitePage[] = [
       {
         heading: "How Much Does Hard Inquiry Removal Cost?",
         body: [
-          "Pricing is one time: $199 for 1 to 10 total hard inquiries, $299 for 11 to 30, and $499 for 31 or more. There is no monthly membership fee.",
+          "Pricing is one time: $199 for 1 to 10 total hard inquiries, $299 for 11 to 20, $399 for 21 to 30, and $499 for 31 or more. There is no monthly membership fee.",
         ],
       },
       {

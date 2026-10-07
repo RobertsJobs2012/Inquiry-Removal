@@ -63,7 +63,7 @@ export const bestHardInquiryRemovalServicesGuide: GuidePage = {
       cards: [
         {
           title: "Inquiry Removal",
-          body: "Hard-inquiry-only specialist; one-time packages of $199, $299, and $499 based on total inquiry count.",
+          body: "Hard-inquiry-only specialist; one-time packages of $199, $299, $399, and $499 based on total inquiry count.",
         },
         {
           title: "Per-inquiry service",
@@ -259,7 +259,7 @@ export const businessFundingHardInquiriesGuide: GuidePage = {
     {
       heading: "How Much Does Business Funding Inquiry Removal Cost?",
       body: [
-        "One-time pricing is $199 for 1 to 10 total hard inquiries, $299 for 11 to 30, and $499 for 31 or more across the affected reports.",
+        "One-time pricing is $199 for 1 to 10 total hard inquiries, $299 for 11 to 20, $399 for 21 to 30, and $499 for 31 or more across the affected reports.",
         "The service focuses on personal hard inquiries appearing on Experian, Equifax, or TransUnion. It is not a business credit-building or funding-placement service.",
       ],
     },

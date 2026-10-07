@@ -85,7 +85,7 @@ export const softPullGuide: GuidePage = {
       {
         heading: "How Much Does Soft-Pull Inquiry Removal Cost?",
         body: [
-          "Soft-pull inquiry removal uses the same one-time plans as the rest of Inquiry Removal: $199 for 1 to 10 total hard inquiries, $299 for 11 to 30, and $499 for 31 or more.",
+          "Soft-pull inquiry removal uses the same one-time plans as the rest of Inquiry Removal: $199 for 1 to 10 total hard inquiries, $299 for 11 to 20, $399 for 21 to 30, and $499 for 31 or more.",
           "The affected Experian, Equifax, and TransUnion reports can be included based on the total inquiry count. There is no monthly membership fee.",
         ],
       },

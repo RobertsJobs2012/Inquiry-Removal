@@ -85,7 +85,7 @@ export const identityTheftGuide: GuidePage = {
       {
         heading: "How Much Does Identity Theft Inquiry Removal Cost?",
         body: [
-          "Identity theft inquiry removal uses one-time pricing of $199 for 1 to 10 total hard inquiries, $299 for 11 to 30, and $499 for 31 or more.",
+          "Identity theft inquiry removal uses one-time pricing of $199 for 1 to 10 total hard inquiries, $299 for 11 to 20, $399 for 21 to 30, and $499 for 31 or more.",
           "The plan can include fraudulent inquiries across Experian, Equifax, and TransUnion based on the total inquiry count. There is no monthly membership fee.",
         ],
       },

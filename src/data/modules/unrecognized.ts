@@ -85,7 +85,7 @@ export const unrecognizedGuide: GuidePage = {
       {
         heading: "How Much Does Unrecognized Inquiry Removal Cost?",
         body: [
-          "Unrecognized inquiry removal uses one-time pricing of $199 for 1 to 10 total hard inquiries, $299 for 11 to 30, and $499 for 31 or more.",
+          "Unrecognized inquiry removal uses one-time pricing of $199 for 1 to 10 total hard inquiries, $299 for 11 to 20, $399 for 21 to 30, and $499 for 31 or more.",
           "All affected bureaus can be included based on the total inquiry count. If you do not yet know how many inquiries you want handled, start with the free review and we can organize the list first.",
         ],
       },
