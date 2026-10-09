@@ -114,7 +114,7 @@ body {
 @media (prefers-reduced-motion: no-preference) {
   [data-reveal].reveal-animate {
     animation: ir-content-reveal var(--ir-reveal) var(--ir-ease-out)
-      var(--reveal-delay) both;
+      var(--reveal-delay) backwards;
   }
 }
 

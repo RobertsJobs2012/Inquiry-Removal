@@ -168,11 +168,21 @@ await run("desktop-home", { width: 1440, height: 1000 }, async (page) => {
   );
   await page.getByRole("tab", { name: "All 3", exact: true }).click();
   await page.locator('.page-jump a[href="#specialists"]').click();
-  await page.waitForFunction(
-    () =>
+  await page.waitForFunction(() => {
+    const targetTop = document
+      .querySelector("#specialists")
+      .getBoundingClientRect().top;
+    const clearance = Number.parseFloat(
+      getComputedStyle(document.documentElement).scrollPaddingTop,
+    );
+    // Wait for the anchor scroll to finish before reversing direction. The
+    // jump bar reaches its sticky position before the smooth scroll settles.
+    return (
+      Math.abs(targetTop - clearance) <= 4 &&
       document.documentElement.classList.contains("header-is-hidden") &&
-      document.querySelector(".page-jump").getBoundingClientRect().top <= 12,
-  );
+      document.querySelector(".page-jump").getBoundingClientRect().top <= 12
+    );
+  });
   await page.mouse.wheel(0, -240);
   await page.waitForFunction(() => {
     const header = document.querySelector("[data-header]");
@@ -451,12 +461,19 @@ await run(
       "Back cleared contact information",
     );
     await page.locator("[data-review-next]").click();
-    await page.locator("input[value='A home loan']").check();
+    const chooseOption = async (value) => {
+      const input = page.locator(`input[value=${JSON.stringify(value)}]`);
+      // The native input is intentionally transparent and non-pointer-active;
+      // customers interact with its associated visible choice-card label.
+      await page.locator("label.form-choice").filter({ has: input }).click();
+      expect(await input.isChecked(), `choice ${value} was not selected`);
+    };
+    await chooseOption("A home loan");
     await page.locator("[data-review-next]").click();
     await expectStepStart();
-    await page.locator("input[value='1–10']").check();
-    await page.locator("input[value='TransUnion']").check();
-    await page.locator("input[value='Yes']").check();
+    await chooseOption("1–10");
+    await chooseOption("TransUnion");
+    await chooseOption("Yes");
     await page.locator("[data-review-step='4']").waitFor({ state: "visible" });
     await expectStepStart();
     expect(
