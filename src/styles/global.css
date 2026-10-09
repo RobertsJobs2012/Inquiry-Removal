@@ -204,8 +204,9 @@ summary:focus-visible {
   outline-offset: 4px;
 }
 [data-reveal] {
-  opacity: 0;
-  transform: translateY(24px);
+  /* Essential content remains readable without JavaScript or an observer. */
+  opacity: 1;
+  transform: none;
   transition:
     opacity 0.8s ease,
     transform 0.8s ease;

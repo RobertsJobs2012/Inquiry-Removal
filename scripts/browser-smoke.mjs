@@ -49,8 +49,8 @@ const checkAccessibility = async (name, page) => {
   );
 };
 
-const run = async (name, viewport, test) => {
-  const context = await browser.newContext({ viewport });
+const run = async (name, viewport, test, contextOptions = {}) => {
+  const context = await browser.newContext({ viewport, ...contextOptions });
   const page = await context.newPage();
   const consoleErrors = [];
   const pageErrors = [];
@@ -59,6 +59,8 @@ const run = async (name, viewport, test) => {
   page.on("console", (message) => {
     if (message.type() !== "error") return;
     const text = message.text();
+    if (name === "review-module-fallback" && text.includes("net::ERR_FAILED"))
+      return;
     if (
       name === "not-found" &&
       text.includes(
@@ -71,6 +73,11 @@ const run = async (name, viewport, test) => {
   });
   page.on("pageerror", (error) => pageErrors.push(error.message));
   page.on("requestfailed", (request) => {
+    if (
+      name === "review-module-fallback" &&
+      request.resourceType() === "script"
+    )
+      return;
     if (request.url().startsWith(base))
       failedLocalRequests.push(
         `${request.method()} ${request.url()} ${request.failure()?.errorText ?? "failed"}`,
@@ -491,6 +498,70 @@ await run("not-found", { width: 1280, height: 900 }, async (page) => {
     .getAttribute("content");
   expect(robots?.includes("noindex"), "404 page is missing noindex");
 });
+
+const expectNativeFallback = async (page) => {
+  const form = page.locator("[data-review-form]");
+  expect(await form.isVisible(), "native fallback form is not visible");
+  expect(
+    !(await form.evaluate((node) => node.noValidate)),
+    "native validation was disabled without enhancement",
+  );
+  for (const step of await page.locator("[data-review-step]").all())
+    expect(await step.isVisible(), "a fallback form step is hidden");
+  expect(
+    await page.locator(".review-noscript-submit").isVisible(),
+    "fallback Submit is hidden",
+  );
+  expect(
+    !(await page.locator("[data-review-next]").isVisible()),
+    "inactive Continue is visible in fallback",
+  );
+  const concealed = await page
+    .locator("[data-reveal]")
+    .evaluateAll(
+      (nodes) =>
+        nodes.filter((node) => getComputedStyle(node).opacity === "0").length,
+    );
+  expect(
+    concealed === 0,
+    `${concealed} content regions depend on JavaScript to become visible`,
+  );
+};
+
+await run(
+  "no-javascript-home",
+  { width: 1440, height: 1000 },
+  async (page) => {
+    await page.goto(`${base}/`, { waitUntil: "networkidle" });
+    await expectNativeFallback(page);
+  },
+  { javaScriptEnabled: false, reducedMotion: "no-preference" },
+);
+
+await run(
+  "no-javascript-review",
+  { width: 390, height: 844 },
+  async (page) => {
+    await page.goto(`${base}/free-inquiry-review/`, {
+      waitUntil: "networkidle",
+    });
+    await expectNativeFallback(page);
+  },
+  { javaScriptEnabled: false, reducedMotion: "no-preference" },
+);
+
+await run(
+  "review-module-fallback",
+  { width: 390, height: 844 },
+  async (page) => {
+    await page.route("**/_astro/*.js", (route) => route.abort());
+    await page.goto(`${base}/free-inquiry-review/`, {
+      waitUntil: "networkidle",
+    });
+    await expectNativeFallback(page);
+  },
+  { reducedMotion: "no-preference" },
+);
 
 const apiContext = await browser.newContext();
 const apiResponse = await apiContext.request.get(`${base}/api/free-review`);

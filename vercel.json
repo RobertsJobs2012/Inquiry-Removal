@@ -7,6 +7,16 @@
   "ignoreCommand": "git diff --quiet HEAD^ HEAD -- . ':(exclude).github/**' ':(exclude)scripts/browser-smoke.mjs'",
   "redirects": [
     {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/:path*/index.html",
+      "destination": "/:path*/",
+      "permanent": true
+    },
+    {
       "source": "/terms.php",
       "destination": "/terms/",
       "permanent": true

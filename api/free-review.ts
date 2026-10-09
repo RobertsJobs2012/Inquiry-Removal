@@ -89,7 +89,31 @@ export async function POST(request: Request) {
 
   let data: FormData;
   try {
-    data = await request.formData();
+    // Content-Length can be absent or spoofed. Bound the actual streamed
+    // body before parsing, rather than trusting the declared size alone.
+    const reader = request.body?.getReader();
+    if (!reader) return fail(request, "The form submission was empty.");
+    const chunks: Uint8Array[] = [];
+    let actualBytes = 0;
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      actualBytes += value.byteLength;
+      if (actualBytes > MAX_FORM_BYTES) {
+        void reader.cancel().catch(() => {});
+        return fail(request, "The form submission was too large.", 413);
+      }
+      chunks.push(value);
+    }
+    const body = new Uint8Array(actualBytes);
+    let offset = 0;
+    for (const chunk of chunks) {
+      body.set(chunk, offset);
+      offset += chunk.byteLength;
+    }
+    data = await new Response(body, {
+      headers: { "Content-Type": contentType },
+    }).formData();
   } catch {
     return fail(
       request,
@@ -191,8 +215,6 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error("free-review upstream request failed", {
       receipt,
-      sourcePage,
-      sourceContext,
       error: error instanceof Error ? error.message : "unknown",
     });
     return fail(
@@ -206,8 +228,6 @@ export async function POST(request: Request) {
     console.error("free-review upstream rejected request", {
       receipt,
       status: upstream.status,
-      sourcePage,
-      sourceContext,
     });
     return fail(
       request,
@@ -218,11 +238,6 @@ export async function POST(request: Request) {
 
   console.info("free-review accepted", {
     receipt,
-    sourcePage,
-    sourceContext,
-    situation,
-    count,
-    bureaus,
   });
   return succeed(request, receipt);
 }

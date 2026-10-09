@@ -18,10 +18,6 @@ interface Props {
 const { defaultSource = "", defaultContext = "" } = Astro.props;
 ---
 
-<script is:inline>
-  document.documentElement.classList.add("js");
-</script>
-
 <form
   class="native-review-form"
   action="/api/free-review"
@@ -291,11 +287,11 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
 </form>
 
 <style is:global>
-  .js .native-review-step:not(.is-active) {
+  .native-review-form.is-enhanced .native-review-step:not(.is-active) {
     display: none;
   }
 
-  .js .review-noscript-submit {
+  .native-review-form.is-enhanced .review-noscript-submit {
     display: none !important;
   }
 
@@ -441,18 +437,11 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
     "(prefers-reduced-motion: reduce)",
   ).matches;
 
-  if (reviewForm) reviewForm.noValidate = true;
-  reviewProgressWrap?.removeAttribute("hidden");
-  reviewAutoNote?.removeAttribute("hidden");
-  reviewNext?.removeAttribute("hidden");
-
   const trackReviewStart = () => {
     if (reviewStarted) return;
     reviewStarted = true;
     track("Review Form Start", {
       page: window.location.pathname,
-      source: sourcePage,
-      context: sourceContext,
     });
   };
   reviewForm?.addEventListener("focusin", trackReviewStart, { once: true });
@@ -532,11 +521,10 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
         if (reviewError)
           reviewError.textContent =
             "Choose at least one credit report to continue.";
-        step
-          .querySelector<HTMLInputElement>(
-            `input[name='${REVIEW_FIELDS.bureau}']`,
-          )
-          ?.focus();
+        const field = step.querySelector<HTMLInputElement>(
+          `input[name='${REVIEW_FIELDS.bureau}']`,
+        );
+        markInvalid(field);
         return false;
       }
     }
@@ -547,12 +535,48 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
     ).find((field) => !field.checkValidity());
     if (invalid) {
       if (reviewError)
-        reviewError.textContent = "Complete every required field to continue.";
-      invalid.focus();
+        reviewError.textContent =
+          invalid.type === "checkbox"
+            ? "Please confirm that we may contact you about your free review."
+            : invalid.type === "radio"
+              ? "Choose an option for each required question to continue."
+              : `${invalid.closest("label")?.querySelector("span")?.textContent?.trim() ?? "This field"}: ${invalid.validationMessage}`;
+      markInvalid(invalid);
       return false;
     }
     return true;
   };
+
+  const markInvalid = (
+    field: HTMLInputElement | HTMLTextAreaElement | null,
+  ) => {
+    if (!field) return;
+    field.setAttribute("aria-invalid", "true");
+    if (reviewError) {
+      reviewError.id = "review-validation-error";
+      const describedBy = new Set(
+        (field.getAttribute("aria-describedby") ?? "")
+          .split(/\s+/)
+          .filter(Boolean),
+      );
+      describedBy.add(reviewError.id);
+      field.setAttribute("aria-describedby", [...describedBy].join(" "));
+    }
+    field.focus();
+  };
+
+  reviewForm?.addEventListener("input", () => {
+    reviewForm.querySelectorAll("[aria-invalid='true']").forEach((field) => {
+      field.removeAttribute("aria-invalid");
+      const descriptions = (field.getAttribute("aria-describedby") ?? "")
+        .split(/\s+/)
+        .filter((id) => id && id !== "review-validation-error");
+      if (descriptions.length)
+        field.setAttribute("aria-describedby", descriptions.join(" "));
+      else field.removeAttribute("aria-describedby");
+    });
+    if (reviewError) reviewError.textContent = "";
+  });
 
   const guideTo = (selector: string) => {
     const target =
@@ -644,8 +668,6 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
       reviewSuccess?.focus();
       track("Review Form Submitted", {
         page: window.location.pathname,
-        source: sourcePage,
-        context: sourceContext,
       });
     } catch (error) {
       const message =
@@ -658,8 +680,6 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
       }
       track("Review Form Submission Failed", {
         page: window.location.pathname,
-        source: sourcePage,
-        context: sourceContext,
       });
       if (reviewSubmit) {
         reviewSubmit.disabled = false;
@@ -670,5 +690,13 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
     }
   });
 
-  showReviewStep(0, false);
+  // Enhance only after every navigation/submission handler is installed.
+  // If the module fails to load, the complete native form still works.
+  if (reviewForm && reviewSteps.length && reviewNext && reviewSubmit) {
+    reviewForm.classList.add("is-enhanced");
+    reviewForm.noValidate = true;
+    reviewProgressWrap?.removeAttribute("hidden");
+    reviewAutoNote?.removeAttribute("hidden");
+    showReviewStep(0, false);
+  }
 </script>
