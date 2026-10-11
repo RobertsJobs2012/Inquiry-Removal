@@ -195,7 +195,31 @@ await run("desktop-home", { width: 1440, height: 1000 }, async (page) => {
   }).catch(async () => {
     throw new Error(`chapter anchor did not settle: ${JSON.stringify(await navigationMetrics(page))}`);
   });
+  // Being within four pixels of the target does not mean the compositor has
+  // completed the smooth anchor scroll. Require an unchanged position across
+  // consecutive animation frames before introducing another input gesture.
+  await page.evaluate(() => new Promise((resolve, reject) => {
+    let previous = window.scrollY;
+    let stableFrames = 0;
+    let frames = 0;
+    const sample = () => {
+      const current = window.scrollY;
+      stableFrames = current === previous ? stableFrames + 1 : 0;
+      previous = current;
+      if (stableFrames >= 12) return resolve();
+      if (++frames >= 300) return reject(new Error("anchor scroll never stopped"));
+      requestAnimationFrame(sample);
+    };
+    requestAnimationFrame(sample);
+  }));
+  const beforeWheel = await navigationMetrics(page);
+  await page.mouse.move(1100, 500);
   await page.mouse.wheel(0, -240);
+  await page.waitForFunction((previousY) => window.scrollY < previousY - 8,
+    beforeWheel.scrollY,
+  ).catch(async () => {
+    throw new Error(`upward wheel did not move the page: ${JSON.stringify(await navigationMetrics(page))}`);
+  });
   await page.waitForFunction(() => {
     const header = document.querySelector("[data-header]");
     const jump = document.querySelector(".page-jump");
