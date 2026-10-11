@@ -2,6 +2,13 @@ name: Production Browser Smoke
 
 on:
   workflow_dispatch:
+  # Test-only edits intentionally skip Vercel builds. Run the updated checks
+  # against the current production site without waiting for another release.
+  push:
+    branches: [main]
+    paths:
+      - scripts/browser-smoke.mjs
+      - .github/workflows/production-browser-smoke.yml
   schedule:
     - cron: "17 12 * * *"
   deployment_status:
