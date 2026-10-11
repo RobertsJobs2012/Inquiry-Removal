@@ -17,6 +17,16 @@ const expect = (condition, message) => {
   if (!condition) throw new Error(message);
 };
 
+const navigationMetrics = (page) => page.evaluate(() => ({
+  targetTop: document.querySelector("#specialists").getBoundingClientRect().top,
+  clearance: getComputedStyle(document.documentElement).scrollPaddingTop,
+  jumpTop: document.querySelector(".page-jump").getBoundingClientRect().top,
+  headerBottom: document.querySelector("[data-header]").getBoundingClientRect().bottom,
+  headerHidden: document.querySelector("[data-header]").classList.contains("is-hidden"),
+  rootHidden: document.documentElement.classList.contains("header-is-hidden"),
+  scrollY: window.scrollY,
+}));
+
 const checkAccessibility = async (name, page) => {
   const results = await new AxeBuilder({ page })
     .withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"])
@@ -182,6 +192,8 @@ await run("desktop-home", { width: 1440, height: 1000 }, async (page) => {
       document.documentElement.classList.contains("header-is-hidden") &&
       document.querySelector(".page-jump").getBoundingClientRect().top <= 12
     );
+  }).catch(async () => {
+    throw new Error(`chapter anchor did not settle: ${JSON.stringify(await navigationMetrics(page))}`);
   });
   await page.mouse.wheel(0, -240);
   await page.waitForFunction(() => {
@@ -191,6 +203,8 @@ await run("desktop-home", { width: 1440, height: 1000 }, async (page) => {
       !header.classList.contains("is-hidden") &&
       jump.getBoundingClientRect().top >= header.getBoundingClientRect().bottom
     );
+  }).catch(async () => {
+    throw new Error(`upward scroll did not restore header clearance: ${JSON.stringify(await navigationMetrics(page))}`);
   });
   await checkAccessibility("desktop-home", page);
 });
