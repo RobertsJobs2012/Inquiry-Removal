@@ -1,0 +1,15 @@
+{
+  "reviewedLocalDate": "2026-10-12",
+  "releaseSha": "eb4930f54470015bd6601dce8e04c453a780b97f",
+  "productionUrl": "https://www.inquiryremoval.com",
+  "evidenceRun": "https://github.com/RobertsJobs2012/Inquiry-Removal/actions/runs/38325686662",
+  "chromium": "151.0.0.0",
+  "playwright": "1.62.1",
+  "scale": 1,
+  "desktop": { "width": 1440, "height": 1000 },
+  "mobile": { "width": 390, "height": 844 },
+  "reducedMotion": "reduce",
+  "colorScheme": "light",
+  "scope": "Initial viewport of home, pricing, review entry, and timeline guide; not a full-page or every-page visual certification.",
+  "review": "All eight actual production screenshots inspected before acceptance. Baselines are not automatically regenerated."
+}

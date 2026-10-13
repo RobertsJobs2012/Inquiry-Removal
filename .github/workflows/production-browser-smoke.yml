@@ -49,10 +49,10 @@ jobs:
           SITE_URL: https://www.inquiryremoval.com
         run: node scripts/browser-smoke.mjs
 
-      - name: Record initial visual snapshots for review
+      - name: Compare reviewed desktop and mobile visual baselines
         env:
           SITE_URL: https://www.inquiryremoval.com
-          VISUAL_MODE: record
+          VISUAL_MODE: compare
         run: node scripts/visual-regression.mjs
 
       - name: Enforce three-run mobile performance budgets
