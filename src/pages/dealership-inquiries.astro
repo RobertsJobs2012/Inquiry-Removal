@@ -5,6 +5,7 @@ import PhoneReviewPanel from "../components/PhoneReviewPanel.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 import PageJumpNav from "../components/PageJumpNav.astro";
+import { CONTENT_UPDATED_ISO, CONTENT_UPDATED_LABEL } from "../data/contentDates";
 
 const painPoints = [
   [
@@ -562,7 +563,7 @@ const schema = [
           > English and Spanish <span>•</span> Founded in 2015
         </p>
         <p class="last-reviewed">
-          Last reviewed August 14, 2026 by Robert Garcia, Founder and Senior
+          Last reviewed <time datetime={CONTENT_UPDATED_ISO}>{CONTENT_UPDATED_LABEL}</time> by Robert Garcia, Founder and Senior
           Credit Analyst.
         </p>
       </div>

@@ -4,6 +4,7 @@ import Header from "./Header.astro";
 import Footer from "./Footer.astro";
 import type { GuidePage } from "../data/guides";
 import { SITE_ORIGIN } from "../data/discovery.mjs";
+import { CONTENT_UPDATED_ISO, CONTENT_UPDATED_LABEL } from "../data/contentDates";
 
 interface Props {
   page: GuidePage;
@@ -215,7 +216,7 @@ const schema = [
             <div>
               <>
                 <span>Last reviewed</span>
-                <strong>August 2026</strong>
+                <strong><time datetime={CONTENT_UPDATED_ISO}>{CONTENT_UPDATED_LABEL}</time></strong>
               </>
             </div>
           </div>

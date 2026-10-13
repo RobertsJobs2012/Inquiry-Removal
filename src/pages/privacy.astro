@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 import { SITE_ORIGIN } from "../data/discovery.mjs";
+import { CONTENT_UPDATED_ISO, CONTENT_UPDATED_LABEL } from "../data/contentDates";
 
 const schema = [
   {
@@ -52,7 +53,7 @@ const schema = [
           </p>
         </div>
         <aside class="page-hero-aside" aria-label="Privacy policy details">
-          <span>Last updated: August 20, 2026</span>
+          <span>Last updated: <time datetime={CONTENT_UPDATED_ISO}>{CONTENT_UPDATED_LABEL}</time></span>
           <span>Applies to inquiryremoval.com</span>
           <span>Nationwide website visitors and clients</span>
         </aside>
