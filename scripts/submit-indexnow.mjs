@@ -1,45 +1,126 @@
-import { readFile } from "node:fs/promises";
-import { resolve } from "node:path";
-
-const SITE_ORIGIN = "https://www.inquiryremoval.com";
-const KEY = "9db1eb516e99ccbf93962d2ee991beb3";
-const KEY_LOCATION = `${SITE_ORIGIN}/${KEY}.txt`;
-const dryRun = process.argv.includes("--dry-run");
-const sitemapPath = resolve("dist/sitemap-0.xml");
-const sitemap = await readFile(sitemapPath, "utf8");
-const urlList = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(
-  ([, url]) => url,
-);
-
-if (!urlList.length)
-  throw new Error("No URLs were found in dist/sitemap-0.xml.");
-if (urlList.some((url) => !url.startsWith(`${SITE_ORIGIN}/`)))
-  throw new Error("The sitemap contains a URL outside the canonical origin.");
-
-const payload = {
-  host: new URL(SITE_ORIGIN).host,
-  key: KEY,
-  keyLocation: KEY_LOCATION,
-  urlList,
-};
-
-if (dryRun) {
-  console.log(JSON.stringify(payload, null, 2));
-  process.exit(0);
-}
-
-const response = await fetch("https://api.indexnow.org/indexnow", {
-  method: "POST",
-  headers: { "content-type": "application/json; charset=utf-8" },
-  body: JSON.stringify(payload),
-  signal: AbortSignal.timeout(15_000),
+import { readFile, mkdir, writeFile, rename } from "node:fs/promises";
+import { resolve, dirname } from "node:path";
+import { createHash } from "node:crypto";
+import { parseArgs } from "node:util";
+import {
+  SITE_ORIGIN,
+  canonicalUrl,
+  chooseUrls,
+  notify,
+  acknowledgedState,
+} from "./lib/indexnow.mjs";
+const { values } = parseArgs({
+  options: {
+    "dry-run": { type: "boolean", default: false },
+    all: { type: "boolean", default: false },
+    live: { type: "boolean", default: false },
+    url: { type: "string", multiple: true },
+    state: { type: "string", default: ".artifacts/indexnow/state.json" },
+  },
 });
-
-if (!response.ok)
-  throw new Error(
-    `IndexNow returned ${response.status} ${response.statusText}.`,
-  );
-
-console.log(
-  `IndexNow accepted ${urlList.length} canonical URLs (${response.status}).`,
+const statePath = resolve(values.state),
+  root = resolve("dist");
+async function publicText(url) {
+  if (new URL(url).origin !== SITE_ORIGIN)
+    throw new Error("Public discovery fetch escaped the production origin.");
+  const response = await fetch(url, {
+    cache: "no-store",
+    redirect: "error",
+    signal: AbortSignal.timeout(20_000),
+  });
+  if (response.status !== 200)
+    throw new Error(
+      `Public discovery resource returned HTTP ${response.status}; no notifications sent.`,
+    );
+  return response.text();
+}
+const sitemap = values.live
+    ? await publicText(`${SITE_ORIGIN}/sitemap-0.xml`)
+    : await readFile(resolve(root, "sitemap-0.xml"), "utf8"),
+  current = {};
+const canonicalList = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(
+  ([, value]) => canonicalUrl(value.replaceAll("&amp;", "&")),
 );
+let nextUrl = 0;
+await Promise.all(
+  Array.from({ length: 4 }, async () => {
+    while (nextUrl < canonicalList.length) {
+      const url = canonicalList[nextUrl++];
+      let html;
+      if (values.live) {
+        html = await publicText(url);
+        if (
+          /<meta\b[^>]*name=["']robots["'][^>]*content=["'][^"']*noindex/i.test(
+            html,
+          )
+        )
+          throw new Error(
+            "Live sitemap includes a noindex page; refusing notification.",
+          );
+      } else {
+        const file = resolve(root, "." + new URL(url).pathname, "index.html");
+        if (!file.startsWith(root + "/"))
+          throw new Error("Sitemap path escaped build output.");
+        html = await readFile(file);
+      }
+      current[url] = createHash("sha256").update(html).digest("hex");
+    }
+  }),
+);
+if (!Object.keys(current).length)
+  throw new Error("No canonical URLs found in the built sitemap.");
+let previous = {};
+try {
+  const saved = JSON.parse(await readFile(statePath, "utf8"));
+  if (
+    saved.origin !== SITE_ORIGIN ||
+    !saved.hashes ||
+    typeof saved.hashes !== "object" ||
+    Array.isArray(saved.hashes)
+  )
+    throw new Error(
+      "Invalid IndexNow state; refusing a fallback full submission.",
+    );
+  for (const [url, hash] of Object.entries(saved.hashes)) {
+    canonicalUrl(url);
+    if (typeof hash !== "string" || !/^[a-f0-9]{64}$/.test(hash))
+      throw new Error("Invalid saved URL fingerprint.");
+  }
+  previous = saved.hashes;
+} catch (error) {
+  if (error.code !== "ENOENT") throw error;
+}
+const urlList = chooseUrls(current, previous, {
+  all: values.all,
+  urls: values.url ?? [],
+});
+if (values["dry-run"]) {
+  console.log(
+    JSON.stringify(
+      {
+        dryRun: true,
+        mode: values.all ? "all" : values.url?.length ? "targeted" : "changed",
+        urlList,
+      },
+      null,
+      2,
+    ),
+  );
+} else if (!urlList.length) {
+  console.log("IndexNow: no changed canonical URLs; no notification sent.");
+} else {
+  const { statuses } = await notify(urlList);
+  await mkdir(dirname(statePath), { recursive: true });
+  const next = {
+    version: 1,
+    origin: SITE_ORIGIN,
+    hashes: acknowledgedState(current, previous, urlList),
+    acceptedAt: new Date().toISOString(),
+    statuses,
+  };
+  await writeFile(`${statePath}.tmp`, JSON.stringify(next, null, 2));
+  await rename(`${statePath}.tmp`, statePath);
+  console.log(
+    `IndexNow received ${urlList.length} changed/targeted URLs (HTTP ${statuses.join(", ")}).${statuses.includes(202) ? " Ownership validation is still pending." : ""} Receipt is not a guarantee of indexing or rankings.`,
+  );
+}

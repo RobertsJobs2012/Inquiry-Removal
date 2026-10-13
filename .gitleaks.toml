@@ -1,0 +1,7 @@
+title = "Inquiry Removal credential guard"
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Public IndexNow ownership key, intentionally served from the website; not an authentication credential"
+regexes = ['''9db1eb516e99ccbf93962d2ee991beb3''']

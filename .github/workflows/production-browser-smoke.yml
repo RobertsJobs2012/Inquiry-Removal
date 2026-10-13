@@ -8,6 +8,8 @@ on:
     branches: [main]
     paths:
       - scripts/browser-smoke.mjs
+      - scripts/visual-regression.mjs
+      - tests/visual-baselines/**
       - .github/workflows/production-browser-smoke.yml
   schedule:
     - cron: "17 12 * * *"
@@ -37,7 +39,7 @@ jobs:
         run: npm ci --no-audit --no-fund
 
       - name: Install transient browser test dependencies
-        run: npm install --no-save --package-lock=false --ignore-scripts --no-audit --no-fund playwright@1.62.1 @axe-core/playwright@4.13.0
+        run: npm install --no-save --package-lock=false --ignore-scripts --no-audit --no-fund playwright@1.62.1 @axe-core/playwright@4.13.0 lighthouse@13.5.0 pixelmatch@8.0.0 pngjs@7.0.0
 
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
@@ -47,6 +49,17 @@ jobs:
           SITE_URL: https://www.inquiryremoval.com
         run: node scripts/browser-smoke.mjs
 
+      - name: Record initial visual snapshots for review
+        env:
+          SITE_URL: https://www.inquiryremoval.com
+          VISUAL_MODE: record
+        run: node scripts/visual-regression.mjs
+
+      - name: Enforce three-run mobile performance budgets
+        env:
+          SITE_URL: https://www.inquiryremoval.com
+        run: node scripts/lighthouse-budgets.mjs
+
       - name: Upload browser artifacts
         if: always()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
@@ -54,4 +67,18 @@ jobs:
           name: production-browser-smoke
           path: .artifacts/browser-smoke
           if-no-files-found: ignore
+          retention-days: 7
+      - name: Upload visual evidence
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        with:
+          name: visual-snapshots
+          path: .artifacts/visual
+          retention-days: 7
+      - name: Upload performance evidence
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        with:
+          name: lighthouse-budgets
+          path: .artifacts/performance
           retention-days: 7

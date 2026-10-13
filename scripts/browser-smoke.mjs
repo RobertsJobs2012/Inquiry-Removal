@@ -17,15 +17,21 @@ const expect = (condition, message) => {
   if (!condition) throw new Error(message);
 };
 
-const navigationMetrics = (page) => page.evaluate(() => ({
-  targetTop: document.querySelector("#specialists").getBoundingClientRect().top,
-  clearance: getComputedStyle(document.documentElement).scrollPaddingTop,
-  jumpTop: document.querySelector(".page-jump").getBoundingClientRect().top,
-  headerBottom: document.querySelector("[data-header]").getBoundingClientRect().bottom,
-  headerHidden: document.querySelector("[data-header]").classList.contains("is-hidden"),
-  rootHidden: document.documentElement.classList.contains("header-is-hidden"),
-  scrollY: window.scrollY,
-}));
+const navigationMetrics = (page) =>
+  page.evaluate(() => ({
+    targetTop: document.querySelector("#specialists").getBoundingClientRect()
+      .top,
+    clearance: getComputedStyle(document.documentElement).scrollPaddingTop,
+    jumpTop: document.querySelector(".page-jump").getBoundingClientRect().top,
+    headerBottom: document
+      .querySelector("[data-header]")
+      .getBoundingClientRect().bottom,
+    headerHidden: document
+      .querySelector("[data-header]")
+      .classList.contains("is-hidden"),
+    rootHidden: document.documentElement.classList.contains("header-is-hidden"),
+    scrollY: window.scrollY,
+  }));
 
 const checkAccessibility = async (name, page) => {
   const results = await new AxeBuilder({ page })
@@ -137,6 +143,19 @@ await run("desktop-home", { width: 1440, height: 1000 }, async (page) => {
     csp.includes("https://fonts.googleapis.com"),
     "homepage CSP is missing the approved Google Fonts origin",
   );
+  const scriptPolicy =
+    csp
+      .split(";")
+      .find((directive) => directive.trim().startsWith("script-src ")) ?? "";
+  expect(
+    !scriptPolicy.includes("'unsafe-inline'") &&
+      !scriptPolicy.includes("'unsafe-eval'"),
+    "script CSP still permits unsafe inline/eval code",
+  );
+  expect(
+    csp.includes("script-src-attr 'none'"),
+    "inline event handlers are not explicitly blocked",
+  );
   expect(await page.locator("h1").isVisible(), "homepage H1 is not visible");
   expect(
     await page.locator("footer.site-footer").isVisible(),
@@ -177,59 +196,103 @@ await run("desktop-home", { width: 1440, height: 1000 }, async (page) => {
     "homepage bureau tab does not respond to pointer clicks",
   );
   await page.getByRole("tab", { name: "All 3", exact: true }).click();
+  const firstTab = page.getByRole("tab", { name: "All 3", exact: true });
+  await firstTab.press("ArrowRight");
+  expect(
+    (await page
+      .getByRole("tab", { name: "Experian", exact: true })
+      .getAttribute("aria-selected")) === "true",
+    "bureau tabs ignore keyboard arrows",
+  );
+  expect(
+    (await page.locator('[role="tab"][tabindex="0"]').count()) === 1,
+    "bureau tab focus is not roving",
+  );
+  await page.getByRole("tab", { name: "Experian", exact: true }).press("End");
+  expect(
+    (await page
+      .getByRole("tab", { name: "TransUnion", exact: true })
+      .getAttribute("aria-selected")) === "true",
+    "bureau tabs ignore End",
+  );
+  await page
+    .getByRole("tab", { name: "TransUnion", exact: true })
+    .press("Home");
+  expect(
+    (await firstTab.getAttribute("aria-selected")) === "true",
+    "bureau tabs ignore Home",
+  );
   await page.locator('.page-jump a[href="#specialists"]').click();
-  await page.waitForFunction(() => {
-    const targetTop = document
-      .querySelector("#specialists")
-      .getBoundingClientRect().top;
-    const clearance = Number.parseFloat(
-      getComputedStyle(document.documentElement).scrollPaddingTop,
-    );
-    // Wait for the anchor scroll to finish before reversing direction. The
-    // jump bar reaches its sticky position before the smooth scroll settles.
-    return (
-      Math.abs(targetTop - clearance) <= 4 &&
-      document.documentElement.classList.contains("header-is-hidden") &&
-      document.querySelector(".page-jump").getBoundingClientRect().top <= 12
-    );
-  }).catch(async () => {
-    throw new Error(`chapter anchor did not settle: ${JSON.stringify(await navigationMetrics(page))}`);
-  });
+  await page
+    .waitForFunction(() => {
+      const targetTop = document
+        .querySelector("#specialists")
+        .getBoundingClientRect().top;
+      const clearance = Number.parseFloat(
+        getComputedStyle(document.documentElement).scrollPaddingTop,
+      );
+      // Wait for the anchor scroll to finish before reversing direction. The
+      // jump bar reaches its sticky position before the smooth scroll settles.
+      return (
+        Math.abs(targetTop - clearance) <= 4 &&
+        document.documentElement.classList.contains("header-is-hidden") &&
+        document.querySelector(".page-jump").getBoundingClientRect().top <= 12
+      );
+    })
+    .catch(async () => {
+      throw new Error(
+        `chapter anchor did not settle: ${JSON.stringify(await navigationMetrics(page))}`,
+      );
+    });
   // Being within four pixels of the target does not mean the compositor has
   // completed the smooth anchor scroll. Require an unchanged position across
   // consecutive animation frames before introducing another input gesture.
-  await page.evaluate(() => new Promise((resolve, reject) => {
-    let previous = window.scrollY;
-    let stableFrames = 0;
-    let frames = 0;
-    const sample = () => {
-      const current = window.scrollY;
-      stableFrames = current === previous ? stableFrames + 1 : 0;
-      previous = current;
-      if (stableFrames >= 12) return resolve();
-      if (++frames >= 300) return reject(new Error("anchor scroll never stopped"));
-      requestAnimationFrame(sample);
-    };
-    requestAnimationFrame(sample);
-  }));
+  await page.evaluate(
+    () =>
+      new Promise((resolve, reject) => {
+        let previous = window.scrollY;
+        let stableFrames = 0;
+        let frames = 0;
+        const sample = () => {
+          const current = window.scrollY;
+          stableFrames = current === previous ? stableFrames + 1 : 0;
+          previous = current;
+          if (stableFrames >= 12) return resolve();
+          if (++frames >= 300)
+            return reject(new Error("anchor scroll never stopped"));
+          requestAnimationFrame(sample);
+        };
+        requestAnimationFrame(sample);
+      }),
+  );
   const beforeWheel = await navigationMetrics(page);
   await page.mouse.move(1100, 500);
   await page.mouse.wheel(0, -240);
-  await page.waitForFunction((previousY) => window.scrollY < previousY - 8,
-    beforeWheel.scrollY,
-  ).catch(async () => {
-    throw new Error(`upward wheel did not move the page: ${JSON.stringify(await navigationMetrics(page))}`);
-  });
-  await page.waitForFunction(() => {
-    const header = document.querySelector("[data-header]");
-    const jump = document.querySelector(".page-jump");
-    return (
-      !header.classList.contains("is-hidden") &&
-      jump.getBoundingClientRect().top >= header.getBoundingClientRect().bottom
-    );
-  }).catch(async () => {
-    throw new Error(`upward scroll did not restore header clearance: ${JSON.stringify(await navigationMetrics(page))}`);
-  });
+  await page
+    .waitForFunction(
+      (previousY) => window.scrollY < previousY - 8,
+      beforeWheel.scrollY,
+    )
+    .catch(async () => {
+      throw new Error(
+        `upward wheel did not move the page: ${JSON.stringify(await navigationMetrics(page))}`,
+      );
+    });
+  await page
+    .waitForFunction(() => {
+      const header = document.querySelector("[data-header]");
+      const jump = document.querySelector(".page-jump");
+      return (
+        !header.classList.contains("is-hidden") &&
+        jump.getBoundingClientRect().top >=
+          header.getBoundingClientRect().bottom
+      );
+    })
+    .catch(async () => {
+      throw new Error(
+        `upward scroll did not restore header clearance: ${JSON.stringify(await navigationMetrics(page))}`,
+      );
+    });
   await checkAccessibility("desktop-home", page);
 });
 
@@ -616,6 +679,120 @@ await run(
     await expectNativeFallback(page);
   },
   { reducedMotion: "no-preference" },
+);
+
+await run("keyboard-mobile-menu", { width: 390, height: 844 }, async (page) => {
+  await page.goto(`${base}/`, { waitUntil: "networkidle" });
+  const trigger = page.locator("[data-menu-button]");
+  await trigger.press("Enter");
+  await page.waitForFunction(() =>
+    document
+      .querySelector("[data-mobile-nav]")
+      .contains(document.activeElement),
+  );
+  expect(
+    await page.locator("main").evaluate((node) => node.inert),
+    "mobile overlay leaves background keyboard-accessible",
+  );
+  for (let index = 0; index < 18; index++) {
+    await page.keyboard.press("Tab");
+    expect(
+      await page.evaluate(() =>
+        document
+          .querySelector("[data-header]")
+          .contains(document.activeElement),
+      ),
+      "keyboard focus escaped the open menu",
+    );
+  }
+  await page.keyboard.press("Escape");
+  expect(
+    (await trigger.getAttribute("aria-expanded")) === "false",
+    "Escape did not close the menu",
+  );
+  expect(
+    await trigger.evaluate((node) => document.activeElement === node),
+    "Escape did not restore trigger focus",
+  );
+  expect(
+    !(await page.locator("main").evaluate((node) => node.inert)),
+    "closed menu leaves content inert",
+  );
+});
+
+await run(
+  "reduced-motion-home",
+  { width: 1440, height: 1000 },
+  async (page) => {
+    await page.goto(`${base}/`, { waitUntil: "networkidle" });
+    expect(
+      await page.evaluate(
+        () =>
+          getComputedStyle(document.documentElement).scrollBehavior === "auto",
+      ),
+      "reduced motion still forces smooth scrolling",
+    );
+    expect(
+      await page.locator("h1").isVisible(),
+      "reduced motion hides the heading",
+    );
+    expect(
+      (await page.locator(".reveal-animate").count()) === 0,
+      "reduced motion still starts reveal animations",
+    );
+  },
+  { reducedMotion: "reduce" },
+);
+
+for (const width of [320, 720, 768, 1024]) {
+  await run(`reflow-review-${width}`, { width, height: 1000 }, async (page) => {
+    await page.goto(`${base}/free-inquiry-review/`, {
+      waitUntil: "networkidle",
+    });
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= innerWidth,
+      ),
+      "review has horizontal overflow at the reflow width",
+    );
+    expect(
+      await page.locator("[data-review-form].is-enhanced").isVisible(),
+      "review enhancement failed at reflow width",
+    );
+    await page.locator("[data-review-next]").click();
+    expect(
+      await page.locator('[aria-invalid="true"]').isVisible(),
+      "missing field is not identified at reflow width",
+    );
+  });
+}
+
+await run(
+  "dark-os-review",
+  { width: 390, height: 844 },
+  async (page) => {
+    await page.goto(`${base}/free-inquiry-review/`, {
+      waitUntil: "networkidle",
+    });
+    const colors = await page
+      .locator('[data-review-step="1"] input:not([type="hidden"])')
+      .evaluateAll((nodes) =>
+        nodes.map((node) => ({
+          background: getComputedStyle(node).backgroundColor,
+          color: getComputedStyle(node).color,
+        })),
+      );
+    expect(
+      colors.length >= 3 &&
+        colors.every(
+          (color) =>
+            color.background === "rgb(255, 255, 255)" &&
+            color.color === "rgb(23, 32, 51)",
+        ),
+      "OS dark mode changes contact-field contrast",
+    );
+  },
+  { colorScheme: "dark" },
 );
 
 const apiContext = await browser.newContext();

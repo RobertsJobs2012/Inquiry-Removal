@@ -20,29 +20,38 @@ const offerHref =
     <span class="labor-day-announcement__topline">
       <span class="labor-day-announcement__event">Labor Day Weekend</span>
       <strong class="labor-day-announcement__offer">50% OFF</strong>
-      <span class="labor-day-announcement__cta">Claim Offer <i aria-hidden="true">→</i></span>
+      <span class="labor-day-announcement__cta">
+        Claim Offer <i aria-hidden="true">→</i>
+      </span>
     </span>
 
     <span class="labor-day-announcement__bottomline">
-      <span class="labor-day-announcement__deadline">Ends Sunday at midnight</span>
+      <span class="labor-day-announcement__deadline">
+        Ends Sunday at midnight
+      </span>
       <span class="labor-day-announcement__countdown" aria-hidden="true">
-        <b data-promo-days>00</b><small>D</small>
+        <b data-promo-days>00</b>
+        <small>D</small>
         <i>:</i>
-        <b data-promo-hours>00</b><small>H</small>
+        <b data-promo-hours>00</b>
+        <small>H</small>
         <i>:</i>
-        <b data-promo-minutes>00</b><small>M</small>
+        <b data-promo-minutes>00</b>
+        <small>M</small>
         <i>:</i>
-        <b data-promo-seconds>00</b><small>S</small>
+        <b data-promo-seconds>00</b>
+        <small>S</small>
       </span>
     </span>
 
     <span class="sr-only">
-      Labor Day weekend: 50 percent off. Offer ends Sunday, September 6, 2026 at 11:59 PM Arizona time.
+      Labor Day weekend: 50 percent off. Offer ends Sunday, September 6, 2026 at
+      11:59 PM Arizona time.
     </span>
   </a>
 </div>
 
-<script is:inline>
+<script>
   (() => {
     const bar = document.querySelector("[data-labor-day-announcement]");
     if (!(bar instanceof HTMLElement)) return;
@@ -55,9 +64,9 @@ const offerHref =
     const hours = bar.querySelector("[data-promo-hours]");
     const minutes = bar.querySelector("[data-promo-minutes]");
     const seconds = bar.querySelector("[data-promo-seconds]");
-    let timer;
+    let timer: number | undefined;
 
-    const setValue = (node, value) => {
+    const setValue = (node: Element | null, value: number) => {
       if (node) node.textContent = String(value).padStart(2, "0");
     };
 
@@ -108,8 +117,16 @@ const offerHref =
       overflow: hidden;
       color: #fff;
       background:
-        radial-gradient(circle at 18% -60%, rgba(121, 199, 255, 0.32), transparent 46%),
-        radial-gradient(circle at 88% 160%, rgba(15, 112, 215, 0.32), transparent 48%),
+        radial-gradient(
+          circle at 18% -60%,
+          rgba(121, 199, 255, 0.32),
+          transparent 46%
+        ),
+        radial-gradient(
+          circle at 88% 160%,
+          rgba(15, 112, 215, 0.32),
+          transparent 48%
+        ),
         linear-gradient(112deg, #061727 0%, #0a2945 48%, #081b2c 100%);
       border-bottom: 1px solid rgba(121, 199, 255, 0.26);
       box-shadow:
@@ -328,7 +345,9 @@ const offerHref =
   }
 
   @keyframes labor-day-sheen {
-    0%, 72%, 100% {
+    0%,
+    72%,
+    100% {
       transform: translateX(0) rotate(18deg);
       opacity: 0;
     }

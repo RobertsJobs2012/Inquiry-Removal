@@ -20,6 +20,13 @@ pnpm-debug.log*
 # environment variables
 .env
 .env.production
+.env.*
+!.env.example
+!.env.sample
+
+# local QA reports and deployment/account state
+.artifacts/
+.vercel/
 
 # macOS-specific files
 .DS_Store

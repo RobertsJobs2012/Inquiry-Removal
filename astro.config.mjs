@@ -25,4 +25,12 @@ export default defineConfig({
     // technical audit also prevents oversized page-level inline CSS.
     inlineStylesheets: "auto",
   },
+  vite: {
+    build: {
+      // Keep executable modules in immutable files so script-src needs no
+      // unsafe-inline exception. JSON-LD remains an inert inline data block.
+      assetsInlineLimit: (filePath) =>
+        filePath.endsWith(".js") ? false : undefined,
+    },
+  },
 });

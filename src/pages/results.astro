@@ -205,44 +205,61 @@ const schema = [
   </main>
   <Footer />
 
-  <script is:inline>
+  <script>
     (() => {
-      const situation = document.querySelector('[data-situation]');
-      const bureau = document.querySelector('[data-bureau]');
-      const count = document.querySelector('[data-count]');
-      const cards = Array.from(document.querySelectorAll('[data-case]'));
-      const status = document.querySelector('[data-status]');
-      const empty = document.querySelector('[data-empty]');
-      if (!(situation instanceof HTMLSelectElement) || !(bureau instanceof HTMLSelectElement) || !(count instanceof HTMLSelectElement)) return;
+      const situation = document.querySelector("[data-situation]");
+      const bureau = document.querySelector("[data-bureau]");
+      const count = document.querySelector("[data-count]");
+      const cards = Array.from(document.querySelectorAll("[data-case]"));
+      const status = document.querySelector("[data-status]");
+      const empty = document.querySelector("[data-empty]");
+      if (
+        !(situation instanceof HTMLSelectElement) ||
+        !(bureau instanceof HTMLSelectElement) ||
+        !(count instanceof HTMLSelectElement)
+      )
+        return;
 
       const params = new URLSearchParams(location.search);
-      if (params.get('situation')) situation.value = params.get('situation');
-      if (params.get('bureau')) bureau.value = params.get('bureau');
-      if (params.get('count')) count.value = params.get('count');
+      const initialSituation = params.get("situation");
+      const initialBureau = params.get("bureau");
+      const initialCount = params.get("count");
+      if (initialSituation) situation.value = initialSituation;
+      if (initialBureau) bureau.value = initialBureau;
+      if (initialCount) count.value = initialCount;
 
       const apply = () => {
         let shown = 0;
         cards.forEach((node) => {
           if (!(node instanceof HTMLElement)) return;
           const visible =
-            (situation.value === 'all' || node.dataset.situationKey === situation.value) &&
-            (bureau.value === 'all' || node.dataset.bureauKey === bureau.value) &&
-            (count.value === 'all' || node.dataset.countKey === count.value);
+            (situation.value === "all" ||
+              node.dataset.situationKey === situation.value) &&
+            (bureau.value === "all" ||
+              node.dataset.bureauKey === bureau.value) &&
+            (count.value === "all" || node.dataset.countKey === count.value);
           node.hidden = !visible;
           if (visible) shown += 1;
         });
-        if (status) status.textContent = shown ? `Showing ${shown} matching case-layout placeholder${shown === 1 ? '' : 's'}. These are not client results.` : 'No case-layout placeholder matches those filters.';
+        if (status)
+          status.textContent = shown
+            ? `Showing ${shown} matching case-layout placeholder${shown === 1 ? "" : "s"}. These are not client results.`
+            : "No case-layout placeholder matches those filters.";
         if (empty instanceof HTMLElement) empty.hidden = shown > 0;
         const next = new URLSearchParams();
-        if (situation.value !== 'all') next.set('situation', situation.value);
-        if (bureau.value !== 'all') next.set('bureau', bureau.value);
-        if (count.value !== 'all') next.set('count', count.value);
-        history.replaceState({}, '', `${location.pathname}${next.toString() ? `?${next}` : ''}#case-library`);
+        if (situation.value !== "all") next.set("situation", situation.value);
+        if (bureau.value !== "all") next.set("bureau", bureau.value);
+        if (count.value !== "all") next.set("count", count.value);
+        history.replaceState(
+          {},
+          "",
+          `${location.pathname}${next.toString() ? `?${next}` : ""}#case-library`,
+        );
       };
 
-      situation.addEventListener('change', apply);
-      bureau.addEventListener('change', apply);
-      count.addEventListener('change', apply);
+      situation.addEventListener("change", apply);
+      bureau.addEventListener("change", apply);
+      count.addEventListener("change", apply);
       if (params.toString()) apply();
     })();
   </script>

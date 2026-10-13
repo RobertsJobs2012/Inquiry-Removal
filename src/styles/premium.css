@@ -706,9 +706,10 @@ body {
   position: relative;
   border-radius: 999px;
   transition:
-    color var(--ir-control),
-    background var(--ir-control),
-    transform var(--ir-control) var(--ir-ease-spring);
+    transform var(--ir-control) var(--ir-ease-spring),
+    box-shadow var(--ir-control) var(--ir-ease-out);
+  /* Foreground/background states switch together. A color tween after an
+     active pill becomes inactive briefly puts pale text on its white surface. */
 }
 
 .page-jump a:hover,
