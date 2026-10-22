@@ -68,3 +68,5 @@ Production release and CI outcomes are recorded below after deployment. Earlier 
 ## Release state
 
 Initial production release: `afccc5ad20318caec3af9121e609031bae13075e`, Vercel `dpl_526vmectCwZdkcsq18LKN5fi7dKx`, READY on the canonical domain. All 45 production GET checks and live smoke checks passed. Build/security CI and production interaction/accessibility tests passed. Visual comparison correctly flagged intentional content/layout changes; baselines are not yet accepted. Final parity/clearance correction and post-release screenshot/performance verification are in progress.
+
+Final website correction: `dda3735bc26b25e7194cc76c4012b6f926cc25dc`, Vercel `dpl_8uCHhjosXBjEfqSm5LzQptZrr2SF`, READY. Desktop pricing introduction and review-breadcrumb placement verified on the canonical live site. Production browser/accessibility run `39724023025` passed, including the new all-page introduction-visibility and navbar-clearance checks. All eight resulting desktop/mobile screenshots were reviewed before updating the visual fixtures; comparison against those accepted fixtures and fresh lab performance remain pending.
