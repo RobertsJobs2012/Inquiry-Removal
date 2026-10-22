@@ -1,8 +1,8 @@
 {
   "reviewedLocalDate": "2026-10-22",
-  "releaseSha": "2ef48034907416ef00732adef3fc3e3f89934ef1",
+  "releaseSha": "2c48b095c293c692d045c77d9c6fc65b2345e776",
   "productionUrl": "https://www.inquiryremoval.com",
-  "evidenceRun": "https://github.com/RobertsJobs2012/Inquiry-Removal/actions/runs/39755692075",
+  "evidenceRun": "https://github.com/RobertsJobs2012/Inquiry-Removal/actions/runs/39761621397",
   "chromium": "151.0.0.0",
   "playwright": "1.62.1",
   "scale": 1,
@@ -11,5 +11,5 @@
   "reducedMotion": "reduce",
   "colorScheme": "light",
   "scope": "Initial viewport of home, pricing, review entry, and timeline guide; not a full-page or every-page visual certification.",
-  "review": "All eight actual production screenshots reviewed before acceptance for the visual-only refresh. Six final images match the reviewed initial release byte for byte; the two changed mobile images were reviewed again after breadcrumb alignment. Copy remains identical across all 49 built HTML pages. Existing pixel-difference thresholds are unchanged. Baselines are not automatically regenerated."
+  "review": "All eight actual production screenshots manually reviewed before acceptance for dimensional material restoration. Rich glass controls and navigation states retain legible labels; the homepage report labels occupy a dedicated row below the panel without overlapping its contents. The production browser/accessibility smoke passed before baseline acceptance, including the five-width report-label regression in run 39761647770. Copy remains identical across all 49 built HTML pages and 45 principal live routes. Existing pixel-difference thresholds are unchanged. Baselines are not automatically regenerated."
 }
