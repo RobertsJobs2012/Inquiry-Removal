@@ -1,4 +1,51 @@
 /* Keep answers ahead of the optional service action at every breakpoint. */
+.hero-interface {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px 12px;
+  align-items: start;
+}
+.hero-interface > .report-panel {
+  grid-column: 1 / -1;
+  min-width: 0;
+  border-color: #a7dcff40;
+  background:
+    radial-gradient(
+      circle at var(--pointer-x) var(--pointer-y),
+      #4abeff1f,
+      transparent 42%
+    ),
+    linear-gradient(145deg, #173e59eb, #071d30f0 72%);
+  box-shadow:
+    inset 0 1px 0 #ffffff38,
+    inset 1px 0 0 #acdfff0f,
+    0 4px 8px #00000014,
+    0 32px 70px #00000047,
+    0 0 60px #3296d30b;
+}
+.hero-interface > .floating-label {
+  position: relative;
+  inset: auto;
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 10px;
+  border-radius: 12px;
+  color: #c8dae7;
+  background: linear-gradient(150deg, #173a50bf, #071a2bcf);
+  box-shadow:
+    inset 0 1px 0 #ffffff14,
+    0 8px 20px #0000001f;
+  line-height: 1.5;
+  text-align: center;
+  animation: none;
+  transform: none;
+}
+.hero-interface > .floating-label i {
+  flex: 0 0 6px;
+  box-shadow: 0 0 12px #5ae0c566;
+}
 .hero-summary {
   display: block;
   max-width: 65ch;
