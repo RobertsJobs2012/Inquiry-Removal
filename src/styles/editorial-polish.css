@@ -145,6 +145,8 @@ main h2 {
   padding-bottom: 72px;
 }
 .breadcrumb {
+  align-items: center;
+  flex-wrap: wrap;
   margin-bottom: 28px;
   color: #a9bfce;
   font-size: 0.75rem;

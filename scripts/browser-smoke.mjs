@@ -950,6 +950,66 @@ for (const width of [320, 768, 1440]) {
   );
 }
 
+// Guard the visual defects found during the October design audit.
+for (const width of [390, 1440]) {
+  await run(
+    `home-form-legibility-${width}`,
+    { width, height: 1000 },
+    async (page) => {
+      await page.goto(`${base}/#free-review`, { waitUntil: "networkidle" });
+      const color = await page
+        .locator(".native-review-step legend")
+        .first()
+        .evaluate((node) => getComputedStyle(node).color);
+      expect(
+        color === "rgb(23, 32, 51)",
+        "homepage form question lost its ink color on the pale card",
+      );
+      await checkAccessibility(`home-form-legibility-${width}`, page);
+    },
+  );
+}
+await run(
+  "wide-desktop-dealership",
+  { width: 1920, height: 1080 },
+  async (page) => {
+    await page.goto(`${base}/dealership-inquiries/`, {
+      waitUntil: "networkidle",
+    });
+    await page.evaluate(() => document.fonts.ready);
+    const heading = await page.locator("h1").boundingBox();
+    expect(
+      heading && heading.height < 500,
+      "constrained dealership headline is oversized on wide desktop",
+    );
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= innerWidth,
+      ),
+      "wide desktop overflows",
+    );
+  },
+);
+await run(
+  "sidebar-button-layout",
+  { width: 1440, height: 1000 },
+  async (page) => {
+    for (const route of ["/contact/", "/resources/"]) {
+      await page.goto(base + route, { waitUntil: "networkidle" });
+      const styles = await page
+        .locator(".content-index .button")
+        .evaluate((node) => ({
+          padding: parseFloat(getComputedStyle(node).paddingLeft),
+          align: getComputedStyle(node).justifyContent,
+        }));
+      expect(
+        styles.padding >= 16 && styles.align === "center",
+        route + " sidebar button has lost label spacing",
+      );
+    }
+  },
+);
+
 const apiContext = await browser.newContext();
 const apiResponse = await apiContext.request.get(`${base}/api/free-review`);
 if (apiResponse.status() !== 405)
