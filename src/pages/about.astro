@@ -1,10 +1,16 @@
 ---
+import { editorialPlan } from "../data/editorial";
+import PracticalContent from "../components/PracticalContent.astro";
+const revision = editorialPlan["/about/"];
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 import PhoneReviewPanel from "../components/PhoneReviewPanel.astro";
 import { SITE_ORIGIN } from "../data/discovery.mjs";
-import { CONTENT_UPDATED_ISO, CONTENT_UPDATED_LABEL } from "../data/contentDates";
+import {
+  EDITORIAL_UPDATED_ISO as CONTENT_UPDATED_ISO,
+  EDITORIAL_UPDATED_LABEL as CONTENT_UPDATED_LABEL,
+} from "../data/contentDates";
 
 const schema = [
   {
@@ -81,33 +87,48 @@ const reviewSteps = [
       <div class="container page-hero-grid">
         <div>
           <nav class="breadcrumb" aria-label="Breadcrumb">
-            <a href="/">Home</a><span>/</span><span>About</span>
+            <a href="/">Home</a>
+            <span>/</span>
+            <span>About</span>
           </nav>
           <p class="eyebrow eyebrow--light">
             <span></span> Founder and Senior Credit Analyst
           </p>
-          <h1>Robert Garcia and the Story Behind Inquiry Removal.</h1>
-          <p>
-            A nationwide hard inquiry removal service built from firsthand frustration—and shaped
-            around one narrow mission: helping consumers remove unwanted hard
-            inquiries without managing the process alone.
-          </p>
+          <h1>{revision.title}</h1>
+          <p class="hero-summary">{revision.supporting}</p>
           <div class="button-row">
-            <a class="button" href="/free-inquiry-review/">Get My Free Inquiry Review <span>→</span></a>
-            <a class="text-link text-link--light" href="/how-it-works/">See How It Works <span>↘</span></a>
+            <a class="button" href="/free-inquiry-review/">
+              Get My Free Inquiry Review <span>→</span>
+            </a>
+            <a class="text-link text-link--light" href="/how-it-works/">
+              See How It Works <span>↘</span>
+            </a>
           </div>
-          <p class="cta-microcopy">Free personal review. One-time pricing. No monthly membership.</p>
+          <p class="cta-microcopy">
+            Free personal review. One-time pricing. No monthly membership.
+          </p>
         </div>
         <aside class="about-identity" aria-label="Robert Garcia profile">
-          <div class="about-monogram" aria-hidden="true">RG</div>
+          <div class="about-monogram" aria-hidden="true">
+            RG
+          </div>
           <div>
             <strong>Robert Garcia</strong>
             <span>Founder and Senior Credit Analyst</span>
           </div>
           <dl>
-            <div><dt>Specializing since</dt><dd>2015</dd></div>
-            <div><dt>Focus</dt><dd>Hard inquiries only</dd></div>
-            <div><dt>Service area</dt><dd>Nationwide</dd></div>
+            <div>
+              <dt>Specializing since</dt>
+              <dd>2015</dd>
+            </div>
+            <div>
+              <dt>Focus</dt>
+              <dd>Hard inquiries only</dd>
+            </div>
+            <div>
+              <dt>Service area</dt>
+              <dd>Nationwide</dd>
+            </div>
           </dl>
         </aside>
       </div>
@@ -115,17 +136,32 @@ const reviewSteps = [
 
     <section class="trust-ribbon" aria-label="Company proof">
       <div class="container trust-grid">
-        <div><strong>100,437</strong><span>Inquiries removed</span></div>
-        <div><strong>1,123</strong><span>Clients served</span></div>
-        <div><strong>Since 2015</strong><span>Hard inquiry specialists</span></div>
-        <div><strong>4.9</strong><span>Average client rating</span></div>
+        <div>
+          <strong>100,437</strong>
+          <span>Inquiries removed</span>
+        </div>
+        <div>
+          <strong>1,123</strong>
+          <span>Clients served</span>
+        </div>
+        <div>
+          <strong>Since 2015</strong>
+          <span>Hard inquiry specialists</span>
+        </div>
+        <div>
+          <strong>4.9</strong>
+          <span>Average client rating</span>
+        </div>
       </div>
     </section>
 
+    <PracticalContent slug="about" />
     <section class="section about-origin-section">
       <div class="container about-origin-grid">
         <div data-reveal>
-          <p class="eyebrow"><span></span> Why the company exists</p>
+          <p class="eyebrow">
+            <span></span> Why the company exists
+          </p>
           <h2>The problem became personal before it became a business.</h2>
         </div>
         <div class="about-origin-copy" data-reveal>
@@ -160,7 +196,9 @@ const reviewSteps = [
       <div class="container">
         <div class="section-heading split-heading" data-reveal>
           <div>
-            <p class="eyebrow"><span></span> A fact-first review</p>
+            <p class="eyebrow">
+              <span></span> A fact-first review
+            </p>
             <h2>How Robert evaluates an inquiry situation.</h2>
           </div>
           <p>
@@ -170,15 +208,13 @@ const reviewSteps = [
           </p>
         </div>
         <div class="about-method-grid" data-reveal>
-          {
-            reviewSteps.map((step) => (
-              <article>
-                <span>{step.number}</span>
-                <h3>{step.title}</h3>
-                <p>{step.text}</p>
-              </article>
-            ))
-          }
+          {reviewSteps.map((step) => (
+            <article>
+              <span>{step.number}</span>
+              <h3>{step.title}</h3>
+              <p>{step.text}</p>
+            </article>
+          ))}
         </div>
       </div>
     </section>
@@ -232,7 +268,9 @@ const reviewSteps = [
     <section class="section about-accountability-section">
       <div class="container about-accountability-card" data-reveal>
         <div>
-          <p class="eyebrow"><span></span> Honest expectations</p>
+          <p class="eyebrow">
+            <span></span> Honest expectations
+          </p>
           <h2>A founder’s name should make accountability easier to see.</h2>
         </div>
         <div>
@@ -246,7 +284,10 @@ const reviewSteps = [
             circumstances. If a responsible answer requires more information,
             the company says so.
           </p>
-          <small>Page updated <time datetime={CONTENT_UPDATED_ISO}>{CONTENT_UPDATED_LABEL}</time>.</small>
+          <small>
+            Page updated{" "}
+            <time datetime={CONTENT_UPDATED_ISO}>{CONTENT_UPDATED_LABEL}</time>.
+          </small>
         </div>
       </div>
     </section>

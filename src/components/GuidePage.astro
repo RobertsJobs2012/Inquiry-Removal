@@ -2,9 +2,13 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "./Header.astro";
 import Footer from "./Footer.astro";
+import PracticalContent from "./PracticalContent.astro";
 import type { GuidePage } from "../data/guides";
 import { SITE_ORIGIN } from "../data/discovery.mjs";
-import { CONTENT_UPDATED_ISO, CONTENT_UPDATED_LABEL } from "../data/contentDates";
+import {
+  EDITORIAL_UPDATED_ISO as CONTENT_UPDATED_ISO,
+  EDITORIAL_UPDATED_LABEL as CONTENT_UPDATED_LABEL,
+} from "../data/contentDates";
 
 interface Props {
   page: GuidePage;
@@ -102,34 +106,56 @@ const schema = [
       <div class="container guide-hero__grid">
         <div class="guide-hero__copy" data-reveal>
           <nav class="breadcrumb" aria-label="Breadcrumb">
-            <a href="/">Home</a><span>/</span><a href={breadcrumbHref}
-              >{breadcrumbLabel}</a
-            ><span class="breadcrumb-current-separator">/</span><span
-              class="breadcrumb-current">{page.title}</span
-            >
+            <a href="/">Home</a>
+            <span>/</span>
+            <a href={breadcrumbHref}>{breadcrumbLabel}</a>
+            <span class="breadcrumb-current-separator">/</span>
+            <span class="breadcrumb-current">{page.title}</span>
           </nav>
-          <p class="eyebrow eyebrow--light"><span></span>{page.eyebrow}</p>
+          <p class="eyebrow eyebrow--light">
+            <span></span>
+            {page.eyebrow}
+          </p>
           <h1>{page.title}</h1>
           <p class="guide-hero__support">{page.supporting}</p>
+          {page.slug === "identity-theft-inquiries" && (
+            <p class="guide-safety-first">
+              Protect yourself first:{" "}
+              <a href="https://www.identitytheft.gov/">
+                free FTC recovery steps
+              </a>{" "}
+              and{" "}
+              <a href="#practical-next-steps">bureau protection resources</a>.
+              No paid service is needed to use these resources.
+            </p>
+          )}
           <div class="button-row guide-hero__actions">
             <a
               class="button button--large"
               href={reviewHref}
               data-track="guide-hero"
-              data-context={page.slug}>{page.primaryCta} <span>→</span></a
+              data-context={page.slug}
             >
+              {page.primaryCta} <span>→</span>
+            </a>
             <a
               class="text-link text-link--light"
               href={page.secondaryTarget}
-              data-event={page.secondaryTarget.includes("results")
-                ? "Results Open"
-                : "Guide Section Open"}
+              data-event={
+                page.secondaryTarget.includes("results")
+                  ? "Results Open"
+                  : "Guide Section Open"
+              }
               data-track="guide-secondary"
-              data-context={page.slug}>{page.secondaryCta} <span>↘</span></a
+              data-context={page.slug}
             >
+              {page.secondaryCta} <span>↘</span>
+            </a>
           </div>
           <p class="cta-microcopy">
-            Free personal review. No pressure. Clear one-time pricing.
+            {page.kind === "article"
+              ? "Free guide and tools. Optional specialist help. No guaranteed outcome."
+              : "Free review, not an eligibility verdict. Accurate legitimate inquiries usually need to age off."}
           </p>
         </div>
 
@@ -139,48 +165,56 @@ const schema = [
           data-reveal
         >
           <div class="guide-visual__topline">
-            <span
-              >{
-                page.kind === "article"
-                  ? "Practical guide"
-                  : "Specialist review"
-              }</span
-            ><i></i>
+            <span>
+              {page.kind === "article"
+                ? "Practical guide"
+                : "Specialist review"}
+            </span>
+            <i></i>
           </div>
           <strong>{page.eyebrow}</strong>
           <div class="guide-visual__signal" aria-hidden="true">
-            <span></span><span></span><span></span><span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
           </div>
-          <p>
-            {overviewItems.join("  ·  ")}
-          </p>
+          <p>{overviewItems.join("  ·  ")}</p>
         </aside>
       </div>
     </section>
 
     <section class="guide-proof" aria-label="Company proof">
       <div class="container guide-proof__grid">
-        <div><strong>100,437</strong><span>Inquiries removed</span></div>
-        <div><strong>1,123</strong><span>Clients served</span></div>
         <div>
-          <strong>Since 2015</strong><span>Hard inquiry specialists</span>
+          <strong>100,437</strong>
+          <span>Inquiries removed</span>
         </div>
-        <div><strong>4.9</strong><span>Average rating</span></div>
+        <div>
+          <strong>1,123</strong>
+          <span>Clients served</span>
+        </div>
+        <div>
+          <strong>Since 2015</strong>
+          <span>Hard inquiry specialists</span>
+        </div>
+        <div>
+          <strong>4.9</strong>
+          <span>Average rating</span>
+        </div>
       </div>
       <p>
-        Individual results vary. No specific deletion, timeline, score increase,
-        or approval is guaranteed.
+        Company-reported figures. Individual results vary. No specific deletion,
+        timeline, score increase, or approval is guaranteed.
       </p>
     </section>
 
     <nav class="guide-jump" aria-label="On this page">
       <div class="container">
         <span>On this page</span>
-        {
-          page.sections.map((section, index) => (
-            <a href={`#section-${index + 1}`}>{section.heading}</a>
-          ))
-        }
+        {page.sections.map((section, index) => (
+          <a href={`#section-${index + 1}`}>{section.heading}</a>
+        ))}
         <a href="#questions">Questions</a>
       </div>
     </nav>
@@ -188,120 +222,125 @@ const schema = [
     <section class="section guide-opening">
       <div class="container guide-opening__grid">
         <div class="guide-answer" data-reveal>
-          <p class="eyebrow"><span></span>{page.quickTitle}</p>
+          <p class="eyebrow">
+            <span></span>
+            {page.quickTitle}
+          </p>
           <p>{page.quickAnswer}</p>
         </div>
         <div class="guide-takeaways" data-reveal>
           <span>What to know before you start</span>
           <ul>
-            {page.takeaways.map((item) => <li>{item}</li>)}
+            {page.takeaways.map((item) => (
+              <li>{item}</li>
+            ))}
           </ul>
         </div>
       </div>
-      {
-        page.kind === "article" && (
-          <div class="container guide-author" data-reveal>
-            <div>
-              <>
-                <span>Written by</span>
-                <strong>Robert Garcia</strong>
-              </>
-            </div>
-            <div>
-              <>
-                <span>Role</span>
-                <strong>Founder &amp; Senior Credit Analyst</strong>
-              </>
-            </div>
-            <div>
-              <>
-                <span>Last reviewed</span>
-                <strong><time datetime={CONTENT_UPDATED_ISO}>{CONTENT_UPDATED_LABEL}</time></strong>
-              </>
-            </div>
+      {page.kind === "article" && (
+        <div class="container guide-author" data-reveal>
+          <div>
+            <>
+              <span>Written by</span>
+              <strong>Robert Garcia</strong>
+            </>
           </div>
-        )
-      }
+          <div>
+            <>
+              <span>Role</span>
+              <strong>Founder &amp; Senior Credit Analyst</strong>
+            </>
+          </div>
+          <div>
+            <>
+              <span>Page updated</span>
+              <strong>
+                <time datetime={CONTENT_UPDATED_ISO}>
+                  {CONTENT_UPDATED_LABEL}
+                </time>
+              </strong>
+            </>
+          </div>
+        </div>
+      )}
     </section>
 
+    <PracticalContent slug={page.slug} />
+
     <div class="guide-sections">
-      {
-        page.sections.map((section, index) => (
-          <section
-            class:list={[
-              "section",
-              "guide-section",
-              index % 2 === 1 && "guide-section--tint",
-            ]}
-            id={`section-${index + 1}`}
-          >
-            <div class="container guide-section__grid">
-              <div class="guide-section__number" aria-hidden="true">
-                {String(index + 1).padStart(2, "0")}
-              </div>
-              <div class="guide-section__content" data-reveal>
-                <h2>{section.heading}</h2>
-                {section.body.map((paragraph) => (
-                  <p>{paragraph}</p>
-                ))}
-                {section.bullets && (
-                  <ul class="guide-checklist">
-                    {section.bullets.map((bullet) => (
-                      <li>{bullet}</li>
-                    ))}
-                  </ul>
-                )}
-                {section.cards && (
-                  <div class="guide-card-grid">
-                    {section.cards.map((card) => (
-                      <article>
-                        <h3>{card.title}</h3>
-                        <p>{card.body}</p>
-                      </article>
-                    ))}
-                  </div>
-                )}
-                {section.visual && (
-                  <div
-                    class="guide-media-panel"
-                    role="group"
-                    aria-label={section.visual.title}
-                  >
-                    <div>
-                      <span>Review pathway</span>
-                      <strong>{section.visual.title}</strong>
-                    </div>
-                    <div class="guide-media-panel__items">
-                      {section.visual.items.map((item) => (
-                        <span>{item}</span>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
+      {page.sections.map((section, index) => (
+        <section
+          class:list={[
+            "section",
+            "guide-section",
+            index % 2 === 1 && "guide-section--tint",
+          ]}
+          id={`section-${index + 1}`}
+        >
+          <div class="container guide-section__grid">
+            <div class="guide-section__number" aria-hidden="true">
+              {String(index + 1).padStart(2, "0")}
             </div>
-          </section>
-        ))
-      }
+            <div class="guide-section__content" data-reveal>
+              <h2>{section.heading}</h2>
+              {section.body.map((paragraph) => (
+                <p>{paragraph}</p>
+              ))}
+              {section.bullets && (
+                <ul class="guide-checklist">
+                  {section.bullets.map((bullet) => (
+                    <li>{bullet}</li>
+                  ))}
+                </ul>
+              )}
+              {section.cards && (
+                <div class="guide-card-grid">
+                  {section.cards.map((card) => (
+                    <article>
+                      <h3>{card.title}</h3>
+                      <p>{card.body}</p>
+                    </article>
+                  ))}
+                </div>
+              )}
+              {section.visual && (
+                <div
+                  class="guide-media-panel"
+                  role="group"
+                  aria-label={section.visual.title}
+                >
+                  <div>
+                    <span>Review pathway</span>
+                    <strong>{section.visual.title}</strong>
+                  </div>
+                  <div class="guide-media-panel__items">
+                    {section.visual.items.map((item) => (
+                      <span>{item}</span>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
+      ))}
     </div>
 
     <section class="section guide-choice dark-section">
       <div class="container guide-choice__grid">
         <div data-reveal>
-          <p class="eyebrow eyebrow--light"><span></span>Your choice</p>
+          <p class="eyebrow eyebrow--light">
+            <span></span>Your choice
+          </p>
           <h2>
-            {
-              page.kind === "service"
-                ? "Want Us to Handle the Inquiry Removal Process for You?"
-                : "Handle It Yourself or Have a Specialist Help"
-            }
+            {page.kind === "service"
+              ? "Want Us to Handle the Inquiry Removal Process for You?"
+              : "Handle It Yourself or Have a Specialist Help"}
           </h2>
           <p>
-            {
-              page.kind === "service"
-                ? "If you do not want to organize every inquiry, write the communications, chase responses, and manage follow-up yourself, that is exactly where Inquiry Removal comes in. Choose a one-time package based on your total inquiry count and let a specialist handle the process."
-                : "Consumers can dispute inaccurate credit-report information directly and for free. Inquiry Removal is for people who want a specialist to organize the inquiries, prepare the appropriate communications, and review what happens next."
-            }
+            {page.kind === "service"
+              ? "You can dispute inaccurate credit-report information yourself for free. Our paid service is for people who want help organizing the inquiries, preparing appropriate communications, reviewing responses and managing follow-up under the service agreement. Scope and price are confirmed before you decide."
+              : "Consumers can dispute inaccurate credit-report information directly and for free. Inquiry Removal is for people who want a specialist to organize the inquiries, prepare the appropriate communications, and review what happens next."}
           </p>
         </div>
         <div class="guide-choice__actions" data-reveal>
@@ -309,15 +348,19 @@ const schema = [
             class="button button--large"
             href={reviewHref}
             data-track="guide-mid"
-            data-context={page.slug}>{page.primaryCta} <span>→</span></a
+            data-context={page.slug}
           >
+            {page.primaryCta} <span>→</span>
+          </a>
           <a
             class="text-link text-link--light"
             href="/pricing/"
             data-event="Pricing Open"
             data-track="guide-pricing"
-            data-context={page.slug}>See one-time pricing <span>→</span></a
+            data-context={page.slug}
           >
+            See one-time pricing <span>→</span>
+          </a>
         </div>
       </div>
     </section>
@@ -325,34 +368,30 @@ const schema = [
     <section class="section guide-faq" id="questions">
       <div class="container guide-faq__grid">
         <div data-reveal>
-          <p class="eyebrow"><span></span>Questions answered</p>
+          <p class="eyebrow">
+            <span></span>Questions answered
+          </p>
           <h2>
-            {
-              page.kind === "service"
-                ? "Questions Before You Start"
-                : `${page.eyebrow} questions.`
-            }
+            {page.kind === "service"
+              ? "Questions Before You Start"
+              : "Common questions about this guide"}
           </h2>
           <p>
-            {
-              page.kind === "service"
-                ? "Straight answers about the service, packages, timing, bureaus, and what happens next."
-                : "Clear answers about the topic and your available next steps."
-            }
+            {page.kind === "service"
+              ? "Straight answers about the service, packages, timing, bureaus, and what happens next."
+              : "Clear answers about the topic and your available next steps."}
           </p>
         </div>
         <div class="guide-faq__list" data-reveal>
-          {
-            page.faqs.map((faq, index) => (
-              <details open={index === 0}>
-                <summary>
-                  {faq.question}
-                  <span aria-hidden="true">+</span>
-                </summary>
-                <p>{faq.answer}</p>
-              </details>
-            ))
-          }
+          {page.faqs.map((faq, index) => (
+            <details open={index === 0}>
+              <summary>
+                {faq.question}
+                <span aria-hidden="true">+</span>
+              </summary>
+              <p>{faq.answer}</p>
+            </details>
+          ))}
         </div>
       </div>
     </section>
@@ -360,61 +399,59 @@ const schema = [
     <section class="section guide-related">
       <div class="container guide-related__grid">
         <div>
-          <p class="eyebrow"><span></span>Keep learning</p>
+          <p class="eyebrow">
+            <span></span>Keep learning
+          </p>
           <h2>Related hard inquiry guides.</h2>
           <div class="guide-related__links">
-            {
-              page.related.map((link) => (
-                <a
-                  href={link.href}
-                  data-event="Guide Link Open"
-                  data-track="guide-related"
-                  data-context={page.slug}
-                >
-                  {link.label}
-                  <span>→</span>
-                </a>
-              ))
-            }
+            {page.related.map((link) => (
+              <a
+                href={link.href}
+                data-event="Guide Link Open"
+                data-track="guide-related"
+                data-context={page.slug}
+              >
+                {link.label}
+                <span>→</span>
+              </a>
+            ))}
           </div>
         </div>
         <aside>
           <span>Official consumer resources</span>
-          {
-            page.sources.map((source) => (
-              <a href={source.href} rel="external noopener">
-                {source.label}
-                <span>↗</span>
-              </a>
-            ))
-          }
+          {page.sources.map((source) => (
+            <a href={source.href} rel="external noopener">
+              {source.label}
+              <span>↗</span>
+            </a>
+          ))}
         </aside>
       </div>
     </section>
 
     <section class="guide-final dark-section">
       <div class="container" data-reveal>
-        <p class="eyebrow eyebrow--light"><span></span>Free personal review</p>
+        <p class="eyebrow eyebrow--light">
+          <span></span>Free personal review
+        </p>
         <h2>
-          {
-            page.kind === "service"
-              ? "Ready to Start Removing the Hard Inquiries on Your Report?"
-              : "Ready to Review the Inquiries on Your Report?"
-          }
+          {page.kind === "service"
+            ? "Ready to Review the Facts Behind Your Inquiries?"
+            : "Ready to Review the Inquiries on Your Report?"}
         </h2>
         <p>
-          {
-            page.kind === "service"
-              ? "Start with a free review. We will organize the inquiries you want removed, confirm the package that matches your total count, and handle the process from there."
-              : "Start with the exact companies, dates, bureaus, and circumstances, then choose the next step that fits your situation."
-          }
+          {page.kind === "service"
+            ? "Start with a free review. We identify the entries, investigate the circumstances, and explain whether supported disputes or normal aging are the relevant next step. A review does not guarantee removal."
+            : "Start with the exact companies, dates, bureaus, and circumstances, then choose the next step that fits your situation."}
         </p>
         <a
           class="button button--large"
           href={reviewHref}
           data-track="guide-final"
-          data-context={page.slug}>{page.primaryCta} <span>→</span></a
+          data-context={page.slug}
         >
+          {page.primaryCta} <span>→</span>
+        </a>
       </div>
     </section>
   </main>

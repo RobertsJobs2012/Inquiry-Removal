@@ -1,4 +1,7 @@
 ---
+import { editorialPlan } from "../data/editorial";
+
+const revision = editorialPlan["/free-inquiry-review/"];
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Footer from "../components/Footer.astro";
 import FreeReviewForm from "../components/FreeReviewForm.astro";
@@ -40,14 +43,15 @@ const schema = [
       <div class="container page-hero-grid">
         <div>
           <nav class="breadcrumb" aria-label="Breadcrumb">
-            <a href="/">Home</a><span>/</span><span>Free Inquiry Review</span>
+            <a href="/">Home</a>
+            <span>/</span>
+            <span>Free Inquiry Review</span>
           </nav>
-          <p class="eyebrow eyebrow--light"><span></span> Free personal review</p>
-          <h1>Let’s Start With What Happened.</h1>
-          <p>
-            Every inquiry situation begins with context. Tell us what you see,
-            what you remember, and what you are working toward next.
+          <p class="eyebrow eyebrow--light">
+            <span></span> Free personal review
           </p>
+          <h1>{revision.title}</h1>
+          <p class="hero-summary">{revision.supporting}</p>
           <div class="button-row">
             <a class="button" href="#online-review">
               Begin My Free Review <span>↓</span>
@@ -68,7 +72,9 @@ const schema = [
     <section class="section review-form-section" id="online-review">
       <div class="container native-review-shell">
         <div class="review-form-intro" data-reveal>
-          <p class="eyebrow"><span></span> Online review request</p>
+          <p class="eyebrow">
+            <span></span> Online review request
+          </p>
           <h2>Start with the facts you already have.</h2>
           <p>
             Complete the focused review here. Your answers are sent securely to
@@ -98,7 +104,9 @@ const schema = [
       <div class="container">
         <div class="section-heading split-heading" data-reveal>
           <div>
-            <p class="eyebrow"><span></span> Before you call</p>
+            <p class="eyebrow">
+              <span></span> Before you call
+            </p>
             <h2>Bring the facts you already have.</h2>
           </div>
           <p>

@@ -1,0 +1,194 @@
+---
+import { practicalGuides } from "../data/practicalGuides";
+import GuideTools from "./GuideTools.astro";
+const { slug } = Astro.props as { slug: string };
+const sections = practicalGuides[slug] ?? [];
+const tool =
+  slug === "how-long-do-hard-inquiries-stay"
+    ? "age"
+    : slug === "hard-inquiry-removal-letter"
+      ? "letter"
+      : ["who-pulled-my-credit", "how-to-remove-hard-inquiries"].includes(slug)
+        ? "worksheet"
+        : undefined;
+---
+
+{(sections.length > 0 || tool) && (
+  <section
+    class="practical-content section"
+    aria-label="Practical next steps"
+    id="practical-next-steps"
+  >
+    <div class="container practical-content__inner">
+      {tool && <GuideTools mode={tool} />}
+      {sections.map((section) => (
+        <article class="practical-block">
+          <p class="eyebrow">
+            <span></span> Put the facts to work
+          </p>
+          <h2>{section.heading}</h2>
+          <p>{section.intro}</p>
+          {section.rows && section.columns && (
+            <div
+              class="practical-table-wrap"
+              role="region"
+              aria-label={`${section.heading} comparison`}
+              tabindex="0"
+            >
+              <table>
+                <caption>{section.heading}</caption>
+                <thead>
+                  <tr>
+                    {section.columns.map((column) => (
+                      <th scope="col">{column}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {section.rows.map((row) => (
+                    <tr>
+                      {row.map((cell, i) =>
+                        i === 0 ? <th scope="row">{cell}</th> : <td>{cell}</td>,
+                      )}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+          {section.checklist && (
+            <ul>
+              {section.checklist.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          )}
+          {section.links && (
+            <div class="practical-links">
+              {section.links.map((link) => (
+                <a
+                  href={link.href}
+                  rel={
+                    link.href.startsWith("https:")
+                      ? "external noopener"
+                      : undefined
+                  }
+                >
+                  {link.label}
+                  <span aria-hidden="true"> →</span>
+                </a>
+              ))}
+            </div>
+          )}
+        </article>
+      ))}
+    </div>
+  </section>
+)}
+<style>
+  .practical-content {
+    background: #f4f9fc;
+    color: #172033;
+  }
+  .practical-content__inner {
+    display: grid;
+    gap: 2rem;
+  }
+  .practical-block {
+    padding: clamp(1.2rem, 3vw, 2.5rem);
+    border: 1px solid #d3e3ec;
+    border-radius: 1.4rem;
+    background: #fff;
+    min-width: 0;
+    box-shadow: 0 12px 36px #0b2b3c08;
+  }
+  .practical-block h2 {
+    max-width: 30ch;
+    font-size: clamp(1.7rem, 3.2vw, 2.6rem);
+    line-height: 1.15;
+  }
+  .practical-block p {
+    max-width: 78ch;
+    line-height: 1.7;
+    margin: 1rem 0;
+    color: #405363;
+  }
+  .practical-block ul {
+    padding-left: 1.4rem;
+    display: grid;
+    gap: 0.7rem;
+    line-height: 1.65;
+  }
+  .practical-table-wrap {
+    max-width: 100%;
+    overflow: auto;
+    margin: 1.5rem 0;
+    border: 1px solid #d3e3ec;
+    border-radius: 0.7rem;
+  }
+  .practical-table-wrap:focus-visible {
+    outline: 3px solid #147af5;
+    outline-offset: 3px;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 570px;
+    font-size: 0.94rem;
+    line-height: 1.55;
+  }
+  caption {
+    text-align: left;
+    padding: 1rem;
+    background: #edf6fc;
+    font-weight: 700;
+  }
+  th,
+  td {
+    text-align: left;
+    padding: 1rem;
+    vertical-align: top;
+    border-bottom: 1px solid #d3e3ec;
+    overflow-wrap: anywhere;
+  }
+  thead th {
+    background: #e7f3fc;
+    color: #123b57;
+  }
+  tbody th {
+    width: 27%;
+    font-weight: 700;
+    background: #f8fbfd;
+  }
+  .practical-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.5rem;
+    margin-top: 1.3rem;
+  }
+  .practical-links a {
+    color: #075aa5;
+    font-weight: 700;
+    text-underline-offset: 4px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+  }
+  @media (max-width: 640px) {
+    .practical-content {
+      padding-block: 3rem;
+    }
+    .practical-block {
+      border-radius: 1rem;
+    }
+    .practical-links {
+      display: grid;
+    }
+    th,
+    td {
+      padding: 0.8rem;
+    }
+    table {
+      font-size: 0.88rem;
+    }
+  }
+</style>

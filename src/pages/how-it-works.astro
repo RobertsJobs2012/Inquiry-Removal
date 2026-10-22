@@ -1,4 +1,7 @@
 ---
+import { editorialPlan } from "../data/editorial";
+import PracticalContent from "../components/PracticalContent.astro";
+const revision = editorialPlan["/how-it-works/"];
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
@@ -13,9 +16,6 @@ const heroStages = [
   "Review every response",
   "Track the removals",
 ];
-
-const heroDescription =
-  "You do not need to learn the dispute process or chase every lender and credit bureau yourself. Give us the affected reports, tell us which inquiries you want removed, and we handle the work from there. Inquiry Removal organizes the entries, prepares and sends the disputes, reviews incoming responses, tracks removals, and continues additional follow-through as needed. You stay informed by phone, text, or email while we keep the process organized.";
 
 const reviewTopics = [
   "What caused you to look for inquiry removal",
@@ -206,57 +206,59 @@ const schema = [
     <section class="how-hero dark-section">
       <div class="container how-hero__content" data-reveal>
         <nav class="breadcrumb" aria-label="Breadcrumb">
-          <a href="/">Home</a><span>/</span><span>How It Works</span>
+          <a href="/">Home</a>
+          <span>/</span>
+          <span>How It Works</span>
         </nav>
         <p class="eyebrow eyebrow--light">
           <span></span> A Focused Process for Experian, Equifax, and TransUnion
         </p>
-        <h1>We Handle Hard Inquiry Removal From Start to Finish</h1>
-        <p class="hero-summary">
-          You bring the reports. We organize the inquiries, send the disputes,
-          review the responses, track removals, and handle the follow-through.
-        </p>
-        <p class="hero-description--desktop">{heroDescription}</p>
+        <h1>{revision.title}</h1>
+        <p class="hero-summary">{revision.supporting}</p>
         <div class="button-row">
-          <a class="button" href="#free-review"
-            >Get My Free Inquiry Review <span>→</span></a
-          ><a class="text-link text-link--light" href="/free-inquiry-review/"
-            >Talk With a Specialist <span>↘</span></a
-          >
+          <a class="button" href="#free-review">
+            Get My Free Inquiry Review <span>→</span>
+          </a>
+          <a class="text-link text-link--light" href="/free-inquiry-review/">
+            Request a Specialist Review <span>↘</span>
+          </a>
         </div>
         <p class="cta-microcopy">
           Free personal review. No pressure. No monthly membership.
         </p>
-        <details class="hero-mobile-details">
-          <summary>Read the full process</summary>
-          <p class="hero-description">{heroDescription}</p>
-        </details>
       </div>
       <div
         class="container hero-process-strip"
         aria-label="Inquiry removal process"
       >
-        {
-          heroStages.map((stage, index) => (
-            <div>
-              <>
-                <span>{String(index + 1).padStart(2, "0")}</span>
-                <strong>{stage}</strong>
-              </>
-            </div>
-          ))
-        }
+        {heroStages.map((stage, index) => (
+          <div>
+            <>
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <strong>{stage}</strong>
+            </>
+          </div>
+        ))}
       </div>
     </section>
 
     <section class="trust-ribbon" aria-label="Company proof">
       <div class="container trust-grid">
-        <div><strong>100,437</strong><span>Inquiries removed</span></div><div>
-          <strong>1,123</strong><span>Clients served</span>
-        </div><div>
-          <strong>Since 2015</strong><span>Focused credit experience</span>
-        </div><div>
-          <strong>All three</strong><span>Major credit bureaus</span>
+        <div>
+          <strong>100,437</strong>
+          <span>Inquiries removed</span>
+        </div>
+        <div>
+          <strong>1,123</strong>
+          <span>Clients served</span>
+        </div>
+        <div>
+          <strong>Since 2015</strong>
+          <span>Focused credit experience</span>
+        </div>
+        <div>
+          <strong>All three</strong>
+          <span>Major credit bureaus</span>
         </div>
       </div>
     </section>
@@ -272,35 +274,38 @@ const schema = [
       ]}
     />
 
+    <PracticalContent slug="how-it-works" />
     <section class="section review-section" id="review">
       <div class="container review-layout">
         <div data-reveal>
-          <p class="eyebrow"><span></span> Start by being heard</p><h2>
-            What Happens During Your Free Inquiry Review?
-          </h2><p class="lead">
+          <p class="eyebrow">
+            <span></span> Start by being heard
+          </p>
+          <h2>What Happens During Your Free Inquiry Review?</h2>
+          <p class="lead">
             Your free inquiry review is a personal conversation about the
             inquiries, the events that caused them, and what you want to
             accomplish after they are removed. We do more than count names on a
             report. We listen to the complete story.
-          </p><p>
+          </p>
+          <p>
             Start with a call to Inquiry Removal. If you are unsure how many
             inquiries you have or which category describes them, that is
             completely fine.
-          </p><a class="text-link" href="/situations-we-handle/"
-            >See the Hard Inquiry Situations We Handle <span>→</span></a
-          >
+          </p>
+          <a class="text-link" href="/situations-we-handle/">
+            See the Hard Inquiry Situations We Handle <span>→</span>
+          </a>
         </div>
         <div class="review-topic-grid" data-reveal>
-          {
-            reviewTopics.map((topic, index) => (
-              <div>
-                <>
-                  <span>{String(index + 1).padStart(2, "0")}</span>
-                  <strong>{topic}</strong>
-                </>
-              </div>
-            ))
-          }
+          {reviewTopics.map((topic, index) => (
+            <div>
+              <>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <strong>{topic}</strong>
+              </>
+            </div>
+          ))}
         </div>
       </div>
     </section>
@@ -308,31 +313,33 @@ const schema = [
     <section class="section preparation-section" id="preparation">
       <div class="container">
         <div class="section-heading centered-heading" data-reveal>
-          <p class="eyebrow centered"><span></span> Simple expectations</p><h2>
-            What Do You Need Before Inquiry Removal Can Begin?
-          </h2><p>
+          <p class="eyebrow centered">
+            <span></span> Simple expectations
+          </p>
+          <h2>What Do You Need Before Inquiry Removal Can Begin?</h2>
+          <p>
             You need current credit reports from every bureau affected by the
             inquiries you want removed. If the inquiries appear on Experian,
             Equifax, and TransUnion, we need all three reports to see the
             complete picture.
           </p>
-        </div><div class="preparation-grid" data-reveal>
-          {
-            preparation.map(([title, body], index) => (
-              <article>
-                <>
-                  <span>{String(index + 1).padStart(2, "0")}</span>
-                  <h3>{title}</h3>
-                  <p>{body}</p>
-                </>
-              </article>
-            ))
-          }
-        </div><p class="secure-note">
-          <strong>Protect sensitive information:</strong> Do not send Social Security
-          numbers, birth dates, bureau passwords, payment information, or full credit
-          reports through a public website form. The initial call does not require
-          them.
+        </div>
+        <div class="preparation-grid" data-reveal>
+          {preparation.map(([title, body], index) => (
+            <article>
+              <>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <h3>{title}</h3>
+                <p>{body}</p>
+              </>
+            </article>
+          ))}
+        </div>
+        <p class="secure-note">
+          <strong>Protect sensitive information:</strong> Do not send Social
+          Security numbers, birth dates, bureau passwords, payment information,
+          or full credit reports through a public website form. The initial call
+          does not require them.
         </p>
       </div>
     </section>
@@ -346,50 +353,51 @@ const schema = [
           <div>
             <p class="eyebrow eyebrow--light">
               <span></span> The complete process
-            </p><h2>
-              What Do We Handle During the Hard Inquiry Removal Process?
-            </h2>
-          </div><p>
+            </p>
+            <h2>What Do We Handle During the Hard Inquiry Removal Process?</h2>
+          </div>
+          <p>
             We handle the work people usually do not want to manage themselves:
             report review, inquiry organization, dispute preparation and
             sending, response review, removal tracking, and continued
             follow-through across the affected bureaus.
           </p>
-        </div><div class="process-timeline" data-reveal>
-          {
-            steps.map(([title, body, client, team], index) => (
-              <article>
-                <>
-                  <div class="timeline-node">
-                    <span>{String(index + 1).padStart(2, "0")}</span>
-                  </div>
-                  <div>
-                    <>
-                      <p class="process-stage">Step {index + 1}</p>
-                      <h3>{title}</h3>
-                      <p>{body}</p>
-                      <div class="responsibility-grid">
-                        <>
-                          <p>
-                            <strong>What you do</strong>
-                            {client}
-                          </p>
-                          <p>
-                            <strong>What we do</strong>
-                            {team}
-                          </p>
-                        </>
-                      </div>
-                    </>
-                  </div>
-                </>
-              </article>
-            ))
-          }
-        </div><div class="section-cta section-cta--dark">
-          <a class="button" href="#free-review"
-            >Get My Free Inquiry Review <span>→</span></a
-          ><p>
+        </div>
+        <div class="process-timeline" data-reveal>
+          {steps.map(([title, body, client, team], index) => (
+            <article>
+              <>
+                <div class="timeline-node">
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                </div>
+                <div>
+                  <>
+                    <p class="process-stage">Step {index + 1}</p>
+                    <h3>{title}</h3>
+                    <p>{body}</p>
+                    <div class="responsibility-grid">
+                      <>
+                        <p>
+                          <strong>What you do</strong>
+                          {client}
+                        </p>
+                        <p>
+                          <strong>What we do</strong>
+                          {team}
+                        </p>
+                      </>
+                    </div>
+                  </>
+                </div>
+              </>
+            </article>
+          ))}
+        </div>
+        <div class="section-cta section-cta--dark">
+          <a class="button" href="#free-review">
+            Get My Free Inquiry Review <span>→</span>
+          </a>
+          <p>
             Tell a specialist what happened and what you want to accomplish
             next.
           </p>
@@ -401,26 +409,27 @@ const schema = [
       <div class="container">
         <div class="section-heading split-heading" data-reveal>
           <div>
-            <p class="eyebrow"><span></span> Personal communication</p><h2>
-              How Will You Receive Updates Without a Client Portal?
-            </h2>
-          </div><p>
+            <p class="eyebrow">
+              <span></span> Personal communication
+            </p>
+            <h2>How Will You Receive Updates Without a Client Portal?</h2>
+          </div>
+          <p>
             You receive updates through direct communication by phone, text, or
             email. There is no portal to learn, no dashboard to monitor, and no
             need to log in just to ask what is happening.
           </p>
-        </div><div class="updates-grid" data-reveal>
-          {
-            updates.map(([title, body], index) => (
-              <article>
-                <>
-                  <span>{String(index + 1).padStart(2, "0")}</span>
-                  <h3>{title}</h3>
-                  <p>{body}</p>
-                </>
-              </article>
-            ))
-          }
+        </div>
+        <div class="updates-grid" data-reveal>
+          {updates.map(([title, body], index) => (
+            <article>
+              <>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <h3>{title}</h3>
+                <p>{body}</p>
+              </>
+            </article>
+          ))}
         </div>
       </div>
     </section>
@@ -429,76 +438,83 @@ const schema = [
       <div class="container">
         <div class="section-heading split-heading" data-reveal>
           <div>
-            <p class="eyebrow"><span></span> Timing and follow-through</p><h2>
-              How Long Does Inquiry Removal Take, and What Happens Next?
-            </h2>
-          </div><p>
+            <p class="eyebrow">
+              <span></span> Timing and follow-through
+            </p>
+            <h2>How Long Does Inquiry Removal Take, and What Happens Next?</h2>
+          </div>
+          <p>
             Some hard inquiries can be removed in as little as seven days, while
             many cases require up to 90 days. Rare situations may take as long
             as 120 days because creditors and credit bureaus respond on
             different schedules.
           </p>
-        </div><div class="timing-track" data-reveal>
-          {
-            timing.map(([title, body], index) => (
-              <article>
-                <>
-                  <span>
-                    {index === 0
-                      ? "7 days"
-                      : index === 1
-                        ? "Up to 90"
-                        : index === 2
-                          ? "Continue"
-                          : index === 3
-                            ? "Up to 120"
-                            : "Promise"}
-                  </span>
-                  <h3>{title}</h3>
-                  <p>{body}</p>
-                </>
-              </article>
-            ))
-          }
-        </div><p class="timing-disclosure">
+        </div>
+        <div class="timing-track" data-reveal>
+          {timing.map(([title, body], index) => (
+            <article>
+              <>
+                <span>
+                  {index === 0
+                    ? "7 days"
+                    : index === 1
+                      ? "Up to 90"
+                      : index === 2
+                        ? "Continue"
+                        : index === 3
+                          ? "Up to 120"
+                          : "Promise"}
+                </span>
+                <h3>{title}</h3>
+                <p>{body}</p>
+              </>
+            </article>
+          ))}
+        </div>
+        <p class="timing-disclosure">
           Removal timing varies by report, inquiry, documentation, company, and
           bureau response. The seven-day figure describes the earliest outcomes,
           not a promised completion date.
-        </p><a class="text-link" href="/pricing/"
-          >Compare Hard Inquiry Removal Pricing <span>→</span></a
-        ><a
+        </p>
+        <a class="text-link" href="/pricing/">
+          Compare Hard Inquiry Removal Pricing <span>→</span>
+        </a>
+        <a
           class="text-link process-adjacent-link"
           href="/dealership-inquiries/"
-          >Learn About Dealership Inquiry Removal <span>→</span></a
         >
+          Learn About Dealership Inquiry Removal <span>→</span>
+        </a>
       </div>
     </section>
 
     <section class="section faq-section" id="how-questions">
       <div class="container faq-layout">
         <div data-reveal>
-          <p class="eyebrow"><span></span> Questions, answered</p><h2>
-            Questions About the Inquiry Removal Process
-          </h2><p>
+          <p class="eyebrow">
+            <span></span> Questions, answered
+          </p>
+          <h2>Questions About the Inquiry Removal Process</h2>
+          <p>
             Clear answers about reports, disputes, responses, follow-up, timing,
             and pricing.
-          </p><a class="text-link" href="/faq/"
-            >View All Hard Inquiry Removal Questions <span>→</span></a
-          >
-        </div><div class="faq-list" data-reveal>
-          {
-            faqs.map(([question, answer], index) => (
-              <details open={index === 0}>
-                <>
-                  <summary>
-                    {question}
-                    <span />
-                  </summary>
-                  <p>{answer}</p>
-                </>
-              </details>
-            ))
-          }
+          </p>
+          <a class="text-link" href="/faq/">
+            View All Hard Inquiry Removal Questions <span>→</span>
+          </a>
+        </div>
+        <div class="faq-list" data-reveal>
+          {faqs.map(([question, answer], index) => (
+            <details open={index === 0}>
+              <>
+                <summary>
+                  {question}
+                  <span />
+                </summary>
+                <p>{answer}</p>
+              </>
+            </details>
+          ))}
         </div>
       </div>
     </section>
@@ -511,21 +527,27 @@ const schema = [
     <section class="final-cta dark-section">
       <div class="final-lines" aria-hidden="true">
         <InquiryLine compact />
-      </div><div class="container final-content" data-reveal>
+      </div>
+      <div class="container final-content" data-reveal>
         <p class="eyebrow eyebrow--light centered">
           <span></span> A safe first step
-        </p><h2>Ready to Start Removing Your Hard Inquiries?</h2><p>
+        </p>
+        <h2>Ready to Start Removing Your Hard Inquiries?</h2>
+        <p>
           You do not need to understand dispute procedures or manage every
           company alone. Start with a free review, show us what happened, and
           let Inquiry Removal organize the path from your current reports to the
           removal results you want.
-        </p><div class="button-row button-row--center">
-          <a class="button button--large" href="#free-review"
-            >Get My Free Inquiry Review <span>→</span></a
-          ><a class="text-link text-link--light" href="/free-inquiry-review/"
-            >Talk With a Specialist <span>→</span></a
-          >
-        </div><p class="cta-microcopy">
+        </p>
+        <div class="button-row button-row--center">
+          <a class="button button--large" href="#free-review">
+            Get My Free Inquiry Review <span>→</span>
+          </a>
+          <a class="text-link text-link--light" href="/free-inquiry-review/">
+            Request a Specialist Review <span>→</span>
+          </a>
+        </div>
+        <p class="cta-microcopy">
           Free review. No pressure. No monthly membership.
         </p>
       </div>

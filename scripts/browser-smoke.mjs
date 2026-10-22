@@ -1,4 +1,4 @@
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import AxeBuilder from "@axe-core/playwright";
 import { chromium } from "playwright";
@@ -794,6 +794,136 @@ await run(
   },
   { colorScheme: "dark" },
 );
+
+for (const width of [390, 768, 1440]) {
+  await run(`private-tools-${width}`, { width, height: 900 }, async (page) => {
+    let toolPosts = 0;
+    page.on("request", (request) => {
+      if (
+        request.method() === "POST" &&
+        request.url().includes("/api/free-review")
+      )
+        toolPosts++;
+    });
+    await page.goto(
+      `${base}/how-long-do-hard-inquiries-stay/#practical-tools`,
+      { waitUntil: "networkidle" },
+    );
+    await page.locator("[data-tool-estimate]").click();
+    expect(
+      (await page.locator("[data-tool-date]").getAttribute("aria-invalid")) ===
+        "true",
+      "empty estimator date did not produce an accessible error",
+    );
+    await page.locator("[data-tool-date]").fill("2024-02-29");
+    await page.locator("[data-tool-estimate]").click();
+    expect(
+      (await page.locator("[data-tool-output]").innerText()).includes(
+        "February 28, 2026",
+      ),
+      "leap-day estimate is wrong",
+    );
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= innerWidth,
+      ),
+      "tool page has horizontal overflow",
+    );
+    await checkAccessibility(`private-age-${width}`, page);
+    await page.goto(`${base}/hard-inquiry-removal-letter/#practical-tools`, {
+      waitUntil: "networkidle",
+    });
+    const sample = await page.locator("[data-tool-text]").inputValue();
+    expect(
+      sample.includes("[exact company name]") &&
+        sample.includes("Attachments:"),
+      "complete ungated letter sample is missing",
+    );
+    await page.locator("[data-tool-text]").fill(sample + "\nPrivate test edit");
+    const downloadReady = page.waitForEvent("download");
+    await page.locator("[data-tool-download]").click();
+    const download = await downloadReady;
+    expect(
+      download.suggestedFilename() === "inquiry-letter-sample.txt",
+      "letter download filename is wrong",
+    );
+    expect(toolPosts === 0, "a private tool submitted a review request");
+    await checkAccessibility(`private-letter-${width}`, page);
+    await page.goto(
+      `${base}/best-hard-inquiry-removal-services/#practical-next-steps`,
+      { waitUntil: "networkidle" },
+    );
+    expect(
+      await page
+        .locator(".practical-content")
+        .getByText("Inquiry Removers", { exact: true })
+        .isVisible(),
+      "sourced provider comparison is missing",
+    );
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= innerWidth,
+      ),
+      "comparison table causes page overflow",
+    );
+    await checkAccessibility(`provider-comparison-${width}`, page);
+  });
+}
+for (const viewport of [
+  { width: 1440, height: 900 },
+  { width: 1905, height: 774 },
+]) {
+  await run(`hero-action-${viewport.width}`, viewport, async (page) => {
+    await page.goto(base + "/", { waitUntil: "networkidle" });
+    const clearance = await page.evaluate(() => ({
+      eyebrow: document
+        .querySelector(".hero-copy .eyebrow")
+        .getBoundingClientRect().top,
+      header: document.querySelector("[data-header]").getBoundingClientRect()
+        .bottom,
+      action: document
+        .querySelector('[data-track="home-hero-guided"]')
+        .getBoundingClientRect().bottom,
+      height: innerHeight,
+    }));
+    expect(
+      clearance.eyebrow > clearance.header + 16,
+      "homepage opening overlaps or crowds the fixed navigation",
+    );
+    expect(
+      clearance.action < clearance.height,
+      "homepage primary action is below the first screen",
+    );
+  });
+}
+
+const editorialInventory = JSON.parse(
+  await readFile("src/data/editorialPlan.json", "utf8"),
+);
+for (const width of [320, 768, 1440]) {
+  await run(
+    `all-pages-reflow-${width}`,
+    { width, height: 900 },
+    async (page) => {
+      for (const [route, revision] of Object.entries(editorialInventory)) {
+        const response = await page.goto(base + route, {
+          waitUntil: "networkidle",
+        });
+        expect(response?.status() === 200, route + " did not load");
+        expect(
+          (await page.locator("h1").innerText()).trim() === revision.title,
+          route + " H1 differs from its research brief",
+        );
+        expect(
+          await page.evaluate(
+            () => document.documentElement.scrollWidth <= innerWidth,
+          ),
+          route + " overflows at " + width,
+        );
+      }
+    },
+  );
+}
 
 const apiContext = await browser.newContext();
 const apiResponse = await apiContext.request.get(`${base}/api/free-review`);

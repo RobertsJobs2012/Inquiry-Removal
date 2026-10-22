@@ -9,11 +9,13 @@ import "../styles/material-depth-polish.css";
 import "../styles/mobile-regression-fixes.css";
 import "../styles/responsive-qa.css";
 import "../styles/pricing-tiers.css";
+import "../styles/editorial-polish.css";
 import Analytics from "@vercel/analytics/astro";
 import SpeedInsights from "@vercel/speed-insights/astro";
 import ExperienceLayer from "../components/ExperienceLayer.astro";
 import AppFinisher from "../components/AppFinisher.astro";
 import { SITE_ORIGIN } from "../data/discovery.mjs";
+import { editorialPlan } from "../data/editorial";
 import displayFontUrl from "@fontsource-variable/plus-jakarta-sans/files/plus-jakarta-sans-latin-wght-normal.woff2?url";
 
 interface Props {
@@ -28,17 +30,20 @@ interface Props {
   schema?: Record<string, unknown> | Record<string, unknown>[];
 }
 
+const revision = editorialPlan[Astro.url.pathname];
+const title = revision?.seoTitle ?? Astro.props.title;
+const description = revision?.description ?? Astro.props.description;
 const {
-  title,
-  description,
   theme = "light",
-  ogTitle = title,
-  ogDescription = description,
+  ogTitle: providedOgTitle = title,
+  ogDescription: providedOgDescription = description,
   ogImage = "/og.jpg",
   ogType,
   robots = "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
   schema,
 } = Astro.props;
+const ogTitle = revision ? title : providedOgTitle;
+const ogDescription = revision ? description : providedOgDescription;
 const canonical = new URL(Astro.url.pathname, SITE_ORIGIN);
 const socialImage = new URL(ogImage, canonical);
 const normalizedOgImage = ogImage.toLowerCase().split("?")[0];

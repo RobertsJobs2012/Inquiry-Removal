@@ -1,4 +1,7 @@
 ---
+import { editorialPlan } from "../data/editorial";
+
+const revision = editorialPlan["/"];
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Footer from "../components/Footer.astro";
 import FreeReviewForm from "../components/FreeReviewForm.astro";
@@ -123,23 +126,8 @@ const faqs = [
             <span></span> Nationwide Hard Inquiry Specialists · Experian ·
             Equifax · TransUnion
           </p>
-          <h1>Hard Inquiry Removal: Clear the Pulls Standing in Your Way</h1>
-          <p class="hero-summary hero-summary--desktop">
-            Hard inquiry removal is all we do. If unwanted pulls from a
-            dealership, unfamiliar lender, identity theft, duplicate
-            application, or misleading “soft pull” are crowding your credit
-            reports, you do not have to figure out the next move alone. Since
-            2015, Inquiry Removal has helped 1,123 clients remove more than
-            100,000 hard inquiries across Experian, Equifax, and TransUnion. See
-            how our specialized process works, which situations we handle, what
-            the service costs, and how to start with a free personal review.
-          </p>
-          <p class="hero-summary hero-summary--mobile">
-            Unwanted dealership, lender, identity-theft, duplicate, or
-            unexpected hard inquiries? We organize what happened and handle the
-            removal process across all three bureaus. Start with a free personal
-            review.
-          </p>
+          <h1>{revision.title}</h1>
+          <p class="hero-summary">{revision.supporting}</p>
           <div class="button-row">
             <a
               class="button"
@@ -152,15 +140,21 @@ const faqs = [
             </a>
             <a
               class="text-link text-link--light"
-              href="/free-inquiry-review/"
-              data-track="home-hero-specialist"
+              href="/pricing/"
+              data-track="home-hero-pricing"
               data-context="homepage"
             >
-              Talk With a Specialist <span>↘</span>
+              See Pricing <span>↘</span>
             </a>
           </div>
           <p class="cta-microcopy">
-            Free personal review. No pressure. No monthly membership.
+            Free review. One-time plans from $199. No monthly membership. No SSN
+            or payment information needed to begin.
+          </p>
+          <p class="home-eligibility">
+            Accurate, legitimate inquiries usually remain until they age off.
+            Your review helps distinguish those entries from issues worth
+            pursuing. <a href="/eligibility/">Understand eligibility →</a>
           </p>
         </div>
         <div class="hero-interface" data-reveal>
@@ -195,6 +189,7 @@ const faqs = [
         </div>
       </div>
       <p class="entity-declaration container">
+        Company-reported totals and client rating. Individual results vary.
         Inquiry Removal is a nationwide hard inquiry removal company and
         specialized credit inquiry removal service focused exclusively on
         unwanted hard inquiries across all three major credit reports.
@@ -310,7 +305,7 @@ const faqs = [
               <strong>{situation.title}</strong>
               <p>{situation.body}</p>
               <a href={situation.href}>
-                Explore this situation <span>→</span>
+                Review: {situation.title} <span aria-hidden="true">→</span>
               </a>
             </article>
           ))}
@@ -473,7 +468,7 @@ const faqs = [
         <div class="section-heading split-heading" data-reveal>
           <div>
             <p class="eyebrow">
-              <span></span> Documented results
+              <span></span> Results documentation
             </p>
             <h2>What Do Real Hard Inquiry Removals Look Like?</h2>
           </div>
@@ -520,7 +515,7 @@ const faqs = [
               removals or credit score changes.
             </p>
             <a class="button" href="/results/">
-              See Documented Results <span>→</span>
+              How We Document Results <span>→</span>
             </a>
           </article>
         </div>
@@ -689,7 +684,7 @@ const faqs = [
             data-track="home-final-specialist"
             data-context="homepage"
           >
-            Talk With a Specialist <span>→</span>
+            Request a Specialist Review <span>→</span>
           </a>
         </div>
         <p class="cta-microcopy">

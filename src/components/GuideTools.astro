@@ -1,0 +1,252 @@
+---
+import { LETTER_SAMPLE, WORKSHEET_SAMPLE } from "../lib/inquiry-tools.mjs";
+const { mode } = Astro.props as { mode: "age" | "letter" | "worksheet" };
+const heading =
+  mode === "age"
+    ? "Estimate an inquiry’s normal reporting period"
+    : mode === "letter"
+      ? "Copy a complete factual dispute-letter sample"
+      : "Build your private inquiry worksheet";
+---
+
+<section
+  class="private-tool"
+  data-private-tool={mode}
+  id="practical-tools"
+  aria-labelledby="private-tool-heading"
+>
+  <p class="eyebrow">
+    <span></span> Free, private and ungated
+  </p>
+  <h2 id="private-tool-heading">{heading}</h2>
+  <p>
+    No lead request is needed. Entered information stays in this page's memory:
+    it is not submitted, stored by this tool, or sent to analytics. Download
+    only on a device you trust. The tool does not save edits, but your browser
+    may restore fields when you navigate back; clear personal edits on shared
+    devices.
+  </p>
+  {mode === "age" ? (
+    <>
+      <label class="tool-label" for="inquiry-estimate-date">
+        Inquiry date (optional)
+      </label>
+      <input
+        id="inquiry-estimate-date"
+        data-tool-date
+        type="date"
+        aria-describedby="age-tool-help"
+      />
+      <p id="age-tool-help">
+        Use the date from the affected report. This is a calendar estimate, not
+        a guaranteed deletion date, score gain or eligibility result.
+      </p>
+      <button class="button" type="button" data-tool-estimate hidden>
+        Estimate the reporting period
+      </button>
+      <p data-tool-output role="status" aria-live="polite"></p>
+      <noscript>
+        <p>
+          Without JavaScript, compare the inquiry date with the same calendar
+          date two years later (use February 28 when the target year has no
+          February 29). Check the actual report near that time; bureaus do not
+          promise this exact deletion day.
+        </p>
+      </noscript>
+    </>
+  ) : (
+    <>
+      <label class="tool-label" for="private-tool-text">
+        {mode === "letter"
+          ? "Letter sample — edit privately or select and copy"
+          : "Worksheet — edit privately or select and copy"}
+      </label>
+      <textarea
+        id="private-tool-text"
+        data-tool-text
+        rows={mode === "letter" ? 22 : 17}
+        spellcheck="false"
+        autocomplete="off"
+      >{mode === "letter" ? LETTER_SAMPLE : WORKSHEET_SAMPLE}</textarea>
+      <div class="tool-actions">
+        <button class="button" type="button" data-tool-copy hidden>
+          Copy {mode === "letter" ? "letter" : "worksheet"}
+        </button>
+        <button
+          class="button button--secondary"
+          type="button"
+          data-tool-download
+          hidden
+        >
+          Download private text file
+        </button>
+      </div>
+      <p data-tool-output role="status" aria-live="polite">
+        You can select and copy the text even if the optional tool controls do
+        not load.
+      </p>
+    </>
+  )}
+</section>
+<script>
+  import {
+    addCalendarMonths,
+    parseCalendarDate,
+  } from "../lib/inquiry-tools.mjs";
+  document
+    .querySelectorAll<HTMLElement>("[data-private-tool]")
+    .forEach((root) => {
+      const output = root.querySelector<HTMLElement>("[data-tool-output]");
+      const date = root.querySelector<HTMLInputElement>("[data-tool-date]");
+      const estimate = root.querySelector<HTMLButtonElement>(
+        "[data-tool-estimate]",
+      );
+      const text = root.querySelector<HTMLTextAreaElement>("[data-tool-text]");
+      const copy = root.querySelector<HTMLButtonElement>("[data-tool-copy]");
+      const download = root.querySelector<HTMLButtonElement>(
+        "[data-tool-download]",
+      );
+      const say = (message: string) => {
+        if (output) output.textContent = message;
+      };
+      if (date && estimate) {
+        const now = new Date();
+        const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+        date.max = today;
+        estimate.hidden = false;
+        estimate.addEventListener("click", () => {
+          if (!parseCalendarDate(date.value) || date.value > today) {
+            date.setAttribute("aria-invalid", "true");
+            say(
+              "Choose a valid inquiry date that is not in the future. You can also use the guide without entering a date.",
+            );
+            date.focus();
+            return;
+          }
+          date.removeAttribute("aria-invalid");
+          const end = addCalendarMonths(date.value, 24);
+          const label = new Intl.DateTimeFormat("en-US", {
+            dateStyle: "long",
+            timeZone: "UTC",
+          }).format(parseCalendarDate(end)!);
+          say(
+            `${end <= today ? "The estimated two-year point was" : "The estimated two-year point is"} ${label}. ${end <= today ? "If the entry still appears, verify its date and ask the affected bureau to investigate." : "Check the actual report as that period approaches."} FICO generally considers inquiries from the previous 12 months; other models can differ. This does not predict a score change or a guaranteed removal day.`,
+          );
+        });
+      }
+      if (text && copy) {
+        copy.hidden = false;
+        copy.addEventListener("click", async () => {
+          try {
+            await navigator.clipboard.writeText(text.value);
+            say(
+              "Copied. Review the facts and recipient instructions before sharing.",
+            );
+          } catch {
+            text.focus();
+            text.select();
+            say(
+              "Select the highlighted text and use your device's Copy command.",
+            );
+          }
+        });
+      }
+      if (text && download) {
+        download.hidden = false;
+        download.addEventListener("click", () => {
+          const url = URL.createObjectURL(
+            new Blob([text.value], { type: "text/plain;charset=utf-8" }),
+          );
+          const anchor = document.createElement("a");
+          anchor.href = url;
+          anchor.download =
+            root.dataset.privateTool === "letter"
+              ? "inquiry-letter-sample.txt"
+              : "private-inquiry-worksheet.txt";
+          anchor.click();
+          setTimeout(() => URL.revokeObjectURL(url), 1000);
+          say(
+            "Text download prepared on your device. Keep any personal edits private.",
+          );
+        });
+      }
+    });
+</script>
+<style>
+  .private-tool {
+    padding: clamp(1.2rem, 3vw, 2.5rem);
+    border: 1px solid #bcd9ed;
+    border-radius: 1.4rem;
+    background: linear-gradient(135deg, #fff, #eaf6ff);
+    color: #172033;
+    min-width: 0;
+  }
+  .private-tool h2 {
+    font-size: clamp(1.7rem, 3.2vw, 2.6rem);
+    line-height: 1.15;
+    max-width: 28ch;
+  }
+  .private-tool p {
+    margin: 1rem 0;
+    line-height: 1.65;
+    max-width: 78ch;
+    color: #405363;
+  }
+  .tool-label {
+    display: block;
+    font-weight: 700;
+    margin: 1.3rem 0 0.6rem;
+  }
+  .private-tool input,
+  .private-tool textarea {
+    width: 100%;
+    max-width: 100%;
+    min-height: 48px;
+    background: #fff;
+    color: #172033;
+    border: 1px solid #a9c3d6;
+    padding: 1rem;
+    border-radius: 0.65rem;
+    font: inherit;
+    font-size: 1rem;
+    color-scheme: light;
+  }
+  .private-tool input {
+    max-width: 22rem;
+  }
+  .private-tool textarea {
+    line-height: 1.65;
+    resize: vertical;
+  }
+  .private-tool :is(input, textarea):focus-visible {
+    outline: 3px solid #147af5;
+    outline-offset: 3px;
+  }
+  .tool-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+  }
+  .private-tool button {
+    margin-top: 1rem;
+  }
+  .private-tool [hidden] {
+    display: none !important;
+  }
+  .private-tool [data-tool-output] {
+    font-weight: 600;
+    color: #143f5b;
+  }
+  .private-tool [aria-invalid="true"] {
+    border-color: #b62535;
+  }
+  @media (max-width: 640px) {
+    .tool-actions {
+      display: grid;
+    }
+    .private-tool .button {
+      width: 100%;
+    }
+  }
+</style>

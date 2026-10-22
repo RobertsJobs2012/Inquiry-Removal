@@ -33,6 +33,9 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
     class="review-form-honeypot"
     type="text"
     name="website"
+    hidden
+    inert
+    aria-label="Leave this field empty"
     tabindex="-1"
     autocomplete="off"
     aria-hidden="true"
@@ -283,6 +286,7 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
     <p class="review-receipt" hidden data-review-receipt-wrap>
       Submission reference: <strong data-review-receipt></strong>
     </p>
+    <p data-review-preference></p>
   </div>
 </form>
 
@@ -628,13 +632,17 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
   });
   reviewBack?.addEventListener("click", () => showReviewStep(reviewStep - 1));
 
+  let reviewSending = false;
+  let reviewAccepted = false;
   reviewForm?.addEventListener("submit", async (event) => {
     event.preventDefault();
+    if (reviewSending || reviewAccepted) return;
     if (reviewStep !== reviewSteps.length - 1) {
       if (validateReviewStep()) showReviewStep(reviewStep + 1);
       return;
     }
     if (!validateReviewStep()) return;
+    reviewSending = true;
 
     const originalLabel = reviewSubmit?.innerHTML ?? "Submit My Free Review";
     if (reviewSubmit) {
@@ -660,12 +668,18 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
       }
 
       reviewBody?.setAttribute("hidden", "");
+      reviewAccepted = true;
       reviewSuccess?.removeAttribute("hidden");
       if (reviewReceipt && typeof payload.receipt === "string") {
         reviewReceipt.textContent = payload.receipt;
         reviewReceiptWrap?.removeAttribute("hidden");
       }
       reviewSuccess?.focus();
+      const preference = reviewForm.querySelector<HTMLElement>(
+        "[data-review-preference]",
+      );
+      if (preference)
+        preference.textContent = `Preferred contact method: ${String(new FormData(reviewForm).get(REVIEW_FIELDS.contactMethod) ?? "your selected method")}. A specialist reviews the facts before discussing any paid service; this request is not enrollment.`;
       track("Review Form Submitted", {
         page: window.location.pathname,
       });
@@ -686,6 +700,7 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
         reviewSubmit.innerHTML = originalLabel;
       }
     } finally {
+      reviewSending = false;
       reviewForm.removeAttribute("aria-busy");
     }
   });

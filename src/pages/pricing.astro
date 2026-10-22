@@ -1,4 +1,7 @@
 ---
+import { editorialPlan } from "../data/editorial";
+import PracticalContent from "../components/PracticalContent.astro";
+const revision = editorialPlan["/pricing/"];
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
@@ -7,9 +10,6 @@ import {
   PRICING_PLANS as plans,
   PLAN_FEATURES as planFeatures,
 } from "../data/pricing";
-
-const heroDescription =
-  "Hard inquiry removal pricing should be easy to understand before you begin. Inquiry Removal uses four one-time plans based on the total number of hard inquiries included in your service. You will not pay a monthly membership just because a creditor or credit bureau takes longer to respond. Choose the range that matches your reports or request a free inquiry review if you are unsure which plan fits. Everything is clear before you choose what happens next.";
 
 const included = [
   [
@@ -169,37 +169,27 @@ const schema = [
         <p class="eyebrow eyebrow--light">
           <span></span> One-Time Plans | No Monthly Subscriptions
         </p>
-        <h1>Hard Inquiry Removal Starts at $199 With Zero Monthly Fees</h1>
-        <p class="hero-summary">
-          Choose the one-time package that matches how many hard inquiries you
-          want us to handle. All affected bureaus are included.
-        </p>
-        <p class="pricing-hero__lead hero-description--desktop">
-          {heroDescription}
-        </p>
+        <h1>{revision.title}</h1>
+        <p class="hero-summary">{revision.supporting}</p>
         <div class="button-row">
           <a
             class="button button--large"
             href="/free-inquiry-review/"
             data-track="pricing-hero-start"
           >
-            Start My Free Review <span>→</span>
+            {revision.primaryCta} <span>→</span>
           </a>
           <a
             class="text-link text-link--light"
-            href="/free-inquiry-review/?review=free"
+            href="#plans"
             data-track="pricing-hero-review"
           >
-            Get My Free Inquiry Review <span>↘</span>
+            Compare the Four Plans <span>↓</span>
           </a>
         </div>
         <p class="cta-microcopy">
           One-time pricing. No monthly fees. All affected bureaus included.
         </p>
-        <details class="hero-mobile-details">
-          <summary>Read full pricing details</summary>
-          <p class="hero-description">{heroDescription}</p>
-        </details>
       </div>
     </section>
 
@@ -270,26 +260,26 @@ const schema = [
           <p class="eyebrow">
             <span></span> A practical comparison
           </p>
-          <h2>What Could Waiting to Remove Your Inquiries Cost You?</h2>
+          <h2>When Does Getting Help Make Sense?</h2>
           <p class="lead">
-            Waiting can mean entering your next application with the same
-            inquiry problem still visible. That may lead to another denial,
-            another delayed goal, or another hard inquiry added before the
-            earlier ones have been addressed.
+            Compare the work you want help with, your available time and whether
+            there is a factual issue to investigate. Normal aging may be the
+            right path for accurate inquiries. Paid assistance is optional, and
+            removal does not guarantee approval.
           </p>
         </div>
         <ol class="waiting-cost__list" data-reveal>
+          <li>Wait and monitor legitimate, accurately reported inquiries.</li>
           <li>
-            Continue toward your next application with the same inquiry section.
+            Use the free official dispute process when you want to manage a
+            factual error yourself.
           </li>
           <li>
-            Join a broad monthly credit repair program when inquiries are your
-            only concern.
+            Consider broader help if the report issues extend beyond inquiries.
           </li>
-          <li>Spend time writing and tracking every dispute by yourself.</li>
           <li>
-            Pay one transparent price for a company focused exclusively on
-            inquiry removal.
+            Choose inquiry-focused help when you want someone to organize
+            appropriate communications and follow-up under an agreed scope.
           </li>
         </ol>
       </div>
@@ -429,6 +419,7 @@ const schema = [
       </div>
     </section>
 
+    <PracticalContent slug="pricing" />
     <section class="section counting-section dark-section" id="count-inquiries">
       <div class="container">
         <div class="counting-heading" data-reveal>

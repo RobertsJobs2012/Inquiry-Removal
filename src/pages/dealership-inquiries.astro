@@ -1,11 +1,17 @@
 ---
+import { editorialPlan } from "../data/editorial";
+import PracticalContent from "../components/PracticalContent.astro";
+const revision = editorialPlan["/dealership-inquiries/"];
 import { PRICING_PLANS } from "../data/pricing";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PhoneReviewPanel from "../components/PhoneReviewPanel.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 import PageJumpNav from "../components/PageJumpNav.astro";
-import { CONTENT_UPDATED_ISO, CONTENT_UPDATED_LABEL } from "../data/contentDates";
+import {
+  EDITORIAL_UPDATED_ISO as CONTENT_UPDATED_ISO,
+  EDITORIAL_UPDATED_LABEL as CONTENT_UPDATED_LABEL,
+} from "../data/contentDates";
 
 const painPoints = [
   [
@@ -187,33 +193,33 @@ const schema = [
       <div class="container dealer-hero__grid">
         <div class="dealer-hero__copy" data-reveal>
           <nav class="breadcrumb" aria-label="Breadcrumb">
-            <a href="/">Home</a><span>/</span><a href="/situations-we-handle/"
-              >Situations We Handle</a
-            ><span>/</span><span>Dealership Inquiries</span>
+            <a href="/">Home</a>
+            <span>/</span>
+            <a href="/situations-we-handle/">Situations We Handle</a>
+            <span>/</span>
+            <span>Dealership Inquiries</span>
           </nav>
           <p class="eyebrow eyebrow--light">
             <span></span> Dealership Inquiry Removal
           </p>
-          <h1>Remove Dealership Hard Inquiries From All 3 Credit Reports</h1>
-          <p>
-            One dealership visit can leave a trail of lender inquiries across
-            Experian, Equifax, and TransUnion. Show us the dealership inquiries
-            you want gone. We organize the lenders, handle the dispute process,
-            review the responses, and keep the removal process moving for you.
-          </p>
+          <h1>{revision.title}</h1>
+          <p class="hero-summary">{revision.supporting}</p>
           <div class="button-row">
             <a
               class="button button--large"
               href="#free-review"
               data-track="dealer-hero-review"
-              >Get My Free Dealership Inquiry Review <span>→</span></a
             >
-            <a class="text-link text-link--light" href="/how-it-works/"
-              >See How Removal Works <span>↘</span></a
-            >
+              Get My Free Dealership Inquiry Review <span>→</span>
+            </a>
+            <a class="text-link text-link--light" href="/how-it-works/">
+              See How Removal Works <span>↘</span>
+            </a>
           </div>
           <p class="cta-microcopy">
-            Free personal review. One-time pricing. No monthly membership.
+            Multiple lender entries alone do not establish an error. Accurate
+            legitimate inquiries are not removed merely because you did not buy
+            a vehicle.
           </p>
         </div>
 
@@ -223,18 +229,36 @@ const schema = [
           data-reveal
         >
           <div class="dealer-application">
-            <span>01</span><strong>One application</strong>
+            <span>01</span>
+            <strong>One application</strong>
           </div>
           <div class="dealer-lender-lines" aria-hidden="true">
-            <i></i><i></i><i></i><i></i><i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
           </div>
           <div class="dealer-bureaus">
             <div>
-              <span>E</span><strong>Experian</strong><i></i><i></i><i></i>
+              <span>E</span>
+              <strong>Experian</strong>
+              <i></i>
+              <i></i>
+              <i></i>
             </div>
-            <div><span>EQ</span><strong>Equifax</strong><i></i><i></i></div>
             <div>
-              <span>TU</span><strong>TransUnion</strong><i></i><i></i><i></i>
+              <span>EQ</span>
+              <strong>Equifax</strong>
+              <i></i>
+              <i></i>
+            </div>
+            <div>
+              <span>TU</span>
+              <strong>TransUnion</strong>
+              <i></i>
+              <i></i>
+              <i></i>
             </div>
           </div>
           <p>
@@ -246,10 +270,22 @@ const schema = [
 
     <section class="trust-ribbon dealer-trust" aria-label="Company proof">
       <div class="container trust-grid">
-        <div><strong>100,437</strong><span>Inquiries removed</span></div>
-        <div><strong>1,123</strong><span>Clients served</span></div>
-        <div><strong>Since 2015</strong><span>Inquiry specialists</span></div>
-        <div><strong>4.9</strong><span>Client rating</span></div>
+        <div>
+          <strong>100,437</strong>
+          <span>Inquiries removed</span>
+        </div>
+        <div>
+          <strong>1,123</strong>
+          <span>Clients served</span>
+        </div>
+        <div>
+          <strong>Since 2015</strong>
+          <span>Inquiry specialists</span>
+        </div>
+        <div>
+          <strong>4.9</strong>
+          <span>Client rating</span>
+        </div>
       </div>
     </section>
 
@@ -263,20 +299,23 @@ const schema = [
       ]}
     />
 
+    <PracticalContent slug="dealership-inquiries" />
     <section class="section dealer-pain-section" id="dealership-overview">
       <div class="container">
         <div class="section-heading split-heading" data-reveal>
           <div>
-            <p class="eyebrow"><span></span> One application, many names</p><h2>
-              Why Did One Dealership Visit Create So Many Hard Inquiries?
-            </h2>
+            <p class="eyebrow">
+              <span></span> One application, many names
+            </p>
+            <h2>Why Did One Dealership Visit Create So Many Hard Inquiries?</h2>
           </div>
           <div>
             <p>
               A dealership may send one credit application to several lenders
               while looking for financing, and each lender that accesses a
               credit report may appear as a separate hard inquiry.
-            </p><p>
+            </p>
+            <p>
               You may have completed one application, spoken with one
               salesperson, and expected one credit check. Then you opened your
               reports and found a list of banks, finance companies, or lender
@@ -286,30 +325,30 @@ const schema = [
           </div>
         </div>
         <div class="dealer-pain-grid">
-          {
-            painPoints.map(([title, body], index) => (
-              <article data-reveal>
-                <>
-                  <span>{String(index + 1).padStart(2, "0")}</span>
-                  <h3>{title}</h3>
-                  <p>{body}</p>
-                </>
-              </article>
-            ))
-          }
+          {painPoints.map(([title, body], index) => (
+            <article data-reveal>
+              <>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <h3>{title}</h3>
+                <p>{body}</p>
+              </>
+            </article>
+          ))}
         </div>
         <div class="dealer-inline-cta" data-reveal>
           <div>
-            <strong>Tell us what happened at the dealership.</strong><p>
-              We will review it with you for free and connect it to the other <a
-                href="/situations-we-handle/"
-                >hard inquiry situations we handle</a
-              >.
+            <strong>Tell us what happened at the dealership.</strong>
+            <p>
+              We will review it with you for free and connect it to the other{" "}
+              <a href="/situations-we-handle/">
+                hard inquiry situations we handle
+              </a>
+              .
             </p>
           </div>
-          <a class="button" href="#free-review"
-            >Show Me Which Inquiries Can Be Removed <span>→</span></a
-          >
+          <a class="button" href="#free-review">
+            Show Me Which Inquiries Can Be Removed <span>→</span>
+          </a>
         </div>
       </div>
     </section>
@@ -317,7 +356,10 @@ const schema = [
     <section class="section dealer-founder-section dark-section">
       <div class="container dealer-founder-grid">
         <div class="dealer-founder-mark" aria-hidden="true" data-reveal>
-          <span>RG</span><i></i><i></i><i></i>
+          <span>RG</span>
+          <i></i>
+          <i></i>
+          <i></i>
         </div>
         <div data-reveal>
           <p class="eyebrow eyebrow--light">
@@ -339,9 +381,8 @@ const schema = [
             specialist to call when the same thing happened to them.”
           </blockquote>
           <p class="dealer-founder-attribution">
-            <strong>Robert Garcia</strong><span
-              >Founder and Senior Credit Analyst</span
-            >
+            <strong>Robert Garcia</strong>
+            <span>Founder and Senior Credit Analyst</span>
           </p>
           <p>
             This is why Inquiry Removal does not try to be everything to
@@ -350,9 +391,9 @@ const schema = [
             experience and is not a promise of a particular score change or
             outcome for another consumer.
           </p>
-          <a class="button" href="#free-review"
-            >Talk With Someone Who Understands <span>→</span></a
-          >
+          <a class="button" href="#free-review">
+            Talk With Someone Who Understands <span>→</span>
+          </a>
         </div>
       </div>
     </section>
@@ -360,7 +401,9 @@ const schema = [
     <section class="section dealer-process-section" id="process">
       <div class="container">
         <div class="dealer-process-heading" data-reveal>
-          <p class="eyebrow"><span></span> Review to follow-through</p>
+          <p class="eyebrow">
+            <span></span> Review to follow-through
+          </p>
           <h2>How Do We Remove Dealership Hard Inquiries?</h2>
           <p class="lead">
             We handle the dealership inquiry removal process from the initial
@@ -369,27 +412,27 @@ const schema = [
           </p>
         </div>
         <div class="dealer-process-list">
-          {
-            process.map(([title, body], index) => (
-              <article data-reveal>
-                <>
-                  <span>{String(index + 1).padStart(2, "0")}</span>
-                  <div>
-                    <>
-                      <h3>{title}</h3>
-                      <p>{body}</p>
-                    </>
-                  </div>
-                </>
-              </article>
-            ))
-          }
+          {process.map(([title, body], index) => (
+            <article data-reveal>
+              <>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <div>
+                  <>
+                    <h3>{title}</h3>
+                    <p>{body}</p>
+                  </>
+                </div>
+              </>
+            </article>
+          ))}
         </div>
         <div class="dealer-time-pricing" data-reveal>
           <div>
-            <p class="eyebrow"><span></span> Timing varies</p><h3>
-              How long can dealership inquiry removal take?
-            </h3><p>
+            <p class="eyebrow">
+              <span></span> Timing varies
+            </p>
+            <h3>How long can dealership inquiry removal take?</h3>
+            <p>
               Removal can happen in as little as 7 days. Many cases take up to
               90 days, and a small number of more complicated situations can
               take 120 days. Timing depends on the reports, companies, and
@@ -397,22 +440,32 @@ const schema = [
             </p>
           </div>
           <div>
-            <p class="eyebrow"><span></span> One-time pricing</p><h3>
-              Pricing based on your total inquiry count
-            </h3><ul>
+            <p class="eyebrow">
+              <span></span> One-time pricing
+            </p>
+            <h3>Pricing based on your total inquiry count</h3>
+            <ul>
               {PRICING_PLANS.map((plan) => (
-                <li><strong>{plan.rangeLabel} inquiries</strong><span>{plan.price} one time</span></li>
+                <li>
+                  <strong>{plan.rangeLabel} inquiries</strong>
+                  <span>{plan.price} one time</span>
+                </li>
               ))}
-              <li><strong>Monthly fees</strong><span>$0</span></li>
-            </ul><a class="text-link" href="/pricing/"
-              >View All Pricing <span>→</span></a
-            >
+              <li>
+                <strong>Monthly fees</strong>
+                <span>$0</span>
+              </li>
+            </ul>
+            <a class="text-link" href="/pricing/">
+              View All Pricing <span>→</span>
+            </a>
           </div>
         </div>
         <div class="section-cta">
-          <a class="button" href="#free-review"
-            >Get My Free Inquiry Review <span>→</span></a
-          ><p>
+          <a class="button" href="#free-review">
+            Get My Free Inquiry Review <span>→</span>
+          </a>
+          <p>
             Not sure how many inquiries you have? We will help you count them.
           </p>
         </div>
@@ -422,7 +475,9 @@ const schema = [
     <section class="section rate-shopping-section">
       <div class="container rate-shopping-grid">
         <div data-reveal>
-          <p class="eyebrow"><span></span> What “counted as one” means</p>
+          <p class="eyebrow">
+            <span></span> What “counted as one” means
+          </p>
           <h2>Will Rate Shopping Make the Dealership Inquiries Disappear?</h2>
           <p class="rate-answer">No.</p>
         </div>
@@ -434,10 +489,11 @@ const schema = [
             credit reports.
           </p>
           <p>
-            <strong
-              >“Counted as one” does not necessarily mean “shown as one.”</strong
-            > A future lender reviewing the report can still see the individual inquiry
-            entries, dates, and creditor names that appear in the file.
+            <strong>
+              “Counted as one” does not necessarily mean “shown as one.”
+            </strong>{" "}
+            A future lender reviewing the report can still see the individual
+            inquiry entries, dates, and creditor names that appear in the file.
           </p>
           <p>
             The effect of inquiries also varies from one credit profile and
@@ -447,18 +503,24 @@ const schema = [
             forward with a cleaner inquiry profile.
           </p>
           <p>
-            Learn more about <a class="inline-link" href="/how-it-works/"
-              >how the inquiry removal process works</a
-            >.
+            Learn more about{" "}
+            <a class="inline-link" href="/how-it-works/">
+              how the inquiry removal process works
+            </a>
+            .
           </p>
         </div>
       </div>
       <div class="container next-goal-card" data-reveal>
         <div>
-          <p class="eyebrow eyebrow--light"><span></span> Your next move</p><h3>
+          <p class="eyebrow eyebrow--light">
+            <span></span> Your next move
+          </p>
+          <h3>
             Your reports should reflect the story you want future lenders to
             see.
-          </h3><p>
+          </h3>
+          <p>
             Maybe you are preparing to buy a home, apply for business credit,
             refinance, return to a different dealership, or protect a credit
             profile you worked hard to build. Whatever comes next, you should
@@ -466,34 +528,34 @@ const schema = [
             creating questions.
           </p>
         </div>
-        <a class="button" href="#free-review"
-          >Remove the Dealership Inquiries Standing in My Way <span>→</span></a
-        >
+        <a class="button" href="#free-review">
+          Remove the Dealership Inquiries Standing in My Way <span>→</span>
+        </a>
       </div>
     </section>
 
     <section class="section dealer-why-section" id="why-dealership">
       <div class="container">
         <div class="dealer-why-heading" data-reveal>
-          <p class="eyebrow"><span></span> Focused on this problem</p><h2>
-            Why Choose Inquiry Removal for Dealership Inquiries?
-          </h2><p class="lead">
+          <p class="eyebrow">
+            <span></span> Focused on this problem
+          </p>
+          <h2>Why Choose Inquiry Removal for Dealership Inquiries?</h2>
+          <p class="lead">
             Inquiry Removal gives dealership-inquiry clients a specialized
             service built around the exact problem they need solved.
           </p>
         </div>
         <div class="dealer-why-grid">
-          {
-            reasons.map(([title, body], index) => (
-              <article data-reveal>
-                <>
-                  <span>{String(index + 1).padStart(2, "0")}</span>
-                  <h3>{title}</h3>
-                  <p>{body}</p>
-                </>
-              </article>
-            ))
-          }
+          {reasons.map(([title, body], index) => (
+            <article data-reveal>
+              <>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <h3>{title}</h3>
+                <p>{body}</p>
+              </>
+            </article>
+          ))}
         </div>
       </div>
     </section>
@@ -506,31 +568,34 @@ const schema = [
     <section class="section faq-section dealer-faq-section" id="dealership-faq">
       <div class="container faq-layout">
         <div data-reveal>
-          <p class="eyebrow"><span></span> Questions, answered</p><h2>
-            Dealership Inquiry Removal Questions, Answered
-          </h2><p>
+          <p class="eyebrow">
+            <span></span> Questions, answered
+          </p>
+          <h2>Dealership Inquiry Removal Questions, Answered</h2>
+          <p>
             Each affected report may show a different lender list. Review the
-            <a class="inline-link" href="/situations-we-handle/"
-              >hard inquiry situations we handle</a
-            > or see the complete <a class="inline-link" href="/how-it-works/"
-              >inquiry removal process</a
-            >.
+            <a class="inline-link" href="/situations-we-handle/">
+              hard inquiry situations we handle
+            </a>{" "}
+            or see the complete{" "}
+            <a class="inline-link" href="/how-it-works/">
+              inquiry removal process
+            </a>
+            .
           </p>
         </div>
         <div class="faq-list" data-reveal>
-          {
-            faqs.map(([question, answer]) => (
-              <details>
-                <>
-                  <summary>
-                    {question}
-                    <span aria-hidden="true" />
-                  </summary>
-                  <p>{answer}</p>
-                </>
-              </details>
-            ))
-          }
+          {faqs.map(([question, answer]) => (
+            <details>
+              <>
+                <summary>
+                  {question}
+                  <span aria-hidden="true" />
+                </summary>
+                <p>{answer}</p>
+              </>
+            </details>
+          ))}
         </div>
       </div>
     </section>
@@ -548,23 +613,24 @@ const schema = [
           affected credit reports.
         </p>
         <div class="button-row button-row--center">
-          <a class="button button--large" href="#free-review"
-            >Get My Free Inquiry Review <span>→</span></a
-          ><a class="text-link text-link--light" href="/free-inquiry-review/"
-            >Talk With a Specialist <span>↘</span></a
-          >
+          <a class="button button--large" href="#free-review">
+            Get My Free Inquiry Review <span>→</span>
+          </a>
+          <a class="text-link text-link--light" href="/free-inquiry-review/">
+            Talk With a Specialist <span>↘</span>
+          </a>
         </div>
         <p class="cta-microcopy">
           Free review. No pressure. No monthly membership.
         </p>
         <p class="dealer-closing-trust">
-          Nationwide service <span>•</span> Experian, Equifax, and TransUnion <span
-            >•</span
-          > English and Spanish <span>•</span> Founded in 2015
+          Nationwide service <span>•</span> Experian, Equifax, and TransUnion{" "}
+          <span>•</span> English and Spanish <span>•</span> Founded in 2015
         </p>
         <p class="last-reviewed">
-          Last reviewed <time datetime={CONTENT_UPDATED_ISO}>{CONTENT_UPDATED_LABEL}</time> by Robert Garcia, Founder and Senior
-          Credit Analyst.
+          Page updated{" "}
+          <time datetime={CONTENT_UPDATED_ISO}>{CONTENT_UPDATED_LABEL}</time>.
+          Robert Garcia, Founder and Senior Credit Analyst.
         </p>
       </div>
     </section>
