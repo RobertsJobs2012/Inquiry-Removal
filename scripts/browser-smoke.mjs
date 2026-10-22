@@ -126,6 +126,58 @@ const run = async (name, viewport, test, contextOptions = {}) => {
   }
 };
 
+for (const width of [320, 390, 768, 1440, 1920]) {
+  await run(
+    `report-label-clearance-${width}`,
+    { width, height: 1000 },
+    async (page) => {
+      await page.goto(`${base}/`, { waitUntil: "networkidle" });
+      await page.evaluate(() => document.fonts.ready);
+      const layout = await page.evaluate(() => {
+        const panel = document
+          .querySelector(".report-panel")
+          .getBoundingClientRect();
+        return {
+          overflow: document.documentElement.scrollWidth > innerWidth,
+          labels: [
+            ...document.querySelectorAll(".hero-interface > .floating-label"),
+          ].map((label) => {
+            const rect = label.getBoundingClientRect();
+            return {
+              text: label.textContent.trim(),
+              visible: rect.width > 0 && rect.height > 0,
+              clearance: rect.top - panel.bottom,
+              inViewport: rect.left >= 0 && rect.right <= innerWidth,
+            };
+          }),
+        };
+      });
+      expect(!layout.overflow, `horizontal overflow at ${width}px`);
+      expect(
+        layout.labels.length === 2,
+        "report must retain both existing labels",
+      );
+      for (const label of layout.labels) {
+        expect(
+          label.visible && label.inViewport,
+          `${label.text} is clipped at ${width}px`,
+        );
+        expect(
+          label.clearance >= 8,
+          `${label.text} overlaps the report at ${width}px`,
+        );
+      }
+      await page.locator("#bureau-preview-experian").click();
+      expect(
+        (await page
+          .locator("#bureau-preview-experian")
+          .getAttribute("aria-selected")) === "true",
+        "report tabs must remain clickable beneath decorative layers",
+      );
+    },
+  );
+}
+
 await run("desktop-home", { width: 1440, height: 1000 }, async (page) => {
   const response = await page.goto(`${base}/`, { waitUntil: "networkidle" });
   expect(response?.status() === 200, `homepage returned ${response?.status()}`);
