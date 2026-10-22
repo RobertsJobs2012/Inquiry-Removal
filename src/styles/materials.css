@@ -1,0 +1,179 @@
+/* Replaces the overlapping glass/bevel layers with one material vocabulary. */
+:root {
+  --surface-edge: #dbe5ef;
+  --surface-shadow: 0 4px 10px #081b2c04, 0 18px 48px #081b2c08;
+  --surface-shadow-hover: 0 6px 14px #081b2c06, 0 24px 52px #081b2c12;
+}
+.button,
+.mobile-action-dock .mobile-action-dock__primary {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  min-height: 54px;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  padding: 14px 24px;
+  overflow: hidden;
+  border: 1px solid #5aa9ed !important;
+  border-radius: 12px;
+  color: #fff !important;
+  background: linear-gradient(135deg, #1476dc, #0758b4) !important;
+  box-shadow:
+    inset 0 1px 0 #ffffff24,
+    0 8px 22px #0873d52b !important;
+  text-decoration: none;
+  text-shadow: none;
+  line-height: 1.4;
+  text-align: center;
+  transform: none;
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease,
+    border-color 220ms ease;
+}
+.button::before,
+.button::after,
+.mobile-action-dock .mobile-action-dock__primary::before,
+.mobile-action-dock .mobile-action-dock__primary::after {
+  content: none;
+}
+.button > span,
+.mobile-action-dock__primary > span {
+  margin-block: 0;
+}
+.button--secondary {
+  color: #095da8 !important;
+  background: #eff7ff !important;
+  border-color: #c0d8ed !important;
+  box-shadow: none !important;
+}
+.content-index a.button {
+  display: flex;
+  padding: 14px 20px;
+  font-size: 0.85rem;
+}
+.desktop-nav,
+.site-header--dark:not(.is-scrolled) .desktop-nav {
+  background: transparent;
+}
+.desktop-nav a[aria-current="page"],
+.page-jump a.is-active {
+  border: 1px solid #d0e5f6 !important;
+  color: #075aad !important;
+  background: #eaf4ff !important;
+  box-shadow: none !important;
+  text-shadow: none;
+}
+.site-header--dark:not(.is-scrolled) .desktop-nav a[aria-current="page"] {
+  color: #bce9ff !important;
+  background: #ffffff0c !important;
+  border-color: #83cfff33 !important;
+}
+.site-header .nav-shell,
+.site-header.is-scrolled .nav-shell {
+  border-radius: 18px;
+  box-shadow: 0 8px 30px #081b2c12;
+}
+.page-jump__inner {
+  border-radius: 14px;
+  box-shadow: 0 6px 24px #081b2c0b;
+}
+.page-jump__inner > div {
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+}
+.page-jump a {
+  flex: 0 0 auto;
+  min-width: max-content;
+  white-space: nowrap;
+}
+.page-jump a.is-active::after {
+  content: none;
+}
+:is(
+  .situation-card,
+  .case-card,
+  .resource-card,
+  .pricing-plan-card,
+  .included-grid article,
+  .review-prep-grid article,
+  .bureau-grid a
+) {
+  position: relative;
+  isolation: isolate;
+  border: 1px solid var(--surface-edge);
+  border-radius: 18px;
+  background-color: #fff;
+  box-shadow: var(--surface-shadow) !important;
+  transform: none;
+  transition:
+    border-color 220ms ease,
+    box-shadow 220ms ease,
+    transform 220ms ease;
+}
+:is(
+  .situation-card,
+  .case-card,
+  .resource-card,
+  .pricing-plan-card,
+  .included-grid article,
+  .review-prep-grid article,
+  .bureau-grid a
+)::before {
+  border-radius: inherit;
+}
+.pricing-plan-card.is-focus-plan {
+  border-color: #2688dc;
+  box-shadow:
+    0 0 0 3px #238bee18,
+    var(--surface-shadow) !important;
+}
+@media (hover: hover) and (pointer: fine) {
+  .button:hover,
+  .mobile-action-dock .mobile-action-dock__primary:hover {
+    box-shadow:
+      inset 0 1px 0 #ffffff30,
+      0 12px 26px #0873d538 !important;
+    transform: translateY(-2px);
+  }
+  :is(
+    .situation-card,
+    .resource-card,
+    .pricing-plan-card,
+    .bureau-grid a
+  ):hover {
+    border-color: #9fc8e7;
+    box-shadow: var(--surface-shadow-hover) !important;
+    transform: translateY(-3px);
+  }
+}
+.button:active {
+  transform: translateY(0);
+  box-shadow:
+    inset 0 1px 2px #031b4230,
+    0 3px 10px #0873d525 !important;
+}
+.button:focus-visible,
+.form-choice:has(input:focus-visible) {
+  outline: 3px solid #53b8ff;
+  outline-offset: 4px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .button,
+  .situation-card,
+  .resource-card,
+  .pricing-plan-card,
+  .bureau-grid a {
+    transition: none;
+  }
+  .button:hover,
+  .situation-card:hover,
+  .resource-card:hover,
+  .pricing-plan-card:hover,
+  .bureau-grid a:hover {
+    transform: none;
+  }
+}

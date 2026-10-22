@@ -194,7 +194,7 @@ const isCurrent = (href: string) =>
   const backToTop = document.querySelector("[data-back-to-top]");
   const ctaSuppressors = Array.from(
     document.querySelectorAll(
-      "#free-review, .intake-section, .review-form-section, .final-cta, .site-footer",
+      "#free-review, .intake-section, .review-form-section, .private-tool, .final-cta, .site-footer",
     ),
   );
   const visibleSuppressors = new Set<Element>();
@@ -247,7 +247,9 @@ const isCurrent = (href: string) =>
       "is-suppressed",
       menuOpen ||
         Array.from(visibleSuppressors).some((region) =>
-          region.matches("#free-review, .intake-section, .review-form-section"),
+          region.matches(
+            "#free-review, .intake-section, .review-form-section, .private-tool",
+          ),
         ),
     );
   };
