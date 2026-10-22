@@ -1,8 +1,8 @@
 {
-  "reviewedLocalDate": "2026-10-21",
-  "releaseSha": "dda3735bc26b25e7194cc76c4012b6f926cc25dc",
+  "reviewedLocalDate": "2026-10-22",
+  "releaseSha": "2ef48034907416ef00732adef3fc3e3f89934ef1",
   "productionUrl": "https://www.inquiryremoval.com",
-  "evidenceRun": "https://github.com/RobertsJobs2012/Inquiry-Removal/actions/runs/39724023025",
+  "evidenceRun": "https://github.com/RobertsJobs2012/Inquiry-Removal/actions/runs/39755692075",
   "chromium": "151.0.0.0",
   "playwright": "1.62.1",
   "scale": 1,
@@ -11,5 +11,5 @@
   "reducedMotion": "reduce",
   "colorScheme": "light",
   "scope": "Initial viewport of home, pricing, review entry, and timeline guide; not a full-page or every-page visual certification.",
-  "review": "All eight actual production screenshots reviewed before acceptance. Desktop opening parity and review-navbar clearance corrected before this set was accepted; three unchanged mobile/guide files matched the separately inspected earlier set byte for byte. Baselines are not automatically regenerated."
+  "review": "All eight actual production screenshots reviewed before acceptance for the visual-only refresh. Six final images match the reviewed initial release byte for byte; the two changed mobile images were reviewed again after breadcrumb alignment. Copy remains identical across all 49 built HTML pages. Existing pixel-difference thresholds are unchanged. Baselines are not automatically regenerated."
 }
