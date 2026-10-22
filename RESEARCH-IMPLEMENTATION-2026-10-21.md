@@ -45,6 +45,7 @@ Every page's title, description and primary heading is mapped in `src/data/edito
 - External GET sample: 46 source destinations; 39 returned 200, seven TransUnion destinations rejected the automated client with 403. TransUnion's inquiry guidance was separately readable through the research browser. Those 403s do not establish broken consumer links or verified crawler access.
 - Production dependency audit: zero reported vulnerabilities. Gitleaks 8.30.1 scanned 204 existing commits with no leaks; no secret values included in evidence.
 - Added production tests for the new tools, download, comparison accessibility, first-screen action and all-page reflow.
+- Screenshot review caught an inherited mobile-only introduction rule and insufficient desktop review-breadcrumb clearance. Both corrected; all 45 pages retested at 320/768/1440 with visible introductions, at least 16px opening clearance below the fixed navbar, and no page-level overflow. These conditions are now explicit browser regressions.
 
 Production release and CI outcomes are recorded below after deployment. Earlier production runs and the supplied Search Console statistics are not presented as fresh checks.
 
@@ -66,4 +67,4 @@ Production release and CI outcomes are recorded below after deployment. Earlier 
 
 ## Release state
 
-Local implementation and build verification complete. Production deployment and post-release CI verification pending at the time of this entry.
+Initial production release: `afccc5ad20318caec3af9121e609031bae13075e`, Vercel `dpl_526vmectCwZdkcsq18LKN5fi7dKx`, READY on the canonical domain. All 45 production GET checks and live smoke checks passed. Build/security CI and production interaction/accessibility tests passed. Visual comparison correctly flagged intentional content/layout changes; baselines are not yet accepted. Final parity/clearance correction and post-release screenshot/performance verification are in progress.

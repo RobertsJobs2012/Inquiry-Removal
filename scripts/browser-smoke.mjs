@@ -66,6 +66,7 @@ const checkAccessibility = async (name, page) => {
 };
 
 const run = async (name, viewport, test, contextOptions = {}) => {
+  console.log("Checking browser scenario:", name);
   const context = await browser.newContext({ viewport, ...contextOptions });
   const page = await context.newPage();
   const consoleErrors = [];
@@ -913,6 +914,30 @@ for (const width of [320, 768, 1440]) {
         expect(
           (await page.locator("h1").innerText()).trim() === revision.title,
           route + " H1 differs from its research brief",
+        );
+        if (revision.supporting)
+          expect(
+            await page
+              .getByText(revision.supporting, { exact: true })
+              .first()
+              .isVisible(),
+            route + " opening is hidden at " + width,
+          );
+        const openingClearance = await page.evaluate(() => {
+          const first = document.querySelector(
+            "main .breadcrumb, main .results-breadcrumb, main .hero-copy > .eyebrow",
+          );
+          const header = document.querySelector("[data-header]");
+          return (
+            !first ||
+            !header ||
+            first.getBoundingClientRect().top >=
+              header.getBoundingClientRect().bottom + 16
+          );
+        });
+        expect(
+          openingClearance,
+          route + " opening crowds the fixed navigation at " + width,
         );
         expect(
           await page.evaluate(
