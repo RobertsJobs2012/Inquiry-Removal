@@ -112,6 +112,46 @@ for (const url of [
     url,
   );
 }
+// Template improvements must preserve the approved answer and provide real,
+// unique targets for every advertised shortcut (including service guides).
+for (const url of Object.keys(plan)) {
+  const html = readFileSync(path.join("dist", url, "index.html"), "utf8");
+  if (!html.includes('class="guide-page')) continue;
+  for (const id of ["quick-answer", "guide-sources"])
+    assert.equal(
+      [...html.matchAll(new RegExp(`id="${id}"`, "g"))].length,
+      1,
+      url + " unique " + id,
+    );
+  if (html.includes("guide-page--article")) {
+    assert.ok(
+      html.indexOf('id="quick-answer"') <
+        html.indexOf('aria-label="Company proof"'),
+      url + " answer before promotional proof",
+    );
+    assert.ok(
+      !html.includes('class="guide-visual__signal"'),
+      url + " no decorative data bars in article hero",
+    );
+  }
+  if (html.includes('href="#practical-tools"'))
+    assert.ok(
+      html.includes('id="practical-tools"'),
+      url + " valid tool shortcut",
+    );
+  if (html.includes('href="#practical-next-steps"'))
+    assert.ok(
+      html.includes('id="practical-next-steps"'),
+      url + " valid practical shortcut",
+    );
+}
+const worksheetPage = readFileSync(
+  "dist/how-to-remove-hard-inquiries/index.html",
+  "utf8",
+);
+assert.match(worksheetPage, /data-inquiry-helper/);
+assert.match(worksheetPage, /data-tool-clear/);
+assert.match(worksheetPage, /data-helper-print/);
 for (const slug of [
   "how-to-remove-hard-inquiries",
   "how-long-do-hard-inquiries-stay",

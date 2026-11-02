@@ -917,6 +917,40 @@ for (const width of [390, 768, 1440]) {
       download.suggestedFilename() === "inquiry-letter-sample.txt",
       "letter download filename is wrong",
     );
+    // Only this isolated synthetic test context replaces the print dialog.
+    // Verify the actual print DOM/CSS, not merely that a button exists.
+    await page.evaluate(() => {
+      window.print = () => {};
+    });
+    await page.locator("[data-tool-print]").click();
+    expect(
+      (
+        await page.locator("[data-private-printout] pre").textContent()
+      ).includes("Private test edit"),
+      "print output lost private edits",
+    );
+    await page.emulateMedia({ media: "print" });
+    expect(
+      await page.evaluate(() =>
+        [...document.body.children].every(
+          (element) =>
+            element.hasAttribute("data-private-printout") ||
+            getComputedStyle(element).display === "none",
+        ),
+      ),
+      "print output includes unrelated page content",
+    );
+    await page.emulateMedia({ media: "screen" });
+    await page.evaluate(() => window.dispatchEvent(new Event("afterprint")));
+    expect(
+      (await page.locator("[data-private-printout]").count()) === 0,
+      "print output was not removed after printing",
+    );
+    await page.locator("[data-tool-clear]").click();
+    expect(
+      (await page.locator("[data-tool-text]").inputValue()) === sample,
+      "clear did not restore the unedited sample",
+    );
     expect(toolPosts === 0, "a private tool submitted a review request");
     await checkAccessibility(`private-letter-${width}`, page);
     await page.goto(
@@ -1147,6 +1181,111 @@ for (const width of [390, 1440]) {
         ),
         "Experian wording leaked into another bureau result",
       );
+    },
+  );
+}
+
+for (const width of [320, 390, 768, 1440]) {
+  await run(
+    `reader-first-helper-${width}`,
+    { width, height: 900 },
+    async (page) => {
+      let leaked = false;
+      page.on("request", (request) => {
+        if (
+          (request.url() + (request.postData() || "")).includes(
+            "TOOL_PRIVATE_SENTINEL",
+          )
+        )
+          leaked = true;
+      });
+      await page.goto(`${base}/how-to-remove-hard-inquiries/`, {
+        waitUntil: "networkidle",
+      });
+      const reading = await page.evaluate(() => ({
+        answerTop: document
+          .querySelector("#quick-answer")
+          .getBoundingClientRect().top,
+        overflow: document.documentElement.scrollWidth > innerWidth,
+        dead: [...document.querySelectorAll('.guide-jump a[href^="#"]')].filter(
+          (a) => !document.getElementById(a.getAttribute("href").slice(1)),
+        ).length,
+      }));
+      expect(
+        !reading.overflow && !reading.dead,
+        "article overflows or advertises a missing shortcut",
+      );
+      if (width <= 390)
+        expect(
+          reading.answerTop < 620,
+          "mobile answer is buried below the promotional layout",
+        );
+      await page.locator('.guide-jump a[href="#practical-tools"]').click();
+      const clearance = await page.evaluate(() => ({
+        top: document.querySelector("#practical-tools").getBoundingClientRect()
+          .top,
+        navBottom: document.querySelector(".guide-jump").getBoundingClientRect()
+          .bottom,
+      }));
+      expect(
+        clearance.top >= clearance.navBottom - 2,
+        "tool heading is covered by the sticky navigation",
+      );
+      await page.locator("[data-helper-reason]").selectOption("identity");
+      await page.locator("[data-helper-bureau]").selectOption("transunion");
+      await page.locator("[data-helper-build]").click();
+      expect(
+        await page.locator("[data-helper-result]").isVisible(),
+        "helper result is hidden",
+      );
+      expect(
+        (await page.locator("[data-helper-note]").innerText()).includes(
+          "not available online",
+        ),
+        "inquiry-specific TransUnion distinction is missing",
+      );
+      expect(
+        (await page
+          .locator(
+            '[data-helper-links] a[href="https://www.identitytheft.gov/"]',
+          )
+          .count()) === 1,
+        "free recovery route is missing",
+      );
+      await checkAccessibility(`helper-result-${width}`, page);
+      await page.locator("[data-helper-reason]").selectOption("recognized");
+      expect(
+        !(await page.locator("[data-helper-result]").isVisible()),
+        "changed choice leaves a stale result",
+      );
+      await page.locator("[data-helper-build]").click();
+      expect(
+        (await page.locator("[data-helper-limit]").innerText()).includes(
+          "Do not turn an application",
+        ),
+        "recognized application path suggests a false fraud claim",
+      );
+      await page.locator(".tool-sample summary").click();
+      await page.locator("[data-tool-text]").fill("TOOL_PRIVATE_SENTINEL");
+      await page.locator("[data-tool-clear]").click();
+      expect(
+        !(await page.locator("[data-tool-text]").inputValue()).includes(
+          "TOOL_PRIVATE_SENTINEL",
+        ),
+        "private edit was not cleared",
+      );
+      expect(
+        !(await page.locator("[data-helper-result]").isVisible()),
+        "clear leaves helper output visible",
+      );
+      expect(
+        (await page.locator("[data-helper-reason]").inputValue()) === "unsure",
+        "clear did not restore uncertainty option",
+      );
+      expect(!leaked, "private edit was transmitted");
+      await page.screenshot({
+        path: path.join(artifactDir, `reader-first-${width}.png`),
+      });
     },
   );
 }

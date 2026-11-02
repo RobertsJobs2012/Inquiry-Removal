@@ -8,6 +8,9 @@ import { createContextualLinker } from "../data/contextualLinks";
 import type { GuidePage } from "../data/guides";
 import { SITE_ORIGIN } from "../data/discovery.mjs";
 import { guideReviewDate } from "../data/contentDates";
+import { guideToolMode } from "../data/guideTools";
+import { practicalGuides } from "../data/practicalGuides";
+import GuideProof from "./GuideProof.astro";
 
 interface Props {
   page: GuidePage;
@@ -18,6 +21,9 @@ const reviewed = guideReviewDate(page.slug);
 const linkText = createContextualLinker(page.slug);
 const canonical = `${SITE_ORIGIN}/${page.slug}/`;
 const isResource = page.category === "resources";
+const isArticle = page.kind === "article";
+const tool = guideToolMode(page.slug);
+const hasPractical = Boolean(tool || practicalGuides[page.slug]?.length);
 const breadcrumbName = isResource ? "Resources" : "Situations We Handle";
 const breadcrumbLabel = isResource ? "Resources" : "Situations";
 const breadcrumbHref = isResource ? "/resources/" : "/situations-we-handle/";
@@ -103,7 +109,11 @@ const schema = [
   theme="dark"
 >
   <Header dark />
-  <main id="main-content" tabindex="-1" class="guide-page">
+  <main
+    id="main-content"
+    tabindex="-1"
+    class:list={["guide-page", isArticle && "guide-page--article"]}
+  >
     <section class="guide-hero dark-section">
       <div class="container guide-hero__grid">
         <div class="guide-hero__copy" data-reveal>
@@ -119,6 +129,16 @@ const schema = [
             {page.eyebrow}
           </p>
           <h1>{page.title}</h1>
+          {isArticle && (
+            <section
+              class="article-answer"
+              id="quick-answer"
+              aria-labelledby="quick-answer-heading"
+            >
+              <h2 id="quick-answer-heading">{page.quickTitle}</h2>
+              <p>{page.quickAnswer}</p>
+            </section>
+          )}
           <p class="guide-hero__support">{page.supporting}</p>
           {page.slug === "identity-theft-inquiries" && (
             <p class="guide-safety-first">
@@ -163,7 +183,9 @@ const schema = [
 
         <aside
           class="guide-hero__visual"
-          aria-label={`${page.title} review overview`}
+          aria-label={
+            isArticle ? "Guide shortcuts" : `${page.title} review overview`
+          }
           data-reveal
         >
           <div class="guide-visual__topline">
@@ -174,62 +196,73 @@ const schema = [
             </span>
             <i></i>
           </div>
-          <strong>{page.eyebrow}</strong>
-          <div class="guide-visual__signal" aria-hidden="true">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-          <p>{overviewItems.join("  ·  ")}</p>
+          {isArticle ? (
+            <nav class="article-path" aria-label="Guide reading path">
+              <span>Find what you need</span>
+              {page.sections.slice(0, 3).map((section, index) => (
+                <a href={`#section-${index + 1}`}>
+                  <b aria-hidden="true">0{index + 1}</b>
+                  {section.heading}
+                  <span aria-hidden="true">↗</span>
+                </a>
+              ))}
+              <a href="#guide-sources">
+                <b aria-hidden="true">↗</b>Official sources
+                <span aria-hidden="true">↗</span>
+              </a>
+            </nav>
+          ) : (
+            <>
+              <strong>{page.eyebrow}</strong>
+              <div class="guide-visual__signal" aria-hidden="true">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+              <p>{overviewItems.join("  ·  ")}</p>
+            </>
+          )}
         </aside>
       </div>
     </section>
 
-    <section class="guide-proof" aria-label="Company proof">
-      <div class="container guide-proof__grid">
-        <div>
-          <strong>100,437</strong>
-          <span>Inquiries removed</span>
-        </div>
-        <div>
-          <strong>1,123</strong>
-          <span>Clients served</span>
-        </div>
-        <div>
-          <strong>Since 2015</strong>
-          <span>Hard inquiry specialists</span>
-        </div>
-        <div>
-          <strong>4.9</strong>
-          <span>Average rating</span>
-        </div>
-      </div>
-      <p>
-        Company-reported figures. Individual results vary. No specific deletion,
-        timeline, score increase, or approval is guaranteed.
-      </p>
-    </section>
+    {!isArticle && <GuideProof />}
 
     <nav class="guide-jump" aria-label="On this page">
       <div class="container">
         <span>On this page</span>
+        <a href="#quick-answer">Quick answer</a>
+        {hasPractical && <a href="#practical-next-steps">Practical steps</a>}
+        {tool && (
+          <a href="#practical-tools">
+            Free{" "}
+            {tool === "age"
+              ? "estimator"
+              : tool === "letter"
+                ? "letter sample"
+                : "worksheet"}
+          </a>
+        )}
         {page.sections.map((section, index) => (
           <a href={`#section-${index + 1}`}>{section.heading}</a>
         ))}
         <a href="#questions">Questions</a>
+        <a href="#guide-sources">Sources</a>
       </div>
     </nav>
 
     <section class="section guide-opening">
       <div class="container guide-opening__grid">
-        <div class="guide-answer" data-reveal>
-          <p class="eyebrow">
-            <span></span>
-            {page.quickTitle}
-          </p>
-          <p>{page.quickAnswer}</p>
-        </div>
+        {!isArticle && (
+          <div class="guide-answer" id="quick-answer" data-reveal>
+            <p class="eyebrow">
+              <span></span>
+              {page.quickTitle}
+            </p>
+            <p>{page.quickAnswer}</p>
+          </div>
+        )}
         <div class="guide-takeaways" data-reveal>
           <span>What to know before you start</span>
           <ul>
@@ -264,6 +297,8 @@ const schema = [
         </div>
       )}
     </section>
+
+    {isArticle && <GuideProof />}
 
     <PracticalContent slug={page.slug} />
 
@@ -419,7 +454,7 @@ const schema = [
             ))}
           </div>
         </div>
-        <aside>
+        <aside id="guide-sources">
           <span>Official consumer resources</span>
           {page.sources.map((source) => (
             <a href={source.href} rel="external noopener">
@@ -462,3 +497,124 @@ const schema = [
   </main>
   <Footer />
 </BaseLayout>
+
+<style>
+  .guide-page
+    :global(
+      :is(
+        #quick-answer,
+        #practical-next-steps,
+        #practical-tools,
+        #guide-sources,
+        [id^="section-"],
+        #questions
+      )
+    ) {
+    scroll-margin-top: 64px;
+  }
+  .article-answer {
+    margin-block: 1.5rem;
+    padding: 1.2rem 1.4rem;
+    border: 1px solid #5baacc50;
+    border-left: 3px solid #37c8de;
+    border-radius: 0 1rem 1rem 0;
+    background: linear-gradient(110deg, #1a658532, #12577712);
+    box-shadow: inset 0 1px #ffffff0a;
+  }
+  .article-answer h2 {
+    color: #8fdef0;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    line-height: 1.5;
+    margin: 0 0 0.65rem;
+  }
+  .article-answer p {
+    color: #eff8ff;
+    font-size: 1.08rem;
+    line-height: 1.65;
+    margin: 0;
+    max-width: 70ch;
+  }
+  .guide-page--article .guide-hero__visual {
+    min-height: 0;
+    align-self: start;
+  }
+  .article-path {
+    display: grid;
+    margin-top: 2rem;
+  }
+  .article-path > span {
+    color: #b9d5e5;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+  .article-path a {
+    display: grid;
+    grid-template-columns: 1.6rem 1fr auto;
+    align-items: center;
+    gap: 0.75rem;
+    padding-block: 1.2rem;
+    border-top: 1px solid #8bcbeb30;
+    color: #f1f9ff;
+    line-height: 1.5;
+    font-size: 0.94rem;
+  }
+  .article-path b,
+  .article-path a > span {
+    color: #70d7e7;
+    font-size: 0.76rem;
+  }
+  .article-path a:hover {
+    color: #93e6f4;
+  }
+  .article-path a:focus-visible {
+    outline: 2px solid #70d7e7;
+    outline-offset: 4px;
+  }
+  .guide-page--article .guide-opening__grid {
+    grid-template-columns: 1fr;
+  }
+  .guide-page--article .guide-opening {
+    padding-block: 48px;
+  }
+  .guide-page--article .guide-takeaways ul {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .guide-page--article .guide-takeaways {
+    padding: 1.7rem;
+  }
+  .guide-page--article .guide-hero__grid {
+    align-items: start;
+  }
+  @media (max-width: 1100px) {
+    .guide-page--article .guide-hero__visual {
+      display: none;
+    }
+  }
+  @media (max-width: 767px) {
+    .guide-page--article .guide-hero__copy {
+      display: block;
+    }
+    .guide-page--article .guide-hero {
+      padding-bottom: 32px;
+    }
+    .guide-page--article .guide-hero h1 {
+      margin-block: 1rem;
+    }
+    .guide-page--article .guide-hero__support {
+      margin-top: 1.2rem;
+    }
+    .article-answer {
+      padding: 1rem;
+      margin-block: 1.25rem;
+    }
+    .article-answer p {
+      font-size: 1rem;
+    }
+    .guide-page--article .guide-takeaways ul {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

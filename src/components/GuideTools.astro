@@ -1,5 +1,9 @@
 ---
-import { LETTER_SAMPLE, WORKSHEET_SAMPLE } from "../lib/inquiry-tools.mjs";
+import {
+  LETTER_SAMPLE,
+  WORKSHEET_SAMPLE,
+  NEXT_STEP_REASONS,
+} from "../lib/inquiry-tools.mjs";
 const { mode } = Astro.props as { mode: "age" | "letter" | "worksheet" };
 const heading =
   mode === "age"
@@ -21,10 +25,10 @@ const heading =
   <h2 id="private-tool-heading">{heading}</h2>
   <p>
     No lead request is needed. Entered information stays in this page's memory:
-    it is not submitted, stored by this tool, or sent to analytics. Download
-    only on a device you trust. The tool does not save edits, but your browser
-    may restore fields when you navigate back; clear personal edits on shared
-    devices.
+    it is not submitted, stored by this tool, or sent to analytics. Download or
+    print only on a device you trust. The tool does not save edits, but your
+    browser may restore fields when you navigate back; clear personal edits on
+    shared devices.
   </p>
   {mode === "age" ? (
     <>
@@ -83,42 +87,148 @@ const heading =
     </>
   ) : (
     <>
-      <label class="tool-label" for="private-tool-text">
-        {mode === "letter"
-          ? "Letter sample — edit privately or select and copy"
-          : "Worksheet — edit privately or select and copy"}
-      </label>
-      <textarea
-        id="private-tool-text"
-        data-tool-text
-        rows={mode === "letter" ? 22 : 17}
-        spellcheck="false"
-        autocomplete="off"
-      >{mode === "letter" ? LETTER_SAMPLE : WORKSHEET_SAMPLE}</textarea>
-      <div class="tool-actions">
-        <button class="button" type="button" data-tool-copy hidden>
-          Copy {mode === "letter" ? "letter" : "worksheet"}
-        </button>
-        <button
-          class="button button--secondary"
-          type="button"
-          data-tool-download
-          hidden
-        >
-          Download private text file
-        </button>
-      </div>
+      {mode === "worksheet" && (
+        <div class="inquiry-helper" data-inquiry-helper hidden>
+          <fieldset>
+            <legend>A clearer next step, in two choices</legend>
+            <p id="helper-privacy">
+              No names, documents or account details needed. This does not
+              submit a review request.
+            </p>
+            <label class="tool-label" for="inquiry-helper-reason">
+              What would you like to understand?
+            </label>
+            <select
+              id="inquiry-helper-reason"
+              data-helper-reason
+              aria-describedby="helper-privacy"
+            >
+              {NEXT_STEP_REASONS.map(([value, label]) => (
+                <option value={value}>{label}</option>
+              ))}
+            </select>
+            <label class="tool-label" for="inquiry-helper-bureau">
+              Which report shows it?
+            </label>
+            <select id="inquiry-helper-bureau" data-helper-bureau>
+              <option value="unsure">Not sure / more than one</option>
+              <option value="experian">Experian</option>
+              <option value="equifax">Equifax</option>
+              <option value="transunion">TransUnion</option>
+            </select>
+            <button type="button" class="button" data-helper-build>
+              Show my next step <span aria-hidden="true">→</span>
+            </button>
+          </fieldset>
+          <section
+            class="helper-result"
+            data-helper-result
+            hidden
+            aria-labelledby="helper-result-heading"
+          >
+            <p class="eyebrow">Your educational next step</p>
+            <h3
+              id="helper-result-heading"
+              tabindex="-1"
+              data-helper-heading
+            ></h3>
+            <ol data-helper-steps></ol>
+            <p data-helper-limit></p>
+            <p data-helper-note></p>
+            <nav
+              class="helper-links"
+              aria-label="Resources for your next step"
+              data-helper-links
+            ></nav>
+            <div class="tool-actions">
+              <button
+                type="button"
+                class="button button--secondary"
+                data-helper-copy
+              >
+                Copy next steps
+              </button>
+              <button
+                type="button"
+                class="button button--secondary"
+                data-helper-print
+              >
+                Print / save next steps as PDF
+              </button>
+            </div>
+          </section>
+        </div>
+      )}
+      <details class="tool-sample" open={mode === "letter"}>
+        <summary>
+          {mode === "letter"
+            ? "Edit the factual letter sample"
+            : "Prefer a blank worksheet? Edit, copy or download it"}
+        </summary>
+        <label class="tool-label" for="private-tool-text">
+          {mode === "letter"
+            ? "Letter sample — edit privately or select and copy"
+            : "Worksheet — edit privately or select and copy"}
+        </label>
+        <textarea
+          id="private-tool-text"
+          data-tool-text
+          rows={mode === "letter" ? 22 : 17}
+          spellcheck="false"
+          autocomplete="off"
+        >{mode === "letter" ? LETTER_SAMPLE : WORKSHEET_SAMPLE}</textarea>
+        <div class="tool-actions">
+          <button class="button" type="button" data-tool-copy hidden>
+            Copy {mode === "letter" ? "letter" : "worksheet"}
+          </button>
+          <button
+            class="button button--secondary"
+            type="button"
+            data-tool-download
+            hidden
+          >
+            Download private text file
+          </button>
+          <button
+            class="button button--secondary"
+            type="button"
+            data-tool-print
+            hidden
+          >
+            Print / save {mode === "letter" ? "letter" : "worksheet"} as PDF
+          </button>
+        </div>
+      </details>
       <p data-tool-output role="status" aria-live="polite">
         You can select and copy the text even if the optional tool controls do
         not load.
       </p>
     </>
   )}
+  <div class="tool-utilities">
+    {mode === "age" && (
+      <button
+        class="button button--secondary"
+        type="button"
+        data-tool-print
+        hidden
+      >
+        Print / save estimate as PDF
+      </button>
+    )}
+    <button class="tool-clear" type="button" data-tool-clear hidden>
+      Clear my answers and edits
+    </button>
+  </div>
 </section>
 <script>
   import {
     inquiryAgeMilestones,
     parseCalendarDate,
+    inquiryNextStep,
+    inquiryNextStepText,
+    LETTER_SAMPLE,
+    WORKSHEET_SAMPLE,
   } from "../lib/inquiry-tools.mjs";
   document
     .querySelectorAll<HTMLElement>("[data-private-tool]")
@@ -138,6 +248,100 @@ const heading =
       const say = (message: string) => {
         if (output) output.textContent = message;
       };
+      const print = root.querySelector<HTMLButtonElement>("[data-tool-print]");
+      const clear = root.querySelector<HTMLButtonElement>("[data-tool-clear]");
+      const helper = root.querySelector<HTMLElement>("[data-inquiry-helper]");
+      const reason = root.querySelector<HTMLSelectElement>(
+        "[data-helper-reason]",
+      );
+      const helperBureau = root.querySelector<HTMLSelectElement>(
+        "[data-helper-bureau]",
+      );
+      const result = root.querySelector<HTMLElement>("[data-helper-result]");
+      let nextStepsText = "";
+      let estimateText = "";
+      const removePrintout = () => {
+        document.querySelector("[data-private-printout]")?.remove();
+        document.body.removeAttribute("data-private-print");
+      };
+      window.addEventListener("afterprint", removePrintout);
+      const printPrivate = (value: string) => {
+        removePrintout();
+        const sheet = document.createElement("section");
+        sheet.dataset.privatePrintout = "";
+        sheet.setAttribute("aria-hidden", "true");
+        const title = document.createElement("h1");
+        title.textContent = "Inquiry Removal · Private resource";
+        const content = document.createElement("pre");
+        content.textContent = value;
+        sheet.append(title, content);
+        document.body.append(sheet);
+        document.body.setAttribute("data-private-print", "");
+        window.print();
+      };
+      if (helper && reason && helperBureau && result) {
+        helper.hidden = false;
+        root
+          .querySelector("[data-helper-build]")
+          ?.addEventListener("click", () => {
+            const plan = inquiryNextStep(reason.value, helperBureau.value);
+            root.querySelector<HTMLElement>(
+              "[data-helper-heading]",
+            )!.textContent = plan.title;
+            const steps = root.querySelector("[data-helper-steps]")!;
+            steps.replaceChildren(
+              ...plan.steps.map((step: string) => {
+                const li = document.createElement("li");
+                li.textContent = step;
+                return li;
+              }),
+            );
+            root.querySelector<HTMLElement>(
+              "[data-helper-limit]",
+            )!.textContent = plan.limit;
+            root.querySelector<HTMLElement>("[data-helper-note]")!.textContent =
+              plan.bureauNote;
+            root.querySelector("[data-helper-links]")!.replaceChildren(
+              ...plan.links.map((link: { label: string; href: string }) => {
+                const a = document.createElement("a");
+                a.textContent = link.label;
+                a.href = link.href;
+                if (link.href.startsWith("https:")) a.rel = "external noopener";
+                return a;
+              }),
+            );
+            nextStepsText = inquiryNextStepText(plan);
+            result.hidden = false;
+            say("Your next steps are ready below. Nothing has been submitted.");
+            root.querySelector<HTMLElement>("[data-helper-heading]")?.focus();
+          });
+        for (const control of [reason, helperBureau])
+          control.addEventListener("change", () => {
+            nextStepsText = "";
+            result.hidden = true;
+            removePrintout();
+            say(
+              "Choice changed. Select Show my next step to refresh the guidance.",
+            );
+          });
+        root
+          .querySelector("[data-helper-copy]")
+          ?.addEventListener("click", async () => {
+            try {
+              await navigator.clipboard.writeText(nextStepsText);
+              say("Next steps copied. Keep any personal notes private.");
+            } catch {
+              say(
+                "Copy is unavailable in this browser. You can select the next-step text or use Print / save as PDF instead.",
+              );
+            }
+          });
+        root
+          .querySelector("[data-helper-print]")
+          ?.addEventListener("click", () => {
+            if (nextStepsText) printPrivate(nextStepsText);
+          });
+      }
       if (date && estimate) {
         const now = new Date();
         const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
@@ -159,15 +363,21 @@ const heading =
               dateStyle: "long",
               timeZone: "UTC",
             }).format(parseCalendarDate(value)!);
-          say(
-            `One-year reference: ${format(milestones.ficoYear)}. Two-year reference: ${format(milestones.twoYears)}.${milestones.experianReference ? ` Experian's additional 25-month reference: ${format(milestones.experianReference)}.` : ""} FICO generally considers inquiries from the previous 12 months; other models can differ. Compare the same entry on the affected report and ask the bureau about any unexplained timing. These dates do not establish an overdue entry or predict deletion, a score change or approval.`,
-          );
+          estimateText = `One-year reference: ${format(milestones.ficoYear)}. Two-year reference: ${format(milestones.twoYears)}.${milestones.experianReference ? ` Experian's additional 25-month reference: ${format(milestones.experianReference)}.` : ""} FICO generally considers inquiries from the previous 12 months; other models can differ. Compare the same entry on the affected report and ask the bureau about any unexplained timing. These dates do not establish an overdue entry or predict deletion, a score change or approval.`;
+          say(estimateText);
+          if (print) print.hidden = false;
         });
         date.addEventListener("input", () => {
           date.removeAttribute("aria-invalid");
+          estimateText = "";
+          if (print) print.hidden = true;
+          removePrintout();
           say("Date changed. Choose Estimate to refresh the reference points.");
         });
         bureau?.addEventListener("change", () => {
+          estimateText = "";
+          if (print) print.hidden = true;
+          removePrintout();
           say(
             "Bureau changed. Choose Estimate to refresh the reference points.",
           );
@@ -206,6 +416,53 @@ const heading =
           setTimeout(() => URL.revokeObjectURL(url), 1000);
           say(
             "Text download prepared on your device. Keep any personal edits private.",
+          );
+        });
+      }
+      if (print) {
+        if (text) print.hidden = false;
+        print.addEventListener("click", () => {
+          if (text) printPrivate(text.value);
+          else if (estimateText)
+            printPrivate(
+              `INQUIRY-AGE REFERENCE POINTS\n\n${estimateText}\n\nSource: https://www.experian.com/help/dispute-credit/\nSource: https://www.myfico.com/credit-education/credit-reports/does-checking-credit-score-lower-it`,
+            );
+        });
+      }
+      if (clear) {
+        clear.hidden = false;
+        clear.addEventListener("click", () => {
+          if (text)
+            text.value =
+              root.dataset.privateTool === "letter"
+                ? LETTER_SAMPLE
+                : WORKSHEET_SAMPLE;
+          if (date) {
+            date.value = "";
+            date.removeAttribute("aria-invalid");
+          }
+          if (bureau) bureau.value = "unsure";
+          if (reason) reason.value = "unsure";
+          if (helperBureau) helperBureau.value = "unsure";
+          if (result) {
+            result.hidden = true;
+            root.querySelector("[data-helper-steps]")?.replaceChildren();
+            root.querySelector("[data-helper-links]")?.replaceChildren();
+            for (const selector of [
+              "[data-helper-heading]",
+              "[data-helper-limit]",
+              "[data-helper-note]",
+            ]) {
+              const element = root.querySelector(selector);
+              if (element) element.textContent = "";
+            }
+          }
+          nextStepsText = "";
+          estimateText = "";
+          if (print && date) print.hidden = true;
+          removePrintout();
+          say(
+            "Answers and private edits cleared. Any files you downloaded or text you copied remain on your device.",
           );
         });
       }
@@ -253,7 +510,7 @@ const heading =
   }
   .private-tool input,
   .private-tool select {
-    max-width: 22rem;
+    max-width: 36rem;
   }
   .private-tool textarea {
     line-height: 1.65;
@@ -281,6 +538,120 @@ const heading =
   }
   .private-tool [aria-invalid="true"] {
     border-color: #b62535;
+  }
+  fieldset {
+    border: 0;
+    padding: 0;
+    margin: 1.5rem 0;
+    min-width: 0;
+  }
+  legend {
+    font-size: 1.15rem;
+    font-weight: 750;
+    color: #123b57;
+  }
+  .helper-result {
+    background: #fff;
+    padding: clamp(1rem, 3vw, 2rem);
+    border: 1px solid #abcfe6;
+    border-radius: 1rem;
+    margin-block: 1.5rem;
+    box-shadow: 0 14px 40px #143f5b0b;
+  }
+  .helper-result h3 {
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
+    line-height: 1.3;
+    color: #143f5b;
+  }
+  .helper-result h3:focus {
+    outline: 2px solid #147af5;
+    outline-offset: 6px;
+    border-radius: 0.2rem;
+  }
+  .helper-result ol {
+    padding-left: 1.3rem;
+    line-height: 1.7;
+    display: grid;
+    gap: 0.9rem;
+    margin-block: 1.5rem;
+  }
+  .helper-links {
+    display: grid;
+    gap: 0.9rem;
+    margin-block: 1.5rem;
+  }
+  .helper-links a {
+    color: #075aa5;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+  }
+  .tool-sample {
+    margin-top: 1.5rem;
+    border-top: 1px solid #bcd9ed;
+    padding-top: 1rem;
+  }
+  .tool-sample summary {
+    cursor: pointer;
+    padding-block: 0.7rem;
+    font-weight: 700;
+    color: #143f5b;
+    line-height: 1.6;
+  }
+  .tool-sample summary:focus-visible,
+  .tool-clear:focus-visible {
+    outline: 3px solid #147af5;
+    outline-offset: 4px;
+  }
+  .tool-utilities {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 1rem;
+  }
+  .tool-clear {
+    background: transparent;
+    color: #405363;
+    border: 0;
+    padding: 0.7rem 0.3rem;
+    font: inherit;
+    font-size: 0.9rem;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    cursor: pointer;
+    min-height: 44px;
+  }
+  :global([data-private-printout]) {
+    display: none;
+  }
+  @media print {
+    :global(body[data-private-print] > :not([data-private-printout])) {
+      display: none !important;
+    }
+    :global(body[data-private-print]) {
+      background: #fff !important;
+      color: #000 !important;
+    }
+    :global(body[data-private-print] [data-private-printout]) {
+      display: block !important;
+      position: static !important;
+      padding: 0;
+      background: #fff !important;
+      color: #000 !important;
+    }
+    :global([data-private-printout] h1) {
+      font-size: 16pt !important;
+      color: #000 !important;
+      margin-bottom: 18pt;
+    }
+    :global([data-private-printout] pre) {
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      font: 11pt/1.6 sans-serif;
+      color: #000 !important;
+    }
   }
   @media (max-width: 640px) {
     .tool-actions {

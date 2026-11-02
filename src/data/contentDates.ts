@@ -16,6 +16,7 @@ const NOVEMBER_REVIEWED_SLUGS = new Set([
   "hard-inquiry-removal-letter",
   "transunion-hard-inquiry-removal",
   "experian-hard-inquiry-removal",
+  "who-pulled-my-credit",
 ]);
 
 export function guideReviewDate(slug: string) {

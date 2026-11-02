@@ -7,6 +7,9 @@ import {
   inquiryAgeMilestones,
   LETTER_SAMPLE,
   WORKSHEET_SAMPLE,
+  inquiryNextStep,
+  inquiryNextStepText,
+  NEXT_STEP_REASONS,
 } from "../src/lib/inquiry-tools.mjs";
 
 test("calendar estimates handle leap days, month ends and invalid input", () => {
@@ -27,6 +30,42 @@ test("calendar estimates handle leap days, month ends and invalid input", () => 
   }
   assert.throws(() => addCalendarMonths("not a date", 24));
   assert.throws(() => addCalendarMonths("2026-10-21", 1.5));
+});
+
+test("all helper routes provide specific guidance and allow uncertainty without an eligibility verdict", () => {
+  for (const [reason] of NEXT_STEP_REASONS) {
+    for (const bureau of ["unsure", "experian", "equifax", "transunion"]) {
+      const result = inquiryNextStep(reason, bureau);
+      assert.equal(result.steps.length, 3);
+      assert.ok(result.title && result.limit && result.bureauNote);
+      assert.ok(
+        result.links.some((link) => link.href.includes("consumerfinance.gov")),
+      );
+      assert.ok(
+        result.links.every((link) => /^(https:\/\/|\/(?!\/))/.test(link.href)),
+      );
+      assert.match(inquiryNextStepText(result), /Nothing has been submitted/);
+      if (bureau === "transunion")
+        assert.match(result.bureauNote, /not available online/);
+    }
+  }
+  assert.match(
+    inquiryNextStep("recognized").limit,
+    /Do not turn an application/,
+  );
+  assert.match(inquiryNextStep("unfamiliar").limit, /does not prove fraud/);
+  assert.match(
+    inquiryNextStep("identity").limit,
+    /does not erase existing inquiries/,
+  );
+  assert.ok(
+    inquiryNextStep("identity").links.some(
+      (link) => link.href === "https://www.identitytheft.gov/",
+    ),
+  );
+  assert.match(inquiryNextStep().title, /full report/);
+  assert.throws(() => inquiryNextStep("guaranteed"));
+  assert.throws(() => inquiryNextStep("unsure", "__proto__"));
 });
 
 test("bureau-aware references distinguish scoring, reporting and Experian wording", () => {
@@ -73,4 +112,9 @@ test("private tool module has no network, persistence or tracking integration", 
   assert.match(module, /date.value > today/);
   assert.match(source, /aria-live="polite"/);
   assert.match(source, /<noscript>/);
+  assert.match(module, /content.textContent = value/);
+  assert.doesNotMatch(module, /innerHTML|document.write|window.open/);
+  assert.match(module, /afterprint/);
+  assert.match(module, /removePrintout\(\)/);
+  assert.match(source, /data-tool-clear/);
 });

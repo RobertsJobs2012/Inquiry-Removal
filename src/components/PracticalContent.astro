@@ -1,16 +1,10 @@
 ---
 import { practicalGuides } from "../data/practicalGuides";
 import GuideTools from "./GuideTools.astro";
+import { guideToolMode } from "../data/guideTools";
 const { slug } = Astro.props as { slug: string };
 const sections = practicalGuides[slug] ?? [];
-const tool =
-  slug === "how-long-do-hard-inquiries-stay"
-    ? "age"
-    : slug === "hard-inquiry-removal-letter"
-      ? "letter"
-      : ["who-pulled-my-credit", "how-to-remove-hard-inquiries"].includes(slug)
-        ? "worksheet"
-        : undefined;
+const tool = guideToolMode(slug);
 ---
 
 {(sections.length > 0 || tool) && (

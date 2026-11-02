@@ -254,6 +254,11 @@ export const practicalGuides: Record<string, PracticalSection[]> = {
           "Advertises a pay-after-removal option. Detailed exclusions, monitoring costs and refund conditions not verified here",
         ],
         [
+          "ReadyVo",
+          "$295 Experian-focused offer; advertises unlimited inquiries and no monthly subscription",
+          "Describes an initial card authorization, an online account and a charge after at least one removal. Check eligibility, authorization holds and the current written refund terms; the service was not purchased or tested here",
+        ],
+        [
           "NUFICO",
           "$250 Experian-only targeted option; $600 option described as three-bureau 10+ inquiry removal",
           "Do not confuse these standalone options with its broader credit-repair payment plans; full inquiry-specific conditions not verified here",
@@ -290,6 +295,10 @@ export const practicalGuides: Record<string, PracticalSection[]> = {
         {
           label: "NUFICO: standalone inquiry options",
           href: "https://nufico.com/pricing/",
+        },
+        {
+          label: "ReadyVo: advertised Experian offer and billing explanation",
+          href: "https://readyvo.com/pricing",
         },
         {
           label: "Finesse My Credit: package details and exclusions",

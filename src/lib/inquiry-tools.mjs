@@ -37,6 +37,156 @@ export function inquiryAgeMilestones(value, bureau = "unsure") {
   };
 }
 
+export const NEXT_STEP_REASONS = [
+  ["unsure", "I am not sure where to start"],
+  ["unfamiliar", "I do not recognize the company"],
+  ["recognized", "I recognize the application"],
+  ["mismatch", "A name, date or other detail looks wrong"],
+  ["identity", "I suspect someone used my identity"],
+];
+const officialDispute = {
+  label: "CFPB: document a specific report error",
+  href: "https://www.consumerfinance.gov/ask-cfpb/how-do-i-dispute-an-error-on-my-credit-report-en-314/",
+};
+const bureauResources = {
+  unsure: {
+    label: "Get your official credit reports",
+    href: "https://www.annualcreditreport.com/",
+  },
+  experian: {
+    label: "Experian's current inquiry assistance",
+    href: "https://www.experian.com/help/dispute-credit/",
+  },
+  equifax: {
+    label: "Equifax's current dispute instructions",
+    href: "https://www.equifax.com/personal/credit-report-services/credit-dispute/",
+  },
+  transunion: {
+    label: "TransUnion's inquiry-specific instructions",
+    href: "https://www.transunion.com/credit-disputes/dispute-your-credit",
+  },
+};
+export function inquiryNextStep(reason = "unsure", bureau = "unsure") {
+  if (
+    !NEXT_STEP_REASONS.some(([value]) => value === reason) ||
+    !Object.hasOwn(bureauResources, bureau)
+  )
+    throw new Error("Choose an available inquiry situation and bureau");
+  const routes = {
+    unsure: {
+      title: "Start with the full report",
+      steps: [
+        "Find the hard-inquiry entry on the actual report, not only an app alert. Save the exact company name, date and affected bureau.",
+        "Compare the date with applications or transactions you remember. A company may use a lending partner's name.",
+        "Choose the situation that matches what you can establish. You do not need to decide that an inquiry is wrong before identifying it.",
+      ],
+      limit:
+        "This is an organizing aid, not an eligibility decision. A credit denial or an unopened account does not by itself invalidate an inquiry.",
+      guide: {
+        label: "How to identify who pulled your credit",
+        href: "/who-pulled-my-credit/",
+      },
+    },
+    unfamiliar: {
+      title: "Identify the company before making a claim",
+      steps: [
+        "Compare the inquiry date with store, dealership, loan and card applications, including financing partners.",
+        "Contact the business using a verified official channel. Ask which application or permissible purpose produced the inquiry and keep its response.",
+        "If a specific mismatch remains, record the evidence and use the affected bureau's current inquiry process. If the facts suggest identity theft, take the official recovery steps too.",
+      ],
+      limit:
+        "An unfamiliar company name alone does not prove fraud or establish that an inquiry can be removed.",
+      guide: {
+        label: "Investigate an unfamiliar inquiry",
+        href: "/unrecognized-inquiries/",
+      },
+    },
+    recognized: {
+      title:
+        "Check accuracy; do not dispute a genuine application just to remove it",
+      steps: [
+        "Match the company and date with your application records, including any lender partner.",
+        "If the inquiry is legitimate and accurate, normal aging is generally the relevant path; scoring and report-visibility periods are different.",
+        "If you find a real reporting mismatch, document that specific fact. Being declined, changing your mind or never opening an account is not itself an error.",
+      ],
+      limit:
+        "This tool cannot predict a deletion, score change or credit approval. Do not turn an application you made into an identity-theft claim.",
+      guide: {
+        label: "Understand an authorized inquiry",
+        href: "/authorized-inquiry-removal/",
+      },
+    },
+    mismatch: {
+      title: "Document the exact mismatch",
+      steps: [
+        "Save the affected report and the record that conflicts with it. Compare the same company, date and bureau; entries on different reports are not automatically duplicates.",
+        "Explain what is wrong and why. Keep supporting copies, the requested correction and each communication together.",
+        "Follow the current bureau and company instructions, preserve confirmation records and compare the response with an updated report.",
+      ],
+      limit:
+        "A discrepancy needs investigation; it is not an automatic removal verdict. Follow the recipient's secure identity-verification instructions outside this tool.",
+      guide: {
+        label: "Prepare a factual inquiry dispute",
+        href: "/how-to-dispute-a-hard-inquiry/",
+      },
+    },
+    identity: {
+      title: "Protect your identity as well as reviewing the inquiry",
+      steps: [
+        "Use IdentityTheft.gov for the current official recovery plan. You do not need to buy inquiry assistance to use it.",
+        "Review the affected reports for unfamiliar accounts or other activity and follow the official freeze and fraud-alert instructions where appropriate.",
+        "Contact the business through its official channel and retain relevant records. Use each affected bureau's fraud/inquiry instructions for supporting documents.",
+      ],
+      limit:
+        "A freeze can restrict future access; it does not erase existing inquiries. This tool does not confirm identity theft or file a report or dispute.",
+      guide: {
+        label: "Read the identity-theft inquiry guide",
+        href: "/identity-theft-inquiries/",
+      },
+    },
+  };
+  const route = routes[reason];
+  return {
+    ...route,
+    bureauNote:
+      bureau === "transunion"
+        ? "TransUnion's inquiry FAQ says an inquiring company can request deletion or fraud information can be mailed. It says that particular inquiry request is not available online; use the current instructions."
+        : "Use the current inquiry-specific instructions for every bureau showing the entry; general account-dispute options may differ.",
+    links: [
+      ...(reason === "identity"
+        ? [
+            {
+              label: "FTC: start the free identity-theft recovery plan",
+              href: "https://www.identitytheft.gov/",
+            },
+          ]
+        : []),
+      bureauResources[bureau],
+      officialDispute,
+      route.guide,
+    ],
+  };
+}
+
+export function inquiryNextStepText(plan) {
+  return [
+    "PRIVATE INQUIRY NEXT STEPS",
+    plan.title,
+    "",
+    ...plan.steps.map((step, i) => `${i + 1}. ${step}`),
+    "",
+    plan.limit,
+    plan.bureauNote,
+    "",
+    ...plan.links.map(
+      (link) =>
+        `${link.label}: ${link.href.startsWith("/") ? "https://www.inquiryremoval.com" : ""}${link.href}`,
+    ),
+    "",
+    "Educational organizing aid only. Nothing has been submitted. No guaranteed deletion, score change or approval.",
+  ].join("\n");
+}
+
 export const LETTER_SAMPLE = `[Your full name]
 [Your mailing address]
 [Date]
