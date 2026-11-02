@@ -20,7 +20,7 @@ const noindex = new Set([
   "/results/",
   "/terms/",
 ]);
-assert.equal(Object.keys(plan).length, 45);
+assert.equal(Object.keys(plan).length, 48);
 const titles = new Set();
 for (const [url, revision] of Object.entries(plan)) {
   const html = readFileSync(path.join("dist", url, "index.html"), "utf8");
@@ -49,6 +49,57 @@ for (const [url, revision] of Object.entries(plan)) {
   for (const href of revision.related)
     assert.ok(href in plan, url + " related " + href);
 }
+const sitemap = readFileSync("dist/sitemap-0.xml", "utf8");
+for (const slug of [
+  "hard-inquiry-dispute-denied",
+  "denied-credit-too-many-inquiries",
+]) {
+  const html = readFileSync(path.join("dist", slug, "index.html"), "utf8");
+  const schema = JSON.parse(
+    html.match(
+      /<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/,
+    )[1],
+  );
+  const article = schema.find((item) => item["@type"] === "Article");
+  assert.equal(
+    article?.dateModified,
+    "2026-11-02",
+    slug + " actual review date",
+  );
+  assert.ok(
+    html.includes('datetime="2026-11-02"'),
+    slug + " visible review date",
+  );
+  assert.ok(
+    html.includes('id="practical-next-steps"'),
+    slug + " checklist target",
+  );
+  assert.ok(
+    sitemap.includes(`https://www.inquiryremoval.com/${slug}/`),
+    slug + " sitemap",
+  );
+  assert.ok(
+    readFileSync("dist/resources/index.html", "utf8").includes(
+      `href="/${slug}/"`,
+    ),
+    slug + " discoverable from hub",
+  );
+}
+assert.ok(sitemap.includes("https://www.inquiryremoval.com/editorial-policy/"));
+const agePage = readFileSync(
+  "dist/how-long-do-hard-inquiries-stay/index.html",
+  "utf8",
+);
+assert.match(agePage, /data-tool-bureau/);
+assert.match(agePage, /25 months/);
+const untouchedGuide = readFileSync(
+  "dist/what-is-a-hard-inquiry/index.html",
+  "utf8",
+);
+assert.ok(
+  untouchedGuide.includes('datetime="2026-10-21"'),
+  "unchanged guide keeps its actual review date",
+);
 for (const url of [
   "/how-long-do-hard-inquiries-stay/",
   "/hard-inquiry-removal-letter/",
@@ -94,5 +145,5 @@ for (const slug of [
   }
 }
 console.log(
-  "Editorial audit passed: all 45 research briefs match built titles and H1s; canonicals, indexing intent and four private tool placements preserved.",
+  `Editorial audit passed: all ${Object.keys(plan).length} editorial entries match built titles and H1s; canonicals, indexing intent and four private tool placements preserved.`,
 );

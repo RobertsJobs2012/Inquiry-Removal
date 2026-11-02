@@ -4,6 +4,16 @@ export type TextSegment = { text: string; href?: string };
 // Curated reading paths for the pages highlighted by Search Console. Never
 // rewrite the source words, link a page to itself, or repeat a destination.
 const rules: Record<string, LinkRule[]> = {
+  "hard-inquiry-dispute-denied": [
+    { phrase: "TransUnion", href: "/transunion-hard-inquiry-removal/" },
+    { phrase: "normal aging", href: "/how-long-do-hard-inquiries-stay/" },
+    { phrase: "identity theft", href: "/identity-theft-inquiries/" },
+  ],
+  "denied-credit-too-many-inquiries": [
+    { phrase: "company name", href: "/who-pulled-my-credit/" },
+    { phrase: "identity", href: "/identity-theft-inquiries/" },
+    { phrase: "scoring model", href: "/rate-shopping-hard-inquiries/" },
+  ],
   "how-to-remove-hard-inquiries": [
     { phrase: "soft inquiry", href: "/hard-inquiry-vs-soft-inquiry/" },
     { phrase: "generic template", href: "/hard-inquiry-removal-letter/" },

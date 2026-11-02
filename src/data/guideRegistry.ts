@@ -1,10 +1,13 @@
 import { guidePages } from "./guides";
 import { batchGuidePages } from "./batchGuides";
 import { reviseGuide } from "./editorial";
+import { troubleshootingGuides } from "./troubleshootingGuides";
 
-export const allGuidePages = [...guidePages, ...batchGuidePages].map(
-  reviseGuide,
-);
+export const allGuidePages = [
+  ...guidePages,
+  ...batchGuidePages,
+  ...troubleshootingGuides,
+].map(reviseGuide);
 
 const allSlugs = allGuidePages.map((page) => page.slug);
 const allGuideSlugsSet = new Set(allSlugs);

@@ -543,6 +543,41 @@
     "primaryCta": "Review My Actual Inquiry Situation",
     "related": ["/how-it-works/", "/eligibility/", "/pricing/"]
   },
+  "/hard-inquiry-dispute-denied/": {
+    "brief": "national.01",
+    "seoTitle": "Hard Inquiry Dispute Denied or Verified? Next Steps",
+    "description": "Read an unsuccessful hard inquiry dispute response, identify missing evidence, and choose a factual follow-up. Includes a free response-review checklist.",
+    "title": "Hard Inquiry Dispute Denied or Verified: What to Do Next",
+    "primaryCta": "Discuss My Inquiry Response",
+    "related": [
+      "/how-to-dispute-a-hard-inquiry/",
+      "/hard-inquiry-removal-letter/",
+      "/denied-credit-too-many-inquiries/",
+      "/transunion-hard-inquiry-removal/"
+    ]
+  },
+  "/denied-credit-too-many-inquiries/": {
+    "brief": "national.02",
+    "seoTitle": "Denied for Too Many Credit Inquiries? What to Do Next",
+    "description": "Denied a card or loan because of too many inquiries? Read the decision notice, check the right report, and separate accurate applications from reporting errors.",
+    "title": "Denied for Too Many Credit Inquiries: What Can You Actually Do?",
+    "primaryCta": "Discuss My Inquiry Situation",
+    "related": [
+      "/how-many-hard-inquiries-is-too-many/",
+      "/who-pulled-my-credit/",
+      "/rate-shopping-hard-inquiries/",
+      "/hard-inquiry-dispute-denied/",
+      "/authorized-inquiry-removal/"
+    ]
+  },
+  "/editorial-policy/": {
+    "brief": "national.03",
+    "seoTitle": "Editorial Standards, Sources & Corrections | Inquiry Removal",
+    "description": "How Inquiry Removal uses sources, distinguishes education from paid services, dates substantive reviews, and accepts corrections to website information.",
+    "title": "Our Editorial Standards and Corrections Policy",
+    "primaryCta": "Report a Website Correction",
+    "related": ["/about/", "/contact/", "/resources/"]
+  },
   "/terms/": {
     "brief": "8.45",
     "seoTitle": "Terms of Use | Inquiry Removal",

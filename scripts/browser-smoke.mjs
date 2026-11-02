@@ -1062,6 +1062,78 @@ await run(
   },
 );
 
+for (const width of [390, 1440]) {
+  await run(
+    `national-resources-${width}`,
+    { width, height: 1000 },
+    async (page) => {
+      for (const slug of [
+        "hard-inquiry-dispute-denied",
+        "denied-credit-too-many-inquiries",
+        "editorial-policy",
+      ]) {
+        const response = await page.goto(`${base}/${slug}/`, {
+          waitUntil: "networkidle",
+        });
+        expect(response?.status() === 200, slug + " did not load");
+        expect(
+          (await page.locator("h1").count()) === 1,
+          slug + " needs one H1",
+        );
+        expect(
+          await page
+            .locator('a[href="/editorial-policy/"]')
+            .first()
+            .isVisible(),
+          slug + " editorial policy link missing",
+        );
+        await checkAccessibility(`${slug}-${width}`, page);
+      }
+      await page.goto(
+        `${base}/how-long-do-hard-inquiries-stay/#practical-tools`,
+        { waitUntil: "networkidle" },
+      );
+      await page.getByLabel("Inquiry date (optional)").fill("2024-02-29");
+      await page
+        .getByLabel("Affected bureau", { exact: true })
+        .selectOption("experian");
+      await page
+        .getByRole("button", {
+          name: "Estimate the reporting period",
+          exact: true,
+        })
+        .click();
+      expect(
+        (await page.locator("[data-tool-output]").innerText()).includes(
+          "March 29, 2026",
+        ),
+        "Experian reference missing",
+      );
+      await page
+        .getByLabel("Affected bureau", { exact: true })
+        .selectOption("transunion");
+      expect(
+        (await page.locator("[data-tool-output]").innerText()).includes(
+          "refresh",
+        ),
+        "bureau change leaves stale results",
+      );
+      await page
+        .getByRole("button", {
+          name: "Estimate the reporting period",
+          exact: true,
+        })
+        .click();
+      expect(
+        !(await page.locator("[data-tool-output]").innerText()).includes(
+          "25-month",
+        ),
+        "Experian wording leaked into another bureau result",
+      );
+    },
+  );
+}
+
 const apiContext = await browser.newContext();
 const apiResponse = await apiContext.request.get(`${base}/api/free-review`);
 if (apiResponse.status() !== 405)

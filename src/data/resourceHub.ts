@@ -20,31 +20,36 @@ export const resourceHubGroups: ResourceHubGroup[] = [
       {
         tag: "Basics",
         title: "What Is a Hard Inquiry?",
-        description: "Learn what creates a hard credit pull, who can see it, and why it matters.",
+        description:
+          "Learn what creates a hard credit pull, who can see it, and why it matters.",
         href: "/what-is-a-hard-inquiry/",
       },
       {
         tag: "Basics",
         title: "Hard Inquiry vs. Soft Inquiry",
-        description: "Compare score impact, visibility, common triggers, and when a check should be soft.",
+        description:
+          "Compare score impact, visibility, common triggers, and when a check should be soft.",
         href: "/hard-inquiry-vs-soft-inquiry/",
       },
       {
         tag: "Credit impact",
         title: "Hard Inquiry Credit Score Impact",
-        description: "Understand the usual scoring effect, timing, and why no exact point change applies to everyone.",
+        description:
+          "Understand the usual scoring effect, timing, and why no exact point change applies to everyone.",
         href: "/hard-inquiry-credit-score-impact/",
       },
       {
         tag: "Credit impact",
         title: "How Many Hard Inquiries Is Too Many?",
-        description: "See why lenders evaluate inquiry patterns in context rather than using one universal cutoff.",
+        description:
+          "See why lenders evaluate inquiry patterns in context rather than using one universal cutoff.",
         href: "/how-many-hard-inquiries-is-too-many/",
       },
       {
         tag: "Timeline",
         title: "How Long Do Hard Inquiries Stay?",
-        description: "Separate the reporting timeline from the shorter period when an inquiry may affect scoring.",
+        description:
+          "Separate the reporting timeline from the shorter period when an inquiry may affect scoring.",
         href: "/how-long-do-hard-inquiries-stay/",
       },
     ],
@@ -57,32 +62,58 @@ export const resourceHubGroups: ResourceHubGroup[] = [
       {
         tag: "Removal guide",
         title: "How to Remove Hard Inquiries",
-        description: "Understand which inquiries may deserve review and the complete removal process.",
+        description:
+          "Understand which inquiries may deserve review and the complete removal process.",
         href: "/how-to-remove-hard-inquiries/",
       },
       {
         tag: "Dispute guide",
         title: "How to Dispute a Hard Inquiry",
-        description: "Build a specific, documented dispute instead of relying on a generic template.",
+        description:
+          "Build a specific, documented dispute instead of relying on a generic template.",
         href: "/how-to-dispute-a-hard-inquiry/",
       },
       {
         tag: "DIY guide",
         title: "Hard Inquiry Removal Letter",
-        description: "See what a focused inquiry dispute letter should include before you send it.",
+        description:
+          "See what a focused inquiry dispute letter should include before you send it.",
         href: "/hard-inquiry-removal-letter/",
       },
       {
         tag: "After removal",
         title: "What Happens When Hard Inquiries Are Removed?",
-        description: "Learn what should change on the report and why a specific score increase is never guaranteed.",
+        description:
+          "Learn what should change on the report and why a specific score increase is never guaranteed.",
         href: "/what-happens-when-hard-inquiries-are-removed/",
       },
       {
         tag: "Timing claims",
         title: "24-Hour Inquiry Removal",
-        description: "Understand what can happen quickly and why no service should promise a universal one-day deletion.",
+        description:
+          "Understand what can happen quickly and why no service should promise a universal one-day deletion.",
         href: "/24-hour-inquiry-removal/",
+      },
+    ],
+  },
+  {
+    title: "After a Dispute or Credit Denial",
+    description:
+      "A bureau response and a lender decision are different events. Choose the guide that matches what happened before deciding on another request.",
+    cards: [
+      {
+        tag: "Dispute response",
+        title: "Hard Inquiry Dispute Denied or Verified",
+        description:
+          "Read the response, identify the unresolved fact and choose a supported follow-up.",
+        href: "/hard-inquiry-dispute-denied/",
+      },
+      {
+        tag: "Credit decision",
+        title: "Denied for Too Many Credit Inquiries",
+        description:
+          "Check the decision notice and affected report before another application or dispute.",
+        href: "/denied-credit-too-many-inquiries/",
       },
     ],
   },
@@ -94,19 +125,22 @@ export const resourceHubGroups: ResourceHubGroup[] = [
       {
         tag: "Experian",
         title: "Experian Hard Inquiry Removal",
-        description: "Review an Experian hard inquiry and understand the bureau-specific next step.",
+        description:
+          "Review an Experian hard inquiry and understand the bureau-specific next step.",
         href: "/experian-hard-inquiry-removal/",
       },
       {
         tag: "Equifax",
         title: "Equifax Hard Inquiry Removal",
-        description: "Identify and review questionable inquiries appearing on an Equifax report.",
+        description:
+          "Identify and review questionable inquiries appearing on an Equifax report.",
         href: "/equifax-hard-inquiry-removal/",
       },
       {
         tag: "TransUnion",
         title: "TransUnion Hard Inquiry Removal",
-        description: "Follow the inquiry-specific review path for a TransUnion report.",
+        description:
+          "Follow the inquiry-specific review path for a TransUnion report.",
         href: "/transunion-hard-inquiry-removal/",
       },
     ],
@@ -119,49 +153,57 @@ export const resourceHubGroups: ResourceHubGroup[] = [
       {
         tag: "Dealership",
         title: "Dealership Hard Inquiries",
-        description: "Understand one application that was routed to multiple auto lenders.",
+        description:
+          "Understand one application that was routed to multiple auto lenders.",
         href: "/dealership-inquiries/",
       },
       {
         tag: "Authorization",
         title: "Unauthorized Hard Inquiries",
-        description: "Review a hard pull you do not believe you authorized or otherwise recognize.",
+        description:
+          "Review a hard pull you do not believe you authorized or otherwise recognize.",
         href: "/unauthorized-inquiries/",
       },
       {
         tag: "Identity theft",
         title: "Identity Theft Hard Inquiries",
-        description: "Handle inquiries connected to fraudulent applications or misuse of personal information.",
+        description:
+          "Handle inquiries connected to fraudulent applications or misuse of personal information.",
         href: "/identity-theft-inquiries/",
       },
       {
         tag: "Soft vs. hard",
         title: "Soft Pull Became a Hard Inquiry",
-        description: "Review what happened when a no-impact or soft-check representation became a hard pull.",
+        description:
+          "Review what happened when a no-impact or soft-check representation became a hard pull.",
         href: "/soft-pull-became-hard-inquiry/",
       },
       {
         tag: "Unknown creditor",
         title: "Unrecognized Hard Inquiries",
-        description: "Trace an unfamiliar company name before deciding whether the inquiry is actually unauthorized.",
+        description:
+          "Trace an unfamiliar company name before deciding whether the inquiry is actually unauthorized.",
         href: "/unrecognized-inquiries/",
       },
       {
         tag: "Duplicate",
         title: "Duplicate Hard Inquiries",
-        description: "Separate true duplicate reporting from legitimate separate lender pulls.",
+        description:
+          "Separate true duplicate reporting from legitimate separate lender pulls.",
         href: "/duplicate-inquiries/",
       },
       {
         tag: "Mixed file",
         title: "Incorrect-Person Hard Inquiries",
-        description: "Review a pull that may belong to another consumer or result from mixed credit information.",
+        description:
+          "Review a pull that may belong to another consumer or result from mixed credit information.",
         href: "/incorrect-person-inquiries/",
       },
       {
         tag: "Recognized inquiry",
         title: "Authorized Inquiry Removal Review",
-        description: "Review a recognized application when another factual reporting or disclosure issue may still exist.",
+        description:
+          "Review a recognized application when another factual reporting or disclosure issue may still exist.",
         href: "/authorized-inquiry-removal/",
       },
     ],
@@ -174,31 +216,36 @@ export const resourceHubGroups: ResourceHubGroup[] = [
       {
         tag: "Mortgage",
         title: "Mortgage Hard Inquiries",
-        description: "Understand preapproval, mortgage rate shopping, repeated pulls, and inquiry review before closing.",
+        description:
+          "Understand preapproval, mortgage rate shopping, repeated pulls, and inquiry review before closing.",
         href: "/mortgage-hard-inquiries/",
       },
       {
         tag: "Auto loan",
         title: "Auto Loan Hard Inquiries",
-        description: "See how dealership lender routing and auto-loan rate shopping can create inquiry clusters.",
+        description:
+          "See how dealership lender routing and auto-loan rate shopping can create inquiry clusters.",
         href: "/auto-loan-hard-inquiries/",
       },
       {
         tag: "Rate shopping",
         title: "Rate Shopping Hard Inquiries",
-        description: "Learn how FICO shopping windows can treat qualifying mortgage, auto, and student-loan inquiries.",
+        description:
+          "Learn how FICO shopping windows can treat qualifying mortgage, auto, and student-loan inquiries.",
         href: "/rate-shopping-hard-inquiries/",
       },
       {
         tag: "Credit cards",
         title: "Credit Card Hard Inquiries",
-        description: "Understand formal card applications, score impact, and when a card-related inquiry deserves review.",
+        description:
+          "Understand formal card applications, score impact, and when a card-related inquiry deserves review.",
         href: "/credit-card-hard-inquiries/",
       },
       {
         tag: "Business funding",
         title: "Business Funding Hard Inquiries",
-        description: "Learn when business financing can create a hard inquiry on an owner or guarantor's personal credit.",
+        description:
+          "Learn when business financing can create a hard inquiry on an owner or guarantor's personal credit.",
         href: "/business-funding-hard-inquiries/",
       },
     ],
@@ -211,19 +258,22 @@ export const resourceHubGroups: ResourceHubGroup[] = [
       {
         tag: "FCRA basics",
         title: "Permissible Purpose for Hard Inquiries",
-        description: "Understand the federal concept behind when a company may obtain a consumer report.",
+        description:
+          "Understand the federal concept behind when a company may obtain a consumer report.",
         href: "/permissible-purpose-hard-inquiries/",
       },
       {
         tag: "Identification",
         title: "Who Pulled My Credit?",
-        description: "Use the report entry, date, and creditor details to trace an unfamiliar hard inquiry.",
+        description:
+          "Use the report entry, date, and creditor details to trace an unfamiliar hard inquiry.",
         href: "/who-pulled-my-credit/",
       },
       {
         tag: "Eligibility",
         title: "Hard Inquiry Removal Eligibility",
-        description: "See which facts matter when deciding whether an inquiry deserves a removal review.",
+        description:
+          "See which facts matter when deciding whether an inquiry deserves a removal review.",
         href: "/eligibility/",
       },
     ],
@@ -236,38 +286,51 @@ export const resourceHubGroups: ResourceHubGroup[] = [
       {
         tag: "Comparison",
         title: "Inquiry Removal vs. Credit Repair",
-        description: "Compare a hard-inquiry specialist with broader credit-repair programs and DIY disputes.",
+        description:
+          "Compare a hard-inquiry specialist with broader credit-repair programs and DIY disputes.",
         href: "/inquiry-removal-vs-credit-repair/",
       },
       {
         tag: "Buyer guide",
         title: "Best Hard Inquiry Removal Services",
-        description: "Use a transparent checklist to compare specialization, pricing, process, proof, and limitations.",
+        description:
+          "Use a transparent checklist to compare specialization, pricing, process, proof, and limitations.",
         href: "/best-hard-inquiry-removal-services/",
       },
       {
         tag: "Process",
         title: "How Inquiry Removal Works",
-        description: "See the review, organization, dispute communication, response review, and follow-through process.",
+        description:
+          "See the review, organization, dispute communication, response review, and follow-through process.",
         href: "/how-it-works/",
       },
       {
         tag: "Pricing",
         title: "Hard Inquiry Removal Pricing",
-        description: "Compare the one-time $199, $299, $399, and $499 packages based on total inquiry count.",
+        description:
+          "Compare the one-time $199, $299, $399, and $499 packages based on total inquiry count.",
         href: "/pricing/",
       },
       {
         tag: "Nationwide",
         title: "Areas We Serve",
-        description: "Learn how the remote hard inquiry removal process works throughout the United States.",
+        description:
+          "Learn how the remote hard inquiry removal process works throughout the United States.",
         href: "/areas-we-serve/",
       },
       {
         tag: "Arizona",
         title: "Arizona Hard Inquiry Removal",
-        description: "Explore statewide Arizona service through the same nationwide remote process.",
+        description:
+          "Explore statewide Arizona service through the same nationwide remote process.",
         href: "/arizona-hard-inquiry-removal/",
+      },
+      {
+        tag: "Editorial standards",
+        title: "Sources, Standards and Corrections",
+        description:
+          "Understand authorship, source checks, comparison disclosures and how to report a website error.",
+        href: "/editorial-policy/",
       },
     ],
   },

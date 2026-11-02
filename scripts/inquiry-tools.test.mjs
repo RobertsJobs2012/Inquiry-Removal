@@ -4,6 +4,7 @@ import { readFileSync } from "node:fs";
 import {
   parseCalendarDate,
   addCalendarMonths,
+  inquiryAgeMilestones,
   LETTER_SAMPLE,
   WORKSHEET_SAMPLE,
 } from "../src/lib/inquiry-tools.mjs";
@@ -26,6 +27,25 @@ test("calendar estimates handle leap days, month ends and invalid input", () => 
   }
   assert.throws(() => addCalendarMonths("not a date", 24));
   assert.throws(() => addCalendarMonths("2026-10-21", 1.5));
+});
+
+test("bureau-aware references distinguish scoring, reporting and Experian wording", () => {
+  assert.deepEqual(inquiryAgeMilestones("2024-02-29", "experian"), {
+    ficoYear: "2025-02-28",
+    twoYears: "2026-02-28",
+    experianReference: "2026-03-29",
+  });
+  for (const bureau of ["equifax", "transunion"])
+    assert.equal(
+      inquiryAgeMilestones("2024-01-31", bureau).experianReference,
+      null,
+    );
+  assert.equal(
+    inquiryAgeMilestones("2024-01-31").experianReference,
+    "2026-02-28",
+  );
+  assert.throws(() => inquiryAgeMilestones("2026-02-30"));
+  assert.throws(() => inquiryAgeMilestones("2024-01-01", "other"));
 });
 
 test("ungated samples are complete, factual and avoid automatic fraud assertions", () => {

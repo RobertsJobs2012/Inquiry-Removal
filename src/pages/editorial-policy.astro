@@ -1,0 +1,210 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { editorialPlan } from "../data/editorial";
+import { SITE_ORIGIN } from "../data/discovery.mjs";
+const revision = editorialPlan["/editorial-policy/"];
+const standards = [
+  {
+    title: "Sources before shortcuts",
+    paragraphs: [
+      "Material explanations about credit reporting and dispute processes use relevant bureau, regulator, government or scoring-provider guidance. The linked source's current instructions control its own process; an educational summary is not a replacement for them.",
+      "Tools, worksheets and examples organize information. They do not decide legal eligibility, predict a score change or establish a deletion deadline. Illustrative interfaces and examples are not client records.",
+    ],
+  },
+  {
+    title: "Clear authorship and real review dates",
+    paragraphs: [
+      "Guide bylines identify Robert Garcia, Inquiry Removal's founder and senior credit analyst. That business role is not a claim of independent legal review, a professional license or a certification. The About page explains the operator behind the service.",
+      "A guide's last-reviewed date records its editorial review, not the reader's case date. Dates are changed for actual reviews or revisions, not automatically each time the website is built. Older guides may have different review dates.",
+    ],
+  },
+  {
+    title: "Education and optional paid help",
+    paragraphs: [
+      "Inquiry Removal publishes this website and sells inquiry-focused assistance. Our educational guides are not independent endorsements of our own service. Consumers can dispute inaccurate report information directly for free; worksheets and letter samples do not require buying a plan.",
+      "We distinguish an unfamiliar company, an accurate application, a factual reporting mismatch and suspected identity theft. Regret, a declined application or the absence of an open account does not by itself establish a removal reason.",
+    ],
+  },
+  {
+    title: "Comparisons disclose their limits",
+    paragraphs: [
+      "Our service-comparison guide includes our own business and discloses that interest. Its public-offer comparison is not a purchased-service test or an independent ranking. Offer checks are dated, and prices, monitoring requirements, exclusions and written terms can change.",
+      "A competitor's advertised outcome is identified as an advertisement or claim, not treated as an independently verified result. Neither a low price nor a prominent guarantee establishes that different services have identical scope.",
+    ],
+  },
+  {
+    title: "Results require context",
+    paragraphs: [
+      "Company-reported totals and ratings are identified as such. A documented case needs starting records, a response or action trail, an updated report, permission and permanent redaction before it is presented as a client example. Placeholders do not establish an outcome.",
+      "An inquiry deletion, a change in a particular score and a lender's approval are different events. One does not prove the cause of another. No individual example guarantees the same result for another person.",
+    ],
+  },
+  {
+    title: "Corrections are welcome",
+    paragraphs: [
+      "If information appears inaccurate or a source has changed, use our Contact page. Include the page address, the specific statement and a current supporting source if available. Do not send Social Security numbers, passwords, full account numbers or identity documents to report a website correction.",
+      "A correction request concerns the information published on this website. It is not a dispute filed with a credit bureau, a complaint submitted to a regulator or a request for legal representation. For an actual report issue, use the appropriate official process or discuss the inquiry with us separately.",
+    ],
+  },
+];
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_ORIGIN}/` },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Editorial policy",
+      item: `${SITE_ORIGIN}/editorial-policy/`,
+    },
+  ],
+};
+---
+
+<BaseLayout
+  title={revision.seoTitle}
+  description={revision.description}
+  theme="dark"
+  {schema}
+>
+  <Header dark />
+  <main id="main-content" tabindex="-1">
+    <section class="policy-hero dark-section">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="/">Home</a>
+          <span aria-hidden="true"> / </span>
+          <span>Editorial policy</span>
+        </nav>
+        <p class="eyebrow eyebrow--light">
+          <span></span> Accountability in every answer
+        </p>
+        <h1>{revision.title}</h1>
+        <p class="policy-intro">
+          Clear sources. Honest limitations. A direct way to flag a mistake.
+          These standards explain how to read the information on this website.
+        </p>
+        <p class="policy-date">
+          Published and reviewed{" "}
+          <time datetime="2026-11-02">November 2, 2026</time>
+        </p>
+        <a class="text-link text-link--light" href="/contact/">
+          Report a website correction <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </section>
+    <section class="section policy-body" aria-label="Editorial standards">
+      <div class="container policy-grid">
+        {standards.map((standard, i) => (
+          <article class="policy-card">
+            <span class="policy-number" aria-hidden="true">
+              {String(i + 1).padStart(2, "0")}
+            </span>
+            <h2>{standard.title}</h2>
+            {standard.paragraphs.map((paragraph) => (
+              <p>{paragraph}</p>
+            ))}
+          </article>
+        ))}
+      </div>
+      <nav class="container policy-links" aria-label="Related information">
+        <a href="/about/">Meet the founder →</a>
+        <a href="/resources/">Read the guides →</a>
+        <a href="/best-hard-inquiry-removal-services/">
+          Comparison disclosures →
+        </a>
+        <a href="/privacy/">Privacy policy →</a>
+      </nav>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .policy-hero {
+    padding: 150px 0 92px;
+  }
+  .policy-hero nav {
+    margin-bottom: 2rem;
+    color: #b4d0e2;
+    font-size: 0.9rem;
+  }
+  .policy-hero nav a {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  h1 {
+    max-width: 19ch;
+    font-size: clamp(2.4rem, 5.5vw, 5rem);
+    line-height: 1.07;
+    margin-block: 1rem 1.5rem;
+  }
+  .policy-intro {
+    max-width: 64ch;
+    font-size: clamp(1.1rem, 1.8vw, 1.35rem);
+    line-height: 1.65;
+    color: #c5ddeb;
+  }
+  .policy-date {
+    margin-block: 1.5rem;
+    color: #b4d0e2;
+  }
+  .policy-body {
+    background: #f4f9fc;
+    color: #172033;
+  }
+  .policy-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+  .policy-card {
+    min-width: 0;
+    padding: clamp(1.3rem, 3vw, 2.5rem);
+    border: 1px solid #d3e3ec;
+    border-radius: 1.4rem;
+    background: #fff;
+  }
+  .policy-number {
+    color: #075aa5;
+    font-weight: 700;
+  }
+  h2 {
+    font-size: clamp(1.5rem, 2.3vw, 2rem);
+    line-height: 1.2;
+    margin-block: 1rem;
+  }
+  .policy-card p {
+    color: #405363;
+    line-height: 1.75;
+    margin-block: 1rem 0;
+  }
+  .policy-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 2rem;
+    margin-top: 2rem;
+  }
+  .policy-links a {
+    color: #075aa5;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  @media (max-width: 760px) {
+    .policy-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .policy-links {
+      display: grid;
+    }
+  }
+  @media (max-width: 640px) {
+    .policy-hero {
+      padding: 122px 0 64px;
+    }
+  }
+</style>

@@ -24,6 +24,19 @@ export function addCalendarMonths(value, count) {
   target.setUTCDate(Math.min(date.getUTCDate(), last));
   return target.toISOString().slice(0, 10);
 }
+export function inquiryAgeMilestones(value, bureau = "unsure") {
+  if (!["unsure", "experian", "equifax", "transunion"].includes(bureau))
+    throw new Error("Invalid bureau");
+  return {
+    ficoYear: addCalendarMonths(value, 12),
+    twoYears: addCalendarMonths(value, 24),
+    experianReference:
+      bureau === "experian" || bureau === "unsure"
+        ? addCalendarMonths(value, 25)
+        : null,
+  };
+}
+
 export const LETTER_SAMPLE = `[Your full name]
 [Your mailing address]
 [Date]

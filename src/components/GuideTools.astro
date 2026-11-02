@@ -41,6 +41,31 @@ const heading =
         Use the date from the affected report. This is a calendar estimate, not
         a guaranteed deletion date, score gain or eligibility result.
       </p>
+      <label class="tool-label" for="inquiry-estimate-bureau">
+        Affected bureau
+      </label>
+      <select
+        id="inquiry-estimate-bureau"
+        data-tool-bureau
+        aria-describedby="age-bureau-help"
+      >
+        <option value="unsure">Not sure / more than one</option>
+        <option value="experian">Experian</option>
+        <option value="equifax">Equifax</option>
+        <option value="transunion">TransUnion</option>
+      </select>
+      <p id="age-bureau-help">
+        Reporting is commonly described as about two years. Experian's support
+        page also uses 25 months. These reference points help you check the
+        report; they do not establish that an entry is overdue.{" "}
+        <a
+          href="https://www.experian.com/help/dispute-credit/"
+          rel="external noopener"
+        >
+          Read Experian's current wording
+        </a>
+        .
+      </p>
       <button class="button" type="button" data-tool-estimate hidden>
         Estimate the reporting period
       </button>
@@ -50,7 +75,9 @@ const heading =
           Without JavaScript, compare the inquiry date with the same calendar
           date two years later (use February 28 when the target year has no
           February 29). Check the actual report near that time; bureaus do not
-          promise this exact deletion day.
+          promise this exact deletion day. For Experian, also compare the
+          25-month point mentioned in its support guidance. FICO's one-year
+          inquiry lookback is a separate scoring concept.
         </p>
       </noscript>
     </>
@@ -90,7 +117,7 @@ const heading =
 </section>
 <script>
   import {
-    addCalendarMonths,
+    inquiryAgeMilestones,
     parseCalendarDate,
   } from "../lib/inquiry-tools.mjs";
   document
@@ -98,6 +125,8 @@ const heading =
     .forEach((root) => {
       const output = root.querySelector<HTMLElement>("[data-tool-output]");
       const date = root.querySelector<HTMLInputElement>("[data-tool-date]");
+      const bureau =
+        root.querySelector<HTMLSelectElement>("[data-tool-bureau]");
       const estimate = root.querySelector<HTMLButtonElement>(
         "[data-tool-estimate]",
       );
@@ -124,13 +153,23 @@ const heading =
             return;
           }
           date.removeAttribute("aria-invalid");
-          const end = addCalendarMonths(date.value, 24);
-          const label = new Intl.DateTimeFormat("en-US", {
-            dateStyle: "long",
-            timeZone: "UTC",
-          }).format(parseCalendarDate(end)!);
+          const milestones = inquiryAgeMilestones(date.value, bureau?.value);
+          const format = (value: string) =>
+            new Intl.DateTimeFormat("en-US", {
+              dateStyle: "long",
+              timeZone: "UTC",
+            }).format(parseCalendarDate(value)!);
           say(
-            `${end <= today ? "The estimated two-year point was" : "The estimated two-year point is"} ${label}. ${end <= today ? "If the entry still appears, verify its date and ask the affected bureau to investigate." : "Check the actual report as that period approaches."} FICO generally considers inquiries from the previous 12 months; other models can differ. This does not predict a score change or a guaranteed removal day.`,
+            `One-year reference: ${format(milestones.ficoYear)}. Two-year reference: ${format(milestones.twoYears)}.${milestones.experianReference ? ` Experian's additional 25-month reference: ${format(milestones.experianReference)}.` : ""} FICO generally considers inquiries from the previous 12 months; other models can differ. Compare the same entry on the affected report and ask the bureau about any unexplained timing. These dates do not establish an overdue entry or predict deletion, a score change or approval.`,
+          );
+        });
+        date.addEventListener("input", () => {
+          date.removeAttribute("aria-invalid");
+          say("Date changed. Choose Estimate to refresh the reference points.");
+        });
+        bureau?.addEventListener("change", () => {
+          say(
+            "Bureau changed. Choose Estimate to refresh the reference points.",
           );
         });
       }
@@ -198,6 +237,7 @@ const heading =
     margin: 1.3rem 0 0.6rem;
   }
   .private-tool input,
+  .private-tool select,
   .private-tool textarea {
     width: 100%;
     max-width: 100%;
@@ -211,14 +251,15 @@ const heading =
     font-size: 1rem;
     color-scheme: light;
   }
-  .private-tool input {
+  .private-tool input,
+  .private-tool select {
     max-width: 22rem;
   }
   .private-tool textarea {
     line-height: 1.65;
     resize: vertical;
   }
-  .private-tool :is(input, textarea):focus-visible {
+  .private-tool :is(input, select, textarea):focus-visible {
     outline: 3px solid #147af5;
     outline-offset: 3px;
   }

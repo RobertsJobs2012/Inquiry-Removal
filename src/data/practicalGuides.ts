@@ -30,6 +30,27 @@ const ficoTiming = {
   label: "myFICO: report visibility and the FICO inquiry lookback",
   href: "https://www.myfico.com/credit-education/credit-reports/does-checking-credit-score-lower-it",
 };
+const complaintNotice = {
+  label: "CFPB: read current complaint-submission instructions",
+  href: "https://www.consumerfinance.gov/complaint/credit-and-consumer-reporting-complaint-notice-2/",
+};
+const complaintGuidance: PracticalSection = {
+  heading: "Before escalating a credit-reporting complaint",
+  intro:
+    "The CFPB's current notice asks whether you first disputed directly, whether the dispute remains pending, and whether more than 45 days have passed. It also cautions against premature complaints during an active investigation. Read the current notice and submission questions rather than treating a complaint as an automatic deletion route.",
+  checklist: [
+    "Keep the original request, delivery record and full response together.",
+    "Identify the exact unresolved fact; do not turn a recognized application into a fraud claim.",
+    "Use the current official process and its secure document instructions.",
+  ],
+  links: [
+    complaintNotice,
+    {
+      label: "Work through an unsuccessful dispute response",
+      href: "/hard-inquiry-dispute-denied/",
+    },
+  ],
+};
 export const eligibility: PracticalSection = {
   heading: "Choose a next step, not an automatic eligibility verdict",
   intro:
@@ -103,11 +124,109 @@ export const bureauPaths: PracticalSection = {
   links: [ex, eq, tu, dispute],
 };
 export const practicalGuides: Record<string, PracticalSection[]> = {
+  "hard-inquiry-dispute-denied": [
+    {
+      heading: "Match the response to a useful next step",
+      intro:
+        "These are general response categories, not quotations from client records or legal conclusions. Use the complete notice and the current instructions from its sender.",
+      columns: ["Response category", "What to check", "Practical next step"],
+      rows: [
+        [
+          "Identity or information needed",
+          "Whether the request is incomplete rather than concluded",
+          "Use the sender's verified secure channel and keep the confirmation",
+        ],
+        [
+          "Entry verified or unchanged",
+          "Whether the explanation matches the application and specific issue raised",
+          "Record any remaining mismatch and the evidence supporting it",
+        ],
+        [
+          "Entry changed or removed",
+          "The same company/date on the same bureau's updated report",
+          "Preserve the result; check other affected reports separately",
+        ],
+        [
+          "Investigation still pending",
+          "Receipt, status and current instructions",
+          "Track the process instead of assuming silence means a deletion",
+        ],
+      ],
+      links: [
+        {
+          label: "CFPB: options after disagreement with results",
+          href: "https://www.consumerfinance.gov/ask-cfpb/what-if-i-disagree-with-the-results-of-my-credit-report-dispute-en-1327/",
+        },
+        {
+          label: "Write a focused follow-up",
+          href: "/hard-inquiry-removal-letter/",
+        },
+      ],
+    },
+    {
+      heading: "Your private response-review checklist",
+      intro:
+        "Keep this record on your own device. No report upload, signup or paid service is needed to use this checklist.",
+      checklist: [
+        "Company, inquiry date and affected bureau match the original request.",
+        "Original request, attachments, delivery record and complete response are saved.",
+        "An updated report confirms what changed or remains.",
+        "One specific unresolved fact is identified, with relevant supporting records.",
+        "The next recipient, secure channel and purpose are clear before anything else is sent.",
+      ],
+      links: [
+        {
+          label: "Use the existing private worksheet",
+          href: "/how-to-remove-hard-inquiries/#practical-tools",
+        },
+      ],
+    },
+  ],
+  "denied-credit-too-many-inquiries": [
+    {
+      heading: "Turn the decision notice into a focused checklist",
+      intro:
+        "This is a personal organizing aid, not a lender's underwriting policy or an approval prediction. Keep the notice and report private.",
+      columns: ["Record", "Question to answer"],
+      rows: [
+        [
+          "Decision notice",
+          "What exact reasons and contact instructions did the lender provide?",
+        ],
+        [
+          "Named reporting company",
+          "Which report contributed to the decision, and how do you request it?",
+        ],
+        [
+          "Inquiry names and dates",
+          "Which entries match applications, lender partners or a specific factual mismatch?",
+        ],
+        [
+          "Lender follow-up",
+          "Is review available, and would a new request authorize another hard pull?",
+        ],
+        [
+          "Next action",
+          "Is the issue accurate application history, an actual reporting error, or a different reason listed in the notice?",
+        ],
+      ],
+      links: [
+        {
+          label: "CFPB: understand a report-related denial",
+          href: "https://www.consumerfinance.gov/ask-cfpb/my-credit-application-was-denied-because-of-my-credit-report-what-can-i-do-en-1253/",
+        },
+        {
+          label: "Identify an unfamiliar company",
+          href: "/who-pulled-my-credit/",
+        },
+      ],
+    },
+  ],
   "best-hard-inquiry-removal-services": [
     {
       heading: "Compare advertised offers, not promised results",
       intro:
-        "Published by Inquiry Removal, which is included below. This is not an independent ranking: we have not purchased or tested these services. Public offers checked October 21, 2026. Prices, eligibility, monitoring costs and written terms may change; a marketing claim is not a verified outcome.",
+        "Published by Inquiry Removal, which is included below. This is not an independent ranking: we have not purchased or tested these services. Selected public offers checked November 2, 2026. This is a representative comparison, not every available provider. Prices, eligibility, monitoring costs and written terms may change; a marketing claim is not a verified outcome.",
       columns: [
         "Provider",
         "Advertised price and scope",
@@ -144,6 +263,16 @@ export const practicalGuides: Record<string, PracticalSection[]> = {
           "$149 up to 3; $249 up to 5; $349 up to 10; $699 up to 40",
           "Its page excludes inquiries attached to open accounts and describes a monitoring service. Confirm ongoing costs and written refund conditions",
         ],
+        [
+          "Express Credit Boost",
+          "$395 one-time priority inquiry service; page describes an Experian-led offer with other-bureau disputes",
+          "Confirm the exact bureau scope, eligibility, monitoring requirements and full written terms; advertised portfolios were not independently tested here",
+        ],
+        [
+          "ATA Consulting",
+          "$250 inquiry-only option for up to 10 inquiries",
+          "Page lists a portal and progress updates; confirm included rounds, bureau coverage and the applicable one-time service terms",
+        ],
       ],
       links: [
         {
@@ -166,6 +295,14 @@ export const practicalGuides: Record<string, PracticalSection[]> = {
           label: "Finesse My Credit: package details and exclusions",
           href: "https://finessemycredit.com/inquiryremoval/",
         },
+        {
+          label: "Express Credit Boost: advertised priority offer",
+          href: "https://www.expresscreditboost.com/priority-hard-inquiry-removal/",
+        },
+        {
+          label: "ATA Consulting: inquiry-only option",
+          href: "https://ataconsulting-llc.com/pricing/",
+        },
       ],
     },
     {
@@ -182,6 +319,7 @@ export const practicalGuides: Record<string, PracticalSection[]> = {
         "What evidence supports claimed results, without promising my deletion, score gain or approval?",
       ],
       links: [
+        { label: "How this comparison is sourced", href: "/editorial-policy/" },
         {
           label: "Free factual dispute route",
           href: "/how-to-dispute-a-hard-inquiry/",
@@ -209,6 +347,34 @@ export const practicalGuides: Record<string, PracticalSection[]> = {
     eligibility,
     bureauPaths,
     {
+      heading: "Two outcomes that need different follow-up",
+      intro:
+        "An unsuccessful report dispute and a lender denying a credit application are not the same problem. Choose the right reading path instead of starting another generic removal request.",
+      columns: ["What happened", "Start with", "Avoid assuming"],
+      rows: [
+        [
+          "A bureau left an inquiry unchanged",
+          "The complete investigation result and remaining factual issue",
+          "Another identical letter guarantees deletion",
+        ],
+        [
+          "A lender cited too many inquiries",
+          "The lender's notice and the report it used",
+          "Denial makes every application inquiry invalid",
+        ],
+      ],
+      links: [
+        {
+          label: "Dispute denied or verified: next steps",
+          href: "/hard-inquiry-dispute-denied/",
+        },
+        {
+          label: "Denied credit because of inquiries",
+          href: "/denied-credit-too-many-inquiries/",
+        },
+      ],
+    },
+    {
       heading: "A complete free path before optional paid help",
       intro:
         "Read the full reports, identify the entry, explain a specific factual issue, use the appropriate official route, and compare the response with an updated report. You can do this yourself for free.",
@@ -223,6 +389,18 @@ export const practicalGuides: Record<string, PracticalSection[]> = {
     },
   ],
   "transunion-hard-inquiry-removal": [
+    {
+      heading: "A company request and a bureau result are different records",
+      intro:
+        "If the company confirms an inquiry should be corrected, ask how it will send its request to TransUnion and keep the confirmation. A company saying it sent a letter is not yet proof the report changed. Compare the same entry on an updated TransUnion report and preserve any response before choosing another step.",
+      links: [
+        tu,
+        {
+          label: "If the inquiry remains after a response",
+          href: "/hard-inquiry-dispute-denied/",
+        },
+      ],
+    },
     {
       heading: "An actionable TransUnion inquiry checklist",
       intro:
@@ -293,6 +471,21 @@ export const practicalGuides: Record<string, PracticalSection[]> = {
         {
           label: "Experian dispute support",
           href: "https://www.experian.com/help/dispute-credit/",
+        },
+      ],
+    },
+    {
+      heading: "Separate the reporting period from the scoring period",
+      intro:
+        "Experian's support page describes hard inquiries as remaining for 25 months in one answer and up to two years in another. Use approximate timing and check the exact report; do not assume that passing the 24-month point establishes an error. Its FICO one-year lookback is a different question from whether the entry is visible.",
+      links: [
+        {
+          label: "Read Experian's current support wording",
+          href: "https://www.experian.com/help/dispute-credit/",
+        },
+        {
+          label: "Use the private inquiry-age estimator",
+          href: "/how-long-do-hard-inquiries-stay/#practical-tools",
         },
       ],
     },
@@ -404,6 +597,7 @@ export const practicalGuides: Record<string, PracticalSection[]> = {
         },
       ],
     },
+    complaintGuidance,
   ],
   "hard-inquiry-removal-letter": [
     {
@@ -419,6 +613,36 @@ export const practicalGuides: Record<string, PracticalSection[]> = {
         "Never claim identity theft or lack of authorization if that is not what happened",
       ],
       links: [dispute, tu, eq],
+    },
+    {
+      heading: "Choose the letter's job before writing it",
+      intro:
+        "A request for an application explanation, a bureau dispute and a follow-up after a response are different communications. Use your own truthful facts and the current recipient instructions; the sample is not a universal deletion script.",
+      columns: ["Communication", "Its purpose", "Record to keep"],
+      rows: [
+        [
+          "Company identification request",
+          "Ask which transaction explains the exact company/date",
+          "The explanation and any application reference",
+        ],
+        [
+          "Factual reporting dispute",
+          "Describe the specific mismatch and supporting records",
+          "The request, relevant copies and delivery confirmation",
+        ],
+        [
+          "Follow-up after a completed response",
+          "Explain what remains unresolved and why additional evidence matters",
+          "The original response, new evidence and updated report",
+        ],
+      ],
+      links: [
+        {
+          label: "Read an unsuccessful dispute response",
+          href: "/hard-inquiry-dispute-denied/",
+        },
+        tu,
+      ],
     },
   ],
   "who-pulled-my-credit": [

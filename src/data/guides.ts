@@ -296,7 +296,7 @@ export const guidePages: GuidePage[] = [
       {
         heading: "What happens after a dispute?",
         body: [
-          "The inquiry may be corrected or removed, verified, or require more information from the creditor. If you still disagree, review the result, preserve it, and determine whether additional documentation, a renewed direct dispute, a consumer statement, or a CFPB complaint is appropriate under current rules.",
+          "The inquiry may be corrected or removed, verified, or require more information. Save the complete response and identify the remaining factual issue before choosing a follow-up. A consumer statement or complaint does not guarantee deletion; check the current official instructions before using either route.",
         ],
       },
     ],
@@ -376,7 +376,7 @@ export const guidePages: GuidePage[] = [
     secondaryTarget: "#section-1",
     quickTitle: "The answer in 20 seconds",
     quickAnswer:
-      "Hard inquiries generally remain visible for up to two years from the inquiry date. Their effect on credit scores usually fades sooner, and scoring models can use different time windows.",
+      "Hard inquiries generally remain visible for about two years. Experian's support page also describes 25 months, so reporting and display timing should not be treated as one guaranteed deletion day. FICO's one-year inquiry lookback is a separate concept; other models can differ.",
     takeaways: [
       "Hard inquiries generally remain visible for up to two years.",
       "Visible for two years does not mean equally important for two years.",
@@ -388,11 +388,17 @@ export const guidePages: GuidePage[] = [
         heading: "What does the two-year timeline mean?",
         body: [
           "A hard inquiry can generally remain on a credit report for up to two years from the date the lender accessed the file. Accurate inquiries normally age off automatically.",
+          "Experian's current support page uses 25 months in one answer and up to two years elsewhere. Treat the timeline as an approximate reference, check the affected report and ask the bureau to explain an unexpected date. The wording difference alone does not establish that an inquiry is being reported incorrectly.",
           "The reporting period and scoring impact are separate concepts. An entry can remain visible even after its influence on a particular scoring model has diminished.",
         ],
         visual: {
-          title: "The 24-month inquiry timeline",
-          items: ["Day 1", "6 months", "12 months", "18 months", "24 months"],
+          title: "Scoring and reporting reference points",
+          items: [
+            "Inquiry date",
+            "12-month FICO lookback",
+            "About two years",
+            "Check bureau timing",
+          ],
         },
       },
       {
@@ -437,7 +443,7 @@ export const guidePages: GuidePage[] = [
       {
         heading: "How do you estimate the falloff date?",
         body: [
-          "Find the inquiry date on the actual credit report and count forward approximately two years. Because report displays and bureau updates can differ, check the current report rather than relying only on a monitoring notification.",
+          "Find the inquiry date on the actual credit report and use the private estimator for one-year, two-year and, where relevant, Experian's 25-month reference points. These are calendar calculations, not deletion deadlines. Because report displays and bureau updates can differ, compare dated reports rather than relying only on a monitoring notification.",
         ],
       },
     ],
@@ -445,7 +451,7 @@ export const guidePages: GuidePage[] = [
       {
         question: "Do hard inquiries really stay for two years?",
         answer:
-          "They generally can remain visible for up to two years from the inquiry date.",
+          "Reporting is generally described as about two years. Experian's support guidance also uses 25 months, so check the affected bureau rather than assuming a guaranteed deletion day.",
       },
       {
         question: "Do they hurt your score for the full two years?",

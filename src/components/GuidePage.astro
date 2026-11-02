@@ -7,16 +7,14 @@ import ContextualText from "./ContextualText.astro";
 import { createContextualLinker } from "../data/contextualLinks";
 import type { GuidePage } from "../data/guides";
 import { SITE_ORIGIN } from "../data/discovery.mjs";
-import {
-  EDITORIAL_UPDATED_ISO as CONTENT_UPDATED_ISO,
-  EDITORIAL_UPDATED_LABEL as CONTENT_UPDATED_LABEL,
-} from "../data/contentDates";
+import { guideReviewDate } from "../data/contentDates";
 
 interface Props {
   page: GuidePage;
 }
 
 const { page } = Astro.props;
+const reviewed = guideReviewDate(page.slug);
 const linkText = createContextualLinker(page.slug);
 const canonical = `${SITE_ORIGIN}/${page.slug}/`;
 const isResource = page.category === "resources";
@@ -82,6 +80,7 @@ const schema = [
         },
         publisher: { "@id": `${SITE_ORIGIN}/#organization` },
         mainEntityOfPage: canonical,
+        dateModified: reviewed.iso,
       }
     : {
         "@context": "https://schema.org",
@@ -258,9 +257,7 @@ const schema = [
             <>
               <span>Page updated</span>
               <strong>
-                <time datetime={CONTENT_UPDATED_ISO}>
-                  {CONTENT_UPDATED_LABEL}
-                </time>
+                <time datetime={reviewed.iso}>{reviewed.label}</time>
               </strong>
             </>
           </div>
@@ -430,6 +427,9 @@ const schema = [
               <span>↗</span>
             </a>
           ))}
+          <a href="/editorial-policy/">
+            Sources, standards and corrections <span>→</span>
+          </a>
         </aside>
       </div>
     </section>
