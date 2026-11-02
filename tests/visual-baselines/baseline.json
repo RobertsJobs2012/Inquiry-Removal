@@ -11,5 +11,15 @@
   "reducedMotion": "reduce",
   "colorScheme": "light",
   "scope": "Initial viewport of home, pricing, review entry, and timeline guide; not a full-page or every-page visual certification.",
-  "review": "All eight actual production screenshots manually reviewed before acceptance for dimensional material restoration. Rich glass controls and navigation states retain legible labels; the homepage report labels occupy a dedicated row below the panel without overlapping its contents. The production browser/accessibility smoke passed before baseline acceptance, including the five-width report-label regression in run 39761647770. Copy remains identical across all 49 built HTML pages and 45 principal live routes. Existing pixel-difference thresholds are unchanged. Baselines are not automatically regenerated."
+  "review": "All eight actual production screenshots manually reviewed before acceptance for dimensional material restoration. Rich glass controls and navigation states retain legible labels; the homepage report labels occupy a dedicated row below the panel without overlapping its contents. The production browser/accessibility smoke passed before baseline acceptance, including the five-width report-label regression in run 39761647770. Copy remains identical across all 49 built HTML pages and 45 principal live routes. Existing pixel-difference thresholds are unchanged. Baselines are not automatically regenerated.",
+  "fixtureRevisions": [
+    {
+      "files": ["desktop-guide.png", "mobile-guide.png"],
+      "reviewedLocalDate": "2026-11-02",
+      "releaseSha": "f9f07fcbdb1ef7cee0c75e330987f9b9ce88552d",
+      "evidenceRun": "https://github.com/RobertsJobs2012/Inquiry-Removal/actions/runs/41465895192",
+      "artifactId": 13152210760,
+      "review": "Both actual production timeline-guide captures manually inspected at the original viewport dimensions after browser/accessibility and private-tool print checks passed. The unchanged short answer now appears beneath the title; desktop decorative bars are replaced by actual guide links and the redundant mobile side panel is omitted. Navy/cyan materials, typography and glass controls remain. Only these two intentionally redesigned guide fixtures are accepted; the other six captures match their original references with zero changed pixels. Chromium, Playwright, screenshot settings and the 0.5% comparison tolerance are unchanged. This records an intentional design review, not automatic acceptance of arbitrary differences."
+    }
+  ]
 }
