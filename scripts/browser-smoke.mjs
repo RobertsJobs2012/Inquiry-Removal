@@ -2,6 +2,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import AxeBuilder from "@axe-core/playwright";
 import { chromium } from "playwright";
+import { resourceHubGroups } from "../src/data/resourceHub.ts";
 
 const base = (process.env.SITE_URL || "https://www.inquiryremoval.com").replace(
   /\/$/,
@@ -411,9 +412,25 @@ await run("desktop-resources", { width: 1440, height: 1000 }, async (page) => {
   );
   expect(await page.locator("h1").isVisible(), "resources H1 is not visible");
   expect(
-    (await page.locator(".resource-hub__group").count()) === 7,
-    "resources hub does not contain seven guide clusters",
+    (await page.locator(".resource-hub__group").count()) ===
+      resourceHubGroups.length,
+    "resources hub does not match the published guide clusters",
   );
+  for (const group of resourceHubGroups)
+    expect(
+      (await page
+        .getByRole("heading", { name: group.title, exact: true })
+        .count()) === 1,
+      `resource cluster missing or repeated: ${group.title}`,
+    );
+  for (const slug of [
+    "hard-inquiry-dispute-denied",
+    "denied-credit-too-many-inquiries",
+  ])
+    expect(
+      (await page.locator(`.resource-card[href="/${slug}/"]`).count()) === 1,
+      `new troubleshooting guide missing: ${slug}`,
+    );
   expect(
     (await page.locator(".resource-card").count()) >= 35,
     "resources hub is missing expected guide cards",
