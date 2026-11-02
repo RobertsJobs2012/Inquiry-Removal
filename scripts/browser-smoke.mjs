@@ -428,7 +428,7 @@ await run("desktop-resources", { width: 1440, height: 1000 }, async (page) => {
     "denied-credit-too-many-inquiries",
   ])
     expect(
-      (await page.locator(`.resource-card[href="/${slug}/"]`).count()) === 1,
+      (await page.locator(`.resource-card a[href="/${slug}/"]`).count()) === 1,
       `new troubleshooting guide missing: ${slug}`,
     );
   expect(
