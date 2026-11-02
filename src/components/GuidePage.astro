@@ -3,6 +3,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "./Header.astro";
 import Footer from "./Footer.astro";
 import PracticalContent from "./PracticalContent.astro";
+import ContextualText from "./ContextualText.astro";
+import { createContextualLinker } from "../data/contextualLinks";
 import type { GuidePage } from "../data/guides";
 import { SITE_ORIGIN } from "../data/discovery.mjs";
 import {
@@ -15,6 +17,7 @@ interface Props {
 }
 
 const { page } = Astro.props;
+const linkText = createContextualLinker(page.slug);
 const canonical = `${SITE_ORIGIN}/${page.slug}/`;
 const isResource = page.category === "resources";
 const breadcrumbName = isResource ? "Resources" : "Situations We Handle";
@@ -284,7 +287,9 @@ const schema = [
             <div class="guide-section__content" data-reveal>
               <h2>{section.heading}</h2>
               {section.body.map((paragraph) => (
-                <p>{paragraph}</p>
+                <p>
+                  <ContextualText segments={linkText(paragraph)} />
+                </p>
               ))}
               {section.bullets && (
                 <ul class="guide-checklist">

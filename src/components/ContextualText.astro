@@ -1,0 +1,40 @@
+---
+import type { TextSegment } from "../data/contextualLinks";
+interface Props {
+  segments: TextSegment[];
+}
+const { segments } = Astro.props;
+---
+
+{segments.map(({ text, href }) =>
+  href ? (
+    <a
+      href={href}
+      data-contextual-link
+      data-track="contextual-guide"
+      data-event="Guide Link Open"
+      data-context={href}
+    >
+      {text}
+    </a>
+  ) : (
+    text
+  ),
+)}
+
+<style>
+  a {
+    color: #075aa5;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+  }
+  a:hover {
+    text-decoration-thickness: 2px;
+  }
+  a:focus-visible {
+    outline: 3px solid #147af5;
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+</style>

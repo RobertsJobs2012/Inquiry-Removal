@@ -61,6 +61,38 @@ for (const url of [
     url,
   );
 }
+for (const slug of [
+  "how-to-remove-hard-inquiries",
+  "how-long-do-hard-inquiries-stay",
+  "best-hard-inquiry-removal-services",
+  "hard-inquiry-removal-letter",
+  "transunion-hard-inquiry-removal",
+  "soft-pull-became-hard-inquiry",
+  "authorized-inquiry-removal",
+]) {
+  const html = readFileSync(path.join("dist", slug, "index.html"), "utf8");
+  const links = [
+    ...html.matchAll(
+      /<a\b([^>]*\bdata-contextual-link\b[^>]*)>([\s\S]*?)<\/a>/g,
+    ),
+  ];
+  assert.ok(
+    links.length > 0 && links.length <= 4,
+    slug + " curated link count",
+  );
+  const destinations = new Set();
+  for (const [, attrs, text] of links) {
+    const href = attrs.match(/href="([^"]+)"/)?.[1];
+    assert.ok(href in plan, slug + " contextual destination exists");
+    assert.notEqual(href, `/${slug}/`, slug + " must not link to itself");
+    assert.ok(
+      !destinations.has(href),
+      slug + " repeated contextual destination",
+    );
+    assert.ok(text.trim(), slug + " contextual link must have a visible name");
+    destinations.add(href);
+  }
+}
 console.log(
   "Editorial audit passed: all 45 research briefs match built titles and H1s; canonicals, indexing intent and four private tool placements preserved.",
 );
