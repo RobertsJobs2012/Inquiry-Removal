@@ -129,6 +129,48 @@ test("agent form preparation cannot deliver a lead or return its private fields"
   );
   assert.match(source, /consent.checked = false/);
   assert.doesNotMatch(source, /setAttribute\("toolautosubmit"/);
+  assert.ok(
+    source.indexOf('"tooldescription",') <
+      source.indexOf('setAttribute("toolname",'),
+    "description must be installed before tool registration to avoid transient schema issues",
+  );
+  assert.ok(
+    source.indexOf("reviewForm.replaceWith(registrationAnchor)") <
+      source.indexOf('"tooldescription",'),
+  );
+  assert.ok(
+    source.indexOf("registrationAnchor.replaceWith(reviewForm)") >
+      source.indexOf('setAttribute("toolname",'),
+  );
+});
+
+test("grouped form parameters and anti-spam field have agent descriptions", () => {
+  const source = readFileSync("src/components/FreeReviewForm.astro", "utf8");
+  const groups = [
+    ...source.matchAll(
+      /<fieldset\b[^>]*toolparamdescription="([^"]+)"[^>]*>([\s\S]*?)<\/fieldset>/g,
+    ),
+  ];
+  assert.equal(groups.length, 6);
+  for (const field of [
+    "goal",
+    "situation",
+    "count",
+    "bureau",
+    "reports",
+    "contactMethod",
+  ]) {
+    assert.ok(
+      groups.some((group) =>
+        group[2].includes(`name={REVIEW_FIELDS.${field}}`),
+      ),
+      `${field} requires its own described fieldset, not an individual choice description`,
+    );
+  }
+  assert.match(
+    source,
+    /name="website"\s+toolparamdescription="Anti-spam field\. Always leave empty\."/,
+  );
 });
 
 test("discovery advertises real read-only resources, not invented services", () => {

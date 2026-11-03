@@ -33,6 +33,7 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
     class="review-form-honeypot"
     type="text"
     name="website"
+    toolparamdescription="Anti-spam field. Always leave empty."
     hidden
     inert
     aria-label="Leave this field empty"
@@ -116,7 +117,11 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
     >
       <legend>What are you preparing for?</legend>
       <p>Choose the goal that best matches your situation.</p>
-      <div class="choice-grid native-choice-grid">
+      <fieldset
+        class="choice-grid native-choice-grid"
+        aria-label="What are you preparing for?"
+        toolparamdescription="The goal the visitor is preparing for."
+      >
         {GOALS.map((goal) => (
           <label class="form-choice">
             <input
@@ -128,11 +133,15 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
             <span>{goal}</span>
           </label>
         ))}
-      </div>
+      </fieldset>
       <p class="field-heading native-field-heading">
         Which situation best describes what happened?
       </p>
-      <div class="choice-grid native-choice-grid">
+      <fieldset
+        class="choice-grid native-choice-grid"
+        aria-label="Which situation best describes what happened?"
+        toolparamdescription="The situation the visitor wants reviewed."
+      >
         {SITUATIONS.map((situation) => (
           <label class="form-choice">
             <input
@@ -144,7 +153,7 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
             <span>{situation}</span>
           </label>
         ))}
-      </div>
+      </fieldset>
     </fieldset>
 
     <fieldset
@@ -155,7 +164,11 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
       <legend>What appears on your reports?</legend>
       <p>Estimates are completely fine for the initial review.</p>
       <p class="field-heading">Approximate inquiry count</p>
-      <div class="choice-grid">
+      <fieldset
+        class="choice-grid"
+        aria-label="Approximate inquiry count"
+        toolparamdescription="The approximate number of hard inquiries. An estimate is acceptable."
+      >
         {INQUIRY_COUNTS.map((count) => (
           <label class="form-choice">
             <input
@@ -167,22 +180,31 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
             <span>{count}</span>
           </label>
         ))}
-      </div>
+      </fieldset>
       <p class="field-heading native-field-heading">
         Which credit reports show the inquiries?
       </p>
-      <div class="choice-grid" data-bureau-group>
+      <fieldset
+        class="choice-grid"
+        data-bureau-group
+        aria-label="Which credit reports show the inquiries?"
+        toolparamdescription="Credit reports that show the inquiries. Select every affected bureau or choose I am not sure."
+      >
         {BUREAUS.map((bureau) => (
           <label class="form-choice">
             <input type="checkbox" name={REVIEW_FIELDS.bureau} value={bureau} />
             <span>{bureau}</span>
           </label>
         ))}
-      </div>
+      </fieldset>
       <p class="field-heading native-field-heading">
         Do you have current copies of the affected reports?
       </p>
-      <div class="choice-grid choice-grid--three">
+      <fieldset
+        class="choice-grid choice-grid--three"
+        aria-label="Do you have current copies of the affected reports?"
+        toolparamdescription="Whether the visitor has current copies of the affected credit reports."
+      >
         {REPORT_COPIES.map((answer) => (
           <label class="form-choice">
             <input
@@ -194,7 +216,7 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
             <span>{answer}</span>
           </label>
         ))}
-      </div>
+      </fieldset>
     </fieldset>
 
     <fieldset
@@ -205,7 +227,11 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
       <legend>How should we contact you?</legend>
       <p>Choose the contact method that works best for you.</p>
       <p class="field-heading">How would you prefer that we contact you?</p>
-      <div class="choice-grid">
+      <fieldset
+        class="choice-grid"
+        aria-label="How would you prefer that we contact you?"
+        toolparamdescription="The visitor's preferred way to receive a response."
+      >
         {CONTACT_METHODS.map((method) => (
           <label class="form-choice">
             <input
@@ -217,7 +243,7 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
             <span>{method}</span>
           </label>
         ))}
-      </div>
+      </fieldset>
       <details class="native-optional-note">
         <summary>
           Add a note <span>(optional)</span>
@@ -291,6 +317,15 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
 </form>
 
 <style is:global>
+  /* Semantic parameter groups retain the exact existing choice-grid layout. */
+  .native-review-form fieldset.choice-grid {
+    min-width: 0;
+    padding: 0;
+    border: 0;
+    margin-inline: 0;
+    margin-block-start: 0;
+  }
+
   .native-review-form.is-enhanced .native-review-step:not(.is-active) {
     display: none;
   }
@@ -724,11 +759,19 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
   if (reviewForm && reviewSteps.length && reviewNext && reviewSubmit) {
     // Register only after submission interception is installed. No auto-submit:
     // early-preview agents may prepare a draft, never deliver a lead themselves.
-    reviewForm.setAttribute("toolname", "prepare_free_inquiry_review");
+    // Configure off-document so a supporting browser never encounters a
+    // half-declared tool. Moving the same node preserves all installed guards,
+    // field values and listeners; it is reinserted before the next paint.
+    const registrationAnchor = document.createComment(
+      "review-tool-registration",
+    );
+    reviewForm.replaceWith(registrationAnchor);
     reviewForm.setAttribute(
       "tooldescription",
       "Prepare a draft of the visitor-approved inquiry-review details. The visitor must review each step, give contact consent and submit manually. This tool does not send a review request.",
     );
+    reviewForm.setAttribute("toolname", "prepare_free_inquiry_review");
+    registrationAnchor.replaceWith(reviewForm);
     reviewForm.classList.add("is-enhanced");
     reviewForm.noValidate = true;
     reviewProgressWrap?.removeAttribute("hidden");

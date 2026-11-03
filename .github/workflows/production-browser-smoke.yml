@@ -45,6 +45,11 @@ jobs:
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
 
+      - name: Verify all seven mobile and desktop Agentic Browsing checks
+        env:
+          SITE_URL: https://www.inquiryremoval.com
+        run: node scripts/agentic-browsing.mjs
+
       - name: Run production browser and accessibility smoke tests
         env:
           SITE_URL: https://www.inquiryremoval.com
@@ -60,11 +65,6 @@ jobs:
         env:
           SITE_URL: https://www.inquiryremoval.com
         run: node scripts/lighthouse-budgets.mjs
-
-      - name: Verify all seven mobile and desktop Agentic Browsing checks
-        env:
-          SITE_URL: https://www.inquiryremoval.com
-        run: node scripts/agentic-browsing.mjs
 
       - name: Upload browser artifacts
         if: always()
