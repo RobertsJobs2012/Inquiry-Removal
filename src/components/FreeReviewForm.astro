@@ -307,6 +307,7 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
 </style>
 
 <script>
+  import { interceptAgentDraft } from "../lib/agent-access.mjs";
   import { track } from "@vercel/analytics";
   import {
     BUREAU_MAP,
@@ -636,6 +637,19 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
   let reviewAccepted = false;
   reviewForm?.addEventListener("submit", async (event) => {
     event.preventDefault();
+    if (
+      interceptAgentDraft(event, () => {
+        const consent = reviewForm.querySelector<HTMLInputElement>(
+          ".native-consent-check input",
+        );
+        if (consent) consent.checked = false;
+        showReviewStep(0, false);
+        if (reviewError)
+          reviewError.textContent =
+            "Your assistant prepared a draft only. Please review each step and give contact consent before submitting. Nothing has been sent.";
+      })
+    )
+      return;
     if (reviewSending || reviewAccepted) return;
     if (reviewStep !== reviewSteps.length - 1) {
       if (validateReviewStep()) showReviewStep(reviewStep + 1);
@@ -708,6 +722,13 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
   // Enhance only after every navigation/submission handler is installed.
   // If the module fails to load, the complete native form still works.
   if (reviewForm && reviewSteps.length && reviewNext && reviewSubmit) {
+    // Register only after submission interception is installed. No auto-submit:
+    // early-preview agents may prepare a draft, never deliver a lead themselves.
+    reviewForm.setAttribute("toolname", "prepare_free_inquiry_review");
+    reviewForm.setAttribute(
+      "tooldescription",
+      "Prepare a draft of the visitor-approved inquiry-review details. The visitor must review each step, give contact consent and submit manually. This tool does not send a review request.",
+    );
     reviewForm.classList.add("is-enhanced");
     reviewForm.noValidate = true;
     reviewProgressWrap?.removeAttribute("hidden");

@@ -1,0 +1,44 @@
+<script>
+  import { registerPublicTools } from "../lib/agent-access.mjs";
+  // Early-preview capability only. Ordinary browsing never depends on it.
+  const context =
+    (
+      document as Document & {
+        modelContext?: Parameters<typeof registerPublicTools>[0];
+      }
+    ).modelContext ??
+    (
+      navigator as Navigator & {
+        modelContext?: Parameters<typeof registerPublicTools>[0];
+      }
+    ).modelContext;
+  if (context && window.isSecureContext) {
+    const controller = new AbortController();
+    window.addEventListener(
+      "pagehide",
+      (event) => {
+        if (!(event as PageTransitionEvent).persisted) controller.abort();
+      },
+      { once: true },
+    );
+    registerPublicTools(
+      context,
+      async () => {
+        // No query, personal data, form contents, credentials or private-tool edits
+        // are sent. The same fixed public file serves every caller.
+        const response = await fetch("/agent-info.json", {
+          signal: controller.signal,
+          credentials: "omit",
+        });
+        if (!response.ok)
+          throw new Error(
+            "Public information is unavailable. Use /pricing/ or /resources/.",
+          );
+        return response.json();
+      },
+      controller.signal,
+    ).catch(() => {
+      // Unsupported preview implementations must not break the human site.
+    });
+  }
+</script>

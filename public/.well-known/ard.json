@@ -1,0 +1,17 @@
+{
+  "entries": [
+    {
+      "identifier": "urn:air:inquiryremoval.com:public-information",
+      "displayName": "Inquiry Removal Public Information",
+      "type": "application/vnd.oai.openapi+json",
+      "url": "https://www.inquiryremoval.com/agent-openapi.json",
+      "description": "Read-only OpenAPI description for published company details, one-time plan prices and educational guide links. This is not a remote MCP server or a client-record or dispute-submission service.",
+      "representativeQueries": [
+        "What are Inquiry Removal's current one-time plans?",
+        "Find Inquiry Removal's TransUnion inquiry guide",
+        "Where can I read the free inquiry dispute instructions?"
+      ],
+      "capabilities": ["PublicInformation", "Pricing", "GuideLookup"]
+    }
+  ]
+}

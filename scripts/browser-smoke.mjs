@@ -670,6 +670,64 @@ await run(
   },
 );
 
+for (const width of [390, 1440]) {
+  await run(
+    `agent-draft-safety-${width}`,
+    { width, height: 1000 },
+    async (page) => {
+      let deliveryRequests = 0;
+      await page.route("**/api/free-review", async (route) => {
+        deliveryRequests++;
+        await route.abort();
+      });
+      await page.goto(`${base}/free-inquiry-review/`, {
+        waitUntil: "networkidle",
+      });
+      await page.locator("[data-review-form].is-enhanced").waitFor();
+      const result = await page.evaluate(async () => {
+        const form = document.querySelector("[data-review-form]");
+        const consent = form.querySelector(".native-consent-check input");
+        consent.checked = true;
+        const event = new SubmitEvent("submit", {
+          bubbles: true,
+          cancelable: true,
+        });
+        let response;
+        Object.defineProperties(event, {
+          agentInvoked: { value: true },
+          respondWith: {
+            value: (promise) => {
+              response = promise;
+            },
+          },
+        });
+        form.dispatchEvent(event);
+        return {
+          prevented: event.defaultPrevented,
+          consent: consent.checked,
+          stepVisible: !form.querySelector("[data-review-step='1']").hidden,
+          result: await response,
+        };
+      });
+      await page.waitForTimeout(500);
+      expect(deliveryRequests === 0, "agent draft attempted to send a lead");
+      expect(
+        result.prevented && !result.consent && result.stepVisible,
+        "agent draft did not require fresh visitor review and consent",
+      );
+      expect(
+        result.result?.submitted === false &&
+          result.result?.status === "requires_visitor_review",
+        "agent draft response incorrectly indicates submission",
+      );
+      expect(
+        !(await page.locator("[data-review-submit]").isVisible()),
+        "agent draft skipped directly to final submission",
+      );
+    },
+  );
+}
+
 await run("not-found", { width: 1280, height: 900 }, async (page) => {
   const response = await page.goto(
     `${base}/browser-smoke-not-found-${Date.now()}/`,

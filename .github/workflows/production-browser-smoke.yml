@@ -9,6 +9,7 @@ on:
     paths:
       - scripts/browser-smoke.mjs
       - scripts/visual-regression.mjs
+      - scripts/agentic-browsing.mjs
       - tests/visual-baselines/**
       - .github/workflows/production-browser-smoke.yml
   schedule:
@@ -39,7 +40,7 @@ jobs:
         run: npm ci --no-audit --no-fund
 
       - name: Install transient browser test dependencies
-        run: npm install --no-save --package-lock=false --ignore-scripts --no-audit --no-fund playwright@1.62.1 @axe-core/playwright@4.13.0 lighthouse@13.5.0 pixelmatch@8.0.0 pngjs@7.0.0
+        run: npm install --no-save --package-lock=false --ignore-scripts --no-audit --no-fund playwright@1.62.1 @axe-core/playwright@4.13.0 lighthouse@13.6.0 pixelmatch@8.0.0 pngjs@7.0.0
 
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
@@ -59,6 +60,11 @@ jobs:
         env:
           SITE_URL: https://www.inquiryremoval.com
         run: node scripts/lighthouse-budgets.mjs
+
+      - name: Verify all seven mobile and desktop Agentic Browsing checks
+        env:
+          SITE_URL: https://www.inquiryremoval.com
+        run: node scripts/agentic-browsing.mjs
 
       - name: Upload browser artifacts
         if: always()
@@ -81,4 +87,12 @@ jobs:
         with:
           name: lighthouse-budgets
           path: .artifacts/performance
+          retention-days: 7
+      - name: Upload agent-readiness evidence
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: agentic-browsing
+          path: .artifacts/agentic-browsing
+          if-no-files-found: ignore
           retention-days: 7

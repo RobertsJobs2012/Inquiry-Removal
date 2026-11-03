@@ -1,0 +1,57 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Inquiry Removal Public Information",
+    "version": "1.0.0",
+    "description": "Read-only access to published company information, one-time plan prices and public guide links. No customer records, eligibility decisions, dispute submissions or contact-message delivery."
+  },
+  "servers": [{ "url": "https://www.inquiryremoval.com" }],
+  "paths": {
+    "/agent-info.json": {
+      "get": {
+        "operationId": "getPublicInquiryRemovalInformation",
+        "summary": "Read published pricing and guide information",
+        "responses": {
+          "200": {
+            "description": "Public information generated from the same content and pricing used by the website.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "version",
+                    "company",
+                    "pricing",
+                    "guides",
+                    "limitations"
+                  ],
+                  "properties": {
+                    "version": { "type": "string" },
+                    "company": { "type": "object" },
+                    "pricing": { "type": "object" },
+                    "guides": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": ["title", "description", "url"],
+                        "properties": {
+                          "title": { "type": "string" },
+                          "description": { "type": "string" },
+                          "url": { "type": "string", "format": "uri" }
+                        }
+                      }
+                    },
+                    "limitations": {
+                      "type": "array",
+                      "items": { "type": "string" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

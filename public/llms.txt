@@ -2,6 +2,18 @@
 
 > Inquiry Removal is a nationwide service focused exclusively on hard inquiry removal across Experian, Equifax, and TransUnion credit reports.
 
+## When to Use This Site
+
+Use these public resources to explain hard inquiries, distinguish a genuine application from a factual reporting concern, find bureau-specific instructions, or compare our published one-time plans. A free review is optional; consumers can dispute inaccurate information themselves for free. An educational tool does not determine eligibility or promise deletion, a score change or approval.
+
+## Public Agent Access
+
+- [Public information JSON](https://www.inquiryremoval.com/agent-info.json): Read-only company details, prices and guide links generated from the website's own sources; no customer records or submission actions.
+- [Public OpenAPI description](https://www.inquiryremoval.com/agent-openapi.json): Documents the public GET resource; no authentication, purchase, message delivery or dispute filing.
+- [Agent-resource discovery manifest](https://www.inquiryremoval.com/.well-known/ard.json): ARD discovery entry for that read-only interface, not a remote MCP server.
+
+Supporting browsers can expose the public-information and guide-lookup tools through WebMCP. Agent-assisted review-form preparation creates a local draft only. The visitor must review the details, provide contact consent and submit manually. Do not put SSNs, passwords, account numbers, identity documents or payment details in public tools. Private worksheet edits are not available to these tools.
+
 ## Start Here
 
 - [Homepage](https://www.inquiryremoval.com/): Hard inquiry removal service overview, proof, situations, process, and free review.
@@ -63,5 +75,11 @@
 - [Frequently Asked Questions](https://www.inquiryremoval.com/faq/): Service, pricing, timing, bureaus, and process answers.
 - [Areas We Serve](https://www.inquiryremoval.com/areas-we-serve/): Nationwide service coverage.
 - [Contact](https://www.inquiryremoval.com/contact/): Contact Inquiry Removal.
+- [Editorial standards](https://www.inquiryremoval.com/editorial-policy/): Sources, review scope, corrections and comparison limitations.
+
+## After a Response or Credit Denial
+
+- [Hard inquiry dispute denied or verified](https://www.inquiryremoval.com/hard-inquiry-dispute-denied/): Read the response and identify the unresolved factual issue before another request.
+- [Denied credit for too many inquiries](https://www.inquiryremoval.com/denied-credit-too-many-inquiries/): Distinguish a lender's decision from a report error; no approval guarantee.
 
 Information on this site is general and does not guarantee a deletion, timeline, approval, financing outcome, or credit-score change. Consumers may dispute inaccurate credit-report information directly with consumer reporting agencies at no cost.

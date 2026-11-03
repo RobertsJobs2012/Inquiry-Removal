@@ -206,6 +206,9 @@ for (const file of htmlFiles) {
 
 const requiredFiles = [
   ".well-known/security.txt",
+  ".well-known/ard.json",
+  "agent-info.json",
+  "agent-openapi.json",
   "9db1eb516e99ccbf93962d2ee991beb3.txt",
   "robots.txt",
   "llms.txt",
@@ -255,6 +258,18 @@ if (existsSync(llmsPath)) {
   for (const [, href] of llms.matchAll(/\]\((https:\/\/[^)]+)\)/g)) {
     const target = new URL(href);
     if (target.origin !== SITE_ORIGIN) continue;
+    const publicDiscoveryFiles = new Set([
+      "/agent-info.json",
+      "/agent-openapi.json",
+      "/.well-known/ard.json",
+    ]);
+    if (publicDiscoveryFiles.has(target.pathname)) {
+      const file = join(distDir, target.pathname.slice(1));
+      if (!existsSync(file))
+        fail(`Missing public agent resource ${target.pathname}`);
+      else JSON.parse(await readFile(file, "utf8"));
+      continue;
+    }
     if (!indexablePages.has(target.pathname))
       fail(
         `llms.txt links to a non-indexable or unknown page: ${target.pathname}.`,

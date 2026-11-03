@@ -13,6 +13,7 @@ import Analytics from "@vercel/analytics/astro";
 import SpeedInsights from "@vercel/speed-insights/astro";
 import ExperienceLayer from "../components/ExperienceLayer.astro";
 import AppFinisher from "../components/AppFinisher.astro";
+import AgentAccess from "../components/AgentAccess.astro";
 import { SITE_ORIGIN } from "../data/discovery.mjs";
 import { editorialPlan } from "../data/editorial";
 import displayFontUrl from "@fontsource-variable/plus-jakarta-sans/files/plus-jakarta-sans-latin-wght-normal.woff2?url";
@@ -79,6 +80,15 @@ const organizationSchema = {
   name: "Inquiry Removal",
   url: `${SITE_ORIGIN}/`,
   telephone: "+1-602-377-6626",
+  description:
+    "Nationwide credit-report assistance focused on hard inquiries across Experian, Equifax and TransUnion.",
+  contactPoint: {
+    "@type": "ContactPoint",
+    telephone: "+1-602-377-6626",
+    contactType: "customer support",
+    areaServed: "US",
+    availableLanguage: "English",
+  },
   founder: { "@id": `${SITE_ORIGIN}/about/#robert-garcia` },
   areaServed: { "@type": "Country", name: "United States" },
   logo: {
@@ -141,6 +151,13 @@ const serializedSchema = JSON.stringify(schemaGraph).replaceAll("<", "\\u003c");
     <meta name="twitter:description" content={ogDescription} />
     <meta name="twitter:image" content={socialImage} />
     <link rel="canonical" href={canonical} />
+    <link
+      rel="alternate"
+      type="text/plain"
+      href="/llms.txt"
+      title="Public information for AI assistants"
+    />
+    <link rel="ard" type="application/json" href="/.well-known/ard.json" />
     <link rel="icon" href="/favicon.ico" />
     <link
       rel="icon"
@@ -175,6 +192,7 @@ const serializedSchema = JSON.stringify(schemaGraph).replaceAll("<", "\\u003c");
     <ExperienceLayer />
     <slot />
     <AppFinisher />
+    <AgentAccess />
     <Analytics />
     <SpeedInsights />
     <script>
