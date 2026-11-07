@@ -761,7 +761,17 @@ await run(
       await page.locator("[data-review-success]").waitFor({ state: "visible" });
       expect(
         JSON.stringify(await leads()) ===
-          JSON.stringify([["event", "generate_lead", { send_to: GA4_ID }]]),
+          JSON.stringify([
+            [
+              "event",
+              "generate_lead",
+              {
+                page_location: `${base}/free-inquiry-review/`,
+                page_referrer: base,
+                send_to: GA4_ID,
+              },
+            ],
+          ]),
         "expected exactly one successful lead event with no form data",
       );
       await page.goto(`${base}/privacy/#analytics`, {

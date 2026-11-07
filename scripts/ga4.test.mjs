@@ -49,11 +49,20 @@ test("opt-in loads one analytics-only tag, sends one minimal lead, and can be wi
   assert.equal(config.page_referrer, "https://example.invalid");
   assert.equal(config.allow_google_signals, false);
   assert.equal(config.allow_ad_personalization_signals, false);
+  assert.equal(config.send_page_view, false);
   ga4.reviewAccepted({ email: "never collected" });
   ga4.reviewAccepted();
   assert.deepEqual(
     commands().filter(([command]) => command === "event"),
-    [["event", "generate_lead", { send_to: GA4_ID }]],
+    ["page_view", "generate_lead"].map((event) => [
+      "event",
+      event,
+      {
+        page_location: GA4_ORIGIN + "/pricing/",
+        page_referrer: "https://example.invalid",
+        send_to: GA4_ID,
+      },
+    ]),
   );
   ga4.setAllowed(false);
   assert.equal(win["ga-disable-" + GA4_ID], true);

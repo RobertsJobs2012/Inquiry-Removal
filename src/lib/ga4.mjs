@@ -15,6 +15,7 @@ export function createGa4(win, doc) {
   let allowed = false;
   let initialized = false;
   let leadSent = false;
+  let pageContext = { page_location: GA4_ORIGIN + "/", page_referrer: "" };
   win[disabled] = true;
 
   function tag(..._args) {
@@ -33,8 +34,12 @@ export function createGa4(win, doc) {
       }
       for (const name of ["ir_ga", `ir_ga_${GA4_ID.slice(2)}`]) {
         const removal = `${name}=; Max-Age=0; Path=/; Secure; SameSite=Lax`;
-        doc.cookie = removal;
-        doc.cookie = `${removal}; Domain=${win.location.hostname}`;
+        try {
+          doc.cookie = removal;
+          doc.cookie = `${removal}; Domain=${win.location.hostname}`;
+        } catch {
+          // The browser may block cookies independently of this preference.
+        }
       }
       return;
     }
@@ -58,12 +63,14 @@ export function createGa4(win, doc) {
       } catch {
         // No web referrer.
       }
+      pageContext = { page_location: pageLocation, page_referrer: referrer };
       tag("consent", "default", { ...adConsent, analytics_storage: "denied" });
       tag("consent", "update", { ...adConsent, analytics_storage: "granted" });
       tag("js", new Date());
+      tag("set", pageContext);
       tag("config", GA4_ID, {
-        page_location: pageLocation,
-        page_referrer: referrer,
+        ...pageContext,
+        send_page_view: false,
         allow_google_signals: false,
         allow_ad_personalization_signals: false,
         cookie_prefix: "ir",
@@ -71,6 +78,7 @@ export function createGa4(win, doc) {
         cookie_expires: 90 * 24 * 60 * 60,
         linker: { accept_incoming: false },
       });
+      tag("event", "page_view", { ...pageContext, send_to: GA4_ID });
       const script = doc.createElement("script");
       script.async = true;
       script.referrerPolicy = "no-referrer";
@@ -84,7 +92,7 @@ export function createGa4(win, doc) {
   function reviewAccepted() {
     if (!allowed || leadSent) return;
     leadSent = true;
-    tag("event", "generate_lead", { send_to: GA4_ID });
+    tag("event", "generate_lead", { ...pageContext, send_to: GA4_ID });
   }
 
   return { setAllowed, reviewAccepted };
