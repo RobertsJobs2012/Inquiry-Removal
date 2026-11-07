@@ -80,10 +80,31 @@ const run = async (name, viewport, test, contextOptions = {}) => {
   const consoleErrors = [];
   const pageErrors = [];
   const failedLocalRequests = [];
+  let simulatedReviewFailures = 0;
+  page.on("response", (response) => {
+    if (
+      name === "ga4-mobile-review-prefill" &&
+      response.url() === base + "/api/free-review" &&
+      response.request().method() === "POST" &&
+      response.status() === 502 &&
+      response.headers()["x-ir-qa-simulated-failure"] === "1"
+    ) {
+      simulatedReviewFailures++;
+    }
+  });
 
   page.on("console", (message) => {
     if (message.type() !== "error") return;
     const text = message.text();
+    if (
+      simulatedReviewFailures > 0 &&
+      message.location().url === base + "/api/free-review" &&
+      text ===
+        "Failed to load resource: the server responded with a status of 502 (Bad Gateway)"
+    ) {
+      simulatedReviewFailures--;
+      return;
+    }
     if (name === "review-module-fallback" && text.includes("net::ERR_FAILED"))
       return;
     if (
@@ -737,6 +758,8 @@ await run(
         submissions++;
         await route.fulfill({
           status: submissions === 1 ? 502 : 200,
+          headers:
+            submissions === 1 ? { "x-ir-qa-simulated-failure": "1" } : {},
           json:
             submissions === 1
               ? { ok: false, error: "QA simulated failure." }
