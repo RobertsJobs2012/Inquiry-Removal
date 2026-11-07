@@ -44,6 +44,21 @@ test("opt-in loads one analytics-only tag, sends one minimal lead, and can be wi
     "https://www.googletagmanager.com/gtag/js?id=" + GA4_ID,
   );
   const commands = () => win.dataLayer.map((args) => Array.from(args));
+  assert.equal(commands()[0][0], "consent");
+  assert.equal(commands()[0][1], "default");
+  assert.equal(commands()[0][2].analytics_storage, "granted");
+  assert.ok(
+    commands().findIndex(([command]) => command === "set") <
+      commands().findIndex(([command]) => command === "js"),
+    "clean page settings must exist before tag initialization",
+  );
+  assert.equal(
+    commands().filter(
+      ([command, mode]) => command === "consent" && mode === "update",
+    ).length,
+    0,
+    "initial opt-in must not trigger an early consent-transition page view",
+  );
   const config = commands().find(([command]) => command === "config")[2];
   assert.equal(config.page_location, GA4_ORIGIN + "/pricing/");
   assert.equal(config.page_referrer, "https://example.invalid");

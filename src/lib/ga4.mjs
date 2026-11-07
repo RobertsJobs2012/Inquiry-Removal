@@ -64,10 +64,11 @@ export function createGa4(win, doc) {
         // No web referrer.
       }
       pageContext = { page_location: pageLocation, page_referrer: referrer };
-      tag("consent", "default", { ...adConsent, analytics_storage: "denied" });
-      tag("consent", "update", { ...adConsent, analytics_storage: "granted" });
+      // This queue is created only AFTER opt-in. Starting granted here avoids
+      // a consent-transition page view before the clean page settings exist.
+      tag("consent", "default", { ...adConsent, analytics_storage: "granted" });
+      tag("set", { ...pageContext, send_page_view: false });
       tag("js", new Date());
-      tag("set", pageContext);
       tag("config", GA4_ID, {
         ...pageContext,
         send_page_view: false,
