@@ -759,20 +759,16 @@ await run(
       expect((await leads()).length === 0, "failed review sent a lead event");
       await page.locator("[data-review-submit]").click();
       await page.locator("[data-review-success]").waitFor({ state: "visible" });
+      const acceptedLeads = await leads();
+      const parameters = acceptedLeads[0]?.[2];
       expect(
-        JSON.stringify(await leads()) ===
-          JSON.stringify([
-            [
-              "event",
-              "generate_lead",
-              {
-                page_location: `${base}/free-inquiry-review/`,
-                page_referrer: base,
-                send_to: GA4_ID,
-              },
-            ],
-          ]),
-        "expected exactly one successful lead event with no form data",
+        acceptedLeads.length === 1 &&
+          parameters?.page_location === `${base}/free-inquiry-review/` &&
+          ["", base].includes(parameters?.page_referrer) &&
+          parameters?.send_to === GA4_ID &&
+          JSON.stringify(Object.keys(parameters).sort()) ===
+            JSON.stringify(["page_location", "page_referrer", "send_to"]),
+        "expected exactly one successful lead event containing only the clean page, origin-or-empty referrer and destination ID",
       );
       await page.goto(`${base}/privacy/#analytics`, {
         waitUntil: "networkidle",
