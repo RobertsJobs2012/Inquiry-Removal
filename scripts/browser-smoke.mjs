@@ -2,6 +2,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import AxeBuilder from "@axe-core/playwright";
 import { chromium } from "playwright";
+import { GA4_ORIGIN, GA4_ID, GA4_PREFERENCE } from "../src/lib/ga4.mjs";
 import { resourceHubGroups } from "../src/data/resourceHub.ts";
 
 const base = (process.env.SITE_URL || "https://www.inquiryremoval.com").replace(
@@ -69,6 +70,12 @@ const checkAccessibility = async (name, page) => {
 const run = async (name, viewport, test, contextOptions = {}) => {
   console.log("Checking browser scenario:", name);
   const context = await browser.newContext({ viewport, ...contextOptions });
+  if (!name.startsWith("ga4-")) {
+    await context.addInitScript(
+      (key) => localStorage.setItem(key, "denied"),
+      GA4_PREFERENCE,
+    );
+  }
   const page = await context.newPage();
   const consoleErrors = [];
   const pageErrors = [];
@@ -569,10 +576,22 @@ await run("mobile-menu-dock", { width: 390, height: 844 }, async (page) => {
   );
 });
 
+const ga4Production = base === GA4_ORIGIN;
 await run(
-  "mobile-review-prefill",
+  ga4Production ? "ga4-mobile-review-prefill" : "mobile-review-prefill",
   { width: 390, height: 844 },
   async (page) => {
+    const tagRequests = [];
+    if (ga4Production) {
+      await page.route("https://www.googletagmanager.com/**", async (route) => {
+        tagRequests.push(route.request().url());
+        // Inspect the actual command queue without sending test traffic to GA.
+        await route.fulfill({
+          contentType: "application/javascript",
+          body: "/* QA stub */",
+        });
+      });
+    }
     const response = await page.goto(
       `${base}/free-inquiry-review/?context=duplicate-inquiries#online-review`,
       {
@@ -583,6 +602,52 @@ await run(
       response?.status() === 200,
       `review page returned ${response?.status()}`,
     );
+    const queuedCommands = () =>
+      page.evaluate(() =>
+        (window.dataLayer ?? []).map((args) => Array.from(args)),
+      );
+    if (ga4Production) {
+      expect(tagRequests.length === 0, "Google loaded before consent");
+      await page.locator("[data-ga4-response='denied']").click();
+      expect(
+        !(await page.locator("[data-ga4-choice]").isVisible()),
+        "consent panel did not dismiss",
+      );
+      expect(tagRequests.length === 0, "Google loaded after decline");
+      await page.goto(`${base}/privacy/#analytics`, {
+        waitUntil: "networkidle",
+      });
+      expect(
+        !(await page.locator("[data-ga4-choice]").isVisible()),
+        "decline was not persisted",
+      );
+      await page.locator("[data-ga4-settings]").click();
+      await page.locator("[data-ga4-response='granted']").click();
+      await page.goto(
+        `${base}/free-inquiry-review/?context=duplicate-inquiries&qa_private=omit-me#online-review`,
+        {
+          waitUntil: "networkidle",
+        },
+      );
+      expect(
+        tagRequests.length === 2 &&
+          tagRequests.every((url) => url.endsWith(GA4_ID)),
+        "expected one correct Google tag per opted-in page",
+      );
+      const commands = await queuedCommands();
+      const config = commands.find(
+        ([command, id]) => command === "config" && id === GA4_ID,
+      )?.[2];
+      expect(
+        config?.page_location === `${base}/free-inquiry-review/`,
+        "tracking includes a raw query/hash or an incorrect page URL",
+      );
+      expect(
+        config.allow_google_signals === false &&
+          config.allow_ad_personalization_signals === false,
+        "advertising features were not disabled",
+      );
+    }
     const form = page.locator("[data-review-form]");
     expect(await form.isVisible(), "review form is not visible");
     expect(
@@ -665,8 +730,50 @@ await run(
         .evaluate((node) => getComputedStyle(node).pointerEvents)) === "none",
       "Top shortcut can overlap review controls",
     );
-    // Deliberately stop here: no test lead is sent to the production backend.
     await checkAccessibility("mobile-review-prefill", page);
+    if (ga4Production) {
+      let submissions = 0;
+      await page.route("**/api/free-review", async (route) => {
+        submissions++;
+        await route.fulfill({
+          status: submissions === 1 ? 502 : 200,
+          json:
+            submissions === 1
+              ? { ok: false, error: "QA simulated failure." }
+              : { ok: true, receipt: "QA-ONLY" },
+        });
+      });
+      const leads = async () =>
+        (await queuedCommands()).filter(
+          ([command, event]) =>
+            command === "event" && event === "generate_lead",
+        );
+      await chooseOption("Email");
+      await page.locator(".native-consent-check input").check();
+      await page.locator("[data-review-submit]").click();
+      await page.waitForFunction(() =>
+        document
+          .querySelector("[data-review-error]")
+          ?.textContent?.includes("QA simulated failure."),
+      );
+      expect((await leads()).length === 0, "failed review sent a lead event");
+      await page.locator("[data-review-submit]").click();
+      await page.locator("[data-review-success]").waitFor({ state: "visible" });
+      expect(
+        JSON.stringify(await leads()) ===
+          JSON.stringify([["event", "generate_lead", { send_to: GA4_ID }]]),
+        "expected exactly one successful lead event with no form data",
+      );
+      await page.goto(`${base}/privacy/#analytics`, {
+        waitUntil: "networkidle",
+      });
+      await page.locator("[data-ga4-settings]").click();
+      await page.locator("[data-ga4-response='denied']").click();
+      expect(
+        await page.evaluate((id) => window[`ga-disable-${id}`], GA4_ID),
+        "withdrawal did not disable GA",
+      );
+    }
   },
 );
 

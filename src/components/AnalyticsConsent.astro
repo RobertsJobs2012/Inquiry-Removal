@@ -1,0 +1,140 @@
+<aside
+  class="analytics-choice"
+  aria-label="Optional Google Analytics"
+  data-ga4-choice
+  hidden
+>
+  <strong>Help us improve the site?</strong>
+  <p>
+    Google Analytics uses cookies to measure visits and completed reviews. Your
+    form answers aren’t shared with Analytics.{" "}
+    <a href="/privacy/#analytics">Privacy details</a>
+  </p>
+  <div class="analytics-choice__actions">
+    <button type="button" data-ga4-response="denied">
+      No thanks
+    </button>
+    <button type="button" data-ga4-response="granted">
+      Allow analytics
+    </button>
+  </div>
+</aside>
+
+<style>
+  .analytics-choice {
+    position: fixed;
+    z-index: 50;
+    inset-inline-start: 1rem;
+    inset-block-end: max(1rem, env(safe-area-inset-bottom));
+    width: min(23rem, calc(100% - 2rem));
+    max-height: 65dvh;
+    overflow: auto;
+    padding: 1rem;
+    border: 1px solid #b7c7db;
+    border-radius: 1rem;
+    background: #fff;
+    color: #18243a;
+    box-shadow: 0 8px 28px #0d28462b;
+    font-size: 0.875rem;
+    line-height: 1.45;
+  }
+  .analytics-choice[hidden] {
+    display: none;
+  }
+  .analytics-choice p {
+    margin: 0.35rem 0 0.65rem;
+  }
+  .analytics-choice a {
+    color: #174a86;
+    text-decoration: underline;
+  }
+  .analytics-choice__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .analytics-choice__actions button {
+    flex: 1 1 7rem;
+    min-height: 44px;
+    padding: 0.35rem 0.55rem;
+    border: 1px solid #9babc1;
+    border-radius: 0.5rem;
+    color: #18243a;
+    background: #f5f8fc;
+    font: inherit;
+    font-weight: 650;
+    cursor: pointer;
+  }
+  .analytics-choice :is(a, button):focus-visible {
+    outline: 2px solid #005bbb;
+    outline-offset: 2px;
+  }
+  @media (max-width: 760px) {
+    .analytics-choice {
+      inset-block-end: calc(5.5rem + env(safe-area-inset-bottom));
+    }
+  }
+  @media print {
+    .analytics-choice {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  import {
+    createGa4,
+    GA4_PREFERENCE,
+    GA4_REVIEW_ACCEPTED,
+  } from "../lib/ga4.mjs";
+
+  const panel = document.querySelector<HTMLElement>("[data-ga4-choice]");
+  const analytics = createGa4(window, document);
+  if (analytics && panel) {
+    let choice: string | null = null;
+    try {
+      choice = localStorage.getItem(GA4_PREFERENCE);
+    } catch {
+      /* Stay off by default. */
+    }
+    let opener: HTMLButtonElement | undefined;
+    function applyChoice(value: string | null) {
+      analytics?.setAllowed(value === "granted");
+      if (panel) panel.hidden = value === "granted" || value === "denied";
+    }
+    panel
+      .querySelectorAll<HTMLButtonElement>("[data-ga4-response]")
+      .forEach((button) => {
+        button.addEventListener("click", () => {
+          choice = button.dataset.ga4Response ?? "denied";
+          try {
+            localStorage.setItem(GA4_PREFERENCE, choice);
+          } catch {
+            /* Apply for this page. */
+          }
+          applyChoice(choice);
+          opener?.focus({ preventScroll: true });
+          opener = undefined;
+        });
+      });
+    document
+      .querySelectorAll<HTMLButtonElement>("[data-ga4-settings]")
+      .forEach((button) => {
+        button.hidden = false;
+        button.addEventListener("click", () => {
+          opener = button;
+          panel.hidden = false;
+          panel
+            .querySelector<HTMLButtonElement>("button")
+            ?.focus({ preventScroll: true });
+        });
+      });
+    window.addEventListener("storage", (event) => {
+      if (event.key === GA4_PREFERENCE || event.key === null) {
+        applyChoice(event.newValue);
+      }
+    });
+    window.addEventListener(GA4_REVIEW_ACCEPTED, analytics.reviewAccepted);
+    applyChoice(choice);
+  }
+</script>

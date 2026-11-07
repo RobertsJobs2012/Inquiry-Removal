@@ -3,6 +3,7 @@ import path from "node:path";
 import { chromium } from "playwright";
 import { PNG } from "pngjs";
 import pixelmatch from "pixelmatch";
+import { GA4_PREFERENCE } from "../src/lib/ga4.mjs";
 const origin = (
   process.env.SITE_URL || "https://www.inquiryremoval.com"
 ).replace(/\/$/, "");
@@ -32,6 +33,12 @@ try {
         colorScheme: "light",
       });
       try {
+        // Keep the reviewed page baseline for visitors who made a choice.
+        // First-visit consent and opt-out are covered by dedicated smoke tests.
+        await context.addInitScript(
+          (key) => localStorage.setItem(key, "denied"),
+          GA4_PREFERENCE,
+        );
         const page = await context.newPage();
         const response = await page.goto(origin + route, {
           waitUntil: "networkidle",

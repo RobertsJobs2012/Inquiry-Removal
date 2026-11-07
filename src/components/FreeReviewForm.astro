@@ -343,6 +343,7 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
 
 <script>
   import { interceptAgentDraft } from "../lib/agent-access.mjs";
+  import { GA4_REVIEW_ACCEPTED } from "../lib/ga4.mjs";
   import { track } from "@vercel/analytics";
   import {
     BUREAU_MAP,
@@ -718,6 +719,7 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
 
       reviewBody?.setAttribute("hidden", "");
       reviewAccepted = true;
+      window.dispatchEvent(new Event(GA4_REVIEW_ACCEPTED));
       reviewSuccess?.removeAttribute("hidden");
       if (reviewReceipt && typeof payload.receipt === "string") {
         reviewReceipt.textContent = payload.receipt;

@@ -7,6 +7,12 @@ import {
   EDITORIAL_UPDATED_ISO as CONTENT_UPDATED_ISO,
   EDITORIAL_UPDATED_LABEL as CONTENT_UPDATED_LABEL,
 } from "../data/contentDates";
+const privacyUpdatedIso =
+  CONTENT_UPDATED_ISO > "2026-11-06" ? CONTENT_UPDATED_ISO : "2026-11-06";
+const privacyUpdatedLabel =
+  privacyUpdatedIso === CONTENT_UPDATED_ISO
+    ? CONTENT_UPDATED_LABEL
+    : "November 6, 2026";
 
 const schema = [
   {
@@ -60,7 +66,7 @@ const schema = [
         <aside class="page-hero-aside" aria-label="Privacy policy details">
           <span>
             Last updated:{" "}
-            <time datetime={CONTENT_UPDATED_ISO}>{CONTENT_UPDATED_LABEL}</time>
+            <time datetime={privacyUpdatedIso}>{privacyUpdatedLabel}</time>
           </span>
           <span>Applies to inquiryremoval.com</span>
           <span>Nationwide website visitors and clients</span>
@@ -219,6 +225,31 @@ const schema = [
               tool, browser, and settings involved, these services may use
               cookies, local storage, request information, or similar
               technologies.
+            </p>
+            <p>
+              If you choose to allow Google Analytics, it uses cookies and
+              technical information to measure site visits and confirmed review
+              submissions. Form answers and contact details are not sent to
+              Google Analytics. Advertising personalization is disabled. Learn
+              how{" "}
+              <a
+                class="inline-link"
+                href="https://policies.google.com/technologies/partner-sites"
+                rel="external noopener"
+              >
+                Google uses information from sites that use its services
+              </a>
+              .
+            </p>
+            <p>
+              <button
+                class="button button--secondary"
+                type="button"
+                data-ga4-settings
+                hidden
+              >
+                Google Analytics preferences
+              </button>
             </p>
             <p>
               You can control many browser-based technologies through your
