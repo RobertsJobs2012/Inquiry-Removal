@@ -20,6 +20,14 @@
       "evidenceRun": "https://github.com/RobertsJobs2012/Inquiry-Removal/actions/runs/41465895192",
       "artifactId": 13152210760,
       "review": "Both actual production timeline-guide captures manually inspected at the original viewport dimensions after browser/accessibility and private-tool print checks passed. The unchanged short answer now appears beneath the title; desktop decorative bars are replaced by actual guide links and the redundant mobile side panel is omitted. Navy/cyan materials, typography and glass controls remain. Only these two intentionally redesigned guide fixtures are accepted; the other six captures match their original references with zero changed pixels. Chromium, Playwright, screenshot settings and the 0.5% comparison tolerance are unchanged. This records an intentional design review, not automatic acceptance of arbitrary differences."
+    },
+    {
+      "files": ["desktop-home.png", "mobile-home.png", "desktop-pricing.png", "mobile-pricing.png", "desktop-review.png", "mobile-review.png"],
+      "reviewedLocalDate": "2026-11-09",
+      "releaseSha": "54eeef687236630c7571b9dd1c4bb9ce013324a0",
+      "evidenceRun": "https://github.com/RobertsJobs2012/Inquiry-Removal/actions/runs/42722673758",
+      "artifactId": 13721082914,
+      "review": "Manually reviewed the six production captures after the homepage, pricing and review copy rewrite. The new headings wrap without clipping and primary actions remain visible. Browser, accessibility and agentic checks passed. The two unchanged guide captures had zero changed pixels. The same viewports, screenshot settings and 0.5% tolerance were retained."
     }
   ]
 }
