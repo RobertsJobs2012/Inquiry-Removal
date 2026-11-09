@@ -9,7 +9,7 @@ export const PRICING_PLANS = [
     range: "1–10",
     rangeLabel: "1 to 10",
     bestFor:
-      "Someone with 1 to 10 total hard inquiries who wants a focused cleanup before the next important application.",
+      "A short list of inquiries, such as a few unfamiliar lender names.",
   },
   {
     id: "expanded",
@@ -20,7 +20,7 @@ export const PRICING_PLANS = [
     range: "11–20",
     rangeLabel: "11 to 20",
     bestFor:
-      "Someone with 11 to 20 total hard inquiries, including dealership clusters, repeated applications, or inquiries appearing across multiple reports.",
+      "A longer list, such as lender entries from a dealership visit or several applications.",
   },
   {
     id: "complete",
@@ -31,7 +31,7 @@ export const PRICING_PLANS = [
     range: "21–30",
     rangeLabel: "21 to 30",
     bestFor:
-      "Someone with 21 to 30 total hard inquiries who has a larger inquiry file requiring broader removal work across the affected reports.",
+      "A larger list that may include several lenders, dates or affected reports.",
   },
   {
     id: "extensive",
@@ -42,14 +42,14 @@ export const PRICING_PLANS = [
     range: "31 or more",
     rangeLabel: "31 or more",
     bestFor:
-      "Someone with 31 or more total hard inquiries who needs the broadest inquiry-removal scope across the affected reports.",
+      "31 or more inquiries in scope. This tier has no upper count limit.",
   },
 ] as const;
 
 export const PLAN_FEATURES = [
   "All affected credit bureaus",
   "Organized inquiry list",
-  "Dispute preparation and submission",
+  "Supported disputes prepared and sent",
   "Response review",
   "Additional follow-up as needed",
   "Phone, text, or email communication",

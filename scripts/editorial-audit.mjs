@@ -22,6 +22,12 @@ const noindex = new Set([
 ]);
 assert.equal(Object.keys(plan).length, 48);
 const titles = new Set();
+const conversionRoutes = new Set([
+  "/",
+  "/pricing/",
+  "/how-it-works/",
+  "/free-inquiry-review/",
+]);
 for (const [url, revision] of Object.entries(plan)) {
   const html = readFileSync(path.join("dist", url, "index.html"), "utf8");
   const title = decode(html.match(/<title>([\s\S]*?)<\/title>/)?.[1] ?? "");
@@ -33,6 +39,13 @@ for (const [url, revision] of Object.entries(plan)) {
   );
   assert.ok(!titles.has(title), url + " duplicate title");
   titles.add(title);
+  if (conversionRoutes.has(url)) {
+    assert.ok([...title].length <= 60, url + " title character ceiling");
+    assert.ok(
+      [...revision.description].length <= 155,
+      url + " description character ceiling",
+    );
+  }
   const h1 = [...html.matchAll(/<h1(?:\s[^>]*)?>([\s\S]*?)<\/h1>/g)];
   assert.equal(h1.length, 1, url + " H1 count");
   assert.equal(

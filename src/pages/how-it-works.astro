@@ -10,21 +10,21 @@ import PhoneReviewPanel from "../components/PhoneReviewPanel.astro";
 import PageJumpNav from "../components/PageJumpNav.astro";
 
 const heroStages = [
-  "Review your reports",
-  "Identify your inquiries",
-  "Send the disputes",
-  "Review every response",
-  "Track the removals",
+  "Start with a free review",
+  "Confirm the inquiry list",
+  "Send supported disputes",
+  "Explain the responses",
+  "Check what changed",
 ];
 
 const reviewTopics = [
-  "What caused you to look for inquiry removal",
-  "Which inquiries you recognize",
-  "Which names or dates seem unfamiliar",
-  "Whether a dealership, identity theft, duplicate reporting, or misleading credit check may be involved",
-  "Which credit reports contain the inquiries",
-  "How the inquiries are affecting your current plans",
-  "Whether you are preparing for a home, vehicle, business funding, credit cards, or another goal",
+  "The entry that caught your attention",
+  "The company and date shown on the report",
+  "Any application or rate check you remember",
+  "Which reports show the inquiry",
+  "What looks wrong or is still unclear",
+  "Any dispute you’ve already tried and the response you received",
+  "Any upcoming application or deadline",
 ];
 
 const preparation = [
@@ -33,8 +33,8 @@ const preparation = [
     "Current reports allow us to record the inquiry name, date, bureau, and surrounding information exactly as it appears. A credit-monitoring summary may help with the first conversation, but full affected reports provide the clearest starting point.",
   ],
   [
-    "Your version of what happened",
-    "Tell us what you remember. Did you visit a dealership? Check a rate? Apply online? Discover fraud? See a company you do not recognize? Your explanation helps connect the report entry to the event behind it.",
+    "What you remember",
+    "A dealership visit, rate check or application date can help explain a company name you don’t recognize. Tell us where the report and your records don’t match.",
   ],
   [
     "Any supporting information you already have",
@@ -42,53 +42,53 @@ const preparation = [
   ],
   [
     "A signed service agreement",
-    "Before paid work begins, you receive a written agreement describing the service, pricing, cancellation rights, and other terms. You have three business days to cancel the agreement.",
+    "If you decide to hire us, review the written scope, price, payment terms and cancellation rights before signing. Requesting a free review does not sign you up.",
   ],
 ];
 
 const steps = [
   [
-    "We build your inquiry list",
-    "We review every affected report and record the creditor name, inquiry date, bureau, and situation connected to each entry. We also identify inquiry clusters that may have come from one dealership visit or financing event.",
+    "Build the inquiry list",
+    "We record the company, date and bureau for each inquiry in scope. If several entries trace back to one application, we note that relationship.",
     "Provide the affected reports and explain what happened.",
-    "Build the organized inquiry-removal list.",
+    "Record the entries and the events behind them.",
   ],
   [
-    "We separate the different situations",
-    "Unauthorized inquiries, dealership submissions, identity-theft applications, duplicate entries, unexpected hard pulls, and unrecognized creditor names do not all have the same story. We organize the inquiries around the events that produced them.",
+    "Identify what the facts support",
+    "An unfamiliar name may turn out to be a lender you authorized. A mismatched date, duplicate entry or application you didn’t make calls for a different next step.",
     "Answer any questions needed to clarify the events.",
-    "Match the inquiries to the appropriate removal approach.",
+    "Separate entries that warrant a dispute from those that don’t.",
   ],
   [
-    "We prepare the dispute communications",
-    "Inquiry Removal prepares the communications for the companies and credit bureaus involved. The information reflects the inquiries on your reports and the circumstances you described during the review.",
+    "Prepare the supported disputes",
+    "We identify the exact entry, explain what doesn’t match and use the relevant information you’ve provided. The dispute reflects your situation, not a generic reason.",
     "Review or provide any additional requested information.",
-    "Prepare the dispute package and removal requests.",
+    "Write the dispute and identify the appropriate recipient.",
   ],
   [
-    "We send the disputes for you",
-    "Our team sends the dispute communications to the appropriate recipients. You do not need to write the letters, identify where they go, or manage the first round by yourself.",
+    "Send the disputes",
+    "We submit the communications to the companies or bureaus involved and track what was sent.",
     "Watch for responses or changes.",
-    "Submit the disputes and track the process.",
+    "Keep track of the submissions.",
   ],
   [
-    "You notify us when a response arrives",
-    "A result may appear through a credit-monitoring app, email, bureau website, or mailed letter. Let us know whenever you receive a notification, whether it confirms a removal, requests more information, or reports no change.",
+    "Make sense of the responses",
+    "A bureau or company may contact you directly. Tell us when a response arrives, even if it says the entry stayed the same.",
     "Forward or describe each response promptly.",
-    "Review the result and determine what happens next.",
+    "Explain the response and whether we need more information.",
   ],
   [
-    "We verify removals and continue the follow-through",
-    "We compare the response with the original inquiry list, record what was removed, and identify what still needs attention. Additional removal rounds continue as needed under your service agreement.",
+    "Verify changes and follow up",
+    "We compare the original list with the responses and updated reports. If the facts support another step, we continue as needed under your agreement.",
     "Keep us informed about new alerts and updated reports.",
-    "Track removals and complete the necessary follow-up.",
+    "Record confirmed changes and handle appropriate follow-up.",
   ],
 ];
 
 const updates = [
   [
     "You choose how we contact you",
-    "During intake, tell us whether you prefer calls, text messages, or email. We use that preference for routine communication whenever possible.",
+    "Choose phone or email on the review form. If you hire us, we can discuss whether phone, text or email works best for ongoing updates.",
   ],
   [
     "You tell us when notifications arrive",
@@ -99,27 +99,27 @@ const updates = [
     "You should not have to guess whether a letter is good news, a request, or a denial. We review the response, explain the result in plain language, and tell you the next step.",
   ],
   [
-    "We keep the process personal",
-    "Inquiry removal is connected to real goals and real deadlines. Direct communication allows us to discuss what changed, how it affects the plan, and what still needs to happen.",
+    "Tell us if your plans change",
+    "If a lender gives you a deadline or asks about a specific entry, let us know. We’ll explain what the information means for your inquiry work without promising a lender decision.",
   ],
 ];
 
 const timing = [
   [
     "Early removals",
-    "Some companies respond quickly or remove inquiries shortly after receiving the first communication. A client may see an app alert or updated report within days.",
+    "Some individual entries change early. An app alert is a signal to check, not confirmation that all the inquiries are resolved.",
   ],
   [
     "Standard processing time",
-    "Many cases move through a longer response cycle. Different inquiries may disappear at different times, especially when several creditors and all three bureaus are involved.",
+    "When several companies or bureaus are involved, you may get separate responses at different times.",
   ],
   [
     "Additional rounds",
-    "If the first responses do not remove every inquiry being addressed, we review what happened and continue with additional rounds as needed under your service agreement.",
+    "A reply may ask for evidence or leave an entry unchanged. We explain whether there’s a factual basis for follow-up under your agreement.",
   ],
   [
     "Rare extended cases",
-    "Some cases involve delayed responses, conflicting report information, identity-theft documentation, or several companies. These situations can extend beyond 90 days and may reach 120 days.",
+    "Conflicting records, additional documentation or delayed responses can extend the work. Tell us about an upcoming application before you make plans around a possible change.",
   ],
 ];
 
@@ -146,7 +146,7 @@ const faqs = [
   ],
   [
     "How do I begin the process?",
-    "Start by calling Inquiry Removal for a free personal review. A specialist will explain what information is useful, discuss the affected reports, and guide you through the next steps before any paid work begins.",
+    "Request a free review online or call us. A specialist will discuss the affected reports and help you decide what to do next. You don’t have to choose a plan to get started.",
   ],
   [
     "How will I know when an inquiry has been removed?",
@@ -211,20 +211,20 @@ const schema = [
           <span>How It Works</span>
         </nav>
         <p class="eyebrow eyebrow--light">
-          <span></span> A Focused Process for Experian, Equifax, and TransUnion
+          <span></span> Your role and ours
         </p>
         <h1>{revision.title}</h1>
         <p class="hero-summary">{revision.supporting}</p>
         <div class="button-row">
-          <a class="button" href="#free-review">
-            Get My Free Inquiry Review <span>→</span>
+          <a class="button" href="/free-inquiry-review/#online-review">
+            {revision.primaryCta} <span>→</span>
           </a>
-          <a class="text-link text-link--light" href="/free-inquiry-review/">
-            Request a Specialist Review <span>↘</span>
+          <a class="text-link text-link--light" href="#free-review">
+            Prefer to Call? <span>↘</span>
           </a>
         </div>
         <p class="cta-microcopy">
-          Free personal review. No pressure. No monthly membership.
+          You don’t need an exact inquiry count or a plan to start.
         </p>
       </div>
       <div
@@ -261,6 +261,9 @@ const schema = [
           <span>Major credit bureaus</span>
         </div>
       </div>
+      <p class="entity-declaration container">
+        Company-reported totals. Individual results vary.
+      </p>
     </section>
 
     <PageJumpNav
@@ -279,19 +282,17 @@ const schema = [
       <div class="container review-layout">
         <div data-reveal>
           <p class="eyebrow">
-            <span></span> Start by being heard
+            <span></span> Your first conversation
           </p>
           <h2>What Happens During Your Free Inquiry Review?</h2>
           <p class="lead">
-            Your free inquiry review is a personal conversation about the
-            inquiries, the events that caused them, and what you want to
-            accomplish after they are removed. We do more than count names on a
-            report. We listen to the complete story.
+            The free review starts with what you remember and what the report
+            shows. We’ll help you tell the difference between an entry you can
+            explain, one you need to identify and one that warrants a dispute.
           </p>
           <p>
-            Start with a call to Inquiry Removal. If you are unsure how many
-            inquiries you have or which category describes them, that is
-            completely fine.
+            Request your review online or call. Bring whatever you already
+            know. We can help with the count and the unfamiliar names.
           </p>
           <a class="text-link" href="/situations-we-handle/">
             See the Hard Inquiry Situations We Handle <span>→</span>
@@ -316,12 +317,11 @@ const schema = [
           <p class="eyebrow centered">
             <span></span> Simple expectations
           </p>
-          <h2>What Do You Need Before Inquiry Removal Can Begin?</h2>
+          <h2>What to Have Ready if You Decide to Hire Us</h2>
           <p>
-            You need current credit reports from every bureau affected by the
-            inquiries you want removed. If the inquiries appear on Experian,
-            Equifax, and TransUnion, we need all three reports to see the
-            complete picture.
+            For the initial review, an estimate is enough. Before service
+            begins, we’ll need current copies of the reports that show the
+            inquiries in scope. We’ll explain what to provide and how.
           </p>
         </div>
         <div class="preparation-grid" data-reveal>
@@ -338,8 +338,8 @@ const schema = [
         <p class="secure-note">
           <strong>Protect sensitive information:</strong> Do not send Social
           Security numbers, birth dates, bureau passwords, payment information,
-          or full credit reports through a public website form. The initial call
-          does not require them.
+          or full credit reports through the review form. You don’t need them
+          for the initial conversation either.
         </p>
       </div>
     </section>
@@ -354,13 +354,12 @@ const schema = [
             <p class="eyebrow eyebrow--light">
               <span></span> The complete process
             </p>
-            <h2>What Do We Handle During the Hard Inquiry Removal Process?</h2>
+            <h2>What We Handle if You Hire Us</h2>
           </div>
           <p>
-            We handle the work people usually do not want to manage themselves:
-            report review, inquiry organization, dispute preparation and
-            sending, response review, removal tracking, and continued
-            follow-through across the affected bureaus.
+            Once we agree on the scope, here’s what we do and where we need
+            your help. You’ll know who’s responsible for the next step at each
+            stage.
           </p>
         </div>
         <div class="process-timeline" data-reveal>
@@ -394,12 +393,11 @@ const schema = [
           ))}
         </div>
         <div class="section-cta section-cta--dark">
-          <a class="button" href="#free-review">
-            Get My Free Inquiry Review <span>→</span>
+          <a class="button" href="/free-inquiry-review/#online-review">
+            {revision.primaryCta} <span>→</span>
           </a>
           <p>
-            Tell a specialist what happened and what you want to accomplish
-            next.
+            A review request is not a service agreement.
           </p>
         </div>
       </div>
@@ -412,12 +410,12 @@ const schema = [
             <p class="eyebrow">
               <span></span> Personal communication
             </p>
-            <h2>How Will You Receive Updates Without a Client Portal?</h2>
+            <h2>Get Updates by Phone, Text or Email</h2>
           </div>
           <p>
-            You receive updates through direct communication by phone, text, or
-            email. There is no portal to learn, no dashboard to monitor, and no
-            need to log in just to ask what is happening.
+            There’s no client portal to check. When you receive a bureau or
+            lender response, let us know. We’ll explain what it says and what,
+            if anything, needs to happen next.
           </p>
         </div>
         <div class="updates-grid" data-reveal>
@@ -441,13 +439,13 @@ const schema = [
             <p class="eyebrow">
               <span></span> Timing and follow-through
             </p>
-            <h2>How Long Does Inquiry Removal Take, and What Happens Next?</h2>
+            <h2>How Long Can Hard Inquiry Removal Take?</h2>
           </div>
           <p>
-            Some hard inquiries can be removed in as little as seven days, while
-            many cases require up to 90 days. Rare situations may take as long
-            as 120 days because creditors and credit bureaus respond on
-            different schedules.
+            In our experience, some individual removals have appeared within
+            seven days. Many cases take up to 90 days, and unusual cases can
+            take 120 days or longer. Those are examples, not a deadline for
+            your case.
           </p>
         </div>
         <div class="timing-track" data-reveal>
@@ -455,15 +453,7 @@ const schema = [
             <article>
               <>
                 <span>
-                  {index === 0
-                    ? "7 days"
-                    : index === 1
-                      ? "Up to 90"
-                      : index === 2
-                        ? "Continue"
-                        : index === 3
-                          ? "Up to 120"
-                          : "Promise"}
+                  {["Early changes", "Responses", "Follow-up", "Delays"][index]}
                 </span>
                 <h3>{title}</h3>
                 <p>{body}</p>
@@ -472,9 +462,8 @@ const schema = [
           ))}
         </div>
         <p class="timing-disclosure">
-          Removal timing varies by report, inquiry, documentation, company, and
-          bureau response. The seven-day figure describes the earliest outcomes,
-          not a promised completion date.
+          No particular removal, completion date, score change or lending
+          decision is guaranteed.
         </p>
         <a class="text-link" href="/pricing/">
           Compare Hard Inquiry Removal Pricing <span>→</span>
@@ -520,8 +509,8 @@ const schema = [
     </section>
 
     <PhoneReviewPanel
-      title="Ready to let a specialist handle the process?"
-      description="Start with the affected reports and the inquiries you want removed. We will explain the package and take the process from there."
+      title="Talk through an inquiry with a specialist"
+      description="Tell us what you’re seeing, even if you don’t have every report. We’ll explain the next step and what we can handle if you decide to hire us."
     />
 
     <section class="final-cta dark-section">
@@ -532,23 +521,22 @@ const schema = [
         <p class="eyebrow eyebrow--light centered">
           <span></span> A safe first step
         </p>
-        <h2>Ready to Start Removing Your Hard Inquiries?</h2>
+        <h2>Start With the Inquiry You’re Unsure About</h2>
         <p>
-          You do not need to understand dispute procedures or manage every
-          company alone. Start with a free review, show us what happened, and
-          let Inquiry Removal organize the path from your current reports to the
-          removal results you want.
+          Tell us what doesn’t match. We’ll help you decide whether it’s worth
+          pursuing, whether you’d rather handle it yourself and what we can do
+          if you want help.
         </p>
         <div class="button-row button-row--center">
-          <a class="button button--large" href="#free-review">
-            Get My Free Inquiry Review <span>→</span>
+          <a class="button button--large" href="/free-inquiry-review/#online-review">
+            {revision.primaryCta} <span>→</span>
           </a>
-          <a class="text-link text-link--light" href="/free-inquiry-review/">
-            Request a Specialist Review <span>→</span>
+          <a class="text-link text-link--light" href="/pricing/">
+            See One-Time Pricing <span>→</span>
           </a>
         </div>
         <p class="cta-microcopy">
-          Free review. No pressure. No monthly membership.
+          No payment or plan selection is required to request a review.
         </p>
       </div>
     </section>

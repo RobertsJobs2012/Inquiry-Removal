@@ -46,7 +46,7 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
     <span class="review-trust-chip">
       <i aria-hidden="true">✓</i> Private review
     </span>
-    <span class="review-time">About 2 minutes</span>
+    <span class="review-time">4 short steps</span>
   </div>
 
   <div
@@ -72,7 +72,7 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
       tabindex="-1"
     >
       <legend>How can we reach you?</legend>
-      <p>Start with the basics. We only use this to respond to your review.</p>
+      <p>Enter your contact details. You’ll choose phone or email for follow-up on the last step.</p>
       <div class="native-contact-grid">
         <label>
           <span>Full name</span>
@@ -86,7 +86,7 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
           />
         </label>
         <label>
-          <span>Best email address</span>
+          <span>Email address</span>
           <input
             type="email"
             name={REVIEW_FIELDS.email}
@@ -97,7 +97,7 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
           />
         </label>
         <label>
-          <span>Best phone number</span>
+          <span>Phone number</span>
           <input
             type="tel"
             name={REVIEW_FIELDS.phone}
@@ -116,7 +116,7 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
       tabindex="-1"
     >
       <legend>What are you preparing for?</legend>
-      <p>Choose the goal that best matches your situation.</p>
+      <p>Pick the closest match. It helps us put your inquiry concerns in context.</p>
       <fieldset
         class="choice-grid native-choice-grid"
         aria-label="What are you preparing for?"
@@ -162,11 +162,11 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
       tabindex="-1"
     >
       <legend>What appears on your reports?</legend>
-      <p>Estimates are completely fine for the initial review.</p>
-      <p class="field-heading">Approximate inquiry count</p>
+      <p>Use your best estimate. You don’t need to upload a report.</p>
+      <p class="field-heading">About how many hard inquiries?</p>
       <fieldset
         class="choice-grid"
-        aria-label="Approximate inquiry count"
+        aria-label="About how many hard inquiries?"
         toolparamdescription="The approximate number of hard inquiries. An estimate is acceptable."
       >
         {INQUIRY_COUNTS.map((count) => (
@@ -182,7 +182,7 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
         ))}
       </fieldset>
       <p class="field-heading native-field-heading">
-        Which credit reports show the inquiries?
+        Which reports show the inquiries? Select all that apply.
       </p>
       <fieldset
         class="choice-grid"
@@ -224,9 +224,8 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
       data-review-step="4"
       tabindex="-1"
     >
-      <legend>How should we contact you?</legend>
-      <p>Choose the contact method that works best for you.</p>
-      <p class="field-heading">How would you prefer that we contact you?</p>
+      <legend>How should we follow up?</legend>
+      <p>Pick phone or email. Sending this request doesn’t enroll you in a plan.</p>
       <fieldset
         class="choice-grid"
         aria-label="How would you prefer that we contact you?"
@@ -249,12 +248,12 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
           Add a note <span>(optional)</span>
         </summary>
         <label class="native-textarea-field">
-          <span>Brief description</span>
+          <span>Anything else we should know? (optional)</span>
           <textarea
             name={REVIEW_FIELDS.note}
             rows="5"
             maxlength="2500"
-            placeholder="Anything else you would like us to know?"
+            placeholder="For example: I noticed three new lender names after a dealership visit."
           ></textarea>
         </label>
       </details>
@@ -280,7 +279,7 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
       tabindex="-1"
     ></p>
     <p class="review-auto-note" data-review-auto-note aria-live="polite" hidden>
-      Your answers stay here until you submit. You can go back anytime.
+      You can go back without losing your answers.
     </p>
     <div class="form-controls native-review-controls">
       <button class="reset-link" type="button" data-review-back hidden>
@@ -303,11 +302,11 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
     <p class="eyebrow">
       <span></span> Request received
     </p>
-    <h3>Thank you. Your review is now in our hands.</h3>
+    <h3>We Received Your Free Review Request</h3>
     <p>
-      Inquiry Removal will review the information and contact you using the
-      method you selected. Please do not send sensitive documents or account
-      credentials by reply.
+      A specialist will review what you shared and contact you using the method
+      you chose. Keep any relevant company names and dates handy. Don’t send
+      sensitive documents or account details by reply.
     </p>
     <p class="review-receipt" hidden data-review-receipt-wrap>
       Submission reference: <strong data-review-receipt></strong>
@@ -512,7 +511,7 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
       reviewAutoNote.textContent =
         reviewStep === reviewSteps.length - 1
           ? "Nothing is sent until you select Submit My Free Review."
-          : "Your selections stay in place. You can go back anytime.";
+          : "You can go back without losing your answers.";
     if (moveFocus) {
       // Re-anchor after the new step has laid out. Otherwise browser scroll
       // anchoring keeps the old Continue button's position at the new step's end.
@@ -561,7 +560,7 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
       if (!bureau) {
         if (reviewError)
           reviewError.textContent =
-            "Choose at least one credit report to continue.";
+            "Choose at least one credit report, or select “I am not sure.”";
         const field = step.querySelector<HTMLInputElement>(
           `input[name='${REVIEW_FIELDS.bureau}']`,
         );
@@ -580,7 +579,7 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
           invalid.type === "checkbox"
             ? "Please confirm that we may contact you about your free review."
             : invalid.type === "radio"
-              ? "Choose an option for each required question to continue."
+              ? "Choose an answer for the highlighted question."
               : `${invalid.closest("label")?.querySelector("span")?.textContent?.trim() ?? "This field"}: ${invalid.validationMessage}`;
       markInvalid(invalid);
       return false;
@@ -697,7 +696,7 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
     const originalLabel = reviewSubmit?.innerHTML ?? "Submit My Free Review";
     if (reviewSubmit) {
       reviewSubmit.disabled = true;
-      reviewSubmit.textContent = "Sending…";
+      reviewSubmit.textContent = "Sending your request…";
     }
     reviewForm.setAttribute("aria-busy", "true");
     if (reviewError) reviewError.textContent = "";
@@ -730,7 +729,7 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
         "[data-review-preference]",
       );
       if (preference)
-        preference.textContent = `Preferred contact method: ${String(new FormData(reviewForm).get(REVIEW_FIELDS.contactMethod) ?? "your selected method")}. A specialist reviews the facts before discussing any paid service; this request is not enrollment.`;
+        preference.textContent = `Contact preference: ${String(new FormData(reviewForm).get(REVIEW_FIELDS.contactMethod) ?? "your selected method")}. You haven’t enrolled in a plan, and no payment is due for this review.`;
       track("Review Form Submitted", {
         page: window.location.pathname,
       });

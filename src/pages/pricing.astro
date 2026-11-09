@@ -14,27 +14,27 @@ import {
 const included = [
   [
     "A personal inquiry review",
-    "We review the affected credit reports, discuss what happened, and understand what removing the inquiries could help you pursue next.",
+    "We review the affected reports with you and explain which inquiries are in scope and why.",
   ],
   [
     "Experian, Equifax, and TransUnion as needed",
     "There is no separate plan for each bureau. We work with every affected report included in your service.",
   ],
   [
-    "A complete inquiry-removal list",
-    "We organize creditor names, inquiry dates, affected bureaus, and the situation connected to each inquiry.",
+    "One list for all affected reports",
+    "We record the company, date and bureau for each inquiry so you know what we’re working on.",
   ],
   [
     "Disputes prepared and sent for you",
-    "Inquiry Removal prepares and submits the communications to the appropriate companies and credit bureaus. You do not have to write and manage the process alone.",
+    "We prepare supported disputes for the appropriate companies and bureaus. You don’t have to write the letters or work out where to send them.",
   ],
   [
     "Every response reviewed",
-    "When a credit-monitoring alert, email, online result, or mailed response arrives, you notify us. We review what changed and explain the next step.",
+    "Share the letters, emails or alerts you receive. We check them against your inquiry list and explain what changed, if anything.",
   ],
   [
     "Continued follow-through",
-    "We do not impose a one-round cutoff. Additional removal rounds continue as needed under your service agreement.",
+    "If a response calls for another step, we handle the follow-up as needed under your written agreement.",
   ],
   [
     "Direct communication",
@@ -45,11 +45,11 @@ const included = [
 const countingSteps = [
   [
     "Count the inquiry entries you want reviewed",
-    "Look at the hard inquiry section of each affected report and estimate how many entries you want removed. The estimate is enough to begin the free review.",
+    "Look at the hard inquiry section of each affected report. Estimate how many entries you want us to review, even if you don’t recognize every company.",
   ],
   [
     "Include every affected report",
-    "If inquiries appear on Experian, Equifax, and TransUnion, provide all three reports. If only one or two bureaus are affected, begin with those reports.",
+    "Note which of Experian, Equifax and TransUnion show the entries. You don’t need to upload your reports to request the free review.",
   ],
   [
     "Choose “I am not sure” when needed",
@@ -57,7 +57,7 @@ const countingSteps = [
   ],
   [
     "We confirm the correct plan before you begin",
-    "After reviewing the inquiry list and affected reports, we confirm which price range matches the service. This prevents you from choosing a plan based on an incomplete count.",
+    "We confirm which entries are in scope and which price applies. The written agreement explains the work, your responsibilities and the payment terms.",
   ],
 ];
 
@@ -102,7 +102,7 @@ const faqs = [
   ],
   [
     "Can I request a free review before choosing a plan?",
-    "Yes. The free inquiry review is available when you want to discuss the situation, confirm the inquiry count, or understand what is included before starting. There is no pressure to choose a plan during the first conversation.",
+    "Yes. You can ask us to check the count or explain a plan before you choose. A free review request does not enroll you or require payment.",
   ],
 ];
 
@@ -167,7 +167,7 @@ const schema = [
           <span>Pricing</span>
         </nav>
         <p class="eyebrow eyebrow--light">
-          <span></span> One-Time Plans | No Monthly Subscriptions
+          <span></span> Four plans · No monthly fees
         </p>
         <h1>{revision.title}</h1>
         <p class="hero-summary">{revision.supporting}</p>
@@ -188,7 +188,7 @@ const schema = [
           </a>
         </div>
         <p class="cta-microcopy">
-          One-time pricing. No monthly fees. All affected bureaus included.
+          No payment or plan selection is required to request a review.
         </p>
       </div>
     </section>
@@ -214,7 +214,7 @@ const schema = [
             <span></span> Find your plan
           </p>
           <h2 id="selector-heading">
-            About how many total hard inquiries do you want removed?
+            About how many hard inquiries do you want reviewed?
           </h2>
         </div>
         <div
@@ -232,7 +232,7 @@ const schema = [
             </button>
           ))}
           <button type="button" data-plan-choice="review" aria-pressed="false">
-            I am not sure <span>Get My Free Review</span>
+            I’m not sure <span>Start with a free review</span>
           </button>
         </div>
         <div
@@ -241,7 +241,7 @@ const schema = [
           aria-atomic="true"
         >
           <span data-result-kicker>Choose a range above</span>
-          <strong data-result-name>We will show the matching plan here.</strong>
+          <strong data-result-name>See the plan for your estimated count.</strong>
           <a
             class="button button--small"
             href="#plans"
@@ -260,33 +260,32 @@ const schema = [
           <p class="eyebrow">
             <span></span> A practical comparison
           </p>
-          <h2>When Does Getting Help Make Sense?</h2>
+          <h2>What Are You Paying Us to Handle?</h2>
           <p class="lead">
-            Compare the work you want help with, your available time and whether
-            there is a factual issue to investigate. Normal aging may be the
-            right path for accurate inquiries. Paid assistance is optional, and
-            removal does not guarantee approval.
+            You can dispute a factual error yourself for free. If you’d rather
+            have someone organize several entries, prepare the disputes and
+            make sense of the responses, that’s what the one-time plan covers.
           </p>
         </div>
         <ol class="waiting-cost__list" data-reveal>
           <li>Wait and monitor legitimate, accurately reported inquiries.</li>
           <li>
-            Use the free official dispute process when you want to manage a
-            factual error yourself.
+            <a class="inline-link" href="/how-to-dispute-a-hard-inquiry/">
+              Dispute an error yourself for free
+            </a>{" "}if you want to manage the paperwork.
           </li>
           <li>
             Consider broader help if the report issues extend beyond inquiries.
           </li>
           <li>
-            Choose inquiry-focused help when you want someone to organize
-            appropriate communications and follow-up under an agreed scope.
+            Ask us to handle the inquiry work and follow-up if you’d rather
+            not manage it yourself.
           </li>
         </ol>
       </div>
       <p class="container waiting-cost__summary" data-reveal>
-        Inquiry Removal plans range from <strong>$199 to $499 once.</strong> The
-        right plan depends on how many total hard inquiries are included, not
-        how many months the process lasts.
+        A plan covers the work in your agreement. It does not buy a guaranteed
+        removal, score increase or approval.
       </p>
     </section>
 
@@ -294,13 +293,13 @@ const schema = [
       <div class="container">
         <div class="pricing-heading" data-reveal>
           <p class="eyebrow centered">
-            <span></span> Count. Choose. Start.
+            <span></span> Compare prices
           </p>
-          <h2>Which Inquiry Removal Plan Fits Your Reports?</h2>
+          <h2>Four Plans, Based on the Number of Inquiries</h2>
           <p>
-            Choose the plan that matches your total number of hard inquiries.
-            Every plan includes work across Experian, Equifax, and TransUnion
-            when those reports are affected.
+            Use these ranges to estimate your price. Each plan covers the
+            applicable work on the affected Experian, Equifax and TransUnion
+            reports.
           </p>
         </div>
         <div class="pricing-plan-grid">
@@ -312,7 +311,7 @@ const schema = [
             >
               <p class="pricing-plan-card__name">{plan.name}</p>
               <h3>{plan.price}</h3>
-              <strong>One Time</strong>
+              <strong>One-time price</strong>
               <p class="pricing-plan-card__best">
                 <b>Best for:</b> {plan.bestFor}
               </p>
@@ -329,7 +328,7 @@ const schema = [
                 href={`/free-inquiry-review/?plan=${plan.id}`}
                 data-track={`pricing-card-${plan.id}`}
               >
-                Choose {plan.name} <span>→</span>
+                Ask About {plan.name} <span>→</span>
               </a>
             </article>
           ))}
@@ -353,7 +352,7 @@ const schema = [
             <span></span> Compare every plan
           </p>
           <h2 id="comparison-heading">
-            One focused process. Four clear inquiry ranges.
+            The Work Is the Same at Every Price
           </h2>
         </div>
         <p class="pricing-table-hint" aria-hidden="true">
@@ -395,11 +394,11 @@ const schema = [
           <p class="eyebrow">
             <span></span> The same complete service
           </p>
-          <h2>What Is Included With Every Inquiry Removal Plan?</h2>
+          <h2>What We Handle Under Every Plan</h2>
           <p class="lead">
-            Every plan includes the same focused removal process. The only
-            package difference is the number of hard inquiries included in the
-            service.
+            You’ll know which entries we’re working on, what we sent and what
+            the replies mean. You don’t need to manage the dispute paperwork
+            yourself.
           </p>
         </div>
         <div class="included-grid">
@@ -426,12 +425,11 @@ const schema = [
           <p class="eyebrow eyebrow--light">
             <span></span> You do not have to guess
           </p>
-          <h2>How Are Your Total Hard Inquiries Counted?</h2>
+          <h2>How We Confirm Your Inquiry Count</h2>
           <p>
-            Your plan is based on the total hard inquiries included from the
-            affected credit reports. We confirm the final service count during
-            your review so you do not have to guess which names, dates, or
-            bureau entries belong together.
+            If the same lender appears on more than one report, point it out
+            during your review. We’ll explain which entries are included and
+            how they affect the price.
           </p>
         </div>
         <div class="counting-grid">
@@ -451,7 +449,7 @@ const schema = [
             href="/free-inquiry-review/?review=free"
             data-track="pricing-help-choose"
           >
-            Help Me Choose My Plan <span>→</span>
+            {revision.primaryCta} <span>→</span>
           </a>
         </div>
       </div>
@@ -465,9 +463,9 @@ const schema = [
           </p>
           <h2>Hard Inquiry Removal Pricing Questions</h2>
           <p>
-            Want to understand the broader process? Review our{" "}
+            Still deciding whether this is the right service? See{" "}
             <a class="inline-link" href="/faq/">
-              hard inquiry removal pricing questions
+              common questions about hard inquiry removal
             </a>{" "}
             or{" "}
             <a class="inline-link" href="/situations-we-handle/">
@@ -495,13 +493,13 @@ const schema = [
     <section class="final-cta dark-section pricing-final-cta">
       <div class="container" data-reveal>
         <p class="eyebrow eyebrow--light centered">
-          <span></span> One clear price
+          <span></span> Start with an estimate
         </p>
-        <h2>Ready to Choose Your Inquiry Removal Plan?</h2>
+        <h2>Confirm Your Price Before You Decide</h2>
         <p>
-          Select the range that matches your reports. If you are unsure of the
-          count, start with a free review and let us help organize the inquiry
-          problem first.
+          Tell us what’s on your reports, even if you’re not sure of the count.
+          We’ll help you see whether the service fits and which plan covers
+          the work.
         </p>
         <div class="button-row button-row--center">
           <a
@@ -509,18 +507,18 @@ const schema = [
             href="/free-inquiry-review/?plan=help"
             data-track="pricing-final-start"
           >
-            Help Me Choose My Plan <span>→</span>
+            {revision.primaryCta} <span>→</span>
           </a>
           <a
             class="text-link text-link--light"
-            href="/free-inquiry-review/?review=free"
+            href="#plans"
             data-track="pricing-final-review"
           >
-            Get My Free Inquiry Review <span>↘</span>
+            Back to the Four Plans <span>↑</span>
           </a>
         </div>
         <p class="cta-microcopy">
-          One-time pricing. No monthly membership. Free personal review.
+          The review is free and does not enroll you in a plan.
         </p>
       </div>
     </section>
@@ -552,9 +550,9 @@ const schema = [
     ),
     review: [
       "Not sure of your count?",
-      "Start with a free personal inquiry review.",
+      "We can help confirm which inquiries are in scope.",
       "/free-inquiry-review/?review=free",
-      "Get My Free Inquiry Review",
+      "Start My Free Review",
     ],
   };
 

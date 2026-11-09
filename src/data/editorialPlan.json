@@ -3,9 +3,9 @@
     "brief": "8.01",
     "seoTitle": "Hard Inquiry Removal Service | Free Review & One-Time Plans",
     "description": "Get a free review of questionable hard inquiries on Experian, Equifax or TransUnion. If paid help fits, one-time plans start at $199 with no monthly fees.",
-    "title": "Hard Inquiry Removal, With a Clear Next Step",
-    "supporting": "Dealership pulls, unfamiliar lenders or inquiries you believe are wrong? We review what happened across Experian, Equifax and TransUnion, explain the available next step, and handle supported disputes and follow-up if you choose our service.",
-    "primaryCta": "Get My Free Inquiry Review",
+    "title": "Hard Inquiry Removal for Pulls That Don’t Add Up",
+    "supporting": "One dealership visit led to several hard pulls. Or a company you don’t recognize appeared on your report. We’ll help you find out what happened. If there’s a reason to dispute a pull, you can hire us to handle the paperwork and follow-up.",
+    "primaryCta": "Start My Free Review",
     "related": [
       "/pricing/",
       "/eligibility/",
@@ -245,10 +245,10 @@
   },
   "/how-it-works/": {
     "brief": "8.21",
-    "seoTitle": "How Inquiry Removal Works | Review Through Follow-Up",
-    "description": "See how Inquiry Removal reviews the facts, confirms scope, prepares appropriate communications and follows responses through the next step.",
-    "title": "A Clear Process From Inquiry Review Through Follow-Up",
-    "supporting": "Start with what happened and the reports affected. We clarify the inquiry list and available next step, then explain the scope and written terms if you want us to handle supported disputes. You stay informed as responses arrive.",
+    "seoTitle": "How Hard Inquiry Removal Works | Review to Follow-Up",
+    "description": "See how hard inquiry removal works: what to bring to a free review, what we handle if you hire us and what to do when a bureau or lender responds.",
+    "title": "How Hard Inquiry Removal Works",
+    "supporting": "Tell us what happened. We’ll help you figure out which inquiries warrant a closer look. If you hire us, we organize the entries, handle supported disputes and explain what each response means for you.",
     "primaryCta": "Start My Free Review",
     "related": ["/eligibility/", "/pricing/", "/free-inquiry-review/", "/faq/"]
   },
@@ -374,10 +374,10 @@
   "/pricing/": {
     "brief": "8.31",
     "seoTitle": "Hard Inquiry Removal Pricing | $199–$499 One-Time Plans",
-    "description": "Compare one-time hard inquiry removal plans from $199 to $499. See included work, how your count is confirmed and how to request a free review.",
-    "title": "Clear Inquiry Removal Pricing, Confirmed Before You Decide",
-    "supporting": "Plans range from $199 to $499 based on the confirmed inquiries included in your service. All affected bureaus can be covered. Start with an estimate; we explain the count, scope and written terms before you decide.",
-    "primaryCta": "Confirm My Inquiry Count and Plan",
+    "description": "Hard inquiry removal costs $199–$499, with no monthly fee. Compare four plans, see what’s included and confirm your count in a free review.",
+    "title": "Hard Inquiry Removal Pricing",
+    "supporting": "One-time plans range from $199 to $499. All four cover the same work across the affected reports; only the inquiry count changes. We’ll confirm your count and price before you decide.",
+    "primaryCta": "Start My Free Review",
     "related": [
       "/free-inquiry-review/",
       "/how-it-works/",
@@ -521,9 +521,9 @@
     "brief": "8.42",
     "seoTitle": "Free Hard Inquiry Review | Inquiry Removal",
     "description": "Request a free review of your hard inquiry situation. An estimate is enough to begin. No sensitive documents or payment information needed.",
-    "title": "Start Your Free Hard Inquiry Review",
-    "supporting": "Tell us what happened, which reports are affected and approximately how many inquiries you see. An estimate is fine. The initial request does not need sensitive documents or payment information.",
-    "primaryCta": "Submit My Free Review",
+    "title": "Request Your Free Hard Inquiry Review",
+    "supporting": "Tell us what appeared on your credit report and why it concerns you. An estimate is enough to start. A specialist will follow up to discuss what makes sense for your situation.",
+    "primaryCta": "Start My Free Review",
     "related": ["/privacy/", "/terms/", "/pricing/"]
   },
   "/privacy/": {
