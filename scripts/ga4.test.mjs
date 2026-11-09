@@ -31,6 +31,8 @@ test("GA4 is disabled outside the production origin", () => {
 test("opt-in loads one analytics-only tag, sends one minimal lead, and can be withdrawn", () => {
   const { win, doc, scripts, cookies } = fixture();
   const ga4 = createGa4(win, doc);
+  ga4.reviewStarted();
+  ga4.callClicked();
   ga4.reviewAccepted();
   ga4.setAllowed(false);
   assert.equal(win.dataLayer, undefined);
@@ -65,11 +67,14 @@ test("opt-in loads one analytics-only tag, sends one minimal lead, and can be wi
   assert.equal(config.allow_google_signals, false);
   assert.equal(config.allow_ad_personalization_signals, false);
   assert.equal(config.send_page_view, false);
+  ga4.reviewStarted({ email: "never collected" });
+  ga4.reviewStarted();
+  ga4.callClicked({ phone: "never collected" });
   ga4.reviewAccepted({ email: "never collected" });
   ga4.reviewAccepted();
   assert.deepEqual(
     commands().filter(([command]) => command === "event"),
-    ["page_view", "generate_lead"].map((event) => [
+    ["page_view", "review_start", "click_to_call", "generate_lead"].map((event) => [
       "event",
       event,
       {
@@ -80,6 +85,11 @@ test("opt-in loads one analytics-only tag, sends one minimal lead, and can be wi
     ]),
   );
   ga4.setAllowed(false);
+  const countAfterWithdrawal = commands().length;
+  ga4.callClicked();
+  ga4.reviewStarted();
+  ga4.reviewAccepted();
+  assert.equal(commands().length, countAfterWithdrawal);
   assert.equal(win["ga-disable-" + GA4_ID], true);
   assert.equal(commands().at(-1)[2].analytics_storage, "denied");
   assert.equal(

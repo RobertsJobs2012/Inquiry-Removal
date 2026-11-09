@@ -319,6 +319,7 @@ export const practicalGuides: Record<string, PracticalSection[]> = {
       intro:
         "No provider is awarded a score, star rating or winner in this guide. A lower headline price does not establish identical scope, and paying more does not establish a better outcome.",
       checklist: [
+        "Give each provider the same count by bureau, without sending a full credit report just to get a quote. Ask for the total price and whether the same lender pull on two reports counts once or twice.",
         "Which specific inquiries and bureaus are covered, and how are entries counted across reports?",
         "Are inquiries linked to open accounts excluded?",
         "Is paid monitoring required, at what recurring cost, and how is it cancelled?",
@@ -394,7 +395,13 @@ export const practicalGuides: Record<string, PracticalSection[]> = {
         "Record the recipient, channel, date and confirmation",
         "Read the reason if a dispute is unsuccessful; follow up with relevant new evidence rather than repeating an identical request",
       ],
-      links: [dispute],
+      links: [
+        dispute,
+        {
+          label: "Compare hard inquiry removal services if you prefer paid help",
+          href: "/best-hard-inquiry-removal-services/",
+        },
+      ],
     },
   ],
   "transunion-hard-inquiry-removal": [
@@ -402,6 +409,10 @@ export const practicalGuides: Record<string, PracticalSection[]> = {
       heading: "A company request and a bureau result are different records",
       intro:
         "If the company confirms an inquiry should be corrected, ask how it will send its request to TransUnion and keep the confirmation. A company saying it sent a letter is not yet proof the report changed. Compare the same entry on an updated TransUnion report and preserve any response before choosing another step.",
+      checklist: [
+        "For example, a lender name you don't recognize might match the date of your dealership application. Ask the lender which application prompted the pull. If it identifies your application, the unfamiliar name alone doesn't show an error.",
+        "If the lender instead confirms someone else applied, record the company name, inquiry date, and reference number for your conversation. Ask the lender how it will request a correction from TransUnion, then check the same entry on a newer report.",
+      ],
       links: [
         tu,
         {

@@ -6,8 +6,8 @@
 >
   <strong>Help us improve the site?</strong>
   <p>
-    Google Analytics uses cookies to measure visits and completed reviews. Your
-    form answers aren’t shared with Analytics.{" "}
+    Google Analytics uses cookies to measure visits, phone-link clicks and
+    review activity. Your form answers aren’t shared with Analytics.{" "}
     <a href="/privacy/#analytics">Privacy details</a>
   </p>
   <div class="analytics-choice__actions">
@@ -135,6 +135,22 @@
       }
     });
     window.addEventListener(GA4_REVIEW_ACCEPTED, analytics.reviewAccepted);
+    document.addEventListener("input", ({ target }) => {
+      if (
+        (target instanceof HTMLInputElement ||
+          target instanceof HTMLTextAreaElement) &&
+        target.closest("form[data-review-form]") &&
+        !target.closest("[hidden]") &&
+        target.type !== "hidden"
+      ) {
+        analytics.reviewStarted();
+      }
+    });
+    document.addEventListener("click", ({ target }) => {
+      if (target instanceof Element && target.closest("a[href^='tel:']")) {
+        analytics.callClicked();
+      }
+    });
     applyChoice(choice);
   }
 </script>

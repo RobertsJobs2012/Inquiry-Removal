@@ -627,6 +627,19 @@ await run(
       page.evaluate(() =>
         (window.dataLayer ?? []).map((args) => Array.from(args)),
       );
+    const queuedEvents = async (name) =>
+      (await queuedCommands()).filter(
+        ([command, event]) => command === "event" && event === name,
+      );
+    const clickPhoneLink = () =>
+      page.evaluate(() => {
+        const link = document.querySelector("a[href^='tel:']");
+        if (!link) throw new Error("Phone link is missing");
+        link.addEventListener("click", (event) => event.preventDefault(), {
+          once: true,
+        });
+        link.click();
+      });
     if (ga4Production) {
       expect(tagRequests.length === 0, "Google loaded before consent");
       await page.locator("[data-ga4-response='denied']").click();
@@ -634,7 +647,13 @@ await run(
         !(await page.locator("[data-ga4-choice]").isVisible()),
         "consent panel did not dismiss",
       );
+      await page.locator("input[autocomplete='name']").fill("Untracked QA");
+      await clickPhoneLink();
       expect(tagRequests.length === 0, "Google loaded after decline");
+      expect(
+        (await queuedCommands()).length === 0,
+        "Analytics queued review or call activity after decline",
+      );
       await page.goto(`${base}/privacy/#analytics`, {
         waitUntil: "networkidle",
       });
@@ -668,6 +687,11 @@ await run(
           config.allow_ad_personalization_signals === false,
         "advertising features were not disabled",
       );
+      expect(
+        (await queuedEvents("review_start")).length === 0,
+        "prefilling the form must not count as a start",
+      );
+      await clickPhoneLink();
     }
     const form = page.locator("[data-review-form]");
     expect(await form.isVisible(), "review form is not visible");
@@ -696,6 +720,21 @@ await run(
       .locator(`input[name='entry.1525553918']`)
       .fill("smoke@example.com");
     await page.locator(`input[name='entry.330440410']`).fill("6025550100");
+    if (ga4Production) {
+      for (const name of ["review_start", "click_to_call"]) {
+        const events = await queuedEvents(name);
+        const parameters = events[0]?.[2];
+        expect(
+          events.length === 1 &&
+            parameters?.page_location === `${base}/free-inquiry-review/` &&
+            ["", base].includes(parameters?.page_referrer) &&
+            parameters?.send_to === GA4_ID &&
+            Object.keys(parameters).sort().join() ===
+              "page_location,page_referrer,send_to",
+          `expected one privacy-safe ${name} event`,
+        );
+      }
+    }
     await page.locator("[data-review-next]").click();
     expect(
       await page.locator("[data-review-step='2']").isVisible(),
@@ -766,11 +805,7 @@ await run(
               : { ok: true, receipt: "QA-ONLY" },
         });
       });
-      const leads = async () =>
-        (await queuedCommands()).filter(
-          ([command, event]) =>
-            command === "event" && event === "generate_lead",
-        );
+      const leads = () => queuedEvents("generate_lead");
       await chooseOption("Email");
       await page.locator(".native-consent-check input").check();
       await page.locator("[data-review-submit]").click();

@@ -152,8 +152,13 @@ const worksheetPage = readFileSync(
 assert.match(worksheetPage, /data-inquiry-helper/);
 assert.match(worksheetPage, /data-tool-clear/);
 assert.match(worksheetPage, /data-helper-print/);
+assert.match(
+  worksheetPage,
+  /href="\/best-hard-inquiry-removal-services\/"[^>]*>\s*Compare hard inquiry removal services if you prefer paid help/,
+);
 for (const slug of [
   "how-to-remove-hard-inquiries",
+  "how-to-dispute-a-hard-inquiry",
   "how-long-do-hard-inquiries-stay",
   "best-hard-inquiry-removal-services",
   "hard-inquiry-removal-letter",
@@ -183,6 +188,8 @@ for (const slug of [
     assert.ok(text.trim(), slug + " contextual link must have a visible name");
     destinations.add(href);
   }
+  if (slug === "how-to-dispute-a-hard-inquiry")
+    assert.ok(destinations.has("/transunion-hard-inquiry-removal/"));
 }
 console.log(
   `Editorial audit passed: all ${Object.keys(plan).length} editorial entries match built titles and H1s; canonicals, indexing intent and four private tool placements preserved.`,

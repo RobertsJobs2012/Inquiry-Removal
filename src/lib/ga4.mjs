@@ -15,6 +15,7 @@ export function createGa4(win, doc) {
   let allowed = false;
   let initialized = false;
   let leadSent = false;
+  let startSent = false;
   let pageContext = { page_location: GA4_ORIGIN + "/", page_referrer: "" };
   win[disabled] = true;
 
@@ -90,11 +91,25 @@ export function createGa4(win, doc) {
     }
   }
 
+  function sendEvent(name) {
+    tag("event", name, { ...pageContext, send_to: GA4_ID });
+  }
+
+  function reviewStarted() {
+    if (!allowed || startSent) return;
+    startSent = true;
+    sendEvent("review_start");
+  }
+
+  function callClicked() {
+    if (allowed) sendEvent("click_to_call");
+  }
+
   function reviewAccepted() {
     if (!allowed || leadSent) return;
     leadSent = true;
-    tag("event", "generate_lead", { ...pageContext, send_to: GA4_ID });
+    sendEvent("generate_lead");
   }
 
-  return { setAllowed, reviewAccepted };
+  return { setAllowed, reviewStarted, callClicked, reviewAccepted };
 }

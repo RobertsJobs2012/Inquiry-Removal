@@ -12,14 +12,19 @@ const NOVEMBER_REVIEWED_SLUGS = new Set([
   "how-long-do-hard-inquiries-stay",
   "how-to-dispute-a-hard-inquiry",
   "how-to-remove-hard-inquiries",
-  "best-hard-inquiry-removal-services",
   "hard-inquiry-removal-letter",
-  "transunion-hard-inquiry-removal",
   "experian-hard-inquiry-removal",
   "who-pulled-my-credit",
 ]);
 
+const NOVEMBER_8_REVIEWED_SLUGS = new Set([
+  "best-hard-inquiry-removal-services",
+  "transunion-hard-inquiry-removal",
+]);
+
 export function guideReviewDate(slug: string) {
+  if (NOVEMBER_8_REVIEWED_SLUGS.has(slug))
+    return { iso: "2026-11-08", label: "November 8, 2026" };
   return NOVEMBER_REVIEWED_SLUGS.has(slug)
     ? { iso: "2026-11-02", label: "November 2, 2026" }
     : { iso: EDITORIAL_UPDATED_ISO, label: EDITORIAL_UPDATED_LABEL };

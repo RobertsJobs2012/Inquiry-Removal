@@ -20,6 +20,12 @@ const rules: Record<string, LinkRule[]> = {
     { phrase: "up to two years", href: "/how-long-do-hard-inquiries-stay/" },
     { phrase: "Specialist help", href: "/" },
   ],
+  "how-to-dispute-a-hard-inquiry": [
+    {
+      phrase: "TransUnion",
+      href: "/transunion-hard-inquiry-removal/",
+    },
+  ],
   "how-long-do-hard-inquiries-stay": [
     { phrase: "scoring impact", href: "/hard-inquiry-credit-score-impact/" },
     { phrase: "accurate and authorized", href: "/authorized-inquiry-removal/" },
