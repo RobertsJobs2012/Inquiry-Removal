@@ -31,6 +31,13 @@ const conversionRoutes = new Set([
   "/situations-we-handle/",
   "/dealership-inquiries/",
 ]);
+const coreSearchLanguage = {
+  "/": [/hard inquiry removal service/i, /we remove hard inquiries/i],
+  "/pricing/": [/hard inquiry removal pricing/i, /hard inquiry removal pricing/i],
+  "/how-it-works/": [/how hard inquiry removal works/i, /how hard inquiry removal works/i],
+  "/dealership-inquiries/": [/dealership hard inquiry removal/i, /dealership hard inquiry removal/i],
+  "/eligibility/": [/which hard inquiries can be removed/i, /which hard inquiries can be removed/i],
+};
 for (const [url, revision] of Object.entries(plan)) {
   const html = readFileSync(path.join("dist", url, "index.html"), "utf8");
   const title = decode(html.match(/<title>([\s\S]*?)<\/title>/)?.[1] ?? "");
@@ -51,6 +58,15 @@ for (const [url, revision] of Object.entries(plan)) {
   }
   const h1 = [...html.matchAll(/<h1(?:\s[^>]*)?>([\s\S]*?)<\/h1>/g)];
   assert.equal(h1.length, 1, url + " H1 count");
+  if (url in coreSearchLanguage) {
+    const [titlePhrase, headlinePhrase] = coreSearchLanguage[url];
+    assert.match(title, titlePhrase, url + " search title topic");
+    assert.match(decode(h1[0][1]), headlinePhrase, url + " headline topic");
+  }
+  if (url === "/") {
+    const opening = html.match(/<p class="hero-summary">([\s\S]*?)<\/p>/)?.[1] ?? "";
+    assert.match(decode(opening), /^Our hard inquiry removal service/i);
+  }
   assert.equal(
     decode(h1[0][1].replace(/<[^>]*>/g, "").trim()),
     revision.title,
