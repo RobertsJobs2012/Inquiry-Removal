@@ -23,6 +23,8 @@ const NOVEMBER_8_REVIEWED_SLUGS = new Set([
 ]);
 
 export function guideReviewDate(slug: string) {
+  if (slug === "eligibility" || slug === "dealership-inquiries")
+    return { iso: "2026-11-09", label: "November 9, 2026" };
   if (NOVEMBER_8_REVIEWED_SLUGS.has(slug))
     return { iso: "2026-11-08", label: "November 8, 2026" };
   return NOVEMBER_REVIEWED_SLUGS.has(slug)

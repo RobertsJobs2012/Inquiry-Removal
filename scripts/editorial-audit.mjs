@@ -27,6 +27,9 @@ const conversionRoutes = new Set([
   "/pricing/",
   "/how-it-works/",
   "/free-inquiry-review/",
+  "/eligibility/",
+  "/situations-we-handle/",
+  "/dealership-inquiries/",
 ]);
 for (const [url, revision] of Object.entries(plan)) {
   const html = readFileSync(path.join("dist", url, "index.html"), "utf8");
@@ -63,6 +66,11 @@ for (const [url, revision] of Object.entries(plan)) {
     assert.ok(href in plan, url + " related " + href);
 }
 const sitemap = readFileSync("dist/sitemap-0.xml", "utf8");
+const dealership = readFileSync("dist/dealership-inquiries/index.html", "utf8");
+assert.match(dealership, /href="\/free-inquiry-review\/\?situation=dealership#online-review"/);
+assert.match(dealership, /id="dealership-overview"/);
+const situations = readFileSync("dist/situations-we-handle/index.html", "utf8");
+assert.match(situations, /href="#find-situation"[^>]*>\s*Find My Situation/);
 for (const slug of [
   "hard-inquiry-dispute-denied",
   "denied-credit-too-many-inquiries",

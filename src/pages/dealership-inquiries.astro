@@ -8,10 +8,9 @@ import PhoneReviewPanel from "../components/PhoneReviewPanel.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 import PageJumpNav from "../components/PageJumpNav.astro";
-import {
-  EDITORIAL_UPDATED_ISO as CONTENT_UPDATED_ISO,
-  EDITORIAL_UPDATED_LABEL as CONTENT_UPDATED_LABEL,
-} from "../data/contentDates";
+import { guideReviewDate } from "../data/contentDates";
+
+const reviewed = guideReviewDate("dealership-inquiries");
 
 const painPoints = [
   [
@@ -20,7 +19,7 @@ const painPoints = [
   ],
   [
     "Did you ask the dealer not to shop your credit around?",
-    "You were clear about your instructions, but the dealership sent the application to additional lenders anyway. Now you are the one left dealing with the inquiries.",
+    "Keep any written instructions and compare them with the authorization you signed. That gives you something specific to ask the dealer or lender about.",
   ],
   [
     "Were you told the first check would be a soft pull?",
@@ -28,7 +27,7 @@ const painPoints = [
   ],
   [
     "Did you leave without buying a vehicle?",
-    "The deal never happened, but the inquiries remained. You should not have to keep reliving a dealership visit every time you review your credit profile.",
+    "Not buying a vehicle doesn’t make a legitimate pull inaccurate. Check whether the lender and date match the financing application you made.",
   ],
   [
     "Do the lender names look unfamiliar?",
@@ -36,14 +35,14 @@ const painPoints = [
   ],
   [
     "Did the same dealership visit affect more than one bureau?",
-    "Experian, Equifax, and TransUnion may not show the same inquiry list. We review each affected report so the removal process is built around the complete picture.",
+    "Experian, Equifax and TransUnion may show different lenders. Record the bureau next to each entry so you can check what appears where.",
   ],
 ];
 
 const process = [
   [
     "We review what happened at the dealership",
-    "Tell us why you visited, what you were told, what you signed, whether you purchased a vehicle, and how the inquiries are affecting your next move. We listen first so the removal strategy reflects your actual experience.",
+    "Start with what you signed, what the dealer told you and the inquiries you found. We’ll help you decide whether any entry warrants follow-up.",
   ],
   [
     "We examine every affected credit report",
@@ -51,11 +50,11 @@ const process = [
   ],
   [
     "We connect the lender names to the dealership visit",
-    "We organize the dates, creditor names, bureaus, duplicates, and other details connected to the event. This turns a confusing inquiry list into a clear removal plan.",
+    "We match the names and dates with the financing paperwork. That helps separate an expected lender from an entry that doesn’t fit.",
   ],
   [
     "We prepare and send the disputes",
-    "You do not have to write the disputes or figure out where to send them. Inquiry Removal prepares and sends the communications for you.",
+    "If you hire us, we prepare and send the disputes supported by the facts. You don’t have to write them or work out where they go.",
   ],
   [
     "You tell us when a response arrives",
@@ -63,14 +62,14 @@ const process = [
   ],
   [
     "We verify removals and continue the follow-through",
-    "Some removals happen quickly. Others take additional communication. We continue the included follow-through with additional rounds as needed under your service agreement.",
+    "We compare replies and updated reports with the original entries. If another step is warranted, we handle it as needed under your agreement.",
   ],
 ];
 
 const reasons = [
   [
-    "We only remove hard inquiries",
-    "You are not signing up for a broad credit-repair subscription filled with services you do not need. Hard inquiry removal is our specialty.",
+    "Hard inquiries are our only specialty",
+    "You can get help with the dealership pulls without signing up for work on unrelated account issues.",
   ],
   [
     "We work across all three credit bureaus",
@@ -96,12 +95,12 @@ const reasons = [
 
 const faqs = [
   [
-    "Can you remove dealership inquiries from all three credit bureaus?",
-    "Yes. Inquiry Removal works with dealership-related hard inquiries appearing on Experian, Equifax, and TransUnion. We review each affected report because the inquiry list can differ from one bureau to another.",
+    "Can you review dealership inquiries across all three bureaus?",
+    "Yes. We can review affected Experian, Equifax and TransUnion reports together. Whether any entry warrants a dispute depends on what it shows and what happened.",
   ],
   [
     "What if the dealership ran my credit multiple times?",
-    "We will review every dealership-related inquiry you want removed, organize the lenders and bureaus involved, and build the removal process around the complete event.",
+    "List each company, date and bureau, then compare them with the application. We can help check which pulls are explained by that visit and which don’t match.",
   ],
   [
     "Why are banks listed when I only visited a dealership?",
@@ -117,7 +116,7 @@ const faqs = [
   ],
   [
     "What if I remember agreeing to a credit check?",
-    "We still review the inquiries you want gone. Tell us what you understood, what the dealership said, how many lenders appeared, and what outcome you want now.",
+    "If the pull is accurate and legitimate, it generally stays. If the inquiry doesn’t match what you signed or what the dealer told you, bring the specific discrepancy to the review.",
   ],
   [
     "Do I have to contact the dealership or send the disputes myself?",
@@ -125,7 +124,7 @@ const faqs = [
   ],
   [
     "How quickly can dealership inquiries be removed?",
-    "Removal can happen in as little as 7 days. Many cases take up to 90 days, while rare and more complicated cases can take 120 days. Timing varies and is not guaranteed.",
+    "It depends on the evidence and when the companies or bureaus respond. Tell us about your deadline during the free review. We can discuss what’s realistic but can’t promise a removal date.",
   ],
   [
     "What if I do not have all three credit reports yet?",
@@ -207,19 +206,18 @@ const schema = [
           <div class="button-row">
             <a
               class="button button--large"
-              href="#free-review"
+              href="/free-inquiry-review/?situation=dealership#online-review"
               data-track="dealer-hero-review"
             >
-              Get My Free Dealership Inquiry Review <span>→</span>
+              {revision.primaryCta} <span>→</span>
             </a>
-            <a class="text-link text-link--light" href="/how-it-works/">
-              See How Removal Works <span>↘</span>
+            <a class="text-link text-link--light" href="#dealership-overview">
+              Why So Many Pulls? <span>↓</span>
             </a>
           </div>
           <p class="cta-microcopy">
-            Multiple lender entries alone do not establish an error. Accurate
-            legitimate inquiries are not removed merely because you did not buy
-            a vehicle.
+            The review is free. Multiple entries or leaving without a vehicle
+            do not, by themselves, make a pull inaccurate.
           </p>
         </div>
 
@@ -316,11 +314,9 @@ const schema = [
               credit report may appear as a separate hard inquiry.
             </p>
             <p>
-              You may have completed one application, spoken with one
-              salesperson, and expected one credit check. Then you opened your
-              reports and found a list of banks, finance companies, or lender
-              names you had never seen before. That experience can feel
-              completely out of proportion to what you agreed to do.
+              If the report lists a bank you don’t recognize, ask the dealer
+              which lenders received your application. Compare that list with
+              the report before assuming a pull was unauthorized.
             </p>
           </div>
         </div>
@@ -346,8 +342,8 @@ const schema = [
               .
             </p>
           </div>
-          <a class="button" href="#free-review">
-            Show Me Which Inquiries Can Be Removed <span>→</span>
+          <a class="button" href="/free-inquiry-review/?situation=dealership#online-review">
+            {revision.primaryCta} <span>→</span>
           </a>
         </div>
       </div>
@@ -367,9 +363,9 @@ const schema = [
           </p>
           <h2>Why Was Inquiry Removal Created?</h2>
           <p>
-            Inquiry Removal was created because founder Robert Garcia
-            experienced dealership credit shotgunning himself and knew other
-            consumers were being left with the same problem.
+            Founder Robert Garcia went to one dealership and found several
+            lenders on his reports. That experience led him to build a
+            service focused on hard inquiries.
           </p>
           <blockquote>
             “I went to a dealership and specifically asked them not to send my
@@ -385,14 +381,12 @@ const schema = [
             <span>Founder and Senior Credit Analyst</span>
           </p>
           <p>
-            This is why Inquiry Removal does not try to be everything to
-            everyone. We specialize in one problem: removing hard inquiries from
-            consumer credit reports. Robert’s account describes his personal
-            experience and is not a promise of a particular score change or
-            outcome for another consumer.
+            Today, that means tracing the lender entries back to the visit
+            before deciding what to dispute. Robert’s account describes his
+            experience, not a typical score change or a promised result.
           </p>
           <a class="button" href="#free-review">
-            Talk With Someone Who Understands <span>→</span>
+            See How to Call Us <span>↓</span>
           </a>
         </div>
       </div>
@@ -404,11 +398,11 @@ const schema = [
           <p class="eyebrow">
             <span></span> Review to follow-through
           </p>
-          <h2>How Do We Remove Dealership Hard Inquiries?</h2>
+          <h2>How We Review and Dispute Dealership Hard Inquiries</h2>
           <p class="lead">
-            We handle the dealership inquiry removal process from the initial
-            report review through the disputes, responses, verification, and
-            continued follow-through.
+            We start by tracing each pull to the application. If we find a
+            reason to dispute an entry and you hire us, we handle the
+            paperwork and follow-up.
           </p>
         </div>
         <div class="dealer-process-list">
@@ -433,10 +427,9 @@ const schema = [
             </p>
             <h3>How long can dealership inquiry removal take?</h3>
             <p>
-              Removal can happen in as little as 7 days. Many cases take up to
-              90 days, and a small number of more complicated situations can
-              take 120 days. Timing depends on the reports, companies, and
-              responses received and is not guaranteed.
+              Different lenders may respond at different times. If a reply
+              calls for more information, follow-up can take longer. Tell us
+              about any upcoming application during your review.
             </p>
           </div>
           <div>
@@ -462,8 +455,8 @@ const schema = [
           </div>
         </div>
         <div class="section-cta">
-          <a class="button" href="#free-review">
-            Get My Free Inquiry Review <span>→</span>
+          <a class="button" href="/free-inquiry-review/?situation=dealership#online-review">
+            {revision.primaryCta} <span>→</span>
           </a>
           <p>
             Not sure how many inquiries you have? We will help you count them.
@@ -496,11 +489,9 @@ const schema = [
             inquiry entries, dates, and creditor names that appear in the file.
           </p>
           <p>
-            The effect of inquiries also varies from one credit profile and
-            scoring model to another. That is why we do not make a generic
-            point-increase promise. We focus on the result you came for:
-            removing the dealership inquiries you want gone and helping you move
-            forward with a cleaner inquiry profile.
+            Check the report entry and the score separately. A change to one
+            doesn’t tell you exactly what will happen to the other. We focus
+            on whether the inquiry accurately reflects what happened.
           </p>
           <p>
             Learn more about{" "}
@@ -517,19 +508,16 @@ const schema = [
             <span></span> Your next move
           </p>
           <h3>
-            Your reports should reflect the story you want future lenders to
-            see.
+            Have Another Application Coming Up?
           </h3>
           <p>
-            Maybe you are preparing to buy a home, apply for business credit,
-            refinance, return to a different dealership, or protect a credit
-            profile you worked hard to build. Whatever comes next, you should
-            not have to wonder whether an old dealership visit will keep
-            creating questions.
+            Tell us when you plan to apply and which entries concern you. We’ll
+            explain what you can check now and whether follow-up makes sense,
+            without promising a change by your deadline.
           </p>
         </div>
-        <a class="button" href="#free-review">
-          Remove the Dealership Inquiries Standing in My Way <span>→</span>
+        <a class="button" href="/free-inquiry-review/?situation=dealership#online-review">
+          {revision.primaryCta} <span>→</span>
         </a>
       </div>
     </section>
@@ -542,8 +530,9 @@ const schema = [
           </p>
           <h2>Why Choose Inquiry Removal for Dealership Inquiries?</h2>
           <p class="lead">
-            Inquiry Removal gives dealership-inquiry clients a specialized
-            service built around the exact problem they need solved.
+            You don’t have to explain the same visit to several lenders on
+            your own. We organize the affected entries together and tell you
+            what each response means.
           </p>
         </div>
         <div class="dealer-why-grid">
@@ -561,8 +550,8 @@ const schema = [
     </section>
 
     <PhoneReviewPanel
-      title="Talk through the dealership visit."
-      description="Tell us what the dealership said, how many lender inquiries appeared, which reports are affected, and what you are preparing for next."
+      title="Talk Through the Dealership Visit"
+      description="Call with the details you have: when you visited, which lenders appeared and what you remember agreeing to. An exact count isn’t necessary."
     />
 
     <section class="section faq-section dealer-faq-section" id="dealership-faq">
@@ -605,31 +594,29 @@ const schema = [
         <p class="eyebrow eyebrow--light centered">
           <span></span> Move forward with a cleaner inquiry profile
         </p>
-        <h2>Ready to Remove the Dealership Inquiries Standing in Your Way?</h2>
+        <h2>Find Out Which Pulls Trace Back to the Dealer</h2>
         <p>
-          Tell us what happened at the dealership, how many inquiries appeared,
-          and what you want to do next. We will review your situation, explain
-          the next step, and help you begin removing the inquiries from your
-          affected credit reports.
+          Start with the lender names you don’t recognize. We’ll help you
+          separate what the visit explains from what deserves a closer look.
         </p>
         <div class="button-row button-row--center">
-          <a class="button button--large" href="#free-review">
-            Get My Free Inquiry Review <span>→</span>
+          <a class="button button--large" href="/free-inquiry-review/?situation=dealership#online-review">
+            {revision.primaryCta} <span>→</span>
           </a>
-          <a class="text-link text-link--light" href="/free-inquiry-review/">
-            Talk With a Specialist <span>↘</span>
+          <a class="text-link text-link--light" href="tel:+16023776626">
+            Call 602-377-6626 <span>↗</span>
           </a>
         </div>
         <p class="cta-microcopy">
-          Free review. No pressure. No monthly membership.
+          No payment or plan selection is required to request a review.
         </p>
         <p class="dealer-closing-trust">
           Nationwide service <span>•</span> Experian, Equifax, and TransUnion{" "}
-          <span>•</span> English and Spanish <span>•</span> Founded in 2015
+          <span>•</span> Inquiry-focused experience since 2015
         </p>
         <p class="last-reviewed">
           Page updated{" "}
-          <time datetime={CONTENT_UPDATED_ISO}>{CONTENT_UPDATED_LABEL}</time>.
+          <time datetime={reviewed.iso}>{reviewed.label}</time>.
           Robert Garcia, Founder and Senior Credit Analyst.
         </p>
       </div>
