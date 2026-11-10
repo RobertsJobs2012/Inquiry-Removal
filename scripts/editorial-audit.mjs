@@ -66,6 +66,7 @@ for (const [url, revision] of Object.entries(plan)) {
   if (url === "/") {
     const opening = html.match(/<p class="hero-summary">([\s\S]*?)<\/p>/)?.[1] ?? "";
     assert.match(decode(opening), /^Our hard inquiry removal service/i);
+    assert.match(decode(opening), /from your credit reports/i);
   }
   assert.equal(
     decode(h1[0][1].replace(/<[^>]*>/g, "").trim()),
