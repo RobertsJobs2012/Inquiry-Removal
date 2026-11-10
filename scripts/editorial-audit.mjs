@@ -37,6 +37,9 @@ const coreSearchLanguage = {
   "/how-it-works/": [/how hard inquiry removal works/i, /how hard inquiry removal works/i],
   "/dealership-inquiries/": [/dealership hard inquiry removal/i, /dealership hard inquiry removal/i],
   "/eligibility/": [/which hard inquiries can be removed/i, /which hard inquiries can be removed/i],
+  "/how-to-remove-hard-inquiries/": [/how to remove hard inquiries from your credit report/i, /how to remove hard inquiries from your credit report/i],
+  "/how-long-do-hard-inquiries-stay/": [/how long do hard inquiries stay on your credit report/i, /how long do hard inquiries stay on your credit report/i],
+  "/transunion-hard-inquiry-removal/": [/transunion hard inquiry removal/i, /how to remove hard inquiries from transunion/i],
 };
 for (const [url, revision] of Object.entries(plan)) {
   const html = readFileSync(path.join("dist", url, "index.html"), "utf8");
