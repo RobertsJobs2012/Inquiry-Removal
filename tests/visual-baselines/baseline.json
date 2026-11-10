@@ -28,6 +28,14 @@
       "evidenceRun": "https://github.com/RobertsJobs2012/Inquiry-Removal/actions/runs/42722673758",
       "artifactId": 13721082914,
       "review": "Manually reviewed the six production captures after the homepage, pricing and review copy rewrite. The new headings wrap without clipping and primary actions remain visible. Browser, accessibility and agentic checks passed. The two unchanged guide captures had zero changed pixels. The same viewports, screenshot settings and 0.5% tolerance were retained."
+    },
+    {
+      "files": ["desktop-home.png", "mobile-home.png", "desktop-pricing.png", "mobile-pricing.png", "desktop-review.png", "mobile-review.png"],
+      "reviewedLocalDate": "2026-11-09",
+      "releaseSha": "77ff089de2c185fd45ec1caadaf6948cf7b79e47",
+      "evidenceRun": "https://github.com/RobertsJobs2012/Inquiry-Removal/actions/runs/42758332304",
+      "artifactId": 13737240554,
+      "review": "Manually reviewed the six production captures after the service-first copy edit. The homepage names the service immediately; the primary action and pricing remain visible at both sizes. No clipping or overlap was observed in the revised views. Both unchanged guide captures had zero changed pixels; viewports, settings and the 0.5% tolerance were retained."
     }
   ]
 }
