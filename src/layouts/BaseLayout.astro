@@ -9,6 +9,7 @@ import "../styles/mobile-regression-fixes.css";
 import "../styles/responsive-qa.css";
 import "../styles/pricing-tiers.css";
 import "../styles/editorial-polish.css";
+import "../styles/case-file.css";
 import Analytics from "@vercel/analytics/astro";
 import SpeedInsights from "@vercel/speed-insights/astro";
 import ExperienceLayer from "../components/ExperienceLayer.astro";
@@ -18,6 +19,7 @@ import AnalyticsConsent from "../components/AnalyticsConsent.astro";
 import { SITE_ORIGIN } from "../data/discovery.mjs";
 import { editorialPlan } from "../data/editorial";
 import displayFontUrl from "@fontsource-variable/plus-jakarta-sans/files/plus-jakarta-sans-latin-wght-normal.woff2?url";
+import editorialFontUrl from "@fontsource-variable/newsreader/files/newsreader-latin-wght-normal.woff2?url";
 
 interface Props {
   title: string;
@@ -181,7 +183,7 @@ const serializedSchema = JSON.stringify(schemaGraph).replaceAll("<", "\\u003c");
       rel="preload"
       as="font"
       type="font/woff2"
-      href={displayFontUrl}
+      href={Astro.url.pathname === "/" ? editorialFontUrl : displayFontUrl}
       crossorigin
     />
     <title>{title}</title>
