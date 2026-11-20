@@ -342,7 +342,12 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
 
 <script>
   import { interceptAgentDraft } from "../lib/agent-access.mjs";
-  import { GA4_REVIEW_ACCEPTED } from "../lib/ga4.mjs";
+  import {
+    GA4_REVIEW_ACCEPTED,
+    GA4_REVIEW_STEP,
+    GA4_REVIEW_SUBMIT_ATTEMPT,
+    GA4_REVIEW_SUBMIT_ERROR,
+  } from "../lib/ga4.mjs";
   import { track } from "@vercel/analytics";
   import {
     BUREAU_MAP,
@@ -512,6 +517,8 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
         reviewStep === reviewSteps.length - 1
           ? "Nothing is sent until you select Submit My Free Review."
           : "You can go back without losing your answers.";
+    if (moveFocus && reviewStep > 0)
+      window.dispatchEvent(new CustomEvent(GA4_REVIEW_STEP, { detail: reviewStep + 1 }));
     if (moveFocus) {
       // Re-anchor after the new step has laid out. Otherwise browser scroll
       // anchoring keeps the old Continue button's position at the new step's end.
@@ -692,6 +699,7 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
     }
     if (!validateReviewStep()) return;
     reviewSending = true;
+    window.dispatchEvent(new Event(GA4_REVIEW_SUBMIT_ATTEMPT));
 
     const originalLabel = reviewSubmit?.innerHTML ?? "Submit My Free Review";
     if (reviewSubmit) {
@@ -734,6 +742,8 @@ const { defaultSource = "", defaultContext = "" } = Astro.props;
         page: window.location.pathname,
       });
     } catch (error) {
+      if (!reviewAccepted)
+        window.dispatchEvent(new Event(GA4_REVIEW_SUBMIT_ERROR));
       const message =
         error instanceof Error
           ? error.message

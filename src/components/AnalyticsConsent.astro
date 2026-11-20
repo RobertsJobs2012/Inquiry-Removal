@@ -86,6 +86,9 @@
     createGa4,
     GA4_PREFERENCE,
     GA4_REVIEW_ACCEPTED,
+    GA4_REVIEW_STEP,
+    GA4_REVIEW_SUBMIT_ATTEMPT,
+    GA4_REVIEW_SUBMIT_ERROR,
   } from "../lib/ga4.mjs";
 
   const panel = document.querySelector<HTMLElement>("[data-ga4-choice]");
@@ -135,6 +138,11 @@
       }
     });
     window.addEventListener(GA4_REVIEW_ACCEPTED, analytics.reviewAccepted);
+    window.addEventListener(GA4_REVIEW_STEP, (event) => {
+      if (event instanceof CustomEvent) analytics.reviewStepReached(event.detail);
+    });
+    window.addEventListener(GA4_REVIEW_SUBMIT_ATTEMPT, analytics.reviewSubmitAttempted);
+    window.addEventListener(GA4_REVIEW_SUBMIT_ERROR, analytics.reviewSubmitFailed);
     document.addEventListener("input", ({ target }) => {
       if (
         (target instanceof HTMLInputElement ||
@@ -147,9 +155,12 @@
       }
     });
     document.addEventListener("click", ({ target }) => {
-      if (target instanceof Element && target.closest("a[href^='tel:']")) {
-        analytics.callClicked();
-      }
+      if (!(target instanceof Element)) return;
+      const link = target.closest<HTMLAnchorElement>("a[href]");
+      if (!link) return;
+      if (link.protocol === "tel:") analytics.callClicked();
+      if (link.dataset.reviewCta && (link.pathname === "/free-inquiry-review/" || link.hash === "#free-review") && link.origin === window.location.origin)
+        analytics.reviewCtaClicked(link.dataset.reviewCta);
     });
     applyChoice(choice);
   }

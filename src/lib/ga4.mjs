@@ -2,6 +2,20 @@ export const GA4_ID = "G-RYH6WBPGJR";
 export const GA4_ORIGIN = "https://www.inquiryremoval.com";
 export const GA4_PREFERENCE = "ir-ga4-preference-v1";
 export const GA4_REVIEW_ACCEPTED = "ir:review-accepted";
+export const GA4_REVIEW_STEP = "ir:review-step";
+export const GA4_REVIEW_SUBMIT_ATTEMPT = "ir:review-submit-attempt";
+export const GA4_REVIEW_SUBMIT_ERROR = "ir:review-submit-error";
+
+const CTA_LOCATIONS = new Set([
+  "home-hero",
+  "home-final",
+  "pricing-hero",
+  "pricing-selector",
+  "pricing-plan",
+  "pricing-comparison",
+  "review-hero",
+]);
+const REVIEW_STEPS = new Set([2, 3, 4]);
 
 export function createGa4(win, doc) {
   if (win.location.origin !== GA4_ORIGIN) return null;
@@ -16,6 +30,9 @@ export function createGa4(win, doc) {
   let initialized = false;
   let leadSent = false;
   let startSent = false;
+  let attemptSent = false;
+  let errorSent = false;
+  const stepsSent = new Set();
   let pageContext = { page_location: GA4_ORIGIN + "/", page_referrer: "" };
   win[disabled] = true;
 
@@ -91,8 +108,8 @@ export function createGa4(win, doc) {
     }
   }
 
-  function sendEvent(name) {
-    tag("event", name, { ...pageContext, send_to: GA4_ID });
+  function sendEvent(name, approvedParams = {}) {
+    tag("event", name, { ...pageContext, ...approvedParams, send_to: GA4_ID });
   }
 
   function reviewStarted() {
@@ -111,5 +128,31 @@ export function createGa4(win, doc) {
     sendEvent("generate_lead");
   }
 
-  return { setAllowed, reviewStarted, callClicked, reviewAccepted };
+  function reviewCtaClicked(location) {
+    if (!allowed || !CTA_LOCATIONS.has(location)) return;
+    sendEvent("review_cta_click", { cta_location: location });
+  }
+
+  function reviewStepReached(step) {
+    if (!allowed || !REVIEW_STEPS.has(step) || stepsSent.has(step)) return;
+    stepsSent.add(step);
+    sendEvent("review_step_reached", { step_number: step });
+  }
+
+  function reviewSubmitAttempted() {
+    if (!allowed || attemptSent) return;
+    attemptSent = true;
+    sendEvent("review_submit_attempt");
+  }
+
+  function reviewSubmitFailed() {
+    if (!allowed || !attemptSent || errorSent) return;
+    errorSent = true;
+    sendEvent("review_submit_error");
+  }
+
+  return {
+    setAllowed, reviewStarted, callClicked, reviewAccepted,
+    reviewCtaClicked, reviewStepReached, reviewSubmitAttempted, reviewSubmitFailed,
+  };
 }

@@ -176,6 +176,7 @@ const schema = [
             class="button button--large"
             href="/free-inquiry-review/"
             data-track="pricing-hero-start"
+            data-review-cta="pricing-hero"
           >
             {revision.primaryCta} <span>→</span>
           </a>
@@ -188,7 +189,8 @@ const schema = [
           </a>
         </div>
         <p class="cta-microcopy">
-          No payment or plan selection is required to request a review.
+          Start without picking a plan. A specialist will help confirm your
+          inquiry count and one-time price before you decide.
         </p>
       </div>
     </section>
@@ -247,6 +249,7 @@ const schema = [
             href="#plans"
             data-result-link
             data-track="pricing-selector-start"
+            data-review-cta="pricing-selector"
           >
             View All Plans <span>→</span>
           </a>
@@ -327,6 +330,7 @@ const schema = [
                 class="button"
                 href={`/free-inquiry-review/?plan=${plan.id}`}
                 data-track={`pricing-card-${plan.id}`}
+                data-review-cta="pricing-plan"
               >
                 Ask About {plan.name} <span>→</span>
               </a>
@@ -335,8 +339,11 @@ const schema = [
         </div>
         <p class="below-card-note">
           Not sure which plan fits?{" "}
-          <a href="/free-inquiry-review/?review=free">
-            Get a free personal review before choosing.
+          <a
+            href="/free-inquiry-review/?review=free"
+            data-review-cta="pricing-comparison"
+          >
+            Start a free review to confirm your count and price.
           </a>
         </p>
       </div>

@@ -977,7 +977,10 @@ export const practicalGuides: Record<string, PracticalSection[]> = {
           "Do not buy soft-inquiry removal as a score service",
         ],
       ],
-      links: [ex],
+      links: [
+        { label: "Check when a credit card application creates a hard inquiry", href: "/credit-card-hard-inquiries/" },
+        ex,
+      ],
     },
   ],
   "hard-inquiry-credit-score-impact": [

@@ -176,6 +176,10 @@ export const guidePages: GuidePage[] = [
         label: "How long hard inquiries stay",
         href: "/how-long-do-hard-inquiries-stay/",
       },
+      {
+        label: "What to do if you were denied credit because of inquiries",
+        href: "/denied-credit-too-many-inquiries/",
+      },
       { label: "Unauthorized inquiries", href: "/unauthorized-inquiries/" },
       { label: "Identity theft inquiries", href: "/identity-theft-inquiries/" },
     ],

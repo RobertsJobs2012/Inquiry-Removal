@@ -28,6 +28,54 @@ test("GA4 is disabled outside the production origin", () => {
   assert.equal(scripts.length, 0);
 });
 
+test("review funnel events accept only preset CTA names and steps after opt-in", () => {
+  const { win, doc } = fixture();
+  const ga4 = createGa4(win, doc);
+  const simulate = () => {
+    ga4.reviewCtaClicked("pricing-plan");
+    ga4.reviewStepReached(2);
+    ga4.reviewSubmitAttempted();
+    ga4.reviewSubmitFailed();
+  };
+
+  simulate();
+  assert.equal(win.dataLayer, undefined);
+  ga4.setAllowed(true);
+  ga4.reviewCtaClicked("/pricing/?email=never-send");
+  ga4.reviewCtaClicked("constructor");
+  ga4.reviewStepReached("2");
+  ga4.reviewStepReached(1);
+  ga4.reviewSubmitFailed("never send a response body");
+  simulate();
+  ga4.reviewStepReached(2);
+  ga4.reviewStepReached(3);
+  ga4.reviewStepReached(4);
+  ga4.reviewSubmitAttempted();
+  ga4.reviewSubmitFailed();
+  ga4.reviewAccepted();
+  ga4.setAllowed(false);
+  simulate();
+
+  const events = win.dataLayer
+    .map((args) => Array.from(args))
+    .filter(([command]) => command === "event");
+  const shared = {
+    page_location: GA4_ORIGIN + "/pricing/",
+    page_referrer: "https://example.invalid",
+    send_to: GA4_ID,
+  };
+  assert.deepEqual(events, [
+    ["event", "page_view", shared],
+    ["event", "review_cta_click", { ...shared, cta_location: "pricing-plan" }],
+    ["event", "review_step_reached", { ...shared, step_number: 2 }],
+    ["event", "review_submit_attempt", shared],
+    ["event", "review_submit_error", shared],
+    ["event", "review_step_reached", { ...shared, step_number: 3 }],
+    ["event", "review_step_reached", { ...shared, step_number: 4 }],
+    ["event", "generate_lead", shared],
+  ]);
+});
+
 test("opt-in loads one analytics-only tag, sends one minimal lead, and can be withdrawn", () => {
   const { win, doc, scripts, cookies } = fixture();
   const ga4 = createGa4(win, doc);
